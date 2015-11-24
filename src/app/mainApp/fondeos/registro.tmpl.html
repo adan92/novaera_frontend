@@ -1,0 +1,234 @@
+
+
+<div layout="column" layout-align="center center" class="full-image-background mb-bg-fb-05 overlay-40">
+
+
+    <div layout="row" layout-align="center center">
+        <p flex="70"  flex-sm="90" class="md-headline font-weight-300 text-center text-light" translate>FONDEOS.INTRO</p>
+    </div>
+
+    <div flex layout="row" layout-align="center center" layout-fill>
+        <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
+            <md-toolbar class="md-primary">
+                <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                    <h2 translate>FONDEOS.WIZARD.TITLE</h2><h2> {{triWizard.progress}}% <span translate>FONDEOS.WIZARD.COMPLETED</span></h2>
+                </div>
+                <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height md-stretch-tabs="always">
+                <md-tab id="info">
+                    <md-tab-label>
+                        <span class="oxy-step-label">1</span>
+                        <span translate>FONDEOS.WIZARD.FEATURES</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="projectInfo" tri-wizard-form novalidate>
+                                <div layout="column" flex>
+                                    <md-input-container>
+                                        <label translate>FONDEOS.FEATURES.FONDEO_TITLE</label>
+                                        <input name="titulo" required type="text" ng-model="fondeo.titulo">
+                                        <div ng-messages="projectInfo.titulo.$error">
+                                            <div ng-message when="required">
+                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate>FONDEOS.FEATURES.FONDEO_TOTAL</label>
+                                        <textarea name="descripcion" required ng-model="fondeo.fondo_Total" md-maxlength="10"></textarea>
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message when="required">
+                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate>FONDEOS.FEATURES.FONDEO_TARGET</label>
+                                        <textarea name="target" required ng-model="fondeo.target" md-maxlength="500"></textarea>
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message when="required">
+                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate>FONDEOS.FEATURES.FONDEO_MODALITY</label>
+                                        <md-select ng-model="call" required>
+                                            <!--<md-option ng-repeat="call in catalogoCalls | matcher: vm.selectedItem.call_id" value="{{call}}">
+                                                {{call.nombre_call}}
+                                            </md-option>-->
+                                            <md-option ng-repeat="modalidad in modalidades" value="{{modalidad.abbrev}}">
+                                                {{modalidad.abbrev}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message when="required">
+                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="fondeoT" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">2</span>
+                        <span translate>FONDEOS.FEATURES.FONDEO_DESCRIPTION</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoFondeoDesc" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="fondeo.fondeoDesc" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="aims" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">3</span>
+                        <span translate>FONDEOS.FEATURES.FONDEO_SUPPORT</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoSupport" tri-wizard-form>
+                                <md-input-container>
+                                    <div text-angular required ng-model="fondeo.support" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                    <label translate>FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                    <md-divider></md-divider>
+                                </md-input-container>
+
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="reach" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">4</span>
+                        <span translate>FONDEOS.FEATURES.FONDEO_SELECTED</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoSelected" tri-wizard-form>
+                                <md-input-container>
+                                    <div text-angular required ng-model="fondeo.selected" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                    <label translate>FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                    <md-divider></md-divider>
+                                </md-input-container>
+
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
+
+
+
+            <div class="wizard-navbar" layout-fill layout-padding layout="row" layout-align="end center">
+                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 3" ng-disabled="triWizard.prevStepDisabled()" translate="FONDEOS.WIZARD.PREV"></md-button>
+                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >= 3" ng-disabled="triWizard.nextStepDisabled()" translate="FONDEOS.WIZARD.NEXT"></md-button>
+                <md-button class="md-accent md-raised" ng-click="triWizard.currentStep = 3" ng-show="triWizard.progress == 100 && triWizard.currentStep >= 3 " translate="FONDEOS.WIZARD.SEND"></md-button>
+            </div>
+        </div>
+    </div>
+
+<!-- wizard-->
+    <div  layout-sm="column">
+
+        <md-card flex="100">
+            <md-card-content>
+                <h2 class="text-center" translate>FONDEOS.FEATURES.FONDEO_REGISTRED</h2>
+                <h3 class="text-center" translate>FONDEOS.FEATURES.FONDEO_REGISTRED_INSTRUCTIONS</h3>
+                <md-autocomplete
+                        class="margin-bottom-20"
+                        ng-disabled="vm.isDisabled"
+                        md-no-cache="vm.noCache"
+                        md-selected-item="vm.selectedItem"
+                        md-search-text-change="vm.searchTextChange(vm.searchText)"
+                        md-search-text="vm.searchText"
+                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-items="item in vm.querySearch(vm.searchText)"
+                        md-item-text="item.display"
+                        md-min-length="0"
+                        placeholder="Busca tu proyecto">
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-autocomplete>
+            </md-card-content>
+        </md-card>
+
+    </div>
+
+    <!-- Tarjeta para eliminar etapas -->
+    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
+        <md-card flex="50" layout="column">
+            <md-card-content>
+                <h2 translate class="text-center">PROJECT.STAGES.REGISTERED_STAGES</h2>
+                <md-list>
+                    <md-subheader class="md-no-sticky" translate>PROJECT.STAGES.STAGES</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="modality in vm.selectedItem.modalitys">
+                        <div class="md-list-item-text">
+                            <h3>modalidad: {{modality.nombre}}</h3>
+                           <!-- <h4>Tarea Precedente: {{etapa.tareaPrecedente}}</h4>
+                            <p>Entregable: {{etapa.entregable}}</p>-->
+                        </div>
+                        <md-button ng-click="deleteItem(modality)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PROJECT.STAGES.REMOVE_STAGE</span></md-button>
+                        <md-divider></md-divider>
+                    </md-list-item>
+
+                </md-list>
+
+
+            </md-card-content>
+        </md-card>
+
+        <!-- Tarjeta para agregar etapas -->
+
+        <md-card flex="50" layout="column" layout-align="center center" ng-show="vm.selectedItem!=null">
+            <md-card-content>
+                <h2 translate>PROJECT.STAGES.NEW_STAGE</h2>
+
+                <form name="registrarEtapa" novalidate>
+                    <md-input-container>
+                        <label translate>PROJECT.STAGES.NEW_STAGE</label>
+                        <md-select ng-model="etapa" required>
+                            <md-option ng-repeat="etapa in catalogoEtapas | matcher: vm.selectedItem.etapas" value="{{etapa}}">
+                                {{etapa.tarea}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <label translate>PROJECT.STAGES.PREVIOUS_STAGE</label>
+                        <md-select ng-model="etapaPrecedente" ng-required="vm.selectedItem.etapas==null">
+                            <md-option ng-repeat="etapa in vm.selectedItem.etapas" value="{{etapa.id}}">
+                                {{etapa.id}}
+                            </md-option>
+                        </md-select>
+
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label translate>PROJECT.STAGES.CHECKLIST</label>
+                        <input type="text" ng-model="entregable" name="entregable" required/>
+                    </md-input-container>
+
+
+                    <md-button ng-disabled="registrarEtapa.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>PROJECT.STAGES.NEW_STAGE</span></md-button>
+
+                </form>
+
+            </md-card-content>
+        </md-card>
+
+
+    </div>
+
+</div>

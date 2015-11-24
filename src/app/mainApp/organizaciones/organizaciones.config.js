@@ -1,0 +1,78 @@
+/**
+ * Created by lockonDaniel on 10/14/15.
+ */
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mainApp.organizaciones')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($translatePartialLoaderProvider, $stateProvider, triMenuProvider) {
+        $translatePartialLoaderProvider.addPart('app/mainApp/organizaciones');
+
+        $stateProvider
+            .state('triangular.admin-default.organizaciones', {
+                // set the url of this page
+                url: '/organizaciones',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/organizaciones/index.tmpl.html',
+                // set the controller to load for this page
+                controller: 'indexOrganizacionesController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    }
+                }
+            })
+            .state('triangular.admin-default.organizaciones_informacion',{
+                url:'/organizaciones_informacion',
+                templateUrl:'app/mainApp/organizaciones/informacion.tmpl.html',
+                controller: 'informacionOrganizacionesController',
+                controllerAs: 'vm',
+                data:{
+                    layout:{
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    }
+                }
+            })
+
+        ;
+        // add menu to triangular
+        triMenuProvider.addMenu({
+            name: 'Organizaciones',
+            type: 'dropdown',
+            icon: 'zmdi zmdi-info-outline',
+            priority: 2.1,
+            children:[
+                {
+                    name: 'Información General',
+                    state: 'triangular.admin-default.organizaciones',
+                    type: 'link'
+
+                },
+                {
+                    name: 'Información Legal',
+                    state: 'triangular.admin-default.organizaciones_informacion',
+                    type:'link'
+                }
+            ]
+        });
+
+
+
+
+    }
+})();

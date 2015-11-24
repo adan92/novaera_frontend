@@ -1,0 +1,316 @@
+<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope" class="full-image-background mb-bg-fb-05 overlay-40">
+
+    <div class="layout layout-column layout-margin layout-sm layout-sm-column">
+        <div flex="100" layout="row">
+            <md-card flex="50">
+                <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+                <div layout="row" layout-md="row">
+
+                        <md-card-content>
+                            <h2 translate>PERSONAS.WIZARD.TITLE</h2>
+                            <form name="DatosP" novalidate>
+                                <md-input-container>
+                                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon></br>
+                                    <label for="name"translate>PERSONAS.WIZARD.NAME</label>
+                                    <input id="name" label="name" name="name" type="TEXT" ng-model="user.name" required/>
+                                    <div ng-messages="DatosP.name.$error">
+                                        <div ng-message="required">
+                                            <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                        </div>
+
+                                    </div>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon></br>
+                                    <label for="apellidop"translate>PERSONAS.WIZARD.LASTNAME</label>
+                                    <input id="apellidop" label="apellidop" name="apellidop" type="TEXT" ng-model="user.apellidop" required/>
+                                    <div ng-messages="DatosP.apellidop.$error">
+                                        <div ng-message="required">
+                                            <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                        </div>
+
+                                    </div>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon></br>
+                                    <label for="apellidom"translate>PERSONAS.WIZARD.LASTNAME2</label>
+                                    <input id="apellidom" label="apellidom" name="apellidom" type="TEXT" ng-model="user.apellidom" required/>
+                                    <div ng-messages="DatosP.apellidom.$error">
+                                        <div ng-message="required">
+                                            <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                        </div>
+
+                                    </div>
+                                </md-input-container>
+                                <div class="button-toolbar" layout="row" layout-align="end center">
+                                    <md-button class="md-primary" ng-disabled="DatosP.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
+                                    <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
+                                </div>
+                            </form>
+                </div>
+
+                    </md-card>
+                    <md-card flex="50">
+                    <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+                <div layout="row" layout-md="column">
+
+                        <md-card-content>
+                            <h2 translate>PERSONAS.WIZARD.TITLE2</h2>
+
+                            <form name="DatosL" novalidate>
+                                <md-input-container>
+                                    <md-icon md-font-icon="zmdi zmdi-layers"></md-icon></br>
+                                    <label for="organizacion"translate>PERSONAS.WIZARD.ORGANIZATION</label>
+                                    <input id="organizacion" label="organizacion" name="organizacion" type="TEXT" ng-model="user.organizacion" required/>
+                                    <div ng-messages="DatosL.organizacion.$error">
+                                        <div ng-message="required">
+                                            <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                        </div>
+
+                                    </div>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-icon md-font-icon="zmdi zmdi-accounts"></md-icon></br>
+                                    <label for="puesto"translate>PERSONAS.WIZARD.JOB</label>
+                                    <input id="puesto" label="puesto" name="puesto" type="TEXT" ng-model="user.puesto" required/>
+                                    <div ng-messages="DatosL.puesto.$error">
+                                        <div ng-message="required">
+                                            <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                        </div>
+
+                                    </div>
+                                </md-input-container>
+
+                                <div class="button-toolbar" layout="row" layout-align="end center">
+                                    <md-button class="md-primary" ng-disabled="DatosL.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
+                                    <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
+                                </div>
+                            </form>
+                    </md-card-content>
+
+                </div>
+
+                    </md-card>
+        </div>
+        <div flex="100" layout="row">
+        <md-card flex="50">
+            <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+            <div layout="row" layout-md="row">
+
+                <md-card-content>
+                    <h2 translate>PERSONAS.WIZARD.TITLE3</h2>
+                    <form name="Contacto" novalidate>
+                        <md-input-container>
+                            <md-icon md-font-icon="zmdi zmdi-email"></md-icon></br>
+                            <label for="email"translate>PERSONAS.WIZARD.MAIL</label>
+                            <input id="email" label="email" name="email" type="EMAIL" ng-model="user.email" required/>
+                            <div ng-messages="Contacto.email.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="email">
+                                    Introduce una direccion de Correo Valida.
+                                </div>
+
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-icon md-font-icon="zmdi zmdi-phone"></md-icon></br>
+                            <label for="WORKPHONE"translate>PERSONAS.WIZARD.WORKPHONE</label>
+                            <input id="WORKPHONE" label="WORKPHONE" name="WORKPHONE" type="number" ng-model="user.WORKPHONE" required/>
+                            <div ng-messages="Contacto.WORKPHONE.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="number">
+                                    Introduce un telefono valido.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container  >
+                            <md-icon md-font-icon="zmdi zmdi-account-box-phone"></md-icon></br>
+                            <label for="LOCALPHONE"translate>PERSONAS.WIZARD.LOCALPHONE</label>
+                            <input id="LOCALPHONE" label="LOCALPHONE" name="LOCALPHONE" type="number" ng-model="user.LOCALPHONE" required/>
+                            <div ng-messages="Contacto.LOCALPHONE.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="number">
+                                    Introduce un telefono valido.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container  layout="row">
+
+                            <md-icon md-font-icon="zmdi zmdi-smartphone-android"></md-icon></br>
+                            <label for="MOBILEPHONE"translate>PERSONAS.WIZARD.MOBILEPHONE</label>
+                            <input flex="40" id="MOBILEPHONE" label="MOBILEPHONE" name="MOBILEPHONE" type="number" ng-model="user.MOBILEPHONE"  ng-disabled="inputDisabledMOBILEPHONE"/>
+                            <div ng-messages="Contacto.MOBILEPHONE.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="number">
+                                    Introduce un telefono valido.
+                                </div>
+                            </div>
+
+                            <md-switch flex="10" ng-model="inputDisabledMOBILEPHONE">
+
+                            </md-switch>
+                            </md>
+                        </md-input-container>
+                        <md-input-container  layout="row">
+
+                            <md-icon md-font-icon="zmdi zmdi-scanner"></md-icon></br>
+                            <label for="FAX"translate>PERSONAS.WIZARD.FAX</label>
+                            <input flex="40" id="FAX" label="FAX" name="FAX" type="number" ng-model="user.FAX"  ng-disabled="inputDisabledFAX"/>
+                            <div ng-messages="Contacto.FAX.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="number">
+                                    Introduce un telefono valido.
+                                </div>
+                            </div>
+
+                            <md-switch flex="10" ng-model="inputDisabledFAX">
+
+                            </md-switch>
+                            </md>
+                        </md-input-container>
+                        <div class="button-toolbar" layout="row" layout-align="end center">
+                            <md-button class="md-primary" ng-disabled="Contacto.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
+                            <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
+                        </div>
+                    </form>
+            </div>
+
+        </md-card>
+        <md-card flex="50">
+            <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+            <div layout="row" layout-md="column">
+
+                <md-card-content>
+                    <h2 translate>PERSONAS.WIZARD.TITLE4</h2>
+
+                    <form name="Direccion" novalidate>
+                        <md-input-container>
+                            <label  translate>PERSONAS.WIZARD.COUNTRY</label>
+                            <md-select ng-model="pais" >
+
+                                <md-option ng-repeat="pais in paises" value="{{pais.abbrev}}" ng-model="user.pais" id="pais" name="pais" >
+                                    {{pais.abbrev}}
+                                </md-option>
+                            </md-select>
+
+                        </md-input-container>
+                        <md-input-container>
+                            <label  translate>PERSONAS.WIZARD.STATE</label>
+                            <md-select ng-model="estado" >
+
+                                <md-option ng-repeat="estado in estados" value="{{estado.abbrev}}" ng-model="user.estado" id="estado" name="estado" >
+                                    {{estado.abbrev}}
+                                </md-option>
+                            </md-select>
+
+                        </md-input-container>
+                        <md-input-container>
+                            <label  translate>PERSONAS.WIZARD.CITY</label>
+                            <md-select ng-model="ciudad" >
+
+                                <md-option ng-repeat="ciudad in ciudades" value="{{ciudad.abbrev}}" ng-model="user.ciudad" id="estado" name="estado" >
+                                    {{ciudad.abbrev}}
+                                </md-option>
+                            </md-select>
+
+                        </md-input-container>
+                        <md-input-container>
+                            <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon></br>
+                            <label for="Direccion"translate>PERSONAS.WIZARD.ADDRESS</label>
+                            <input id="Direccion" label="Direccion" name="Direccion"  type="TEXT" ng-model="user.Direccion" required/>
+                            <div ng-messages="Direccion.Direccion.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon></br>
+                            <label for="CP"translate>PERSONAS.WIZARD.ZIPCODE</label>
+                            <input id="CP" label="CP" name="CP"  type="NUMBER" ng-model="user.CP" required/>
+                            <div ng-messages="Direccion.CP.$error">
+                                <div ng-message="required">
+                                    <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                </div>
+                                <div ng-message="number">
+                                    Introduce un Codigo Postal valido.
+                                </div>
+                            </div>
+                        </md-input-container>
+
+                        <div class="button-toolbar" layout="row" layout-align="end center">
+                            <md-button class="md-primary" ng-disabled="Direccion.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
+                            <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
+                        </div>
+                    </form>
+                </md-card-content>
+
+            </div>
+
+        </md-card>
+    </div>
+        <div flex="100" >
+            <md-card flex="100">
+                <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+                <div layout="column" layout-md="column">
+
+                    <md-card-content>
+                        <h2 translate>PERSONAS.WIZARD.TITLE5</h2>
+                        <form name="OtraInf" novalidate>
+                            <md-input-container flex="100">
+                                <md-icon md-font-icon="zmdi zmdi-google-pages"></md-icon></br>
+                                <label for="WEBADDRESS"translate>PERSONAS.WIZARD.WEBADDRESS</label>
+                                <input id="WEBADDRESS" label="WEBADDRESS" name="WEBADDRESS" type="text" ng-model="user.WEBADDRESS" required/>
+                                <div ng-messages="OtraInf.email.$error">
+                                    <div ng-message="required">
+                                        <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                    </div>
+                            </md-input-container>
+                            <md-input-container flex="100">
+                                <md-card >
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="PERSONAS.WIZARD.WEBADDRESS_DES" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PERSONAS.WIZARD.WEBADDRESS_DES</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                                </md-card>
+                            </md-input-container>
+                            <md-input-container flex="100">
+                                <md-card >
+                                    <div flex layout="column" layout-wrap>
+                                        <md-input-container>
+                                            <div text-angular required ng-model="PERSONAS.WIZARD.NOTES" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                            <label translate>PERSONAS.WIZARD.NOTES</label>
+                                            <md-divider></md-divider>
+                                        </md-input-container>
+                                    </div>
+                                </md-card>
+                            </md-input-container>
+                            <div class="button-toolbar" layout="row" layout-align="end center">
+                                <md-button class="md-primary" ng-disabled="OtraInf.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
+                                <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
+                            </div>
+                              </form>
+                                </md-card-content>
+                                </div>
+
+
+
+                    </div>
+        </div>
+    </div>
+
+ </div>

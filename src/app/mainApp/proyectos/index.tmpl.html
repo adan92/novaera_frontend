@@ -1,0 +1,137 @@
+<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
+
+    <div class="layout layout-row layout-margin layout-sm layout-sm-column">
+        <md-card flex layout="column">
+            <h2 class="text-center" translate>PROJECT.INFO.MY_PROJECTS</h2>
+
+            <md-card-content layout-align="center center">
+                <canvas id="doughnut" class="chart chart-doughnut"
+                        chart-click="onClick"
+                        chart-data="vm.my_projects_data" chart-labels="vm.my_projects_labels" chart-legend="true">
+                </canvas>
+            </md-card-content>
+
+        </md-card>
+
+        <md-card flex layout="column">
+            <md-card-content>
+                <md-list>
+                    <md-subheader class="md-no-sticky">Proyectos Recientes</md-subheader>
+                    <md-list-item class="md-2-line" ng-repeat="proyecto in vm.proyectos">
+                        <div class="md-list-item-text">
+                            <h3>{{::proyecto.titulo}}</h3>
+                            <p>{{::proyecto.descripcion}}</p>
+                        </div>
+                        <md-divider ></md-divider>
+
+                    </md-list-item>
+                </md-list>
+
+
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div class="layout layout-row layout-margin layout-md-column" ng-show="vm.clickedProjects!=null">
+        <md-card flex>
+            <md-list>
+                <md-subheader class="md-no-sticky">Proyectos Seleccionados</md-subheader>
+                <md-list-item class="md-2-line" ng-repeat="item in vm.clickedProjects">
+                    <div class="md-list-item-text">
+                        <h3>{{item.titulo}}</h3>
+                        <div ng-bind-html="item.descripcion"></div>
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+            <md-button class="md-raised md-primary" ng-click="vm.clear()">Limpiar Resultados</md-button>
+        </md-card>
+
+    </div>
+
+
+    <div class="layout layout-row layout-margin layout-sm layout-sm-column">
+        <md-card flex>
+            <md-card-content layout="column">
+                <h2>Búsqueda por proyecto</h2>
+                <md-autocomplete
+                        class="margin-bottom-20"
+                        ng-disabled="vm.isDisabled"
+                        md-no-cache="vm.noCache"
+                        md-selected-item="selectedItem"
+                        md-search-text-change="vm.searchTextChange(vm.searchText)"
+                        md-search-text="vm.searchText"
+                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-items="item in vm.querySearch(vm.searchText)"
+                        md-item-text="item.display"
+                        md-min-length="0"
+                        placeholder="Introduce tu proyecto">
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-autocomplete>
+
+
+                        <md-tabs class="md-primary" md-selected="selectedTabIndex" md-stretch-tabs="always" ng-show="selectedItem!=null">
+                            <md-tab id="general">
+                                <md-tab-label>
+                                    <span translate>PROJECT.INFO.TABS.GENERAL</span>
+                                </md-tab-label>
+                                <div class="wizard">
+                                    <h3 translate>PROJECT.FORM.PROJECT_TITLE</h3>{{selectedItem.titulo}}
+                                    <h3 translate>PROJECT.FORM.PROJECT_DESCRIPTION</h3>{{selectedItem.descripcion}}
+                                    <h3 translate>PROJECT.FORM.PROJECT_AIM</h3> <div class="show-info" ng-bind-html="selectedItem.objetivos"></div>
+
+                                </div>
+                            </md-tab>
+
+                            <md-tab id="etapas">
+                                <md-tab-label>
+                                    <span translate>PROJECT.INFO.TABS.STAGES</span>
+                                </md-tab-label>
+                                <div layout="column" class="wizard">
+                                    <h3 translate>PROJECT.FORM.PROJECT_STAGES</h3>
+                                    <div ng-repeat="etapa in selectedItem.etapas">
+                                        <p>{{etapa}}</p>
+                                    </div>
+                                </div>
+                            </md-tab>
+
+                            <md-tab id="historico">
+                                <md-tab-label>
+                                    <span translate>PROJECT.INFO.TABS.HISTORICAL_TRL</span>
+                                </md-tab-label>
+                                <div layout="column" class="wizard">
+                                    <h3>TRL</h3>
+                                    <div ng-repeat="trl in selectedItem.trl">
+                                        <div layout="row">
+                                            <span translate>PROJECT.INFO.TRL_DESCRIPTION</span> <span>: {{trl.descripcion}}</span>
+                                        </div>
+                                        <div layout="row">
+                                            <span translate>PROJECT.INFO.TRL_DATE</span> <span>: {{trl.fecha}} </span>
+                                        </div>
+                                        <md-divider></md-divider>
+                                    </div>
+                                </div>
+                            </md-tab>
+
+
+
+
+
+                        </md-tabs>
+
+
+
+
+
+
+
+
+
+
+            </md-card-content>
+
+        </md-card>
+
+
+    </div>
+</div>

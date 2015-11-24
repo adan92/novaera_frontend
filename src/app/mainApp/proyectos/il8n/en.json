@@ -1,0 +1,147 @@
+{
+  "MENU": {
+    "PROJECTS": {
+      "PROJECTS": "Proyectos"
+    }
+  },
+  "PROJECT":{
+    "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
+    "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
+    "WIZARD":{
+      "TITLE": "Registro de Proyecto",
+      "TITLE2": "Ejecucion de Proyecto",
+      "IS_MINE": "El proyecto es mio",
+      "IS_ORGANIZATION": "El proyecto es de una organización",
+      "INFO":"Información General",
+      "HISTORY": "Antecedentes",
+      "AIMS": "Objetivos",
+      "REACH": "Alcances",
+      "REQUIREMENTS": "Requerimientos",
+      "ENVIORNMENT": "Entorno",
+      "TECHNICAL_FACTIBILITY": "Factibilidad Técnica",
+      "ECONOMICAL_FACTIBILITY": "Factibilidad Económica",
+      "COMMERCIAL_FACTIBILITY": "Factibilidad Comercial",
+      "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
+      "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
+      "HUMAN_RESOURCES": "Recursos Humanos",
+      "TECHNOLOGICAL_RESOURCES": "Recursos Financieros",
+      "MATERIAL_RESOURCES": "Recursos Materiales",
+
+      "REQUIRED-FIELD":"Éste campo es requerido",
+      "COMPLETED": "COMPLETADO",
+      "PREV": "Anterior",
+      "NEXT": "Siguiente",
+      "SEND": "Enviar"
+    },
+    "FORM":{
+      "PROJECT_TITLE": "Titulo del Proyecto: ",
+      "PROJECT_DESCRIPTION": "Descripción del Proyecto: ",
+      "PROJECT_HISTORY":"Antecedentes del Proyecto: ",
+      "PROJECT_AIM": "Objetivos del Proyecto",
+      "PROJECT_REACH": "Alcances del Proyecto",
+      "CLICK_TO_WRITE":"Escribe arriba",
+      "PROJECT_STAGES": "Etapas del proyecto"
+    },
+    "INFO":
+    {
+      "MY_PROJECTS": "Mis Proyectos",
+      "TRL_DESCRIPTION":  "Descripción de TRL",
+      "TRL_DATE":  "Fecha",
+      "TABS":{
+        "HISTORICAL_TRL": "TRL Histórico",
+        "HISTORY":"Historico",
+        "GENERAL":"General",
+        "STAGES":"Etapas",
+        "EXTRA":"Extra"
+      }
+
+    },
+    "STAGES":
+    {
+      "MY_PROJECTS": "Proyectos Registrados",
+      "INSTRUCTIONS": "Busca tu proyecto para administrar las etapas",
+      "REGISTERED_STAGES": "Etapas Registradas",
+      "NEW_STAGE": "Nueva etapa",
+      "REMOVE_STAGE":"Eliminar etapa",
+      "PREVIOUS_STAGE": "Etapa Precedente",
+      "STAGES": "Etapas",
+      "CHECKLIST": "Entregables",
+      "TASK": "Tarea"
+    },
+    "TRL":
+    {
+      "MY_PROJECTS": "Proyectos Registrados",
+      "INSTRUCTIONS": "Busca tu proyecto para ver y administrar el TRL",
+      "INSTRUCTIONS_TABLE": "Tabla de TRLs por proyecto",
+      "SELECT": "Selecciona el nivel de TRL",
+      "CHART": "Proyectos por TRL",
+      "ABOUT": "Acerca de TRL",
+      "INTRO": "El TRL es una forma aceptada de medir el grado de madurez de una tecnología. Selecciona uno para ver más",
+      "LEVEL": "Nivel de TRL",
+      "NEW_TRL": "Agregar TRL"
+    },
+    "IP":
+    {
+      "MY_PROJECTS": "Proyectos Registrados",
+      "CONTROL_PANEL": "Panel de Control",
+      "SHOW_ADD": "Muestra el panel para agregar registro",
+      "SHOW_ADD_CHECKBOX": "Click para mostrar",
+      "HIDE_ADD_CHECKBOX": "Click para ocultar",
+      "SHOW_INFO": "Muestra el panel para visualizar información",
+      "REMOVE_REGISTER": "Eliminar Registro",
+
+      "INSTRUCTIONS": "Busca tu proyecto para ver y administrar la Propiedad Intelectual del mismo",
+      "INSTRUCTIONS_SELECT": "Selecciona un registro",
+      "INSTRUCTIONS_TABS": "Información del registro",
+      "INSTRUCTIONS_ADD": "Agregar registro",
+      "WARNING": "Selecciona tu proyecto para ver los registros",
+      "SELECT": "Selecciona el registro de PI",
+
+      "TABS":{
+        "PRODUCTS": "Productos",
+        "PRODUCTS_REFERENCE": "Aquí se encuentran los productos de Propiedad",
+        "PROCESS": "Procesos",
+        "PROCESS_REFERENCE": "Aquí se encuentran los procesos de Transferencia",
+        "VALUE": "Valuacion",
+        "VALUE_REFERENCE": "Aquí se encuentran los proceos de Valuación de Tecnología"
+      }
+
+
+    },
+    "RESULTS":
+    {
+      "MY_PROJECTS": "Proyectos Registrados",
+      "INSTRUCTIONS": "Busca tu proyecto para ver y administrar los resultados del mismo",
+      "GENERAL_INFO": "Información general",
+      "WARNING": "Selecciona tu proyecto para ver la información",
+      "TITLE": "Título",
+      "DESCRIPTION": "Descripcion",
+      "SHOW_RESULTS": "Mostrar Resultados",
+      "SHOW_PATENTS": "Mostrar Patentes",
+      "ADD_RESULT": "Agregar Resultado",
+      "ADD_PATENT": "Agregar Patente",
+      "ADD_RESULTS": "Agregar Resultados",
+      "ADD_PATENTS": "Agregar Patentes",
+      "FORM":{
+        "NAME":"Nombre",
+        "DESCRIPTION":"Descripcion",
+        "KEYWORDS":"Palabras clave",
+        "APPLICATION_FIELD": "Campo de Aplicación",
+        "TYPE":"Tipo",
+        "SUMMARY":"Resumen",
+        "DATE":"Fecha",
+        "REGISTER_DATE":"Fecha de Registro",
+        "APPROVAL_DATE":"Fecha de Aprobación",
+        "REGISTER_NUMBER":"Número de Registro",
+        "PROTECTED_COUNTRIES":"Paises Protegidos",
+        "PROGRESS": "Avance",
+        "STATUS": "Status",
+        "OPERATIONAL_PLAN": "Plan de Explotación"
+      }
+    }
+
+
+
+  }
+
+}

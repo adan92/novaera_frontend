@@ -1,0 +1,113 @@
+<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
+
+    <div class="layout layout-column layout-margin layout-sm layout-sm-column">
+        <div flex="100">
+            <md-card flex="100">
+                <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
+                <md-card-content>
+                    <div class="content-padded">
+                        <h2 class="md-title">Convocatorias</h2>
+                        <p>Aqui aparecen las  ultimas Convocatorias creadas.</p>
+                        <md-card-content>
+                            <h2 translate>PERSONAS.WIZARD.LASTREGISTERS</h2>
+                            <div ng-controller="indexFondeosController as vm">
+                                <tri-table class="elements-image-table-example" columns="::vm.columns" contents="::vm.contents" page-size="2"></tri-table>
+                            </div>
+                        </md-card-content>
+                    </div>
+                    <md-divider></md-divider>
+                    <div class="button-toolbar" layout="row" layout-align="start center">
+                        <md-button class="md-primary">Nuevo</md-button>
+
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div flex="50" layout="row">
+         <md-card flex="50">
+            <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-05.jpg" alt="Card Image">
+            <md-card-content>
+                <div class="content-padded">
+                    <h2 class="md-title">Convocatorias</h2>
+                    <p>Aqui aparece una explicacione de una Convocatoria .</p>
+                </div>
+                <md-divider></md-divider>
+                <div class="button-toolbar" layout="row" layout-align="start center">
+                    <md-button class="md-primary">Nuevo</md-button>
+
+                </div>
+            </md-card-content>
+            </md-card>
+            <md-card flex="50">
+                <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-06.jpg" alt="Card Image">
+                <md-card-content>
+                    <div class="content-padded">
+                        <h2 class="md-title">Modalidades</h2>
+                        <p>Aqui aparece una explicacione de una Modalidad .</p>
+                    </div>
+                    <md-divider></md-divider>
+                    <div class="button-toolbar" layout="row" layout-align="start center">
+                        <md-button class="md-primary">Nuevo</md-button>
+
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+            <div class="layout layout-row layout-margin layout-sm layout-sm-column">
+                <md-card flex="30" layout="column">
+
+                    <h2 class="text-center" translate>FONDEOS.INFO.MY_FONDEO</h2>
+
+                    <md-card-content layout-align="center center">
+                        <canvas id="doughnut" class="chart chart-doughnut"
+                                chart-data="my_fondeos_data" chart-labels="my_fondeos_labels" chart-legend="true">
+                        </canvas>
+
+                    </md-card-content>
+
+                </md-card>
+
+                <md-card flex="70" layout="column">
+                    <md-card-content>
+                        <md-list>
+
+                            <md-subheader class="md-no-sticky">Fondos de Inversion Recientes</md-subheader>
+                            <md-list-item class="md-2-line" ng-repeat="fondeo in fondeo">
+                                <div class="md-list-item-text">
+                                    <h3>{{fondeo.titulo}}</h3>
+                                    <p>{{fondeo.monto}}</p>
+                                    <p>{{fondeo.Modalidades}}</p>
+
+                                  <!--<div ng-bind-html="fondeo.terminos">
+                                        para insertar HTMLs
+                                  </div>-->
+                                    <md-divider ></md-divider>
+                                </div>
+
+
+                            </md-list-item>
+                        </md-list>
+
+                    </md-card-content>
+                </md-card>
+            </div>
+        <div class="layout layout-row layout-margin layout-sm layout-sm-column">
+            <md-card flex="100" layout="column">
+
+                <h2 class="text-center" translate>FONDEOS.INFO.MY_FONDEO_MONTOS</h2>
+
+                <md-card-content layout-align="center center">
+                    <canvas id="line" class="chart chart-line" chart-data="my_fondeos_area_data"
+                            chart-labels="my_fondeos_area_labels" chart-legend="true" chart-series="my_fondeos_area_series"
+                            chart-click="my_fondeos_area_onClick" >
+                    </canvas>
+
+                </md-card-content>
+
+            </md-card>
+
+           </div>
+
+    </div>
+</div>

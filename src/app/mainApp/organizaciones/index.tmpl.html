@@ -1,0 +1,134 @@
+<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
+    <div layout="row" layout-md="column">
+        <md-card flex layout-align="center center">
+            <md-card-content>
+                <h2 class="text-center" translate>ORGANIZATION.ORGANIZATIONS</h2>
+                <h3 class="text-center" translate>ORGANIZATION.INSTRUCTIONS</h3>
+                <md-autocomplete
+                        class="margin-bottom-20"
+                        ng-disabled="vm.isDisabled"
+                        md-no-cache="vm.noCache"
+                        md-selected-item="vm.selectedItem"
+                        md-search-text-change="vm.searchTextChange(vm.searchText)"
+                        md-search-text="vm.searchText"
+                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-items="item in vm.querySearch(vm.searchText)"
+                        md-item-text="item.nombre"
+                        md-min-length="0"
+                        placeholder="Buscador de Organizaciones">
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
+                </md-autocomplete>
+            </md-card-content>
+
+        </md-card>
+            <md-card flex layout-align="center center" ng-show="vm.selectedItem!=null">
+                <md-card-content>
+                        <h2 class="text-center">{{vm.selectedItem.nombre}}</h2>
+                        <h3 class="text-center">{{vm.selectedItem.direccion}}</h3>
+                        <h4 class="text-center">
+                            {{vm.selectedItem.contacto[0].informacion.nombre}}
+                        </h4>
+                        <h4 class="text-center">
+                            {{vm.selectedItem.contacto[0].informacion.telefono}}
+                        </h4>
+                        <h4 class="text-center">
+                            {{vm.selectedItem.contacto[0].informacion.email}}
+                        </h4>
+                        <h5 class="text-center">{{vm.selectedItem.representante_legal}}</h5>
+
+
+                </md-card-content>
+            </md-card>
+    </div>
+
+
+    <div layout="row" layout-md="column">
+        <md-card flex layout-align="center center" ng-show="vm.selectedItem!=null">
+                <md-card-content>
+
+                    <h2 class="text-center" translate>ORGANIZATION.RESULTS</h2>
+                    <canvas id="pie" class="chart chart-pie"
+                            chart-data="vm.selectedItem.estadisticas.resultados.data" chart-labels="vm.selectedItem.estadisticas.resultados.labels"
+                            chart-legend="true">
+                    </canvas>
+
+                </md-card-content>
+        </md-card>
+
+        <md-card flex="50" layout-align="center center" ng-show="vm.selectedItem!=null">
+            <md-card-content>
+                <h2 class="text-center" translate>ORGANIZATION.FUNDS_GIVEN</h2>
+                <canvas id="line" class="chart chart-line"
+                        chart-data="vm.selectedItem.estadisticas.fondeos.data"
+                        chart-labels="vm.selectedItem.estadisticas.fondeos.labels"
+                        chart-series="vm.selectedItem.estadisticas.fondeos.series"
+                        chart-legend="true"
+                        chart-click="onClick" >
+                </canvas>
+
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div layout="column" ng-show="vm.selectedItem!=null">
+            <md-card>
+                <md-card-content>
+
+
+
+                    <!-- Toolbars -->
+
+                    <md-data-table-toolbar ng-hide="vm.selected.length || vm.filter.show">
+                        <h2 class="md-title" translate>ORGANIZATION.REGISTERED_PERSONS</h2>
+                        <div flex></div>
+                        <md-button class="md-icon-button" ng-click="vm.filter.show = true">
+                            <!-- <i class="material-icons md-dark">filter_list</i> -->
+                            <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
+                        </md-button>
+                    </md-data-table-toolbar>
+                    <md-data-table-toolbar ng-show="vm.filter.show && !vm.selected.length" class="md-data-table-toolbar">
+                        <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+                        <form flex="" name="vm.filter.form">
+                            <input type="text" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="search">
+                        </form>
+                        <md-button class="md-icon-button" ng-click="vm.removeFilter()">
+                            <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                        </md-button>
+                    </md-data-table-toolbar>
+
+                    <md-data-table-toolbar class="alternate" ng-show="vm.selected.length" layout-align="space-between">
+                        <div>{{vm.selected.length}} {{vm.selected.length > 1 ? 'usuarios seleccionados' : 'usuario seleccionado'}}</div>
+                    </md-data-table-toolbar>
+
+
+                    <!-- Contenido de la Tabla-->
+
+                    <table md-data-table class="md-primary md-data-table" md-row-select="vm.selected" md-progress="vm.deferred">
+                        <thead md-order="vm.query.order" md-trigger="vm.getUsers">
+                        <tr>
+                            <th order-by="id_persona" name="id"></th>
+                            <th order-by="contacto.nombre" name="Nombre"></th>
+                            <th order-by="persona.grado_estudios" name="Grado Académico"></th>
+                            <th order-by="persona.especialidad" name="Especialidad"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr md-auto-select ng-repeat="user in vm.selectedItem.personas | orderBy:vm.query.order">
+                            <td>{{user.id_persona}}</td>
+                            <td>{{user.contacto.nombre}}</td>
+                            <td>{{user.persona.grado_estudios}}</td>
+                            <td>{{user.persona.especialidad}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </md-data-table-container>
+
+                    <md-data-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.selectedItem!=null? vm.numPersonas:0}}"></md-data-table-pagination>
+
+                </md-card-content>
+            </md-card>
+    </div>
+
+
+
+</div>

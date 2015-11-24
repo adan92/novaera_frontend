@@ -1,0 +1,113 @@
+{
+  "MENU": {
+    "FONDEOS": {
+      "FONDEOS": "Fondos"
+    }
+  },
+  "FONDEOS":{
+    "INTRO": "Sigue los pasos para registrar un Nuevo Programa de Fondeo",
+    "INTRO_TERMINOS": "Sigue los pasos para registrar los terminos de un Programa de Fondeo",
+    "WIZARD":{
+      "TITLE": "Registro de Programa de Fondeo",
+      "TITLE2": "Caracteristicas",
+      "TITLE3": "Registro  de Modalidad",
+      "FEATURES":"Características",
+      "CALL": "Convocatoria",
+      "AIMS": "Objetivos",
+      "SUPPORT": "Rubros de Apoyo",
+      "SELECTED": "Criterios de Elegibilidad",
+      "EVALUATION": "Criterios de Evaluación",
+      "REQUERIMENTS": "Requisitos de Fondeo",
+      "SUPPORT_FIGURE": "Figura de Apoyo",
+      "FILES": "Entregables",
+
+
+      "REQUIRED-FIELD":"Éste campo es requerido",
+      "COMPLETED": "Completado",
+      "PREV": "Anterior",
+      "NEXT": "Siguiente",
+      "SEND": "Enviar"
+    },
+    "FEATURES":{
+      "FONDEO_TITLE": "Titulo del Programa de Fondeo: ",
+      "FONDEO_DESCRIPTION": "Descripción del Programa de Fondeo: ",
+      "FONDEO_SELECTED":"Criterios de Elegibilidad: ",
+      "FONDEO_SUPPORT": "Rubros de Apoyo",
+      "FONDEO_TOTAL": "Total del Fondo",
+      "FONDEO_TARGET": "Publico Objetivo",
+      "CLICK_TO_WRITE":"Escribe arriba",
+      "FONDEO_MODALITY": "Modalidades del Proyecto",
+      "FONDEO_CALL": "Convocatoria del Proyecto",
+      "FONDEO_REGISTRED":"Programas de Fondeo Registrados",
+      "FONDEO_REGISTRED_INSTRUCTIONS":"Busca los Programas de Fondeo que haz creado para Administrarlos"
+    },
+    "SEARCHINGFONDEO":{
+      "MY_FONDOS": "Mis Programas de Fondeo",
+      "INSTRUCTIONS": "Busca tu Programa de Fondeo para ver y administrar al mismo",
+      "FONDEO_DESCRIPTION": "Descripción del Programa de Fondeo: ",
+      "FONDEO_SELECTED":"Criterios de Elegibilidad: ",
+      "FONDEO_SUPPORT": "Rubros de Apoyo",
+      "FONDEO_TOTAL": "Total del Fondo",
+      "FONDEO_TARGET": "Publico Objetivo",
+      "CLICK_TO_WRITE":"Escribe arriba",
+      "FONDEO_MODALITY": "Modalidades del Proyecto",
+      "FONDEO_CALL": "Convocatoria del Proyecto",
+      "FONDEO_REGISTRED":"Programas de Fondeo Registrados",
+      "FONDEO_REGISTRED_INSTRUCTIONS":"Busca los Programas de Fondeo que haz creado para Administrarlos"
+    },
+    "INFO":
+    {
+      "MY_FONDEO": "Fondeos Totales",
+      "MY_FONDEO_MONTOS": "Montos Invertidos por Programa de Fondeo",
+      "FONDEO_TITLE":"Titulo de Fondeo",
+      "FONDEO_DESCRIPTION":  "Descripción de FONDEO",
+        "TABS":{
+        "FEATURES":"Características",
+        "MODALITY":"Modalidades",
+        "CALL":"Convocatoria"
+      }
+
+    },
+    "MODALITY":
+    {
+      "TITLE": "Registro de Nueva Modalidad",
+      "INTRO": "Sigue los pasos para registrar una nueva Modalidad",
+      "MY_FONDEO": "Mis Fondeos",
+      "INSTRUCTIONS": "Busca tu Programa de Fondeo para agregarle una Modalidad",
+      "REGISTERED_MODALITY": "Etapas Registradas",
+      "NEW_MODALITY": "Nueva Modalidad",
+      "REMOVE_MODALITY":"Eliminar Modalidad",
+      "PREVIOUS_MODALITY": "Modalidad Anterior",
+      "MODALITYS": "Modalidades",
+      "NAME_MODALITY":"Nombre",
+      "REQUERIMENTS":"Requisitos de la Modalidad",
+      "AMOUNT":"Monto",
+      "EVALUATION":"Criterios de Evaluación",
+      "FILES":"Entregables",
+      "SUPPORT":"Rubros de apoyo"
+    },
+    "CALL":
+    {
+      "TITLE": "Registro de Nueva Convocatoria",
+      "INTRO": "Sigue los pasos para registrar una nueva Convocatoria",
+      "INTRO_TERMINOS": "Sigue los pasos para registrar la Convocatoria de un Programa de Fondeo",
+      "NAME":"Nombre de La convocatoria",
+      "INSTRUCTIONS": "Busca tu Programa de Fondeo para agregarle una Modalidad",
+      "BEGIN_DATE_CALL": "Fecha de Inicio",
+      "END_DATE_CALL": "Fecha de Cierre",
+      "REQUERIMENTS":"Requisitos de la Convocatoria",
+      "MAX_AMOUNT":"Montos Maximos Totales",
+      "EVALUATION":"Criterios de Evaluación",
+      "CLICK_TO_WRITE":"Escribe arriba",
+      "REQUIRED-FIELD":"Éste campo es requerido",
+      "COMPLETED": "Completado",
+      "PREV": "Anterior",
+      "NEXT": "Siguiente",
+      "SEND": "Enviar",
+      "GENERAL":"Datos Generales"
+    }
+
+
+
+  }
+}
