@@ -177,7 +177,8 @@
 
 
                     <!-Div para el file drop->
-                    <div layout="row" layout-sm="colum" layout-align="center center" flow-init="{target: '/upload'}"
+                    <!--
+                    <div layout="row" layout-sm="colum" layout-align="center center" flow-init="{target: 'http://127.0.0.1:8888/novaera_laravel/public/api/Organizacion/Upload'}"
                          flow-files-submitted="$flow.upload()"
                          flow-file-success="$file.msg = $message"
                          flow-drop>
@@ -193,12 +194,19 @@
                                 </tr>
                         </table>
                     </div>
+                    -->
+
+
+                    <div class="button" ngf-select ng-model="vm.file" name="vm.file"
+                         ngf-max-size="20MB" ngf-min-height="100"
+                         ngf-resize="{width: 100, height: 100}">Select</div>
+
 
                     <!-Botones para agregar o modificar->
 
                     <div layout="row" layout-align="center center" layout-sm="column">
-                        <md-button ng-show="vm.selectedItem==null" ng-disabled="registerOrganization.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>ORGANIZATION.INFO.NEW_ORGANIZATION</span></md-button>
-                        <md-button ng-show="vm.selectedItem!=null" ng-disabled="registerOrganization.$invalid" ng-click="modifyItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>ORGANIZATION.INFO.MODIFY_ORGANIZATION</span></md-button>
+                        <md-button ng-show="vm.selectedItem==null" ng-disabled="registerOrganization.$invalid" ng-click="vm.addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>ORGANIZATION.INFO.NEW_ORGANIZATION</span></md-button>
+                        <md-button ng-show="vm.selectedItem!=null" ng-disabled="registerOrganization.$invalid" ng-click="vm.modifyItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>ORGANIZATION.INFO.MODIFY_ORGANIZATION</span></md-button>
                     </div>
 
                 </form>

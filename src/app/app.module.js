@@ -2,13 +2,12 @@
     'use strict';
     angular
         .module('app', [
-            'triangular',
-            'flow',
-            'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngMaterial',
-            'ui.router', 'pascalprecht.translate', 'LocalStorageModule', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular),
+            'triangular','flow','ngFileUpload','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngMaterial',
+            'ui.router','pascalprecht.translate', 'LocalStorageModule', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular),
+            'restangular','toastr',
             // 'seed-module'
             // uncomment above to activate the example seed module
-            'app.examples',
+            //'app.examples',
             'app.mainApp'
         ])
         // create a constant for languages so they can be added to both triangular & translate

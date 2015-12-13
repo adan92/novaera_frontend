@@ -8,7 +8,10 @@
     /* @ngInject */
     function routeConfig($stateProvider) {
         $stateProvider
-        .state('triangular', {
+        .state('logout', {
+            controller:'LogoutController',
+            controllerAs: 'vm'
+        }).state('triangular', {
             abstract: true,
             templateUrl: 'app/triangular/layouts/default/default.tmpl.html',
             controller: 'DefaultLayoutController',

@@ -1,0 +1,15 @@
+{
+  "LOGIN":{
+    "TITLE":"INICIO DE SESIÓN",
+    "FORGOT":"OLVIDÉ MI CONTRASEÑA",
+    "BUTTON":"INICIAR SESIÓN",
+    "SIGNUP_LINK":"REGISTRARSE",
+    "USERNAME":{
+      "LABEL":"Usuario"
+    },
+    "PASSWORD":{
+      "LABEL":"Contraseña"
+    }
+  }
+
+}

@@ -6,8 +6,24 @@
         .controller('indexProyectosController', indexProyectosController);
 
     /* @ngInject */
-    function indexProyectosController($scope, $timeout, $mdToast, $rootScope, $state,$log) {
+    function indexProyectosController($scope,Auth,Restangular, $timeout, $mdToast, $rootScope, $state,$log) {
         var vm = this;
+
+
+        vm.test = test();
+
+
+        function test()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                console.log(res);
+            }).catch(function(err)
+            {
+                console.log(err);
+            })
+        }
+
+
 
 
 

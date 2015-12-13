@@ -29,8 +29,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_registro',{
                 url: '/proyectos_registro',
@@ -47,8 +49,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_etapas',{
                 url: '/proyectos_etapas',
@@ -65,8 +69,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_ejecucion',{
                 url: '/proyectos_ejecucion',
@@ -83,8 +89,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_trl',{
                 url: '/proyectos_trl',
@@ -101,8 +109,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_propiedad_intelectual',{
                 url: '/proyectos_propiedad_intelectual',
@@ -119,8 +129,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_resultados',{
                 url: '/proyectos_resultados',
@@ -137,8 +149,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
             .state('triangular.admin-default.proyectos_modalidades',{
                 url: '/proyectos_modalidades',
@@ -155,8 +169,10 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: false
-                    }
+                    },
+                    requireLogin: true
                 }
+
             })
         ;
         // add menu to triangular

@@ -4,7 +4,20 @@
     angular
         .module('app')
         .config(translateConfig)
-        .config(dateConfig);
+        .config(dateConfig)
+        .config(restangularConfig);
+    /* @ngIngect */
+
+
+    /* @ngInject */
+
+    function restangularConfig($httpProvider,RestangularProvider)
+    {
+        var api = 'http://127.0.0.1:8888/novaera_laravel/public/api';
+        RestangularProvider.setBaseUrl(api);
+        $httpProvider.interceptors.push('AuthInterceptor');
+    }
+
 
     /* @ngInject */
     function translateConfig(triSettingsProvider, APP_LANGUAGES) {
