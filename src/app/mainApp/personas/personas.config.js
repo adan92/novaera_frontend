@@ -30,7 +30,8 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: true
-                    }
+                    },
+                    requireLogin: true
                 }
             })
             .state('triangular.admin-default.personas_registro',{
@@ -48,7 +49,9 @@
                         contentClass: '',
                         sideMenuSize: 'full',
                         footer: true
-                    }
+                    },
+                    requireLogin: true
+
                 }
             })
 
