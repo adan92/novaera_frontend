@@ -27,6 +27,7 @@
       "FAX":"Número de Fax",
       "WEBPAGE":"Página Web",
       "ADDRESS":"Calle",
+      "NEIGHBOURHOOD":"Colonia",
       "EXT_NUMBER":"Numero Exterior",
       "INT_NUMBER":"Numero Interior",
       "CITY":"Ciudad",

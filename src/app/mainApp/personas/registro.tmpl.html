@@ -178,6 +178,17 @@
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-icon-float md-block">
+                                <label for="Colonia"translate>PERSONAS.WIZARD.NEIGHBOURHOOD</label>
+                                <ng-md-icon icon="pin_drop"></ng-md-icon>
+                                <input id="Colonia" label="Colonia" name="Colonia"  type="TEXT" ng-model="vm.Direccion.Colonia" required/>
+                                <div ng-messages="Direccion.Colonia.$error">
+                                    <div ng-message="required">
+                                        <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
+                                    </div>
+
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-icon-float md-block">
                                 <label for="NumExt"translate>PERSONAS.WIZARD.EXT_NUMBER</label>
                                 <ng-md-icon icon="pin_drop"></ng-md-icon>
                                 <input id="NumExt" label="NumExt" name="NumExt"  type="TEXT" ng-model="vm.Direccion.NumExt" required/>
@@ -223,69 +234,7 @@
                 </div>
 
             </md-card>
-
-
-
         </div>
     </div>
 </div>
-</div>
 
-       <!--
-
-    </div>
-        <div flex="100" >
-            <md-card flex="100">
-                <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg" alt="Card Image">
-                <div layout="column" layout-md="column">
-
-                    <md-card-content>
-                        <h2 translate>PERSONAS.WIZARD.TITLE5</h2>
-                        <form name="OtraInf" novalidate>
-                            <md-input-container flex="100">
-                                <md-icon md-font-icon="zmdi zmdi-google-pages"></md-icon></br>
-                                <label for="WEBADDRESS"translate>PERSONAS.WIZARD.WEBADDRESS</label>
-                                <input id="WEBADDRESS" label="WEBADDRESS" name="WEBADDRESS" type="text" ng-model="user.WEBADDRESS" required/>
-                                <div ng-messages="OtraInf.email.$error">
-                                    <div ng-message="required">
-                                        <span translate>PERSONAS.WIZARD.REQUIRED-FIELD</span>
-                                    </div>
-                            </md-input-container>
-                            <md-input-container flex="100">
-                                <md-card >
-                                <div flex layout="column" layout-wrap>
-                                    <md-input-container>
-                                        <div text-angular required ng-model="PERSONAS.WIZARD.WEBADDRESS_DES" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                        <label translate>PERSONAS.WIZARD.WEBADDRESS_DES</label>
-                                        <md-divider></md-divider>
-                                    </md-input-container>
-                                </div>
-                                </md-card>
-                            </md-input-container>
-                            <md-input-container flex="100">
-                                <md-card >
-                                    <div flex layout="column" layout-wrap>
-                                        <md-input-container>
-                                            <div text-angular required ng-model="PERSONAS.WIZARD.NOTES" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                            <label translate>PERSONAS.WIZARD.NOTES</label>
-                                            <md-divider></md-divider>
-                                        </md-input-container>
-                                    </div>
-                                </md-card>
-                            </md-input-container>
-                            <div class="button-toolbar" layout="row" layout-align="end center">
-                                <md-button class="md-primary" ng-disabled="OtraInf.$invalid" ><span translate>PERSONAS.WIZARD.SAVE</span></md-button>
-                                <md-button><span translate>PERSONAS.WIZARD.CANCEL</span></md-button>
-                            </div>
-                              </form>
-                                </md-card-content>
-                                </div>
-
-
-
-                    </div>
-        </div>
-
-    </div>
-
- </div>
