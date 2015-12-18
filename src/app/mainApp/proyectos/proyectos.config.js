@@ -174,6 +174,26 @@
                 }
 
             })
+            .state('triangular.admin-default.proyectos_impacto',{
+                url: '/proyectos_impacto',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/impacto.tmpl.html',
+                // set the controller to load for this page
+                controller: 'impactoProyectosController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    },
+                    requireLogin: true
+                }
+
+            })
         ;
         // add menu to triangular
         triMenuProvider.addMenu({
@@ -191,6 +211,12 @@
                 {
                     name: 'Registro',
                     state: 'triangular.admin-default.proyectos_registro',
+                    type: 'link'
+
+                },
+                {
+                    name: 'Impacto',
+                    state: 'triangular.admin-default.proyectos_impacto',
                     type: 'link'
 
                 },

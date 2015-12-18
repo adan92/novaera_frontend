@@ -8,7 +8,8 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
-gulp.task('partials', function () {
+
+gulp.task('partials',['markups'], function () {
   return gulp.src([
     paths.src + '/app/**/*.html',
     paths.tmp + '/app/**/*.html'

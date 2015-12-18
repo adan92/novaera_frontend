@@ -139,6 +139,22 @@
         "STATUS": "Status",
         "OPERATIONAL_PLAN": "Plan de Explotación"
       }
+    },
+    "IMPACT":
+    {
+      "PROJECT_SELECT":"Selección de Proyecto",
+      "ENVIORNMENTAL_IMPACT":"Impacto Ambiental",
+      "SCIENTIFIC_IMPACT":"Impacto Científico",
+      "TECHNOLOGICAL_IMPACT":"Impacto Tecnológico",
+      "SOCIAL_IMPACT":"Impacto Social",
+      "ECONOMIC_IMPACT":"Impacto Económico",
+      "VALUE_PROPOSAL":"Popuesta de Valor",
+      "CLIENT_SEGMENTS":"Segmentos de Clientes",
+      "PROPOSED_SOLUTION":"Solución Propuesta",
+      "METRICS":"Métricas",
+      "CURRENT_SOLUTION":"Solución Actual",
+      "SELECT_YOUR_PROJECT":"Selecciona tu proyecto"
+
     }
 
 

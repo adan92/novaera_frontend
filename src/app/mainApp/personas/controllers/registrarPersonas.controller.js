@@ -6,7 +6,7 @@
         .controller('registrarPersonasController', registrarPersonasController);
 
     /* @ngInject */
-    function registrarPersonasController($scope, Restangular,toastr,$timeout, $mdToast, $rootScope, $state) {
+    function registrarPersonasController(Restangular,toastr) {
         var vm = this;
         vm.paises               = null;
         vm.estados              = null;
@@ -169,24 +169,6 @@
                 ;
             })
         }
-
-
-
-        $scope.paises = ('Mexico-Estados Unidos-Canada-Brasil-Colombia'+
-        '-Chile').split('-').map(function(pais) {
-                return {abbrev: pais};
-            })
-
-        $scope.estados = ('Estado de Mexico-Distrito Federal-Guanajuato-Queretaro-Michoacan'+
-        '-Aguascalientes').split('-').map(function(pais) {
-                return {abbrev: pais};
-            })
-        $scope.ciudades = ('San Miguel Allende-Irapuato-Leon-Apaseo el Alto-Dolores Hidalgo'+
-        '-Celaya').split('-').map(function(ciudad) {
-                return {abbrev: ciudad};
-            })
-
-
 
 
 
