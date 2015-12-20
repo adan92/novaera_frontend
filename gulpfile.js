@@ -9,6 +9,15 @@
 var gulp = require('gulp');
 var wrench = require('wrench');
 
+
+
+gulp.paths = {
+    src: 'src',
+    dist: 'dist',
+    tmp: '.tmp',
+    e2e: 'e2e'
+};
+
 /**
  *  This will load all js or coffee files in the gulp directory
  *  in order to load all gulp tasks
