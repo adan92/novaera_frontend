@@ -17,18 +17,8 @@
       "JUSTIFICATION":"Justificacion",
       "AIMS": "Objetivos",
       "REACH": "Alcances",
-      "REQUIREMENTS": "Requerimientos",
-      "ENVIORNMENT": "Entorno",
-      "TECHNICAL_FACTIBILITY": "Factibilidad Técnica",
-      "ECONOMICAL_FACTIBILITY": "Factibilidad Económica",
-      "COMMERCIAL_FACTIBILITY": "Factibilidad Comercial",
-      "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
-      "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
-      "HUMAN_RESOURCES": "Recursos Humanos",
-      "TECHNOLOGICAL_RESOURCES": "Recursos Financieros",
-      "MATERIAL_RESOURCES": "Recursos Materiales",
-
       "REQUIRED-FIELD":"Éste campo es requerido",
+      "FILE_UPLOAD":"Por favor, selecciona el archivo a subir",
       "COMPLETED": "COMPLETADO",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
@@ -154,6 +144,21 @@
       "METRICS":"Métricas",
       "CURRENT_SOLUTION":"Solución Actual",
       "SELECT_YOUR_PROJECT":"Selecciona tu proyecto"
+
+    },
+    "EXECUTION":
+    {
+      "UPLOADED_FILE":"Archivo subido:",
+      "REQUIREMENTS": "Requerimientos",
+      "ENVIORNMENT": "Entorno",
+      "TECHNICAL_FACTIBILITY": "Factibilidad Técnica",
+      "ECONOMICAL_FACTIBILITY": "Factibilidad Económica",
+      "COMMERCIAL_FACTIBILITY": "Factibilidad Comercial",
+      "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
+      "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
+      "HUMAN_RESOURCES": "Recursos Humanos",
+      "TECHNOLOGICAL_RESOURCES": "Recursos Financieros",
+      "MATERIAL_RESOURCES": "Recursos Materiales"
 
     }
 

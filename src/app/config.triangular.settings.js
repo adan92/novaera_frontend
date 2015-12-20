@@ -11,9 +11,9 @@
 
     /* @ngInject */
 
-    function restangularConfig($httpProvider,RestangularProvider)
+    function restangularConfig($httpProvider,RestangularProvider,ROUTES)
     {
-        var api = 'http://127.0.0.1:8888/novaera_laravel/public/api';
+        var api = ROUTES.API_ROUTE;
         RestangularProvider.setBaseUrl(api);
         $httpProvider.interceptors.push('AuthInterceptor');
     }

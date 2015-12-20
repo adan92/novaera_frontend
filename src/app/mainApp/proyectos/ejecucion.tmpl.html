@@ -9,208 +9,137 @@
         <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
             <md-toolbar class="md-primary">
                 <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
-                    <h2 translate>PROJECT.WIZARD.TITLE2</h2><h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
+                    <h2 translate>PROJECT.WIZARD.TITLE2</h2> <h3 translate>{{vm.steps[triWizard.currentStep]}}</h3>  <h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
                 </div>
                 <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
             </md-toolbar>
             <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height md-stretch-tabs="always">
-                <md-tab id="requirements">
+
+                <md-tab id="selectProject">
                     <md-tab-label>
                         <span class="oxy-step-label">1</span>
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.REQUIREMENTS</h2>
-
-                            <form name="projectRequirements" tri-wizard-form>
-                                <div flex layout="column" layout-wrap>
+                            <form name="projectSelect" tri-wizard-form novalidate>
+                                <div layout="column" flex>
                                     <md-input-container>
-                                        <div text-angular required ng-model="proyecto.requisitos" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                        <md-divider></md-divider>
+                                        <label><span translate>PROJECT.IMPACT.SELECT_YOUR_PROJECT</span></label>
+                                        <md-select md-on-close="vm.getEjecucion()" ng-model="vm.selectedProject" name="select" required>
+                                            <md-option ng-repeat="proyecto in vm.proyectos" value="{{proyecto.id}}">
+                                                {{proyecto.Titulo}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="projectSelect.select.$error">
+                                            <div ng-message="required"><span translate>PROJECT.WIZARD.REQUIRED-FIELD</span></div>
+                                        </div>
+
                                     </md-input-container>
                                 </div>
+
                             </form>
                         </div>
-
-                        <div class="wizard" flow-init>
-                            <input type="file" flow-btn />
-                        </div>
-
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="enviornment" ng-disabled="projectRequirements.$invalid">
+                <md-tab id="requirements" ng-disabled="vm.selectedProject==null">
                     <md-tab-label>
                         <span class="oxy-step-label">2</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.ENVIORNMENT</h2>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
 
-                            <form name="projectEnviornment" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.entorno" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="projectRequirements" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('Requerimientos')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
 
-                            </form>
+                            <div ng-show="vm.requerimientosFile!=null" layout="row" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.requerimientosFile.Ruta}}">
+                                    <h3>{{vm.requerimientosFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
                         </div>
+
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="technical_factibility" ng-disabled="projectEnviornment.$invalid">
+                <md-tab id="enviornment" ng-disabled="vm.Ejecucion.Requisitos!=1">
                     <md-tab-label>
                         <span class="oxy-step-label">3</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.TECHNICAL_FACTIBILITY</h2>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
 
-                            <form name="projectTechnicalFactibility" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.factibilidad_tecnica" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
+                            </div>
 
-                            </form>
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="projectRequirements" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('AnalisisEntornoP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.entornoFile!=null" layout="row" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.entornoFile.Ruta}}">
+                                    <h3>{{vm.entornoFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
                         </div>
+
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="economical_factibility" ng-disabled="projectTechnicalFactibility.$invalid">
+                <md-tab id="technicalFactibility" ng-disabled="vm.Ejecucion.AnalisisEntornoP!=1">
                     <md-tab-label>
                         <span class="oxy-step-label">4</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.ECONOMICAL_FACTIBILITY</h2>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
 
-                            <form name="projectEconomicalFactibility" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.factibilidad_economica" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="projectRequirements" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('FactibilidadTecnicaP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
 
-                            </form>
+                            <div ng-show="vm.factibilidadTFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.factibilidadTFile.Ruta}}">
+                                    <h3>{{vm.factibilidadTFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
                         </div>
+
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="commercial_factibility" ng-disabled="projectEconomicalFactibility.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">5</span>
-                    </md-tab-label>
-                    <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.COMMERCIAL_FACTIBILITY</h2>
 
-                            <form name="projectCommercialFactibility" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.factibilidad_comercial" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
 
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
-                <md-tab id="commercial_benchmark" ng-disabled="projectCommercialFactibility.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">6</span>
-                    </md-tab-label>
-                    <md-tab-body>
-
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.COMMERCIAL_BENCHMARK</h2>
-
-                            <form name="projectCommercialBenchmark" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.benchmark_comercial" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
-                <md-tab id="technological_benchmark" ng-disabled="projectCommercialBenchmark.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">7</span>
-                    </md-tab-label>
-                    <md-tab-body>
-
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.TECHNOLOGICAL_BENCHMARK</h2>
-                            <form name="projectTechnologicalBenchmark" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.benchmark_tecnologico" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
-                <md-tab id="human_resources" ng-disabled="projectTechnologicalBenchmark.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">8</span>
-                    </md-tab-label>
-                    <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.HUMAN_RESOURCES</h2>
-
-                            <form name="projectHumanResources" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.recursos_humanos" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
-                <md-tab id="technological_resources" ng-disabled="projectHumanResources.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">9</span>
-                    </md-tab-label>
-                    <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.TECHNOLOGICAL_RESOURCES</h2>
-
-                            <form name="projectTechnologicalResources" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.recursos_tecnologicos" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
-                <md-tab id="material_resources" ng-disabled="projectTechnologicalResources.$invalid">
-                    <md-tab-label>
-                        <span class="oxy-step-label">10</span>
-                    </md-tab-label>
-                    <md-tab-body>
-                        <div class="wizard layout-padding">
-                            <h2 class="text-center" translate>PROJECT.WIZARD.MATERIAL_RESOURCES</h2>
-
-                            <form name="projectMateriallResources" tri-wizard-form>
-                                <md-input-container>
-                                    <div text-angular required ng-model="proyecto.alcances" ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-
-                            </form>
-                        </div>
-                    </md-tab-body>
-                </md-tab>
             </md-tabs>
 
 

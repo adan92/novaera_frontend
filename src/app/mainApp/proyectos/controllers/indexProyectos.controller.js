@@ -6,36 +6,25 @@
         .controller('indexProyectosController', indexProyectosController);
 
     /* @ngInject */
-    function indexProyectosController($scope,Auth,Restangular, $timeout, $mdToast, $rootScope, $state,$log) {
+    function indexProyectosController($scope,Restangular) {
         var vm = this;
+        vm.clickedProjects = null;
+        vm.clear= clear;
+        vm.activate = activate();
 
 
-        vm.test = test();
 
-
-        function test()
-        {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                console.log(res);
-            }).catch(function(err)
-            {
-                console.log(err);
-            })
+        function activate(){
+            getProyectos();
         }
 
 
 
-
-
-        vm.clickedProjects = null;
-        vm.clear= clear;
 
         function clear()
         {
             vm.clickedProjects=null;
         }
-
-
 
         $scope.onClick = function (element, evt) {
             var label = element[0].label;
@@ -43,75 +32,23 @@
 
         };
 
-
         function searchProjects(label){
 
             return vm.proyectos;
         }
 
-
-
         //Datos
-        vm.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    "Etapa 1",
-                    "Etapa 2"
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Sistema de Registro",
-                label:"Electricidad"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    "Etapa 1",
-                    "Etapa 2"
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Otro proyecto",
-                label:"Agronomía"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    "Etapa 1",
-                    "Etapa 2"
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Un proyecto mas",
-                label:"Calzado"
-            }
-        ];
-        vm.my_projects_labels= ['Electricidad','Agronomía','Calzado'];
-        vm.my_projects_data= ['3','5','6'];
-
+        vm.proyectos            = null
+        vm.my_projects_labels   = ['Electricidad','Agronomía','Calzado'];
+        vm.my_projects_data     = ['3','5','6'];
 
         //
-
         vm.selectedItem       = null;
+        vm.selectedItemChange = selectedItemChange;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
-
 
         //////////////////
         function querySearch (query) {
@@ -127,8 +64,29 @@
         function createFilterFor(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
+        }
+
+        function getProyectos()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                    vm.proyectos = res.Proyectos;
+                    console.log(vm.proyectos);
+            }).catch(function(err){
+
+            });
+        }
+
+        function selectedItemChange(item)
+        {
+            if(item!=null)
+            {
+                Restangular.all('Proyecto').one('TRL',item.id).customGET().then(function(res){
+                    vm.selectedItem.TRL =res.TRL;
+                })
+            }
+
         }
 
 

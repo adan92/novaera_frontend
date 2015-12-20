@@ -33,7 +33,7 @@
         function activate()
         {
             Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-               vm.proyectos = res;
+               vm.proyectos = res.Proyectos;
             }).catch(function(err){
 
             });
@@ -65,7 +65,6 @@
             Restangular.all('Proyecto').one('Impacto',vm.Impacto.idProyecto).customGET().then(function(res){
                 vm.Impacto = res;
             }).catch(function(err){
-                vm.Impacto = null;
             })
         }
 
