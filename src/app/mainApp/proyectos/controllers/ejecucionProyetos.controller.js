@@ -257,7 +257,7 @@
             if(vm.Ejecucion.RecursosMaterialesP==1)
                 completed+=1;
             completed = (completed/11)*100
-            completed = completed.toFixed(2)
+            completed = completed.toFixed(0)
             return completed;
         }
 
