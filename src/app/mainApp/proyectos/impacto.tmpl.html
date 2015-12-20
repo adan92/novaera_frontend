@@ -1,0 +1,237 @@
+
+
+<div layout="column" layout-align="center center" class="full-image-background mb-bg-fb-07 overlay-40">
+
+    <div layout="row" layout-align="center center">
+        <p flex="70"  flex-sm="90" class="md-headline font-weight-300 text-center text-light" translate>PROJECT.INTRO</p>
+    </div>
+
+    <div flex layout="row" layout-align="center center" layout-fill>
+        <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
+            <md-toolbar class="md-primary">
+                <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                    <h2 translate>PROJECT.WIZARD.TITLE</h2> <h3 translate>{{vm.steps[triWizard.currentStep]}} </h3>   <h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
+                </div>
+                <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height md-stretch-tabs="always">
+                <md-tab id="selectProject">
+                    <md-tab-label>
+                        <span class="oxy-step-label">1</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="projectSelect" tri-wizard-form novalidate>
+                                <div layout="column" flex>
+                                    <md-input-container>
+                                        <label><span translate>PROJECT.IMPACT.SELECT_YOUR_PROJECT</span></label>
+                                        <md-select md-on-close="vm.getProjectImpact()" ng-model="vm.Impacto.idProyecto" name="select" required>
+                                            <md-option ng-repeat="proyecto in vm.proyectos" value="{{proyecto.id}}">
+                                                {{proyecto.Titulo}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="projectSelect.select.$error">
+                                            <div ng-message="required"><span translate>PROJECT.WIZARD.REQUIRED-FIELD</span></div>
+                                        </div>
+
+                                    </md-input-container>
+                                </div>
+
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="enviornmental" ng-disabled="projectSelect.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">2</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="enviornmental_Impact" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.ImpactoAmbiental" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="scientific" ng-disabled="enviornmental_Impact.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">3</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="scientific_Impact" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.ImpactoCientifico" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="technological" ng-disabled="scientific_Impact.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">4</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="technological_Impact" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.ImpactoTecnologico" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="social" ng-disabled="technological_Impact.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">5</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="social_Impact" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.ImpactoSocial" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="economical" ng-disabled="social_Impact.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">6</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="economical_Impact" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.ImpactoEconomico" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="proposal" ng-disabled="economical_Impact.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">7</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="proposal" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.PropuestaDeValor" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="segments" ng-disabled="proposal.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">8</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="segments" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.SegmentosDeClientes" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="proposedSolution" ng-disabled="segments.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">9</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="proposedSolution" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.SolucionPropuesta" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="currentSolution" ng-disabled="proposedSolution.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">10</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="currentSolution" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.SolucionActual" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="metrics" ng-disabled="currentSolution.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">11</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="metrics" tri-wizard-form>
+                                <div flex layout="column" layout-wrap>
+                                    <md-input-container>
+                                        <div text-angular required ng-model="vm.Impacto.Metricas" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
+
+
+
+            <div class="wizard-navbar" layout-fill layout-padding layout="row" layout-align="end center">
+                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 10" ng-disabled="triWizard.prevStepDisabled()" translate="PROJECT.WIZARD.PREV"></md-button>
+                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >=10" ng-disabled="triWizard.nextStepDisabled()" translate="PROJECT.WIZARD.NEXT"></md-button>
+                <md-button class="md-accent md-raised" ng-click="vm.saveImpact()" ng-show="triWizard.progress == 100 && triWizard.currentStep >= 10 " translate="PROJECT.WIZARD.SEND"></md-button>
+            </div>
+
+        </div>
+    </div>
+</div>

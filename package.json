@@ -51,5 +51,9 @@
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "gulp-jade": "^1.1.0",
+    "jade": "^1.11.0"
   }
 }

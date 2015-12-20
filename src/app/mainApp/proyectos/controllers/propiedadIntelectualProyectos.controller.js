@@ -113,7 +113,7 @@
 
         //Variables para el md-autocomplete
 
-        vm.proyectos             = $scope.proyectos;
+        vm.proyectos          = $scope.proyectos;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
@@ -125,7 +125,6 @@
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
             return results;
-
         }
 
 

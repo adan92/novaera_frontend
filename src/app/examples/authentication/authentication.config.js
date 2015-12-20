@@ -15,7 +15,7 @@
             templateUrl: 'app/examples/authentication/layouts/authentication.tmpl.html'
         })
         .state('authentication.login', {
-            url: '/login',
+            url: '/login_example',
             templateUrl: 'app/examples/authentication/login/login.tmpl.html',
             controller: 'LoginController',
             controllerAs: 'vm'

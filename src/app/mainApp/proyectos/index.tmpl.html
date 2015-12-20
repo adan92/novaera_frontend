@@ -19,8 +19,8 @@
                     <md-subheader class="md-no-sticky">Proyectos Recientes</md-subheader>
                     <md-list-item class="md-2-line" ng-repeat="proyecto in vm.proyectos">
                         <div class="md-list-item-text">
-                            <h3>{{::proyecto.titulo}}</h3>
-                            <p>{{::proyecto.descripcion}}</p>
+                            <h3>{{::proyecto.Titulo}}</h3>
+                            <p>{{::proyecto.Descripcion}}</p>
                         </div>
                         <md-divider ></md-divider>
 
@@ -38,8 +38,8 @@
                 <md-subheader class="md-no-sticky">Proyectos Seleccionados</md-subheader>
                 <md-list-item class="md-2-line" ng-repeat="item in vm.clickedProjects">
                     <div class="md-list-item-text">
-                        <h3>{{item.titulo}}</h3>
-                        <div ng-bind-html="item.descripcion"></div>
+                        <h3>{{item.Titulo}}</h3>
+                        <div ng-bind-html="item.Descripcion"></div>
                     </div>
                     <md-divider></md-divider>
                 </md-list-item>
@@ -58,27 +58,27 @@
                         class="margin-bottom-20"
                         ng-disabled="vm.isDisabled"
                         md-no-cache="vm.noCache"
-                        md-selected-item="selectedItem"
+                        md-selected-item="vm.selectedItem"
                         md-search-text-change="vm.searchTextChange(vm.searchText)"
                         md-search-text="vm.searchText"
                         md-selected-item-change="vm.selectedItemChange(item)"
                         md-items="item in vm.querySearch(vm.searchText)"
-                        md-item-text="item.display"
+                        md-item-text="item.Titulo"
                         md-min-length="0"
                         placeholder="Introduce tu proyecto">
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Titulo}}</span>
                 </md-autocomplete>
 
 
-                        <md-tabs class="md-primary" md-selected="selectedTabIndex" md-stretch-tabs="always" ng-show="selectedItem!=null">
+                        <md-tabs class="md-primary" md-selected="selectedTabIndex" md-stretch-tabs="always" ng-show="vm.selectedItem!=null">
                             <md-tab id="general">
                                 <md-tab-label>
                                     <span translate>PROJECT.INFO.TABS.GENERAL</span>
                                 </md-tab-label>
                                 <div class="wizard">
-                                    <h3 translate>PROJECT.FORM.PROJECT_TITLE</h3>{{selectedItem.titulo}}
-                                    <h3 translate>PROJECT.FORM.PROJECT_DESCRIPTION</h3>{{selectedItem.descripcion}}
-                                    <h3 translate>PROJECT.FORM.PROJECT_AIM</h3> <div class="show-info" ng-bind-html="selectedItem.objetivos"></div>
+                                    <h3 translate>PROJECT.FORM.PROJECT_TITLE</h3>{{vm.selectedItem.Titulo}}
+                                    <h3 translate>PROJECT.FORM.PROJECT_DESCRIPTION</h3>{{vm.selectedItem.Descripcion}}
+                                    <h3 translate>PROJECT.FORM.PROJECT_AIM</h3> <div class="show-info" ng-bind-html="vm.selectedItem.Objetivos"></div>
 
                                 </div>
                             </md-tab>
@@ -89,7 +89,7 @@
                                 </md-tab-label>
                                 <div layout="column" class="wizard">
                                     <h3 translate>PROJECT.FORM.PROJECT_STAGES</h3>
-                                    <div ng-repeat="etapa in selectedItem.etapas">
+                                    <div ng-repeat="etapa in vm.selectedItem.etapas">
                                         <p>{{etapa}}</p>
                                     </div>
                                 </div>
@@ -101,12 +101,12 @@
                                 </md-tab-label>
                                 <div layout="column" class="wizard">
                                     <h3>TRL</h3>
-                                    <div ng-repeat="trl in selectedItem.trl">
+                                    <div ng-repeat="trl in vm.selectedItem.TRL">
                                         <div layout="row">
-                                            <span translate>PROJECT.INFO.TRL_DESCRIPTION</span> <span>: {{trl.descripcion}}</span>
+                                            <span translate>PROJECT.INFO.TRL_DESCRIPTION</span> <span>: {{trl.Descripcion}}</span>
                                         </div>
                                         <div layout="row">
-                                            <span translate>PROJECT.INFO.TRL_DATE</span> <span>: {{trl.fecha}} </span>
+                                            <span translate>PROJECT.INFO.TRL_DATE</span> <span>: {{trl.Fecha}} </span>
                                         </div>
                                         <md-divider></md-divider>
                                     </div>

@@ -14,24 +14,18 @@
       "IS_ORGANIZATION": "El proyecto es de una organización",
       "INFO":"Información General",
       "HISTORY": "Antecedentes",
+      "JUSTIFICATION":"Justificacion",
       "AIMS": "Objetivos",
       "REACH": "Alcances",
-      "REQUIREMENTS": "Requerimientos",
-      "ENVIORNMENT": "Entorno",
-      "TECHNICAL_FACTIBILITY": "Factibilidad Técnica",
-      "ECONOMICAL_FACTIBILITY": "Factibilidad Económica",
-      "COMMERCIAL_FACTIBILITY": "Factibilidad Comercial",
-      "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
-      "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
-      "HUMAN_RESOURCES": "Recursos Humanos",
-      "TECHNOLOGICAL_RESOURCES": "Recursos Financieros",
-      "MATERIAL_RESOURCES": "Recursos Materiales",
-
       "REQUIRED-FIELD":"Éste campo es requerido",
+      "FILE_UPLOAD":"Por favor, selecciona el archivo a subir",
       "COMPLETED": "COMPLETADO",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
-      "SEND": "Enviar"
+      "SEND": "Enviar",
+      "IN_PROGRESS": "En Progreso",
+      "FINISHED": "Terminado"
+
     },
     "FORM":{
       "PROJECT_TITLE": "Titulo del Proyecto: ",
@@ -138,6 +132,38 @@
         "STATUS": "Status",
         "OPERATIONAL_PLAN": "Plan de Explotación"
       }
+    },
+    "IMPACT":
+    {
+      "PROJECT_SELECT":"Selección de Proyecto",
+      "ENVIORNMENTAL_IMPACT":"Impacto Ambiental",
+      "SCIENTIFIC_IMPACT":"Impacto Científico",
+      "TECHNOLOGICAL_IMPACT":"Impacto Tecnológico",
+      "SOCIAL_IMPACT":"Impacto Social",
+      "ECONOMIC_IMPACT":"Impacto Económico",
+      "VALUE_PROPOSAL":"Popuesta de Valor",
+      "CLIENT_SEGMENTS":"Segmentos de Clientes",
+      "PROPOSED_SOLUTION":"Solución Propuesta",
+      "METRICS":"Métricas",
+      "CURRENT_SOLUTION":"Solución Actual",
+      "SELECT_YOUR_PROJECT":"Selecciona tu proyecto"
+
+    },
+    "EXECUTION":
+    {
+      "UPLOADED_FILE":"Archivo subido:",
+      "REQUIREMENTS": "Requerimientos",
+      "ENVIORNMENT": "Entorno",
+      "TECHNICAL_FACTIBILITY": "Factibilidad Técnica",
+      "ECONOMICAL_FACTIBILITY": "Factibilidad Económica",
+      "COMMERCIAL_FACTIBILITY": "Factibilidad Comercial",
+      "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
+      "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
+      "HUMAN_RESOURCES": "Recursos Humanos",
+      "FINANCIAL_RESOURCES": "Recursos Financieros",
+      "TECHNOLOGICAL_RESOURCES": "Recursos Tecnológicos",
+      "MATERIAL_RESOURCES": "Recursos Materiales"
+
     }
 
 

@@ -10,7 +10,7 @@
             <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
                 <md-toolbar class="md-primary">
                     <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
-                        <h2 translate>PROJECT.WIZARD.TITLE</h2><h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
+                        <h2 translate>PROJECT.WIZARD.TITLE</h2><h3>{{vm.steps[triWizard.currentStep]}} </h3>   <h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
                     </div>
                     <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
                 </md-toolbar>
@@ -26,7 +26,7 @@
                                     <div layout="column" flex>
                                         <md-input-container>
                                             <label translate>PROJECT.FORM.PROJECT_TITLE</label>
-                                            <input name="titulo" required type="text" ng-model="proyecto.titulo">
+                                            <input name="titulo" required type="text" ng-model="vm.proyecto.Titulo">
                                             <div ng-messages="projectInfo.titulo.$error">
                                                 <div ng-message when="required">
                                                     <span translate>PROJECT.WIZARD.REQUIRED-FIELD</span>
@@ -35,7 +35,7 @@
                                         </md-input-container>
                                         <md-input-container>
                                             <label translate>PROJECT.FORM.PROJECT_DESCRIPTION</label>
-                                            <textarea name="descripcion" required ng-model="proyecto.descripcion" md-maxlength="300"></textarea>
+                                            <textarea name="descripcion" required ng-model="vm.proyecto.Descripcion" md-maxlength="300"></textarea>
                                             <div ng-messages="projectInfo.descripcion.$error">
                                                 <div ng-message when="required">
                                                     <span translate>PROJECT.WIZARD.REQUIRED-FIELD</span>
@@ -43,17 +43,17 @@
                                             </div>
                                         </md-input-container>
 
-                                        <md-input-container ng-show="isOrganization">
+                                        <md-input-container ng-show="vm.isOrganization">
                                             <label>Selecciona la Organización</label>
-                                            <md-select ng-model="proyecto.Organizacion" md-on-open="vm.loadOrganizations()">
+                                            <md-select ng-model="vm.proyecto.Organizacion" md-on-open="vm.loadOrganizations()">
                                                 <md-option  ng-repeat="organizacion in vm.organizaciones" value="{{organizacion.id}}">{{organizacion.nombre}}</md-option>
                                             </md-select>
                                         </md-input-container>
 
                                         <label class="material">Selecciona si el proyecto es tuyo o de una organización</label>
-                                        <md-checkbox ng-model="isOrganization" aria-label="Checkbox 1">
-                                            <span ng-show="isOrganization" translate>PROJECT.WIZARD.IS_ORGANIZATION</span>
-                                            <span ng-show="!isOrganization" translate>PROJECT.WIZARD.IS_MINE</span>
+                                        <md-checkbox ng-model="vm.isOrganization" aria-label="Checkbox 1">
+                                            <span ng-show="vm.isOrganization" translate>PROJECT.WIZARD.IS_ORGANIZATION</span>
+                                            <span ng-show="!vm.isOrganization" translate>PROJECT.WIZARD.IS_MINE</span>
                                         </md-checkbox>
 
                                     </div>
@@ -71,7 +71,7 @@
                                 <form name="projectHistory" tri-wizard-form>
                                     <div flex layout="column" layout-wrap>
                                         <md-input-container>
-                                            <div text-angular required ng-model="proyecto.antecedentes" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                            <div text-angular required ng-model="vm.proyecto.Antecedentes" ta-toolbar="[['bold','italics','ul','ol']]"></div>
                                             <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
                                             <md-divider></md-divider>
                                         </md-input-container>
@@ -80,16 +80,35 @@
                             </div>
                         </md-tab-body>
                     </md-tab>
-                    <md-tab id="aims" ng-disabled="projectHistory.$invalid">
+                    <md-tab id="justification" ng-disabled="projectHistory.$invalid">
                         <md-tab-label>
                             <span class="oxy-step-label">3</span>
+                            <span translate>PROJECT.WIZARD.JUSTIFICATION</span>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <div class="wizard layout-padding">
+                                <form name="projectJustification" tri-wizard-form>
+                                    <div flex layout="column" layout-wrap>
+                                        <md-input-container>
+                                            <div text-angular required ng-model="vm.proyecto.Justificacion" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                            <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
+                                            <md-divider></md-divider>
+                                        </md-input-container>
+                                    </div>
+                                </form>
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                    <md-tab id="aims" ng-disabled="projectJustification.$invalid">
+                        <md-tab-label>
+                            <span class="oxy-step-label">4</span>
                             <span translate>PROJECT.WIZARD.AIMS</span>
                         </md-tab-label>
                         <md-tab-body>
                             <div class="wizard layout-padding">
                                 <form name="projectAims" tri-wizard-form>
                                     <md-input-container>
-                                        <div text-angular required ng-model="proyecto.objetivos" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <div text-angular required ng-model="vm.proyecto.Objetivos" ta-toolbar="[['bold','italics','ul','ol']]"></div>
                                         <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
                                         <md-divider></md-divider>
                                     </md-input-container>
@@ -100,14 +119,14 @@
                     </md-tab>
                     <md-tab id="reach" ng-disabled="projectAims.$invalid">
                         <md-tab-label>
-                            <span class="oxy-step-label">4</span>
+                            <span class="oxy-step-label">5</span>
                             <span translate>PROJECT.WIZARD.REACH</span>
                         </md-tab-label>
                         <md-tab-body>
                             <div class="wizard layout-padding">
                                 <form name="projectReach" tri-wizard-form>
                                     <md-input-container>
-                                        <div text-angular required ng-model="proyecto.alcances" ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <div text-angular required ng-model="vm.proyecto.Alcances" ta-toolbar="[['bold','italics','ul','ol']]"></div>
                                         <label translate>PROJECT.FORM.CLICK_TO_WRITE</label>
                                         <md-divider></md-divider>
                                     </md-input-container>
@@ -121,10 +140,11 @@
 
 
                 <div class="wizard-navbar" layout-fill layout-padding layout="row" layout-align="end center">
-                    <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 3" ng-disabled="triWizard.prevStepDisabled()" translate="PROJECT.WIZARD.PREV"></md-button>
-                    <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >= 3" ng-disabled="triWizard.nextStepDisabled()" translate="PROJECT.WIZARD.NEXT"></md-button>
-                    <md-button class="md-accent md-raised" ng-click="triWizard.currentStep = 3" ng-show="triWizard.progress == 100 && triWizard.currentStep >= 3 " translate="PROJECT.WIZARD.SEND"></md-button>
+                    <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 4" ng-disabled="triWizard.prevStepDisabled()" translate="PROJECT.WIZARD.PREV"></md-button>
+                    <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >= 4" ng-disabled="triWizard.nextStepDisabled()" translate="PROJECT.WIZARD.NEXT"></md-button>
+                    <md-button class="md-accent md-raised" ng-click="vm.saveProject()" ng-show="triWizard.progress == 100 && triWizard.currentStep >= 4 " translate="PROJECT.WIZARD.SEND"></md-button>
                 </div>
+
             </div>
         </div>
     </div>

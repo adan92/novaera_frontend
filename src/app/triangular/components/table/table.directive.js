@@ -36,7 +36,6 @@
                 if(column.sortable) {
                     sortableColumns.push(column.field);
                 }
-                console.log("Hola");
             });
 
             $scope.refresh = function(resetPage) {

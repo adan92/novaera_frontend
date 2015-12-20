@@ -12,8 +12,29 @@
         .controller('informacionOrganizacionesController', informacionOrganizacionesController);
 
     /* @ngInject */
-    function informacionOrganizacionesController($scope ,$timeout, $mdToast, $rootScope, $state,$log) {
+    function informacionOrganizacionesController($scope ,Upload,$timeout, $mdToast, $rootScope, $state,$log) {
         var vm = this;
+
+        vm.addItem = addItem;
+        vm.file = null;
+
+        function addItem()
+        {
+            Upload.upload({
+                url: 'http://127.0.0.1:8888/novaera_laravel/public/api/Organizacion/Upload',
+                data: {file: vm.file, organizacion:vm.newOrganizacion}
+            }).then(function (resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+
+        }
+
+
 
         vm.newOrganization = {palabras_clave:[],contacto:[]};
 

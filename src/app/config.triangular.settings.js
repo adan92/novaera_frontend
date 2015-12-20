@@ -4,7 +4,20 @@
     angular
         .module('app')
         .config(translateConfig)
-        .config(dateConfig);
+        .config(dateConfig)
+        .config(restangularConfig);
+    /* @ngIngect */
+
+
+    /* @ngInject */
+
+    function restangularConfig($httpProvider,RestangularProvider,ROUTES)
+    {
+        var api = ROUTES.API_ROUTE;
+        RestangularProvider.setBaseUrl(api);
+        $httpProvider.interceptors.push('AuthInterceptor');
+    }
+
 
     /* @ngInject */
     function translateConfig(triSettingsProvider, APP_LANGUAGES) {

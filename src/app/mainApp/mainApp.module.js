@@ -6,6 +6,7 @@
 
     angular
         .module('app.mainApp', [
+           'app.mainApp.login',
            'app.mainApp.intro',
            'app.mainApp.proyectos',
            'app.mainApp.organizaciones',
