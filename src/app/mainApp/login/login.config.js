@@ -31,6 +31,17 @@
                 data: {
                     requireLogin: false
                 }
+            }).state('auth.register', {
+                // set the url of this page
+                url: '/register',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/login/register.tmpl.html',
+                // set the controller to load for this page
+                controller: 'registerController',
+                controllerAs: 'vm',
+                data: {
+                    requireLogin: false
+                }
             })
         ;
 
