@@ -13,6 +13,7 @@
     function ejecucionProyectosController($scope,Upload,Restangular,ROUTES) {
         var vm = this;
         vm.activate                 =  activate();
+        vm.completed               =  0;
         vm.proyectos                =  null;
         vm.Ejecucion                =  {
             "id":null,
@@ -60,7 +61,6 @@
         vm.recursosFFile            = null;
         vm.recursosTFile            = null;
         vm.recursosMFile            = null;
-
         /**
          * Función que se activa al inicio del script
          */
@@ -99,6 +99,7 @@
                     vm.recursosFFile        = search('RecursosFinancierosP');
                     vm.recursosTFile        = search('RecursosTecnologicosP');
                     vm.recursosMFile        = search('RecursosMaterialesP');
+                    vm.completed            = checkFinished();
                 }).catch(function(err){});
 
 
@@ -230,6 +231,36 @@
             }
         }
 
+        function checkFinished()
+        {
+            var completed = 0;
+            if(vm.Ejecucion.Requisitos==1)
+                completed+=1;
+            if(vm.Ejecucion.AnalisisEntornoP ==1)
+                completed+=1;
+            if(vm.Ejecucion.FactibilidadTecnicaP==1)
+                completed+=1;
+            if(vm.Ejecucion.FactibilidadEconomicaP ==1)
+                completed+=1;
+            if(vm.Ejecucion.FactibilidadComercialP == 1)
+                completed+=1;
+            if(vm.Ejecucion.BenchmarkComercialP==1)
+                completed+=1;
+            if(vm.Ejecucion.BenchmarkTecnologicoP ==1)
+                completed+=1;
+            if(vm.Ejecucion.RecursosHumanosP==1)
+                completed+=1;
+            if(vm.Ejecucion.RecursosFinancierosP ==1)
+                completed+=1;
+            if(vm.Ejecucion.RecursosTecnologicosP==1)
+                completed+=1;
+            if(vm.Ejecucion.RecursosMaterialesP==1)
+                completed+=1;
+            completed = (completed/11)*100
+            completed = completed.toFixed(2)
+            return completed;
+        }
+
 
         /**
          * Función general para subir archivos, la BD hace el cambio tan pronto se suba el archivo dado
@@ -262,6 +293,10 @@
                 }).then(function(res){
                     updateFileName(fileType,parseArchivo(res.data.Archivo));
                     vm.Ejecucion= res.data.Ejecucion;
+                    vm.completed = checkFinished();
+
+
+
                 }), function (resp) {
                     console.log('Error status: ' + resp.status);
                 }, function (evt) {

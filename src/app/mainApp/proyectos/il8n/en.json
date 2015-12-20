@@ -22,7 +22,10 @@
       "COMPLETED": "COMPLETADO",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
-      "SEND": "Enviar"
+      "SEND": "Enviar",
+      "IN_PROGRESS": "En Progreso",
+      "FINISHED": "Terminado"
+
     },
     "FORM":{
       "PROJECT_TITLE": "Titulo del Proyecto: ",

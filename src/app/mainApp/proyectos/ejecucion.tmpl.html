@@ -9,7 +9,7 @@
         <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
             <md-toolbar class="md-primary">
                 <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
-                    <h2 translate>PROJECT.WIZARD.TITLE2</h2> <h3 translate>{{vm.steps[triWizard.currentStep]}}</h3>  <h2> {{triWizard.progress}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
+                    <h2 translate>PROJECT.WIZARD.TITLE2</h2> <h3 translate>{{vm.steps[triWizard.currentStep]}}</h3>  <h2> {{vm.completed}}% <span translate>PROJECT.WIZARD.COMPLETED</span></h2>
                 </div>
                 <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
             </md-toolbar>
