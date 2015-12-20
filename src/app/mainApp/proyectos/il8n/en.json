@@ -157,7 +157,8 @@
       "COMMERCIAL_BENCHMARK": "Benchmark Comercial",
       "TECHNOLOGICAL_BENCHMARK": "Benchmark Tecnológico",
       "HUMAN_RESOURCES": "Recursos Humanos",
-      "TECHNOLOGICAL_RESOURCES": "Recursos Financieros",
+      "FINANCIAL_RESOURCES": "Recursos Financieros",
+      "TECHNOLOGICAL_RESOURCES": "Recursos Tecnológicos",
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
     }

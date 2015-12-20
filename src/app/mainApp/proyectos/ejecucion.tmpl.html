@@ -52,7 +52,7 @@
                             </div>
 
                             <div layout="row" layout-sm="column" layout-align="center center">
-                                <form name="projectRequirements" tri-wizard-form>
+                                <form name="Requerimientos" tri-wizard-form>
                                     <div class="button" ng-model="vm.file" name="file"
                                          ngf-select="vm.uploadFile('Requerimientos')">
                                         <md-button class="md-fab md-primary">
@@ -85,7 +85,7 @@
                             </div>
 
                             <div layout="row" layout-sm="column" layout-align="center center">
-                                <form name="projectRequirements" tri-wizard-form>
+                                <form name="AnalisisEntornoP" tri-wizard-form>
                                     <div class="button" ng-model="vm.file" name="file"
                                          ngf-select="vm.uploadFile('AnalisisEntornoP')">
                                         <md-button class="md-fab md-primary">
@@ -117,7 +117,7 @@
                             </div>
 
                             <div layout="row" layout-sm="column" layout-align="center center">
-                                <form name="projectRequirements" tri-wizard-form>
+                                <form name="FactibilidadTecnicaP" tri-wizard-form>
                                     <div class="button" ng-model="vm.file" name="file"
                                          ngf-select="vm.uploadFile('FactibilidadTecnicaP')">
                                         <md-button class="md-fab md-primary">
@@ -138,6 +138,262 @@
 
                     </md-tab-body>
                 </md-tab>
+                <md-tab id="economicalFactibility" ng-disabled="vm.Ejecucion.FactibilidadTecnicaP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">5</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="FactibilidadEconomicaP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('FactibilidadEconomicaP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.factibilidadEFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.factibilidadEFile.Ruta}}">
+                                    <h3>{{vm.factibilidadEFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="commercialFactibility" ng-disabled="vm.Ejecucion.FactibilidadEconomicaP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">6</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="FactibilidadComercialP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('FactibilidadComercialP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.factibilidadCFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.factibilidadCFile.Ruta}}">
+                                    <h3>{{vm.factibilidadCFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="commercialBenchmark" ng-disabled="vm.Ejecucion.FactibilidadComercialP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">7</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="BenchmarkComercialP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('BenchmarkComercialP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.benchmarkCFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.benchmarkCFile.Ruta}}">
+                                    <h3>{{vm.benchmarkCFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="technologicalBenchmark" ng-disabled="vm.Ejecucion.BenchmarkComercialP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">8</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="BenchmarkTecnologicoP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('BenchmarkTecnologicoP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.benchmarkTFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.benchmarkTFile.Ruta}}">
+                                    <h3>{{vm.benchmarkTFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="humanResources" ng-disabled="vm.Ejecucion.BenchmarkTecnologicoP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">9</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="RecursosHumanosP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('RecursosHumanosP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.recursosHFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.recursosHFile.Ruta}}">
+                                    <h3>{{vm.recursosHFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="financialResources" ng-disabled="vm.Ejecucion.RecursosHumanosP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">10</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="RecursosFinancierosP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('RecursosFinancierosP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.recursosFFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.recursosFFile.Ruta}}">
+                                    <h3>{{vm.recursosFFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="technologicalResources" ng-disabled="vm.Ejecucion.RecursosFinancierosP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">11</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="RecursosTecnologicosP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('RecursosTecnologicosP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.recursosTFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.recursosTFile.Ruta}}">
+                                    <h3>{{vm.recursosTFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="materialResources" ng-disabled="vm.Ejecucion.RecursosTecnologicosP!=1">
+                    <md-tab-label>
+                        <span class="oxy-step-label">12</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding" layout="column">
+                            <div layout="row" layout-sm="column" layout-align="space-around center">
+                                <h3 translate>PROJECT.WIZARD.FILE_UPLOAD</h3>
+                            </div>
+
+                            <div layout="row" layout-sm="column" layout-align="center center">
+                                <form name="RecursosMaterialesP" tri-wizard-form>
+                                    <div class="button" ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('RecursosMaterialesP')">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div ng-show="vm.recursosMFile!=null" layout="row" layout-align-gt-md="center center" layout-sm="column">
+                                <h3 translate>PROJECT.EXECUTION.UPLOADED_FILE</h3>
+                                <a href="{{vm.recursosMFile.Ruta}}">
+                                    <h3>{{vm.recursosMFile.Nombre}}</h3>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
 
 
             </md-tabs>
@@ -145,9 +401,8 @@
 
 
             <div class="wizard-navbar" layout-fill layout-padding layout="row" layout-align="end center">
-                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 9" ng-disabled="triWizard.prevStepDisabled()" translate="PROJECT.WIZARD.PREV"></md-button>
-                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >= 9" ng-disabled="triWizard.nextStepDisabled()" translate="PROJECT.WIZARD.NEXT"></md-button>
-                <md-button class="md-accent md-raised" ng-click="triWizard.currentStep = 9" ng-show="triWizard.progress == 100 && triWizard.currentStep >= 9 " translate="PROJECT.WIZARD.SEND"></md-button>
+                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 11" ng-disabled="triWizard.prevStepDisabled()" translate="PROJECT.WIZARD.PREV"></md-button>
+                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep >= 11" ng-disabled="triWizard.nextStepDisabled()" translate="PROJECT.WIZARD.NEXT"></md-button>
             </div>
         </div>
     </div>

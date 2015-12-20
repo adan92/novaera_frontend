@@ -40,6 +40,7 @@
                 'PROJECT.EXECUTION.COMMERCIAL_BENCHMARK',
                 'PROJECT.EXECUTION.TECHNOLOGICAL_BENCHMARK',
                 'PROJECT.EXECUTION.HUMAN_RESOURCES',
+                'PROJECT.EXECUTION.FINANCIAL_RESOURCES',
                 'PROJECT.EXECUTION.TECHNOLOGICAL_RESOURCES',
                 'PROJECT.EXECUTION.MATERIAL_RESOURCES'
             ];
@@ -51,6 +52,14 @@
         vm.requerimientosFile       = null;
         vm.entornoFile              = null;
         vm.factibilidadTFile        = null;
+        vm.factibilidadEFile        = null;
+        vm.factibilidadCFile        = null;
+        vm.benchmarkCFile           = null;
+        vm.benchmarkTFile           = null;
+        vm.recursosHFile            = null;
+        vm.recursosFFile            = null;
+        vm.recursosTFile            = null;
+        vm.recursosMFile            = null;
 
         /**
          * Función que se activa al inicio del script
@@ -82,6 +91,14 @@
                     vm.requerimientosFile   = search('Requerimientos');
                     vm.entornoFile          = search('AnalisisEntornoP');
                     vm.factibilidadTFile    = search('FactibilidadTecnicaP');
+                    vm.factibilidadEFile    = search('FactibilidadEconomicaP');
+                    vm.factibilidadCFile    = search('FactibilidadComercialP');
+                    vm.benchmarkCFile       = search('BenchmarkComercialP');
+                    vm.benchmarkTFile       = search('BenchmarkTecnologicoP');
+                    vm.recursosHFile        = search('RecursosHumanosP');
+                    vm.recursosFFile        = search('RecursosFinancierosP');
+                    vm.recursosTFile        = search('RecursosTecnologicosP');
+                    vm.recursosMFile        = search('RecursosMaterialesP');
                 }).catch(function(err){});
 
 
@@ -146,6 +163,30 @@
                 case 'FactibilidadTecnicaP':
                     vm.Ejecucion.FactibilidadTecnicaP = 1;
                     break;
+                case 'FactibilidadEconomicaP':
+                    vm.Ejecucion.FactibilidadEconomicaP = 1;
+                    break
+                case 'FactibilidadComercialP':
+                    vm.Ejecucion.FactibilidadComercialP = 1;
+                    break;
+                case 'BenchmarkComercialP':
+                    vm.Ejecucion.BenchmarkComercialP = 1;
+                    break;
+                case 'BenchmarkTecnologicoP':
+                    vm.Ejecucion.BenchmarkTecnologicoP = 1;
+                    break;
+                case 'RecursosHumanosP':
+                    vm.Ejecucion.RecursosHumanosP = 1;
+                    break;
+                case 'RecursosFinancierosP':
+                    vm.Ejecucion.RecursosFinancierosP = 1;
+                    break;
+                case 'RecursosTecnologicosP':
+                    vm.Ejecucion.RecursosTecnologicosP = 1;
+                    break;
+                case 'RecursosMaterialesP':
+                    vm.Ejecucion.RecursosMaterialesP = 1;
+                    break;
             }
 
         }
@@ -161,6 +202,30 @@
                     break;
                 case 'FactibilidadTecnicaP':
                     vm.factibilidadTFile = file;
+                    break;
+                case 'FactibilidadEconomicaP':
+                    vm.factibilidadEFile = file;
+                    break;
+                case 'FactibilidadComercialP':
+                    vm.factibilidadCFile = file;
+                    break;
+                case 'BenchmarkComercialP':
+                    vm.benchmarkCFile = file;
+                    break;
+                case 'BenchmarkTecnologicoP':
+                    vm.benchmarkTFile = file;
+                    break;
+                case 'RecursosHumanosP':
+                    vm.recursosHFile = file;
+                    break;
+                case 'RecursosFinancierosP':
+                    vm.recursosFFile =file;
+                    break;
+                case 'RecursosTecnologicosP':
+                    vm.recursosTFile =file;
+                    break;
+                case 'RecursosMaterialesP':
+                    vm.recursosMFile =file;
                     break;
             }
         }
