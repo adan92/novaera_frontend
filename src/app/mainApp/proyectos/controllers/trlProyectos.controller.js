@@ -9,23 +9,54 @@
         .controller('trlProyectosController', trlProyectosController);
 
     /* @ngInject */
-    function trlProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function trlProyectosController($scope, Restangular, toastr) {
         var vm = this;
 
-        $scope.newTRL = null;
-        $scope.newTRLDate = null;
+        vm.today            =    new Date();
+        //Variables a usar
+        vm.proyectos        =    null;
+        vm.activate         =    activate();
+        vm.TRLItems         =    null;
+        vm.TRL              =    {
+            idProyecto:null,
+            idTRL: null,
+            Info: {
+                Descripcion: null,
+                Fecha: null
+            }
+        };
+        vm.infoTRL          =    null;
+        vm.selectedTRL      =    null;
+        vm.selectedDate     =    vm.today;
+        vm.minDate          =    new Date(vm.today.getFullYear()-1,vm.today.getMonth(),vm.today.getDate());
+        vm.maxDate          =    vm.today;
+        vm.registerTRL      =    registerTRL;
 
-        //Lista de TRL
-        $scope.trl = [
-            {id:1,descripcion:"Principios básicos observados y reportados"},
-            {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado"},
-            {id:3,descripcion:"Prueba de concepto y/o función crítica analítica y experimental "},
-            {id:4,descripcion:"Validación de componentes o subsistemas en entorno de laboratorio"},
-            {id:5,descripcion:"Validación de sistema/subsistema/componentes en el entorno relevante"},
-            {id:6,descripcion:"Prototipado en un entorno relevante de principio a fin"},
-            {id:7,descripcion:"Prototipado  y demostración en un entorno operacional"},
-            {id:8,descripcion:"Sistema completo y calificado para utilizarse en el entorno operacional"},
-            {id:9,descripcion:"Sistema probado a través de operaciones exitosas"}];
+        //Variables para el md-autocomplete
+        vm.selectedItem       = null;
+        vm.searchText         = null;
+        vm.querySearch        = querySearch;
+        vm.simulateQuery      = false;
+        vm.isDisabled         = false;
+        vm.selectedItemChange = selectedItemChange;
+
+
+        function activate()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+               vm.proyectos = res.Proyectos;
+               Restangular.all('TRL').customGET().then(function(res){
+                   vm.TRLItems = res.TRL;
+               }).catch(function(err){});
+
+
+            }).catch(function(err){
+
+            });
+        }
+
+
+
 
         //Lists de estadísticas
         $scope.estadisticas ={
@@ -33,95 +64,23 @@
             labels:['TRL1','TRL2','TRL3','TRL4','TRL5','TRL6','TRL7','TRL8','TRL9']
         }
 
-        //Lista de proyectos
-        $scope.proyectos=[
+
+
+
+
+        function selectedItemChange()
+        {
+
+            if(vm.selectedItem!=null)
             {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
+                Restangular.all('Proyecto').one('TRL',vm.selectedItem.id).customGET().then(function(res){
+                    vm.selectedItem.TRL = res.TRL
+                }).catch(function(err){
 
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                display:"Un proyecto mas"
+                })
             }
-        ];
 
-
-        //Variables para el md-autocomplete
-
-        vm.proyectos             = $scope.proyectos;
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
+        }
 
 
         //////////////////
@@ -138,7 +97,7 @@
         function createFilterFor(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
 
@@ -148,17 +107,17 @@
         vm.columns = [
             {
             title: 'TRL',
-            field: 'id',
+            field: 'idTRL',
             sortable: true
         },
             {
             title: 'Descripcion',
-            field: 'descripcion',
+            field: 'Descripcion',
             sortable: false
         },
             {
             title: 'Fecha',
-            field: 'fecha',
+            field: 'Fecha',
             sortable: true
         }];
 
@@ -166,13 +125,22 @@
          * Create Function to Add Item
          */
 
-        $scope.addItem = function()
+        function registerTRL()
         {
-            var addTRL = angular.fromJson($scope.newTRL);
-            addTRL.fecha= moment($scope.newTRLDate).format('DD-MM-YYYY');
-            vm.selectedItem.trl.push(addTRL);
-            $scope.newTRL=null;
-            $scope.newTRLDate=null;
+
+            var fecha               = moment(new Date(vm.selectedDate)).format('YYYY-MM-DD');
+            vm.TRL.idProyecto       = vm.selectedItem.id;
+            vm.TRL.Info.Fecha       = fecha;
+            Restangular.all('Proyecto').all('TRL').customPOST(vm.TRL).then(function(res){
+               toastr.success('Los datos se han guardado exitosamente','Éxito');
+                Restangular.all('Proyecto').one('TRL',vm.selectedItem.id).customGET().then(function(res){
+                    vm.selectedItem.TRL = res.TRL
+                }).catch(function(err){
+
+                });
+            }).catch(function(err){
+                toastr.error('Error al guardar los datos','Error');
+            });
         }
 
 

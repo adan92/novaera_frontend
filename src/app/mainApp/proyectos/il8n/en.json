@@ -68,6 +68,7 @@
       "INSTRUCTIONS": "Busca tu proyecto para ver y administrar el TRL",
       "INSTRUCTIONS_TABLE": "Tabla de TRLs por proyecto",
       "SELECT": "Selecciona el nivel de TRL",
+      "DESCRIPTION":"Descripción",
       "CHART": "Proyectos por TRL",
       "ABOUT": "Acerca de TRL",
       "INTRO": "El TRL es una forma aceptada de medir el grado de madurez de una tecnología. Selecciona uno para ver más",

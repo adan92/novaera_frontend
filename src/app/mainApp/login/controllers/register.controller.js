@@ -12,10 +12,7 @@
     function registerController($state,toastr,Restangular,triSettings) {
         var vm = this;
         vm.triSettings = triSettings;
-
-
         vm.user = null;
-
         vm.signup=signup;
 
         function signup()
