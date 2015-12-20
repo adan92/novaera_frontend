@@ -2,7 +2,7 @@
 
 var path = require('path');
 var gulp = require('gulp');
-var paths = gulp.paths;
+var conf = require('./conf');
 
 var browserSync = require('browser-sync');
 
@@ -10,13 +10,13 @@ function isOnlyChange(event) {
   return event.type === 'changed';
 }
 
-gulp.task('watch', ['inject'], function () {
+gulp.task('watch', ['markups', 'inject'], function () {
 
-  gulp.watch([path.join(paths.src, '/*.html'), 'bower.json'], ['inject']);
+  gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject']);
 
   gulp.watch([
-    path.join(paths.src, '/app/**/*.css'),
-    path.join(paths.src, '/app/**/*.scss')
+    path.join(conf.paths.src, '/app/**/*.css'),
+    path.join(conf.paths.src, '/app/**/*.styl')
   ], function(event) {
     if(isOnlyChange(event)) {
       gulp.start('styles');
@@ -25,7 +25,7 @@ gulp.task('watch', ['inject'], function () {
     }
   });
 
-  gulp.watch(path.join(paths.src, '/app/**/*.js'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/app/**/*.js'), function(event) {
     if(isOnlyChange(event)) {
       gulp.start('scripts');
     } else {
@@ -33,7 +33,9 @@ gulp.task('watch', ['inject'], function () {
     }
   });
 
-  gulp.watch(path.join(paths.src, '/app/**/*.html'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/app/**/*.jade'), ['markups']);
+
+  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
     browserSync.reload(event.path);
   });
 });

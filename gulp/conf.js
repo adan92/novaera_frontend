@@ -8,7 +8,6 @@
 
 var gutil = require('gulp-util');
 
-
 /**
  *  The main paths of your project handle these with care
  */
@@ -19,7 +18,6 @@ exports.paths = {
   e2e: 'e2e'
 };
 
-
 /**
  *  Wiredep is the lib which inject bower dependencies in your project
  *  Mainly used to inject script tags in the index.html but also used
@@ -28,8 +26,6 @@ exports.paths = {
 exports.wiredep = {
   directory: 'bower_components'
 };
-
-
 
 /**
  *  Common implementation for an error handler of a Gulp plugin

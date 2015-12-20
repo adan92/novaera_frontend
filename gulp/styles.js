@@ -1,52 +1,43 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
+var conf = require('./conf');
 
-var paths = gulp.paths;
+var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')();
 
+var wiredep = require('wiredep').stream;
+var _ = require('lodash');
+
 gulp.task('styles', function () {
 
-  var sassOptions = {
-    style: 'expanded',
-    includePaths: [
-      'bower_components'
-    ]
-  };
-
   var injectFiles = gulp.src([
-    paths.src + '/app/**/*.scss',
-    '!' + paths.src + '/app/app.scss',
-    '!' + paths.src + '/app/**/_*.scss'
+    path.join(conf.paths.src, '/app/**/*.styl'),
+    path.join('!' + conf.paths.src, '/app/index.styl')
   ], { read: false });
 
   var injectOptions = {
     transform: function(filePath) {
-      filePath = filePath.replace(paths.src + '/app/', '');
-      return '@import \'' + filePath + '\';';
+      filePath = filePath.replace(conf.paths.src + '/app/', '');
+      return '@import "' + filePath + '";';
     },
     starttag: '// injector',
     endtag: '// endinjector',
     addRootSlash: false
   };
 
-  var indexFilter = $.filter('app.scss', {
-    restore: true
-  });
 
   return gulp.src([
-    paths.src + '/app/app.scss'
+    path.join(conf.paths.src, '/app/index.styl')
   ])
-    .pipe(indexFilter)
     .pipe($.inject(injectFiles, injectOptions))
-    .pipe(indexFilter.restore())
-    .pipe($.sass(sassOptions))
-
-  .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']}))
-    .on('error', function handleError(err) {
-      console.error(err.toString());
-      this.emit('end');
-    })
-    .pipe(gulp.dest(paths.tmp + '/serve/app/'));
+    .pipe(wiredep(_.extend({}, conf.wiredep)))
+    .pipe($.sourcemaps.init())
+    .pipe($.stylus()).on('error', conf.errorHandler('Stylus'))
+    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
+    .pipe(browserSync.reload({ stream: true }));
 });
