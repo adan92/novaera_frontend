@@ -6,7 +6,7 @@
         .controller('mainLoginController', mainLoginController);
 
     /* @ngInject */
-    function mainLoginController($state,toastr, Auth,Restangular,triSettings) {
+    function mainLoginController($state,toastr, Auth,triSettings) {
         var vm = this;
         vm.loginClick = loginClick;
         vm.socialLogins = [{

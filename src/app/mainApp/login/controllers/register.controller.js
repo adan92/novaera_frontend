@@ -9,8 +9,9 @@
         .controller('registerController', registerController);
 
     /* @ngInject */
-    function registerController($state,toastr,Restangular) {
+    function registerController($state,toastr,Restangular,triSettings) {
         var vm = this;
+        vm.triSettings = triSettings;
 
 
         vm.user = null;
