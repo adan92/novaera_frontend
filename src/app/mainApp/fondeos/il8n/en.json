@@ -2,6 +2,10 @@
   "MENU": {
     "FONDEOS": {
       "FONDEOS": "Fondos"
+
+    },
+    "TODO":{
+      "HEADER":"Selecciona las modalidades de la convocatoria"
     }
   },
   "FONDEOS":{
@@ -61,7 +65,7 @@
       "MY_FONDEO_MONTOS": "Montos Invertidos por Programa de Fondeo",
       "FONDEO_TITLE":"Titulo de Fondeo",
       "FONDEO_DESCRIPTION":  "Descripción de FONDEO",
-        "TABS":{
+      "TABS":{
         "FEATURES":"Características",
         "MODALITY":"Modalidades",
         "CALL":"Convocatoria"
@@ -84,7 +88,18 @@
       "AMOUNT":"Monto",
       "EVALUATION":"Criterios de Evaluación",
       "FILES":"Entregables",
-      "SUPPORT":"Rubros de apoyo"
+      "SUPPORT":"Rubros de apoyo",
+      "RUBRO_REGISTER":"Registro Rubros de Evaluación",
+      "RUBRO_REGISTER_INSTRUCTIONS":"Busca la modalidad para administrar los rubros a solicitar",
+      "STABLISHEDRUBROS":"Rubros Establecidos",
+      "RUBROS":"Rubros",
+      "RUBROS_REMOVE":"Elimina Rubro",
+      "NEW_RUBRO":"Nuevo Rubro",
+      "NAME_RUBRO":"Nombre del rubro:",
+      "DESC_RUBRO":"Descripción del rubro",
+      "CHECKLIST":"Entregables",
+      "FONDEOS":"Programa de Fondeo"
+
     },
     "CALL":
     {
