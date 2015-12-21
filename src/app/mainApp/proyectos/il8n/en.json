@@ -7,6 +7,12 @@
   "PROJECT":{
     "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
     "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
+    "DIALOGS":{
+      "YOU_SURE":"¿Estás Seguro?",
+      "ACCEPT":"Aceptar",
+      "CANCEL":"Cancelar",
+      "WARNING":"Eliminarás todos los registros seleccionados"
+    },
     "WIZARD":{
       "TITLE": "Registro de Proyecto",
       "TITLE2": "Ejecucion de Proyecto",
@@ -73,7 +79,8 @@
       "ABOUT": "Acerca de TRL",
       "INTRO": "El TRL es una forma aceptada de medir el grado de madurez de una tecnología. Selecciona uno para ver más",
       "LEVEL": "Nivel de TRL",
-      "NEW_TRL": "Agregar TRL"
+      "NEW_TRL": "Agregar TRL",
+      "DELETE_TRL": "Eliminar Registros"
     },
     "IP":
     {
