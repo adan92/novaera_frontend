@@ -52,6 +52,21 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
       // Tarjeta con la tabla dinámica
       md-card(flex='')
          md-card-content
-            h3.text-center(translate='') PROJECT.TRL.INSTRUCTIONS_TABLE
-            tri-table.elements-image-table-example(ng-show='vm.selectedItem!=null', columns='vm.columns', contents='vm.selectedItem.TRL', page-size='5')
 
+            //tri-table.elements-image-table-example(ng-show='vm.selectedItem!=null', columns='vm.columns', contents='vm.selectedItem.TRL', page-size='5')
+            md-data-table-toolbar
+               h3.text-center(translate='') PROJECT.TRL.INSTRUCTIONS_TABLE
+            md-data-table-container
+               table(md-data-table md-row-select="vm.selectedRegisters")
+                  thead(md-order="vm.query.order")
+                     th(name='TRL' order-by='idTRL')
+                     th(name='Descripcion' order-by='Descripcion')
+                     th(name='Fecha' order-by='Fecha')
+                  tbody
+                     tr(ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
+                        td {{item.idTRL}}
+                        td {{item.Descripcion}}
+                        td {{item.Fecha}}
+            div(layout="row" layout-sm="column" layout-align="end center")
+               md-button.md-raised.md-warn(ng-click="vm.createDialog($event)" ng-disabled="vm.selectedRegisters.length==0")
+                  span(translate) PROJECT.TRL.DELETE_TRL

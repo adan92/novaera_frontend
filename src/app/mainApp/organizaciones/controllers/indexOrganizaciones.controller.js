@@ -12,7 +12,6 @@
     function indexOrganizacionesController($scope, $timeout, $mdToast, $rootScope, $state,$log) {
         var vm = this;
 
-        vm.funcion =funcion;
 
 
 

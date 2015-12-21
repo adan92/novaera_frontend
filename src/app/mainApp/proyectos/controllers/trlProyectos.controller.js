@@ -9,8 +9,10 @@
         .controller('trlProyectosController', trlProyectosController);
 
     /* @ngInject */
-    function trlProyectosController($scope, Restangular, toastr) {
+    function trlProyectosController($scope, Restangular, toastr,$mdDialog,$translate,$q) {
         var vm = this;
+
+        vm.deferred         =    $q.defer();
 
         vm.today            =    new Date();
         //Variables a usar
@@ -40,6 +42,47 @@
         vm.isDisabled         = false;
         vm.selectedItemChange = selectedItemChange;
 
+        //Variables para el md-data-table
+        vm.deleteTRL          = deleteTRL;
+        vm.selectedRegisters  = null;
+        //Orden de la tabla md-data-table
+        vm.query = {
+            filter: '',
+            limit: '10',
+            order: 'id',
+            page: 1
+        };
+
+        //Dialogo
+
+        vm.createDialog = createDialog;
+
+
+
+
+        function createDialog(ev)
+        {
+
+            vm.ev = ev;
+
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteTRL();
+            }, function() {
+                console.log("Cancelado");
+            });
+
+
+        }
+
+
+
 
         function activate()
         {
@@ -52,6 +95,22 @@
 
             }).catch(function(err){
 
+            });
+            $translate('PROJECT.DIALOGS.YOU_SURE').then(function(text){
+                vm.sureText = text;
+                $translate('PROJECT.DIALOGS.ACCEPT').then(function(text2){
+                    vm.acceptText = text2;
+                    $translate('PROJECT.DIALOGS.CANCEL').then(function(text3){
+                        vm.cancelText = text3;
+                        $translate('PROJECT.DIALOGS.WARNING').then(function(text4){
+                           vm.dialogText = text4;
+                            return text4;
+                        });
+                        return text3;
+                    });
+                    return text2;
+                });
+                return text;
             });
         }
 
@@ -140,6 +199,19 @@
                 });
             }).catch(function(err){
                 toastr.error('Error al guardar los datos','Error');
+            });
+        }
+
+        function deleteTRL()
+        {
+            var request = {};
+            request.idProyecto = vm.selectedItem.id;
+            request.ProyectoTRL = vm.selectedRegisters;
+            Restangular.all('Proyecto').all('TRL').all('Delete').customPOST(request).then(function(res){
+               toastr.success('Éxito','Registros eliminados exitosamente');
+               vm.selectedItem.TRL = res.TRL;
+            }).catch(function(err){
+                toastr.error('Error','Error al eliminar registros');
             });
         }
 
