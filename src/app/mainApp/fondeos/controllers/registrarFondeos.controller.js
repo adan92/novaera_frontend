@@ -48,26 +48,6 @@
         ' Modalidad6').split(' ').map(function(modalidad) {
                 return {abbrev: modalidad};
             })
-        $scope.catalogoEtapas = [
-            {
-                id: 1,
-                tarea:'Tarea',
-                tareaPrecedente:'Tarea',
-                entregable: 'Entregable'
-            },
-            {
-                id: 2,
-                tarea:'Tarea2',
-                tareaPrecedente:'Tarea2',
-                entregable: 'Entregable2'
-            },
-            {
-                id: 3,
-                tarea:'Tarea3',
-                tareaPrecedente:'Tarea3',
-                entregable: 'Entregable3'
-            }
-        ];
 
         //Datos
         $scope.fondeos=[
