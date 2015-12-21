@@ -20,7 +20,7 @@
             {description: 'Modalidad 2', date:'11/01/2016',date2:'11/04/2016' ,priority: 'Persona Fisica', selected: false},
             {description: 'Modalidad 3',date:'11/03/2016',date2:'11/04/2016'  ,priority: 'Persona Moral', selected: true},
             {description: 'Modalidad 4',date:'11/05/2016',date2:'11/06/2016'  ,priority: 'Persona Moral', selected: false},
-            
+
         ];
         vm.orderTodos = orderTodos;
         vm.removeTodo = removeTodo;
