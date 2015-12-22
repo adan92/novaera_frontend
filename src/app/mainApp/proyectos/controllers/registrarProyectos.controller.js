@@ -60,6 +60,13 @@
 
         function changeSwitch()
         {
+
+            $scope.projectSelect.$setPristine();
+            $scope.projectInfo.$setPristine();
+            $scope.projectHistory.$setPristine();
+            $scope.projectJustification.$setPristine();
+            $scope.projectAims.$setPristine();
+            $scope.projectReach.$setPristine();
             if(vm.isNewProject)
             {
                 vm.proyecto         = {
@@ -80,13 +87,13 @@
                 };
                 vm.proyectoLabel    = 'PROJECT.REGISTER.NEW_PROJECT';
                 vm.selectedProject  = null;
-                $scope.projectSelect.$setPristine();
+
             }
             else{
                 vm.proyectoLabel    = 'PROJECT.REGISTER.SELECTING_PROJECT';
                 vm.selectedProject  = null;
-                $scope.projectSelect.$setPristine();
             }
+
         }
 
 
