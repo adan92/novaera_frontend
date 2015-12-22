@@ -13,6 +13,16 @@
       "CANCEL":"Cancelar",
       "WARNING":"Eliminarás todos los registros seleccionados"
     },
+    "REGISTER":{
+      "PROJECT_SELECT": "Selección de Proyecto",
+      "NEW_PROJECT": "Nuevo Proyecto",
+      "SELECTING_PROJECT": "Seleccionando Proyecto",
+      "INFO":"Información",
+      "BACKGROUND":"Antecedentes",
+      "JUSTIFICATION":"Justificación",
+      "OBJECTIVES":"Objetivos",
+      "REACH":"Alcances"
+    },
     "WIZARD":{
       "TITLE": "Registro de Proyecto",
       "TITLE2": "Ejecucion de Proyecto",
