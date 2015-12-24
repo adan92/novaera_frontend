@@ -301,18 +301,19 @@
                         type:fileType,
                         name:vm.file.name,
                         Ejecucion:vm.Ejecucion,
-                        idProyecto:vm.selectedProject
+                        idProyecto:vm.selectedProject.id
                     },
                     disableProgress: false
                 }).then(function(res){
                     updateFileName(fileType,parseArchivo(res.data.Archivo));
                     vm.Ejecucion= res.data.Ejecucion;
                     vm.completed = checkFinished();
-
+                    toastr.success(vm.successTitle,vm.successUpdate);
 
 
                 }), function (resp) {
                     console.log('Error status: ' + resp.status);
+                    toastr.error(vm.failTitle,vm.failMessage);
                 }, function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
