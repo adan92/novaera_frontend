@@ -9,7 +9,7 @@
         .controller('LogoutController', LogoutController);
 
     /* @ngInject */
-    function LogoutController(Auth, $state) {
+    function LogoutController(Auth, User,$state) {
         var vm = this;
         vm.title = 'LogoutController';
 
@@ -19,8 +19,7 @@
 
         function activate() {
             Auth.logout();
-            // localStorage.isLoggedIn = false;
-            // User.isLoggedIn = false;
+            User.clearUser();
             $state.go('auth.login');
         }
     }

@@ -9,7 +9,9 @@
         .run(runBlock);
 
     /** @ngInject */
-    function runBlock($log, $rootScope, User, $state, Auth) {
+    function runBlock($log, $rootScope, User, $state, Auth,toastr,Translate) {
+
+
 
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
@@ -17,6 +19,13 @@
 
                 $state.go('auth.login');
             }
+            if (toState.data.requireValidation ===true && !User.isValidated()){
+                toastr.error(Translate.translate('MESSAGES.ERROR_TITLE'),Translate.translate('MESSAGES.VALIDATION_REQUIRED'));
+                $state.go(toState.data.redirect);
+            }
+
+
+
         });
 
     }

@@ -30,7 +30,8 @@
                         sideMenuSize: 'full',
                         footer: false
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requireValidation:false
                 }
 
             })
@@ -50,7 +51,9 @@
                         sideMenuSize: 'full',
                         footer: false
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requireValidation:true,
+                    redirect:'triangular.admin-default.proyectos'
                 }
 
             })

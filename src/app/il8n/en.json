@@ -50,6 +50,8 @@
         "HOME": "Go back home"
     },
     "MESSAGES": {
-        "LANGUAGE_CHANGED": "Language Changed"
+        "LANGUAGE_CHANGED": "Language Changed",
+        "ERROR_TITLE":"Error",
+        "VALIDATION_REQUIRED":"Se requiere validación de usuario"
     }
 }
