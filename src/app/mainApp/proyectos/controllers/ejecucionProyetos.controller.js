@@ -66,6 +66,7 @@
         vm.updateText               = updateText;
 
         //Messages
+        vm.proyectoLabel            = 'PROJECT.REGISTER.SELECTING_PROJECT';
         vm.failMessage              = null;
         vm.failTitle                = null;
         vm.successTitle             = null;
@@ -114,9 +115,11 @@
 
         function getEjecucion()
         {
-            Restangular.one('Ejecucion',vm.selectedProject).customGET().then(function(res){
+            vm.proyectoLabel = vm.selectedProject.Titulo;
+            Restangular.one('Ejecucion',vm.selectedProject.id).customGET().then(function(res){
                 vm.Ejecucion = res;
-                Restangular.all('Ejecucion').one('Archivos',vm.selectedProject).customGET().then(function(res){
+
+                Restangular.all('Ejecucion').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
                     vm.fileList             = res.Archivos;
                     vm.requerimientosFile   = search('Requerimientos');
                     vm.entornoFile          = search('AnalisisEntornoP');
@@ -326,7 +329,7 @@
 
         function updateText()
         {
-            var request = {idProyecto:vm.selectedProject,Ejecucion:vm.Ejecucion};
+            var request = {idProyecto:vm.selectedProject.id,Ejecucion:vm.Ejecucion};
             if(vm.Ejecucion.id==null)
             {
                 Restangular.all('Ejecucion').customPOST(request).then(function(res){

@@ -7,13 +7,17 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
    div(flex='', layout='row', layout-align='center center', layout-fill='')
       .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
          md-toolbar.md-primary
-            .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-               h2(translate='') PROJECT.WIZARD.TITLE2
-               h3(translate='') {{vm.steps[triWizard.currentStep]}}
-               h2
-                  | {{vm.completed}}%
-                  span(translate='') PROJECT.WIZARD.COMPLETED
-            md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+            div.md-toolbar-tools(flex layout='column')
+               div(flex layout='column')
+                  div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
+                     h2(translate='') PROJECT.WIZARD.TITLE2
+                     h2
+                        | {{vm.completed}}%
+                        span(translate='') PROJECT.WIZARD.COMPLETED
+                  div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
+                     h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                     h3(translate='') {{vm.proyectoLabel}}
+            md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
          md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
             md-tab#selectProject
                md-tab-label
@@ -26,7 +30,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                               label
                                  span(translate='') PROJECT.IMPACT.SELECT_YOUR_PROJECT
                               md-select(md-on-close='vm.getEjecucion()', ng-model='vm.selectedProject', name='select', required='')
-                                 md-option(ng-repeat='proyecto in vm.proyectos', value='{{proyecto.id}}')
+                                 md-option(ng-repeat='proyecto in vm.proyectos', ng-value='{{proyecto}}')
                                     | {{proyecto.Titulo}}
                               div(ng-messages='projectSelect.select.$error')
                                  div(ng-message='required')
