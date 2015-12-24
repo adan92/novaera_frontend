@@ -31,6 +31,7 @@
     "WIZARD":{
       "TITLE": "Registro de Proyecto",
       "TITLE2": "Ejecución",
+      "TITLE3": "Impacto",
       "IS_MINE": "El proyecto es mio",
       "IS_ORGANIZATION": "El proyecto es de una organización",
       "INFO":"Información General",
