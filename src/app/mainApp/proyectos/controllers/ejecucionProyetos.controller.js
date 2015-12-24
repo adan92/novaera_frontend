@@ -50,7 +50,7 @@
         vm.getEjecucion             =  getEjecucion;
 
         //File List
-        vm.requerimientosFile       = null;
+        vm.requisitosFile       = null;
         vm.entornoFile              = null;
         vm.factibilidadTFile        = null;
         vm.factibilidadEFile        = null;
@@ -121,7 +121,7 @@
 
                 Restangular.all('Ejecucion').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
                     vm.fileList             = res.Archivos;
-                    vm.requerimientosFile   = search('Requerimientos');
+                    vm.requisitosFile       = search('Requisitos');
                     vm.entornoFile          = search('AnalisisEntornoP');
                     vm.factibilidadTFile    = search('FactibilidadTecnicaP');
                     vm.factibilidadEFile    = search('FactibilidadEconomicaP');
@@ -193,9 +193,13 @@
 
         function parseArchivo(archivo)
         {
-            archivo.Ruta = ROUTES.FILE_ROUTE+archivo.Ruta;
-            archivo.Nombre = archivo.Ruta.substring(archivo.Ruta.lastIndexOf('/')+1);
-            return archivo
+            if(archivo!=undefined)
+            {
+                archivo.Ruta = ROUTES.FILE_ROUTE+archivo.Ruta;
+                archivo.Nombre = archivo.Ruta.substring(archivo.Ruta.lastIndexOf('/')+1);
+                return archivo
+            }
+            return null;
         }
 
 
@@ -210,8 +214,8 @@
         {
             switch (type)
             {
-                case 'Requerimientos':
-                    vm.requerimientosFile = file;
+                case 'Requisitos':
+                    vm.requisitosFile = file;
                     break;
                 case 'AnalisisEntornoP':
                     vm.entornoFile = file;
@@ -249,7 +253,7 @@
         function checkFinished()
         {
             var completed = 0;
-            if( (vm.Ejecucion.Requisitos!=null && vm.Ejecucion.Requisitos!="") || vm.requerimientosFile!=null)
+            if( (vm.Ejecucion.Requisitos!=null && vm.Ejecucion.Requisitos!="") || vm.requisitosFile!=null)
                 completed+=1;
             if( (vm.Ejecucion.AnalisisEntornoP !=null && vm.Ejecucion.AnalisisEntornoP !="") || vm.entornoFile!=null)
                 completed+=1;

@@ -50,15 +50,15 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='Requerimientos', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Requerimientos')")
+                        form(name='Requisitos', tri-wizard-form='')
+                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Requisitos')")
                               md-button.md-fab.md-primary
                                  ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.requerimientosFile!=null', layout='row', layout-sm='column')
+                     div(ng-show='vm.requisitosFile!=null', layout='row', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.requerimientosFile.Ruta}}')
-                           h3 {{vm.requerimientosFile.Nombre}}
-            md-tab#enviornment(ng-disabled='(vm.Ejecucion.Requisitos==null || vm.Ejecucion.Requisitos=="" )  && vm.requerimientosFile==null')
+                        a(href='{{vm.requisitosFile.Ruta}}')
+                           h3 {{vm.requisitosFile.Nombre}}
+            md-tab#enviornment(ng-disabled='(vm.Ejecucion.Requisitos==null || vm.Ejecucion.Requisitos=="" )  && vm.requisitosFile==null')
                md-tab-label
                   span.oxy-step-label 3
                md-tab-body
