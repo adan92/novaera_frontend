@@ -10,14 +10,14 @@
 
         var vm = this;
         activate();
-        vm.steps= [
+        vm.steps                = [
             'PROJECT.REGISTER.PROJECT_SELECT',
             'PROJECT.REGISTER.INFO',
             'PROJECT.REGISTER.BACKGROUND',
             'PROJECT.REGISTER.JUSTIFICATION',
             'PROJECT.REGISTER.OBJECTIVES',
             'PROJECT.REGISTER.REACH'];
-        vm.proyecto = {
+        vm.proyecto             = {
             "id": null,
             "Titulo": null,
             "Descripcion": null,
@@ -29,10 +29,10 @@
             "updated_at": null
         };
 
-        vm.isOrganizacion = false;
-        vm.organizaciones = null;
-        vm.loadOrganizations  = loadOrganizations;
-        vm.saveProject = saveProject
+        vm.isOrganizacion       = false;
+        vm.organizaciones       = null;
+        vm.loadOrganizations    = loadOrganizations;
+        vm.saveProject          = saveProject
 
 
         vm.isNewProject         = true;
@@ -42,7 +42,7 @@
         vm.selectedProject      = null;
         vm.getProyecto          = getProyecto;
 
-        vm.proyectoLabel = 'PROJECT.REGISTER.NEW_PROJECT';
+        vm.proyectoLabel        = 'PROJECT.REGISTER.NEW_PROJECT';
         vm.changeSwitch         = changeSwitch;
 
 
@@ -61,12 +61,6 @@
         function changeSwitch()
         {
 
-            $scope.projectSelect.$setPristine();
-            $scope.projectInfo.$setPristine();
-            $scope.projectHistory.$setPristine();
-            $scope.projectJustification.$setPristine();
-            $scope.projectAims.$setPristine();
-            $scope.projectReach.$setPristine();
             if(vm.isNewProject)
             {
                 vm.proyecto         = {
@@ -87,11 +81,23 @@
                 };
                 vm.proyectoLabel    = 'PROJECT.REGISTER.NEW_PROJECT';
                 vm.selectedProject  = null;
+                $scope.projectSelect.$setPristine();
+                $scope.projectInfo.$setPristine();
+                $scope.projectHistory.$setPristine();
+                $scope.projectJustification.$setPristine();
+                $scope.projectAims.$setPristine();
+                $scope.projectReach.$setPristine();
 
             }
             else{
                 vm.proyectoLabel    = 'PROJECT.REGISTER.SELECTING_PROJECT';
                 vm.selectedProject  = null;
+                $scope.projectSelect.$setPristine();
+                $scope.projectInfo.$setPristine();
+                $scope.projectHistory.$setPristine();
+                $scope.projectJustification.$setPristine();
+                $scope.projectAims.$setPristine();
+                $scope.projectReach.$setPristine();
             }
 
         }

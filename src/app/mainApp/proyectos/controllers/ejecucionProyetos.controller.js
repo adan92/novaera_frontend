@@ -10,24 +10,24 @@
         .controller('ejecucionProyectosController', ejecucionProyectosController);
 
     /* @ngInject */
-    function ejecucionProyectosController($scope,Upload,Restangular,ROUTES) {
+    function ejecucionProyectosController($translate,Upload,Restangular,toastr,ROUTES) {
         var vm = this;
         vm.activate                 =  activate();
         vm.completed               =  0;
         vm.proyectos                =  null;
         vm.Ejecucion                =  {
-            "id":null,
-            "Requisitos": 0,
-            "AnalisisEntornoP": 0,
-            "FactibilidadTecnicaP": 0,
-            "FactibilidadEconomicaP": 0,
-            "FactibilidadComercialP": 0,
-            "BenchmarkComercialP": 0,
-            "BenchmarkTecnologicoP": 0,
-            "RecursosHumanosP": 0,
-            "RecursosFinancierosP": 0,
-            "RecursosTecnologicosP": 0,
-            "RecursosMaterialesP": 0
+            id:null,
+            Requisitos: null,
+            AnalisisEntornoP: null,
+            FactibilidadTecnicaP: null,
+            FactibilidadEconomicaP: null,
+            FactibilidadComercialP: null,
+            BenchmarkComercialP: null,
+            BenchmarkTecnologicoP: null,
+            RecursosHumanosP: null,
+            RecursosFinancierosP: null,
+            RecursosTecnologicosP: null,
+            RecursosMaterialesP: null
         }
         vm.file                     =  null;
         vm.fileList                 =  null;
@@ -61,6 +61,18 @@
         vm.recursosFFile            = null;
         vm.recursosTFile            = null;
         vm.recursosMFile            = null;
+
+        //Text
+        vm.updateText               = updateText;
+
+        //Messages
+        vm.failMessage              = null;
+        vm.failTitle                = null;
+        vm.successTitle             = null;
+        vm.successStore             = null;
+        vm.successUpdate            = null;
+
+
         /**
          * Función que se activa al inicio del script
          */
@@ -72,9 +84,27 @@
             }).catch(function(err){
 
             });
+            $translate('PROJECT.DIALOGS.SUCCESS_STORE').then(function(text) {
+                vm.successStore = text;
+            });
+            $translate('PROJECT.DIALOGS.SUCCESS_UPDATE').then(function(text) {
+                vm.successUpdate = text;
+            });
+            $translate('PROJECT.DIALOGS.SUCCESS').then(function(text) {
+                vm.successTitle = text;
+            });
+            $translate('PROJECT.DIALOGS.FAILURE').then(function(text) {
+                vm.failTitle = text;
+            });
+            $translate('PROJECT.DIALOGS.FAIL_STORE').then(function(text) {
+                vm.failMessage = text;
+            });
 
-            /*
-            */
+
+
+
+                /*
+                */
         }
 
 
@@ -100,12 +130,33 @@
                     vm.recursosTFile        = search('RecursosTecnologicosP');
                     vm.recursosMFile        = search('RecursosMaterialesP');
                     vm.completed            = checkFinished();
-                }).catch(function(err){});
+
+                }).catch(function(err){
+                    vm.completed            = checkFinished();
+
+                });
 
 
             }).catch(function(err){
+                vm.Ejecucion                =  {
+                    id:null,
+                    Requisitos: null,
+                    AnalisisEntornoP: null,
+                    FactibilidadTecnicaP: null,
+                    FactibilidadEconomicaP: null,
+                    FactibilidadComercialP: null,
+                    BenchmarkComercialP: null,
+                    BenchmarkTecnologicoP: null,
+                    RecursosHumanosP: null,
+                    RecursosFinancierosP: null,
+                    RecursosTecnologicosP: null,
+                    RecursosMaterialesP: null
+                }
+                vm.completed            = checkFinished();
+
 
             });
+
         }
 
         /**
@@ -151,46 +202,7 @@
             de ejecución de acuerdo a lo que se suba además de actualizar el archivo correcto en caso de existir
          */
 
-        function updateLocalEjecucion(type)
-        {
-            switch (type)
-            {
-                case 'Requerimientos':
-                    vm.Ejecucion.Requisitos = 1;
-                    break;
-                case 'AnalisisEntornoP':
-                    vm.Ejecucion.AnalisisEntornoP=1;
-                    break;
-                case 'FactibilidadTecnicaP':
-                    vm.Ejecucion.FactibilidadTecnicaP = 1;
-                    break;
-                case 'FactibilidadEconomicaP':
-                    vm.Ejecucion.FactibilidadEconomicaP = 1;
-                    break
-                case 'FactibilidadComercialP':
-                    vm.Ejecucion.FactibilidadComercialP = 1;
-                    break;
-                case 'BenchmarkComercialP':
-                    vm.Ejecucion.BenchmarkComercialP = 1;
-                    break;
-                case 'BenchmarkTecnologicoP':
-                    vm.Ejecucion.BenchmarkTecnologicoP = 1;
-                    break;
-                case 'RecursosHumanosP':
-                    vm.Ejecucion.RecursosHumanosP = 1;
-                    break;
-                case 'RecursosFinancierosP':
-                    vm.Ejecucion.RecursosFinancierosP = 1;
-                    break;
-                case 'RecursosTecnologicosP':
-                    vm.Ejecucion.RecursosTecnologicosP = 1;
-                    break;
-                case 'RecursosMaterialesP':
-                    vm.Ejecucion.RecursosMaterialesP = 1;
-                    break;
-            }
 
-        }
         function updateFileName(type,file)
         {
             switch (type)
@@ -234,27 +246,27 @@
         function checkFinished()
         {
             var completed = 0;
-            if(vm.Ejecucion.Requisitos==1)
+            if( (vm.Ejecucion.Requisitos!=null && vm.Ejecucion.Requisitos!="") || vm.requerimientosFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.AnalisisEntornoP ==1)
+            if( (vm.Ejecucion.AnalisisEntornoP !=null && vm.Ejecucion.AnalisisEntornoP !="") || vm.entornoFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.FactibilidadTecnicaP==1)
+            if( (vm.Ejecucion.FactibilidadTecnicaP!=null && vm.Ejecucion.FactibilidadTecnicaP!="") || vm.factibilidadTFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.FactibilidadEconomicaP ==1)
+            if( (vm.Ejecucion.FactibilidadEconomicaP !=null && vm.Ejecucion.FactibilidadEconomicaP !="") || vm.factibilidadEFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.FactibilidadComercialP == 1)
+            if( (vm.Ejecucion.FactibilidadComercialP !=null && vm.Ejecucion.FactibilidadComercialP !="") || vm.factibilidadCFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.BenchmarkComercialP==1)
+            if( (vm.Ejecucion.BenchmarkComercialP !=null && vm.Ejecucion.BenchmarkComercialP !="") || vm.benchmarkCFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.BenchmarkTecnologicoP ==1)
+            if( (vm.Ejecucion.BenchmarkTecnologicoP !=null && vm.Ejecucion.BenchmarkTecnologicoP !="") || vm.benchmarkTFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.RecursosHumanosP==1)
+            if( (vm.Ejecucion.RecursosHumanosP !=null && vm.Ejecucion.RecursosHumanosP !="") || vm.recursosHFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.RecursosFinancierosP ==1)
+            if( (vm.Ejecucion.RecursosFinancierosP !=null && vm.Ejecucion.RecursosFinancierosP !="") || vm.recursosFFile!=null )
                 completed+=1;
-            if(vm.Ejecucion.RecursosTecnologicosP==1)
+            if( (vm.Ejecucion.RecursosTecnologicosP !=null && vm.Ejecucion.RecursosTecnologicosP !="") || vm.recursosTFile!=null)
                 completed+=1;
-            if(vm.Ejecucion.RecursosMaterialesP==1)
+            if( (vm.Ejecucion.RecursosMaterialesP !=null && vm.Ejecucion.RecursosMaterialesP !="") || vm.recursosMFile!=null)
                 completed+=1;
             completed = (completed/11)*100
             completed = completed.toFixed(0)
@@ -279,7 +291,6 @@
                     route = 'Ejecucion/Update';
                 }
                 else route = 'Ejecucion';
-                updateLocalEjecucion(fileType);
                 Upload.upload({
                     url: ROUTES.API_ROUTE+route,
                     data:{
@@ -306,6 +317,36 @@
 
 
             }
+        }
+
+
+        /**
+         * Función para actualizar el texto
+         */
+
+        function updateText()
+        {
+            var request = {idProyecto:vm.selectedProject,Ejecucion:vm.Ejecucion};
+            if(vm.Ejecucion.id==null)
+            {
+                Restangular.all('Ejecucion').customPOST(request).then(function(res){
+                    vm.Ejecucion = res.Ejecucion;
+                    toastr.success(vm.successTitle,vm.successStore);
+                }).catch(function(err){
+                    toastr.error(vm.failTitle,vm.failMessage);
+                });
+            }
+            else
+            {
+                Restangular.all('Ejecucion').all('Update').customPOST(request).then(function(res){
+                    vm.Ejecucion = res.Ejecucion;
+                    toastr.success(vm.successTitle,vm.successUpdate);
+                }).catch(function(err){
+                    toastr.error(vm.failTitle,vm.failMessage);
+                });
+
+            }
+            vm.completed = checkFinished();
         }
 
 
