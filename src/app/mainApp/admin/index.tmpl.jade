@@ -10,14 +10,13 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 h3(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
             md-data-table-container
                 table(md-data-table md-row-select='vm.selectedItems')
-                    thead(md-order='vm.query.order' md-trigger='vm.onOrderChange')
-                        tr
+                    thead(md-order='vm.query.order')
                             th(name='id' order-by='id')
                             th(name='Nombre' order-by='Nombre')
                             th(name='Apellido Paterno' order-by='ApellidoP')
                             th(name='Apellido Materno' order-by='ApellidoM')
                     tbody
-                        tr(md-auto-select ng-repeat='persona in vm.personas')
+                        tr(md-auto-select ng-repeat='persona in vm.personas | orderBy:vm.query.order')
                             td {{persona.id}}
                             td {{persona.Nombre}}
                             td {{persona.ApellidoP}}
