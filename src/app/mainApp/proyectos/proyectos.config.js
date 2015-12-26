@@ -97,6 +97,26 @@
                 }
 
             })
+            .state('triangular.admin-default.proyectos_modeloNegocio',{
+                url: '/proyectos_modeloNegocio',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/modeloNegocio.tmpl.html',
+                // set the controller to load for this page
+                controller: 'modeloNegocioProyectosController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    },
+                    requireLogin: true
+                }
+
+            })
             .state('triangular.admin-default.proyectos_trl',{
                 url: '/proyectos_trl',
                 // set the html template to show on this page
@@ -232,6 +252,11 @@
                 {
                     name: 'Ejecución',
                     state: 'triangular.admin-default.proyectos_ejecucion',
+                    type: 'link'
+
+                },{
+                    name: 'Modelo de Negocios',
+                    state: 'triangular.admin-default.proyectos_modeloNegocio',
                     type: 'link'
 
                 },

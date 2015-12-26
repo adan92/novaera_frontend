@@ -189,6 +189,19 @@
       "TECHNOLOGICAL_RESOURCES": "Recursos Tecnológicos",
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
+    },
+    "BUSINESS_MODEL":
+    {
+      "PROJECT_SELECT":"Selección de Proyecto",
+      "CHANNELS":"Canales",
+      "COMPETITIVE_ADVANTAGE":"Venaja Competitiva",
+      "PROBLEMATIQUE":"Problemática",
+      "COSTS":"Costos",
+      "INCOME":"Ingresos",
+      "KEY_ACTIVITIES":"Actividades Clave",
+      "CLIENT_RELATIONSHIPS":"Relaciones con el Cliente",
+      "KEY_RESOURCES":"Recursos Clave",
+      "KEY_ALLIES":"Aliados Clave"
     }
 
 
