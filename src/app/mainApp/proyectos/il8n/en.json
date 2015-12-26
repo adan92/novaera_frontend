@@ -7,19 +7,6 @@
   "PROJECT":{
     "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
     "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
-    "DIALOGS":{
-      "YOU_SURE":"¿Estás Seguro?",
-      "ACCEPT":"Aceptar",
-      "CANCEL":"Cancelar",
-      "WARNING":"Eliminarás todos los registros seleccionados",
-      "SUCCESS": "Éxito",
-      "FAILURE": "Error",
-      "SUCCESS_STORE": "Éxito al guardar los datos",
-      "SUCCESS_UPDATE": "Éxito al actualizar los datos",
-      "SUCCESS_DELETE": "Éxito al eliminar los datos",
-      "FAIL_STORE": "Error al guardar los datos",
-      "FAIL_DELETE": "Error al eliminar los datos"
-    },
     "REGISTER":{
       "PROJECT_SELECT": "Selección de Proyecto",
       "NEW_PROJECT": "Nuevo Proyecto",

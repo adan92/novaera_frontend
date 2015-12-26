@@ -41,17 +41,17 @@
             }).catch(function(err){
 
             });
-            vm.sureText             = Translate.translate('PROJECT.DIALOGS.YOU_SURE');
-            vm.acceptText           = Translate.translate('PROJECT.DIALOGS.ACCEPT');
-            vm.cancelText           = Translate.translate('PROJECT.DIALOGS.CANCEL');
-            vm.dialogText           = Translate.translate('PROJECT.DIALOGS.WARNING');
-            vm.successText          = Translate.translate('PROJECT.DIALOGS.SUCCESS');
-            vm.successStoreText     = Translate.translate('PROJECT.DIALOGS.SUCCESS_STORE');
-            vm.successUpdateText    = Translate.translate('PROJECT.DIALOGS.SUCCESS_UPDATE');
-            vm.successDeleteText    = Translate.translate('PROJECT.DIALOGS.SUCCESS_DELETE');
-            vm.failureText          = Translate.translate('PROJECT.DIALOGS.FAILURE');
-            vm.failureStoreText     = Translate.translate('PROJECT.DIALOGS.FAIL_STORE');
-            vm.failureDeleteText    = Translate.translate('PROJECT.DIALOGS.FAIL_DELETE');
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
         }
 
 

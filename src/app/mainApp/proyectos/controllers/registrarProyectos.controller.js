@@ -6,7 +6,7 @@
         .controller('registrarProyectoController', registrarProyectoController);
 
     /* @ngInject */
-    function registrarProyectoController($scope,toastr,Restangular,$state) {
+    function registrarProyectoController($scope,toastr,Restangular,$state,Translate) {
 
         var vm = this;
         activate();
@@ -115,6 +115,17 @@
                 $state.go('triangular.admin-default.personas_registro');
                 toastr.error('Debe de haber una persona registrada para acceder a este módulo','Error');
             });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
         }
 
 
@@ -139,20 +150,20 @@
             {
                 if(vm.proyecto.id==null){
                     Restangular.all('Proyecto').all('Persona').customPOST(vm.proyecto).then(function(res){
-                        toastr.success('Se han guardado correctamente los datos','Éxito')
+                        toastr.success(vm.successText,vm.successStoreText);
                         vm.proyecto=res;
                         vm.proyectoLabel = vm.proyecto.Titulo;
 
                     }).catch(function(err){
-                        toastr.error('Hubo un error al guardar los datos','Error')
+                        toastr.error(vm.failureText,vm.failureStoreText)
                     })
                 }
                 else{
                     Restangular.all('Proyecto').one('Persona',vm.proyecto.id).customPUT(vm.proyecto).then(function(res){
-                        toastr.success('Se han actualizado correctamente los datos','Éxito')
+                        toastr.success(vm.successText,vm.successUpdateText);
                         vm.proyectoLabel = vm.proyecto.Titulo;
                     }).catch(function(err){
-                        toastr.error('Hubo un error al actualizar los datos','Error')
+                        toastr.error(vm.failureText,vm.failureStoreText)
                     })
                 }
                 Restangular.all('Proyecto').all('Persona').customGET().then(function(res){

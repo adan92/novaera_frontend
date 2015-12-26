@@ -9,7 +9,7 @@
         .controller('impactoProyectosController', impactoProyectosController);
 
     /* @ngInject */
-    function impactoProyectosController($translate,Upload,Restangular,toastr,ROUTES) {
+    function impactoProyectosController(Translate,Upload,Restangular,toastr,ROUTES) {
 
         var vm                      = this;
         vm.steps                    = [
@@ -82,21 +82,11 @@
             }).catch(function(err){
 
             });
-            $translate('PROJECT.DIALOGS.SUCCESS_STORE').then(function(text) {
-                vm.successStore = text;
-            });
-            $translate('PROJECT.DIALOGS.SUCCESS_UPDATE').then(function(text) {
-                vm.successUpdate = text;
-            });
-            $translate('PROJECT.DIALOGS.SUCCESS').then(function(text) {
-                vm.successTitle = text;
-            });
-            $translate('PROJECT.DIALOGS.FAILURE').then(function(text) {
-                vm.failTitle = text;
-            });
-            $translate('PROJECT.DIALOGS.FAIL_STORE').then(function(text) {
-                vm.failMessage = text;
-            });
+            vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
+            vm.failTitle = Translate.translate('DIALOGS.FAILURE');
+            vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
 
 
 
