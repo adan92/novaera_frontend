@@ -16,7 +16,9 @@
       "FAILURE": "Error",
       "SUCCESS_STORE": "Éxito al guardar los datos",
       "SUCCESS_UPDATE": "Éxito al actualizar los datos",
-      "FAIL_STORE": "Error al guardar los datos"
+      "SUCCESS_DELETE": "Éxito al eliminar los datos",
+      "FAIL_STORE": "Error al guardar los datos",
+      "FAIL_DELETE": "Error al eliminar los datos"
     },
     "REGISTER":{
       "PROJECT_SELECT": "Selección de Proyecto",
@@ -110,9 +112,10 @@
       "REMOVE_REGISTER": "Eliminar Registro",
       "NEW_REGISTER":"Nuevo Registro",
       "INSTRUCTIONS": "Busca tu proyecto para ver y administrar la Propiedad Intelectual del mismo",
-      "INSTRUCTIONS_SELECT": "Selecciona un registro",
+      "INSTRUCTIONS_SELECT": "Selecciona un registro para editar o eliminar, presiona nuevo para agregar",
       "INSTRUCTIONS_TABS": "Información del registro",
       "INSTRUCTIONS_ADD": "Agregar registro",
+      "INSTRUCTIONS_EDIT": "Editar registro",
       "WARNING": "Selecciona tu proyecto para ver los registros",
       "SELECT": "Selecciona el registro de PI",
 

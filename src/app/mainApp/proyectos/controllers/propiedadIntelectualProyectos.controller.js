@@ -9,7 +9,7 @@
         .controller('propiedadIntelectualProyectosController', propiedadIntelectualProyectosController);
 
     /* @ngInject */
-    function propiedadIntelectualProyectosController(Restangular,Translate,toastr) {
+    function propiedadIntelectualProyectosController(Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
 
@@ -18,7 +18,8 @@
         vm.transferenciaRegisters        = null;
         vm.selectedPropiedad             = null;
         vm.addRegister                   = addRegister;
-
+        vm.deleteRegister                = deleteRegister;
+        vm.createDialog                  = createDialog;
 
         //Variables para el md-autocomplete
 
@@ -47,10 +48,16 @@
             vm.successText          = Translate.translate('PROJECT.DIALOGS.SUCCESS');
             vm.successStoreText     = Translate.translate('PROJECT.DIALOGS.SUCCESS_STORE');
             vm.successUpdateText    = Translate.translate('PROJECT.DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('PROJECT.DIALOGS.SUCCESS_DELETE');
             vm.failureText          = Translate.translate('PROJECT.DIALOGS.FAILURE');
             vm.failureStoreText     = Translate.translate('PROJECT.DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('PROJECT.DIALOGS.FAIL_DELETE');
         }
 
+
+        /**
+         * Función para agregar un nuevo registro de propiedad Intelectual
+         */
 
         function addRegister()
         {
@@ -80,6 +87,56 @@
                     toastr.error(vm.failureText,vm.failureStoreText);
                 })
             }
+        }
+
+        /**
+         * Función para crear un dialogo
+         * @param ev
+         */
+
+
+        function createDialog(ev)
+        {
+
+            vm.ev = ev;
+
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteRegister();
+            }, function() {
+                console.log("Cancelado");
+            });
+
+
+        }
+
+
+        /**
+         *Función para eliminar registro
+         */
+
+        function deleteRegister()
+        {
+            Restangular.one('TransferenciaTecnologica',vm.selectedPropiedad.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('Proyecto').one('TransferenciaTecnologica',vm.selectedItem.id).customGET().then(function(res){
+                    vm.transferenciaRegisters = res.TransferenciaTecnologica;
+                }).catch(function(err){
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            });
+
+
+
+
         }
 
 

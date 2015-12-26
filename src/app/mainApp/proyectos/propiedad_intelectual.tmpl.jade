@@ -3,8 +3,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(flex layout='row', layout-md='column')
         md-card(flex='', layout-align='center center')
             md-card-content
-                h2.text-center(translate='') PROJECT.TRL.MY_PROJECTS
-                h3.text-center(translate='') PROJECT.TRL.INSTRUCTIONS
+                h2.text-center(translate='') PROJECT.IP.MY_PROJECTS
+                h3.text-center(translate='') PROJECT.IP.INSTRUCTIONS
                 md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache',
                 md-selected-item='vm.selectedItem',
                 md-search-text-change='vm.searchTextChange(vm.searchText)',
@@ -24,7 +24,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 md-option(ng-repeat='propiedad in vm.transferenciaRegisters', ng-value='propiedad')
                                         | Registro {{propiedad.id}}
                     div(flex layout-gt-md='row' layout-align="space-around center" layout-gt-sm='column')
-                        md-button.md-raised(flex ng-click='deleteItem(selectedPropiedad)', ng-class="['md-warn','md-hue-2']")
+                        md-button.md-raised(ng-disabled="vm.selectedPropiedad==null" flex ng-click='vm.createDialog()', ng-class="['md-warn','md-hue-2']")
                             span(translate='') PROJECT.IP.REMOVE_REGISTER
                         md-button.md-raised(flex ng-click='vm.selectedPropiedad=null', ng-class="['md-primary']")
                             span(translate='') PROJECT.IP.NEW_REGISTER
@@ -44,7 +44,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
         .md-whiteframe-z1.margin-top-10.margin-left-10.margin-bottom-100(flex='', ng-show='vm.selectedItem!=null', layout='column', tri-wizard='')
             md-toolbar.md-primary
                 .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-                    h2(translate='') PROJECT.IP.INSTRUCTIONS_ADD
+                    h2(translate ng-show='vm.selectedPropiedad==null') PROJECT.IP.INSTRUCTIONS_ADD
+                    h2(translate ng-show='vm.selectedPropiedad!=null') PROJECT.IP.INSTRUCTIONS_EDIT
                     h2
                         | {{triWizard.progress}}%
                         span(translate='') PROJECT.WIZARD.COMPLETED
