@@ -31,7 +31,6 @@
                         footer: false
                     },
                     requireLogin: true,
-                    requireValidation:false
                 }
 
             })

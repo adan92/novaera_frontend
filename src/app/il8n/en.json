@@ -52,6 +52,7 @@
     "MESSAGES": {
         "LANGUAGE_CHANGED": "Language Changed",
         "ERROR_TITLE":"Error",
-        "VALIDATION_REQUIRED":"Se requiere validación de usuario"
+        "VALIDATION_REQUIRED":"Se requiere validación de usuario",
+        "UNAUTHORIZED":"No se tiene la autorización para acceder a este estado"
     }
 }

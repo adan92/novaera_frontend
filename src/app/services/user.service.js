@@ -14,8 +14,20 @@
             setUser:setUser,
             clearUser:clearUser,
             userInfo:userInfo,
+            privileges: privileges,
             isValidated:isValidated
         }
+
+        function privileges()
+        {
+            var user = localStorageService.get('user') || null;
+            if(user == null)
+            {
+                return null;
+            }
+            else return user.type;
+        }
+
 
         function isValidated()
         {

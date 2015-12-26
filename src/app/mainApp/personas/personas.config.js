@@ -53,7 +53,7 @@
                     requireLogin: true
 
                 }
-            })
+            });
 
         // add menu to triangular
         triMenuProvider.addMenu({
