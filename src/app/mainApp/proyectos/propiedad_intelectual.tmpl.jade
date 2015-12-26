@@ -1,0 +1,101 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='100', layout-align='center center')
+            md-card-content
+                h2.text-center(translate='') PROJECT.IP.MY_PROJECTS
+                h3.text-center(translate='') PROJECT.IP.INSTRUCTIONS
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.display', md-min-length='0', placeholder='Busca tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.display}}
+                h3.text-center(translate='', ng-show='vm.selectedItem==null') PROJECT.IP.WARNING
+                div(ng-show='vm.selectedItem!=null')
+                    h3.text.center(translate='') PROJECT.IP.INSTRUCTIONS_SELECT
+                    md-input-container
+                        label(translate='') PROJECT.IP.SELECT
+                        div(layout='row', layout-md='column')
+                            md-select(ng-model='selectedPropiedad', flex='70')
+                                md-option(ng-repeat='propiedad in vm.selectedItem.pi_tt', value='{{vm.selectedItem.pi_tt.indexOf(propiedad)}}')
+                                    | Registro {{propiedad.id}}
+                            md-button.md-raised(ng-click='deleteItem(selectedPropiedad)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                span(translate='') PROJECT.IP.REMOVE_REGISTER
+        md-card(flex='33', layout-align='center center', ng-hide='true')
+            md-card-content
+                h2.text.center(translate='') PROJECT.IP.CONTROL_PANEL
+                md-divider
+                h3.text-center(translate='') PROJECT.IP.SHOW_ADD
+                md-checkbox(ng-model='show_add', aria-label='Checkbox 1')
+                    span(ng-show='show_add', translate='') PROJECT.IP.HIDE_ADD_CHECKBOX
+                    span(ng-show='!show_add', translate='') PROJECT.IP.SHOW_ADD_CHECKBOX
+                h3.text-center(translate='') PROJECT.IP.SHOW_INFO
+                md-checkbox(ng-model='show_info', aria-label='Checkbox 2')
+                    span(ng-show='show_info', translate='') PROJECT.IP.HIDE_ADD_CHECKBOX
+                    span(ng-show='!show_info', translate='') PROJECT.IP.SHOW_ADD_CHECKBOX
+    div(layout='column', layout-md='column')
+        // Tarjeta para visualizar registro
+        md-card(flex='', ng-show='vm.selectedItem!=null')
+            md-card-content
+                h2.text-center(translate='') PROJECT.IP.INSTRUCTIONS_TABS
+                md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='selectedPropiedad!=null')
+                    md-tab#productos
+                        md-tab-label
+                            span(translate='') PROJECT.IP.TABS.PRODUCTS
+                        .wizard
+                            .show-info(ng-bind-html='vm.selectedItem.pi_tt[selectedPropiedad].productos')
+                    md-tab#procesos
+                        md-tab-label
+                            span(translate='') PROJECT.IP.TABS.PROCESS
+                        .wizard
+                            .show-info(ng-bind-html='vm.selectedItem.pi_tt[selectedPropiedad].procesos')
+                    md-tab#valuacion
+                        md-tab-label
+                            span(translate='') PROJECT.IP.TABS.VALUE
+                        .wizard
+                            .show-info(ng-bind-html='vm.selectedItem.pi_tt[selectedPropiedad].valuacion')
+        // Tarjeta para agregar registro
+        .md-whiteframe-z1.margin-top-10.margin-left-10.margin-bottom-100(flex='', ng-show='vm.selectedItem!=null', layout='column', tri-wizard='')
+            md-toolbar.md-primary
+                .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
+                    h2(translate='') PROJECT.IP.INSTRUCTIONS_ADD
+                    h2
+                        | {{triWizard.progress}}%
+                        span(translate='') PROJECT.WIZARD.COMPLETED
+                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+            md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
+                md-tab#productosRegistro
+                    md-tab-label
+                        span.oxy-step-label 1
+                        span(translate='') PROJECT.IP.TABS.PRODUCTS
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='productosForm', tri-wizard-form='')
+                                div(flex='', layout='column', layout-wrap='')
+                                    md-input-container
+                                        div(text-angular='', required='', ng-model='proyecto.productos', ta-toolbar="[['bold','italics','ul','ol']]")
+                                        label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                        md-divider
+                md-tab#procesosRegistro(ng-disabled='productosForm.$invalid')
+                    md-tab-label
+                        span.oxy-step-label 2
+                        span(translate='') PROJECT.IP.TABS.PROCESS
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='procesosForm', tri-wizard-form='')
+                                md-input-container
+                                    div(text-angular='', required='', ng-model='proyecto.procesos', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                md-tab#valuacionRegistro(ng-disabled='procesosForm.$invalid')
+                    md-tab-label
+                        span.oxy-step-label 3
+                        span(translate='') PROJECT.IP.TABS.VALUE
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='valuacion', tri-wizard-form='')
+                                md-input-container
+                                    div(text-angular='', required='', ng-model='proyecto.valuacion', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+            .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+                md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+                md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+                md-button.md-accent.md-raised(ng-click='addElement()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='PROJECT.WIZARD.SEND')
