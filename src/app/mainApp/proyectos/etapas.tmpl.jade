@@ -1,0 +1,42 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2.text-center(translate='') PROJECT.STAGES.MY_PROJECTS
+                h3.text-center(translate='') PROJECT.STAGES.INSTRUCTIONS
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.display', md-min-length='0', placeholder='Busca tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.display}}
+    // Tarjeta para eliminar etapas
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') PROJECT.STAGES.REGISTERED_STAGES
+                md-list
+                    md-subheader.md-no-sticky(translate='') PROJECT.STAGES.STAGES
+                    md-list-item.md-2-line(ng-repeat='etapa in vm.selectedItem.etapas')
+                        .md-list-item-text
+                            h3 Etapa: {{etapa.tarea}}
+                            h4 Tarea Precedente: {{etapa.tareaPrecedente}}
+                            p Entregable: {{etapa.entregable}}
+                        md-button.md-raised(ng-click='deleteItem(etapa)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                            span(translate='') PROJECT.STAGES.REMOVE_STAGE
+                        md-divider
+        // Tarjeta para agregar etapas
+        md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
+            md-card-content
+                h2(translate='') PROJECT.STAGES.NEW_STAGE
+                form(name='registrarEtapa', novalidate='')
+                    md-input-container
+                        label(translate='') PROJECT.STAGES.NEW_STAGE
+                        input(ng-model='etapa', required='', name='etapa')
+                    md-input-container
+                        label(translate='') PROJECT.STAGES.PREVIOUS_STAGE
+                        md-select(ng-model='etapaPrecedente', ng-required='vm.selectedItem.etapas==null')
+                            md-option(ng-repeat='etapa in vm.selectedItem.etapas', value='{{etapa.id}}')
+                                | {{etapa.id}}
+                    md-input-container
+                        label(translate='') PROJECT.STAGES.CHECKLIST
+                        textarea(type='text', ng-model='entregable', name='entregable', required='')
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.STAGES.NEW_STAGE
