@@ -10,7 +10,7 @@
 
     /* @ngInject */
     function moduleConfig($translatePartialLoaderProvider, $stateProvider) {
-        $translatePartialLoaderProvider.addPart('app/mainApp/proyectos');
+        $translatePartialLoaderProvider.addPart('app/mainApp/admin');
 
         $stateProvider
             .state('triangular.admin-default.admin', {

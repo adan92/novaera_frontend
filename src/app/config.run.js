@@ -11,11 +11,21 @@
     /** @ngInject */
     function runBlock($log, $rootScope, User, $state, Auth,toastr,CustomMenu,Translate) {
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+
+            var admin_menu ='Admin Menu';
+
             if (User.privileges()=='Supervisor')
             {
-                if(CustomMenu.findMenu('Admin Menu')==null)
+                if(CustomMenu.findMenu(admin_menu)==null)
                 {
                     CustomMenu.injectSupervisorMenu();
+                }
+            }
+            else
+            {
+                if(CustomMenu.findMenu(admin_menu)!=null)
+                {
+                    CustomMenu.removeMenu(admin_menu);
                 }
             }
 

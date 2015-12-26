@@ -19,7 +19,6 @@
 
         function activate() {
             Auth.logout();
-            User.clearUser();
             $state.go('auth.login');
         }
     }

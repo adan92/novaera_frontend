@@ -15,8 +15,23 @@
     function CustomMenu(triMenu) {
         var service ={
             findMenu:findMenu,
-            injectSupervisorMenu:injectSupervisorMenu
+            injectSupervisorMenu:injectSupervisorMenu,
+            removeMenu:removeMenu
         }
+
+        function removeMenu(key)
+        {
+            for (var i = 0; i<triMenu.menu.length;i++)
+            {
+                if(triMenu.menu[i].name==key)
+                {
+                    triMenu.menu.splice(i,1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         function findMenu(key)
         {
@@ -35,22 +50,14 @@
                 priority: 2.1,
                 children:[
                     {
-                        name: 'Index',
+                        name: 'Validar Personas',
                         state: 'triangular.admin-default.admin',
                         type: 'link'
 
                     }
                 ]};
-            triMenu.addMenu(adminMenu);
-
-
+            triMenu.menu.unshift(adminMenu);
         }
-
-
-
-
         return service;
     }
-
-
 })();
