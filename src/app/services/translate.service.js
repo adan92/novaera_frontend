@@ -24,7 +24,6 @@
             });
 
             var text = localStorageService.get(key) || null;
-            console.log(text);
             localStorageService.remove(key);
             return text;
         }

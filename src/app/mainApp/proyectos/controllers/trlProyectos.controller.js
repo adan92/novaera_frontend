@@ -13,7 +13,6 @@
         var vm = this;
 
         vm.deferred         =    $q.defer();
-
         vm.today            =    new Date();
         //Variables a usar
         vm.proyectos        =    null;

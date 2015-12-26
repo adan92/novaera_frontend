@@ -9,167 +9,129 @@
         .controller('propiedadIntelectualProyectosController', propiedadIntelectualProyectosController);
 
     /* @ngInject */
-    function propiedadIntelectualProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function propiedadIntelectualProyectosController(Restangular,Translate,toastr) {
         var vm = this;
 
-        //Lista de Proyectos
 
-        $scope.show_add=true;
-        $scope.show_info=true;
-        $scope.proyecto = null;
-        $scope.selectedPropiedad=null;
-        $scope.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
+        activate();
+        //Variables para los registros de transferencia tecnologica
+        vm.transferenciaRegisters        = null;
+        vm.selectedPropiedad             = null;
+        vm.addRegister                   = addRegister;
 
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                pi_tt:[
-                    {
-                        id: 1,
-                        productos:"<h3>Productos de Propiedad</h3><br><ul><li>Producto 1</li></ul>",
-                        procesos: "Procesos de transferencia",
-                        valuacion:"<h3>Los procesos de Valuación fueron los Siguientes:</h3><ul><li>Se validó el uso de la tecnología con respecto a la competencia</li><li>Se validó que la tecnología fuera económicamente factible</li><li>Se validó el impacto que se tiene en el medio ambiente</li></ul><p>Cabe destacar que <b><u>ésta tecnología es nueva.</u></b></p><blockquote><p>Éste es solamente otro apartado</p></blockquote>"
-                    },
-                    {
-                        id: 2,
-                        productos:"Productos de propiedad",
-                        procesos: "Procesos de transferencia",
-                        valuacion:"La valoracion de la tecnología"
-                    }
-                ],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                display:"Un proyecto mas"
-            }
-        ];
 
         //Variables para el md-autocomplete
 
-        vm.proyectos          = $scope.proyectos;
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
+        vm.proyectos                     = null;
+        vm.selectedItem                  = null;
+        vm.searchText                    = null;
+        vm.querySearch                   = querySearch;
+        vm.simulateQuery                 = false;
+        vm.isDisabled                    = false;
+        vm.selectedItemChange            = selectedItemChange;
 
 
-        //////////////////
-        function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
-            return results;
+
+
+        function activate()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                vm.proyectos = res.Proyectos;
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('PROJECT.DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('PROJECT.DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('PROJECT.DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('PROJECT.DIALOGS.WARNING');
+            vm.successText          = Translate.translate('PROJECT.DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('PROJECT.DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('PROJECT.DIALOGS.SUCCESS_UPDATE');
+            vm.failureText          = Translate.translate('PROJECT.DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('PROJECT.DIALOGS.FAIL_STORE');
+        }
+
+
+        function addRegister()
+        {
+            var request = {
+                idProyecto:vm.selectedItem.id,
+                TransferenciaTecnologica:vm.selectedPropiedad
+            };
+
+            if(vm.selectedPropiedad.id!=null)
+            {
+                Restangular.all('TransferenciaTecnologica').all('Update').customPOST(request).then(function(res)
+                {
+                    vm.selectedPropiedad = res.TransferenciaTecnologica;
+                    toastr.success(vm.successText,vm.successUpdateText);
+                }).catch(function(err)
+                {
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                })
+            }
+            else
+            {
+                Restangular.all('TransferenciaTecnologica').customPOST(request).then(function(res)
+                {
+                    vm.selectedPropiedad = res.TransferenciaTecnologica;
+                    toastr.success(vm.successText,vm.successStoreText);
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                })
+            }
         }
 
 
         /**
-         * Create filter function for a query string
+         * Funcion para cuando cambiamos el vm.selectedItem
+         */
+
+        function selectedItemChange()
+        {
+            if(vm.selectedItem!=null)
+            {
+
+                Restangular.all('Proyecto').one('TransferenciaTecnologica',vm.selectedItem.id).customGET().then(function(res){
+                    vm.transferenciaRegisters = res.TransferenciaTecnologica;
+                }).catch(function(err){
+
+                })
+            }
+            else
+            {
+                vm.selectedPropiedad = null;
+            }
+
+        }
+
+
+        /**
+         * Función para buscar en el md-autocomplete
+         * @param query
+         * @returns {null|*}
+         */
+
+        function querySearch (query) {
+            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            return results;
+
+        }
+
+
+        /**
+         * Función filtro
          */
         function createFilterFor(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
 
-        /**
-         *
-         * Create functions to add or delete elements
-         */
-        $scope.addElement = function()
-        {
-            $scope.proyecto.id =Math.floor((Math.random() * 10) + 2);
-
-            vm.selectedItem.pi_tt.push($scope.proyecto);
-            $scope.proyecto =null;
-        }
-
-        $scope.deleteItem= function(index){
-            vm.selectedItem.pi_tt.splice(index, 1);
-            //console.log($scope.proyectos);
-        }
-
-        /**
-         * Watch para flex
-         */
-
-        $scope.$watchGroup(['selectedPropiedad'], function(newValues, oldValues, scope) {
-            if(newValues[0]==null)
-            {
-                $scope.show_info=false;
-            }
-            else{
-                $scope.show_info=true;
-            }
 
 
-        });
+
 
 
     }

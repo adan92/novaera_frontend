@@ -13,7 +13,7 @@
       "CANCEL":"Cancelar",
       "WARNING":"Eliminarás todos los registros seleccionados",
       "SUCCESS": "Éxito",
-      "FAILUTE": "Error",
+      "FAILURE": "Error",
       "SUCCESS_STORE": "Éxito al guardar los datos",
       "SUCCESS_UPDATE": "Éxito al actualizar los datos",
       "FAIL_STORE": "Error al guardar los datos"
@@ -108,7 +108,7 @@
       "HIDE_ADD_CHECKBOX": "Click para ocultar",
       "SHOW_INFO": "Muestra el panel para visualizar información",
       "REMOVE_REGISTER": "Eliminar Registro",
-
+      "NEW_REGISTER":"Nuevo Registro",
       "INSTRUCTIONS": "Busca tu proyecto para ver y administrar la Propiedad Intelectual del mismo",
       "INSTRUCTIONS_SELECT": "Selecciona un registro",
       "INSTRUCTIONS_TABS": "Información del registro",
