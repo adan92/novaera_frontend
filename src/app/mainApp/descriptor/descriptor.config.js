@@ -31,7 +31,9 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
             })
             .state('triangular.admin-default.tipo_descriptor',{
@@ -50,8 +52,9 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
-
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
             });
     }

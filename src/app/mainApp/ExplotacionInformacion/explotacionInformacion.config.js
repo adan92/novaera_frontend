@@ -14,13 +14,13 @@
 
         $stateProvider
             //estado del index
-            .state('triangular.admin-default.ExplotacionInformacion', {
+            .state('triangular.admin-default.explotacionInformacion', {
                 // set the url of this page
-                url: '/ExplotacionInformacion',
+                url: '/explotacionInformacion',
                 // set the html template to show on this page
-                templateUrl: 'app/mainApp/ExplotacionInformacion/index.tmpl.html',
+                templateUrl: 'app/mainApp/explotacionInformacion/index.tmpl.html',
                 // set the controller to load for this page
-                controller: 'ExplotacionInformacionController',
+                controller: 'explotacionInformacionController',
                 controllerAs: 'vm',
                 data: {
                     layout: {
@@ -34,10 +34,10 @@
                     requireLogin: true
                 }
             })
-            .state('triangular.admin-default.ExplotacionInformacionEsp',{
-                url: '/ExplotacionInformacionEsp',
+            .state('triangular.admin-default.explotacionInformacionEsp',{
+                url: '/explotacionInformacionEsp',
                 // set the html template to show on this page
-                templateUrl: 'app/mainApp/ExplotacionInformacion/ExplotacionInformacionEsp.tmpl.html',
+                templateUrl: 'app/mainApp/explotacionInformacion/explotacionInformacionEsp.tmpl.html',
                 // set the controller to load for this page
                 controller: 'registrarPersonasController',
                 controllerAs: 'vm',
@@ -64,13 +64,13 @@
             children:[
                 {
                     name: 'MENU.EXPINFO.EXPINFO1',
-                    state: 'triangular.admin-default.ExplotacionInformacion',
+                    state: 'triangular.admin-default.explotacionInformacion',
                     type: 'link'
 
                 },
                 {
                     name: 'MENU.EXPINFO.EXPINFO2',
-                    state: 'triangular.admin-default.ExplotacionInformacionEsp',
+                    state: 'triangular.admin-default.explotacionInformacionEsp',
                     type: 'link'
 
                 }
