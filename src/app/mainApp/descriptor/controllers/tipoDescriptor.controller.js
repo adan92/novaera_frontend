@@ -65,7 +65,7 @@
         $scope.deleteItem= function(index){
             vm.tiposDescriptor.splice(index, 1);
             //console.log($scope.proyectos);
-        }
+        };
 
         /**
          * Create function to add item
@@ -95,7 +95,7 @@
             $scope.actualizado = null;
             $scope.registrarResultado.$setPristine();
 
-        }
+        };
 
 
 
@@ -120,8 +120,8 @@
                 if(returnable===null)
                     return true;
                 else return false;
-            })
-        }
+            });
+        };
     }
 })
 

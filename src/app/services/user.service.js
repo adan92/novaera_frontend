@@ -16,7 +16,7 @@
             userInfo:userInfo,
             privileges: privileges,
             isValidated:isValidated
-        }
+        };
 
         function privileges()
         {
@@ -32,9 +32,9 @@
         function isValidated()
         {
             var user = userInfo();
-            if(user==null)
+            if(user===null)
                 return false;
-            if(user.isValidated==0)
+            if(user.isValidated===0)
                 return false;
             return true;
         }
