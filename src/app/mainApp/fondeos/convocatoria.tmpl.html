@@ -1,5 +1,3 @@
-
-
 <div layout="column" layout-align="center center" class="full-image-background mb-bg-fb-02 overlay-40">
 
 
@@ -36,22 +34,22 @@
                                     </md-input-container>
                                     <md-input-container flex="100" layout="row">
                                         <div flex="50">
-                                        <label translate>FONDEOS.CALL.BEGIN_DATE_CALL</label>
-                                        <md-datepicker ng-enabled="call_begin==null" ng-model="call_begin"></md-datepicker>
-                                        <div ng-messages="projectInfo.descripcion.$error">
-                                            <div ng-message when="required">
-                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            <label translate>FONDEOS.CALL.BEGIN_DATE_CALL</label>
+                                            <md-datepicker ng-enabled="call_begin==null" ng-model="call_begin"></md-datepicker>
+                                            <div ng-messages="projectInfo.descripcion.$error">
+                                                <div ng-message when="required">
+                                                    <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                         <div flex="50">
-                                        <label translate>FONDEOS.CALL.END_DATE_CALL</label>
-                                        <md-datepicker ng-enabled="call_begin==null" ng-model="call_end"></md-datepicker>
-                                        <div ng-messages="projectInfo.descripcion.$error">
-                                            <div ng-message when="required">
-                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            <label translate>FONDEOS.CALL.END_DATE_CALL</label>
+                                            <md-datepicker ng-enabled="call_begin==null" ng-model="call_end"></md-datepicker>
+                                            <div ng-messages="projectInfo.descripcion.$error">
+                                                <div ng-message when="required">
+                                                    <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -63,7 +61,20 @@
                                             </div>
                                         </div>
                                     </md-input-container>
+                                    <md-input-container>
+                                        <label translate>FONDEOS.MODALITY.FONDEOS</label>
+                                        <md-select ng-model="call" required>
 
+                                            <md-option ng-repeat="fondeo2 in fondeos2" value="{{fondeo2.abbrev}}">
+                                                {{fondeo2.abbrev}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message when="required">
+                                                <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
                                 </div>
                             </form>
                         </div>
@@ -119,7 +130,34 @@
         </div>
     </div>
 
-<!-- wizard-->
+    <!--End wizard-->
+    <div class="todo-container" flex layout="column" layout-align="center center">
+        <div layout-fill layout="row" layout-align="center center">
+            <md-card flex="100" flex-sm="100" class="margin-top-20 margin-bottom-20">
+                <md-toolbar md-theme="{{triSkin.elements.content}}">
+                    <h2 class="md-toolbar-tools" translate>MENU.TODO.HEADERS</h2>
+                </md-toolbar>
+                <md-card-content class="overflow-auto">
+                    <md-list class="margin-bottom-10">
+                        <md-list-item ng-repeat="todo in vm.todos | orderBy:vm.orderTodos" ng-class="{'md-primary': todo.priority === 'high', 'md-accent': todo.priority === 'medium', 'md-warn': todo.priority === 'low'}" class="slide" md-swipe-right="vm.removeTodo(todo)" md-no-ink>
+                            <md-checkbox ng-model="todo.selected"></md-checkbox>
+                            <div flex layout="row" layout-align="center center" layout-fill >
+
+                                <div> <h3>
+                                    {{::todo.description}}
+                                </h3></div>
+                                <div> <p> &nbsp; {{::todo.date}}  &nbsp; -  &nbsp;  {{::todo.date2}} </p></div>
+
+                            </div>
+                            <md-text-float class="no-select">
+                                {{::todo.priority}}
+                            </md-text-float>
+                        </md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+        </div>
 
 
+    </div>
 </div>
