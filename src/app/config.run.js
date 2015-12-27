@@ -32,7 +32,9 @@
 
             if (toState.data.requirePrivileges !=undefined && toState.data.requirePrivileges!=User.privileges())
             {
-                toastr.error(Translate.translate('MESSAGES.ERROR_TITLE'),Translate.translate('MESSAGES.UNAUTHORIZED'));
+                var title =Translate.translate('MESSAGES.ERROR_TITLE');
+                var message =Translate.translate('MESSAGES.UNAUTHORIZED');
+                toastr.error(title,message);
                 $state.go(toState.data.redirect);
             }
 
