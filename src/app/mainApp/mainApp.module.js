@@ -14,7 +14,7 @@
            'app.mainApp.personas',
            'app.mainApp.admin',
            'app.mainApp.explotacionInformacion',
-           'app.mainApp.descriptor',
+           'app.mainApp.descriptor'
 
         ]);
 })();
