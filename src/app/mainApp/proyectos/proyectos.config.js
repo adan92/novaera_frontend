@@ -194,6 +194,26 @@
                 }
 
             })
+            .state('triangular.admin-default.descriptor_resultado',{
+                url: '/descriptor_resultado',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/descriptor_resultado.tmpl.html',
+                // set the controller to load for this page
+                controller: 'descriptorResultadoController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    },
+                    requireLogin: true
+                }
+
+            })
         ;
         // add menu to triangular
         triMenuProvider.addMenu({
@@ -247,6 +267,11 @@
                 {
                     name: 'Resultados',
                     state: 'triangular.admin-default.proyectos_resultados',
+                    type: 'link'
+                },
+                {
+                    name: 'Descriptor Resultados',
+                    state: 'triangular.admin-default.descriptor_resultado',
                     type: 'link'
                 }
             ]

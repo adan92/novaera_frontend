@@ -172,10 +172,23 @@
       "TECHNOLOGICAL_RESOURCES": "Recursos Tecnológicos",
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
+    },
+    "DESCRIPTOR":
+    {
+      "MY_PROJECT": "Proyectos Registrados",
+      "INSTRUCTIONS": "Busca tu proyecto para registrar los resultados",
+      "PROJECT_SELECT":"Selección de Proyecto",
+      "IDKEY": "Descriptor",
+      "MY_RESULTS": "Resultados Registrados",
+      "INITIAL_DATE": "Fecha de Registro",
+      "APROV_DATE": "Fecha de Aprobación",
+      "PCT": "PCT",
+      "RESULT": "Resultados",
+      "REMOVE_RESULT": "Eliminar Resultado",
+      "ADD_RESULT": "Registrar Nuevo Resultado",
+      "NEW_RESULT": "Nuevo Resultado",
+      "RESULT": "Resultado Esperado"
     }
-
-
-
   }
 
 }

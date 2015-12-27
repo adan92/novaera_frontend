@@ -87,6 +87,24 @@
                     }
                 }
             })
+            .state('triangular.admin-default.fondeos_descriptor',{
+                url: '/fondeos_descriptor',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/fondeos/descriptor_fondeo.tmpl.html',
+                // set the controller to load for this page
+                controller: 'descriptorFondeoController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: true
+                    }
+                }
+            })
         // add menu to triangular
         triMenuProvider.addMenu({
             name: 'MENU.FONDEOS.FONDEOS',
@@ -115,6 +133,12 @@
                 {
                     name: 'Modalidad',
                     state: 'triangular.admin-default.fondeos_modalidad',
+                    type: 'link'
+
+                },
+                {
+                    name: 'Descriptor',
+                    state: 'triangular.admin-default.fondeos_descriptor',
                     type: 'link'
 
                 }

@@ -6,38 +6,38 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('etapasProyectosController', etapasProyectosController)
+        .controller('descriptorResultadoController', descriptorResultadoController)
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function etapasProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorResultadoController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
 
 
-        $scope.resultados = [
-            {
-                id: 1,
-                tarea:'Tarea',
-                FechaRegistro:'10/05/2015',
-                FechaAprobacion:'15/05/2015',
-                TPC:'5',
-                entregable: 'Entregable'
-            },
-            {
-                id: 2,
-                tarea:'Tarea2',
-                tareaPrecedente:'Tarea2',
-                entregable: 'Entregable2'
-            },
-            {
-                id: 3,
-                tarea:'Tarea3',
-                tareaPrecedente:'Tarea3',
-                entregable: 'Entregable3'
-            }
-        ];
-
         //Datos
+        $scope.descriptor=[
+            {
+                id:0,
+                titulo:"Nulo"
+            },
+            {
+                id:1,
+                titulo:"Bajo"
+            },
+            {
+                id:2,
+                titulo:"Medio"
+            },
+            {
+                id:3,
+                titulo:"Alto"
+            },
+            {
+                id:4,
+                titulo:"Completo"
+            },
+        ]
+
         $scope.proyectos=[
             {
                 titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
@@ -46,17 +46,28 @@
                 etapas: [
                     {
                         id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
+                        "fechaInicio": "05/01/2012",
+                        "fechaAprobado": "10/01/2012",
+                        "pct": "10",
+                        "idDescriptor": "50125"
+                        //Descriptor?
                     },
                     {
                         id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
+                        "fechaInicio": "15/01/2012",
+                        "fechaAprobado": "20/01/2012",
+                        "pct": "25",
+                        "idDescriptor": "50130"
+                        //Descriptor?
+                    },
+                    {
+                        id: 3,
+                        "fechaInicio": "30/01/2012",
+                        "fechaAprobado": "05/02/2012",
+                        "pct": "30",
+                        "idDescriptor": "50132"
+                        //Descriptor?
                     }
-
                 ],
                 trl:[
                     {descripcion:"Empezando", fecha:"10-10-2015"},
@@ -72,15 +83,24 @@
                 etapas: [
                     {
                         id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
+                        "fechaInicio": "05/01/2012",
+                        "fechaAprobado": "10/01/2012",
+                        "pct": "10",
+                        "idDescriptor": "50125"
                     },
                     {
                         id: 2,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
+                        "fechaInicio": "15/01/2012",
+                        "fechaAprobado": "20/01/2012",
+                        "pct": "25",
+                        "idDescriptor": "50130"
+                    },
+                    {
+                        id: 3,
+                        "fechaInicio": "30/01/2012",
+                        "fechaAprobado": "05/02/2012",
+                        "pct": "30",
+                        "idDescriptor": "50132"
                     }
 
                 ],
@@ -97,15 +117,24 @@
                 etapas: [
                     {
                         id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
+                        "fechaInicio": "05/01/2012",
+                        "fechaAprobado": "10/01/2012",
+                        "pct": "10",
+                        "idDescriptor": "50125"
                     },
                     {
                         id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
+                        "fechaInicio": "15/01/2012",
+                        "fechaAprobado": "20/01/2012",
+                        "pct": "25",
+                        "idDescriptor": "50130"
+                    },
+                    {
+                        id: 3,
+                        "fechaInicio": "30/01/2012",
+                        "fechaAprobado": "05/02/2012",
+                        "pct": "30",
+                        "idDescriptor": "50132"
                     }
 
                 ],
@@ -164,9 +193,15 @@
         {
             var etapa = {
                 id: $scope.etapa.id,
-                tarea: $scope.etapa.tarea,
-                tareaPrecedente: $scope.etapaPrecedente,
-                entregable: $scope.entregable
+                fechaInicio: $scope.etapa.tarea,
+                fechaAprobado: $scope.etapaPrecedente,
+                clvPct: $scope.clvPct,
+
+                //id: 1,
+                //"fechaInicio": "05/01/2012",
+                //"fechaAprobado": "10/01/2012",
+                //"pct": "10",
+                //  "idDescriptor": "50125"
             };
 
 
@@ -176,7 +211,7 @@
             $scope.etapa=null;
             $scope.etapaPrecedente=null;
             $scope.tarea=null;
-            $scope.entregable =null;
+            $scope.clvPct =null;
             $scope.registrarResultado.$setPristine();
 
         }
