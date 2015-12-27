@@ -1,43 +1,17 @@
 /**
- * Created by lockonDaniel on 10/15/15.
+ * Created by Jorge Montiel on 10/15/15.
  */
 (function() {
     'use strict';
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('descriptorResultadoController', descriptorResultadoController)
+        .controller('descriptorProyectoController', descriptorProyectoController)
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorResultadoController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorProyectoController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
-
-
-        //Datos
-        $scope.descriptor=[
-            {
-                id:0,
-                titulo:"Nulo"
-            },
-            {
-                id:1,
-                titulo:"Bajo"
-            },
-            {
-                id:2,
-                titulo:"Medio"
-            },
-            {
-                id:3,
-                titulo:"Alto"
-            },
-            {
-                id:4,
-                titulo:"Completo"
-            },
-        ]
-
         $scope.proyectos=[
             {
                 titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
@@ -73,6 +47,7 @@
                     {descripcion:"Empezando", fecha:"10-10-2015"},
                     {descripcion:"En Proceso", fecha:"11-10-2015"}
                 ],
+                descriptorProyecto:[],
                 display:"Sistema de Registro"
 
             },
@@ -108,6 +83,13 @@
                     {descripcion:"Empezando", fecha:"10-10-2015"},
                     {descripcion:"En Proceso", fecha:"11-10-2015"}
                 ],
+                descriptorProyecto:[
+                    {
+                        id: 15,
+                        idDescriptor:1,
+                        observaciones:"Descriptor que significa..."
+                    }
+                ],
                 display:"Otro proyecto"
             },
             {
@@ -142,16 +124,49 @@
                     {descripcion:"Empezando", fecha:"10-10-2015"},
                     {descripcion:"En Proceso", fecha:"11-10-2015"}
                 ],
+                descriptorProyecto:[],
                 display:"Un proyecto mas"
             }
         ];
-        $scope.my_projects_labels= ['Electricidad','Agronomía','Calzado'];
-        $scope.my_projects_data= ['3','5','6'];
-
+        $scope.descriptores = [
+            {
+                id: 1,
+                titulo: "Descriptor 1",
+                descripcion:"Este es el Descriptor 1",
+                catalogo:"Catalogo 1",
+                tipo:{
+                    id: 1,
+                    nombre: "Tipo 1",
+                    aplicable:"S",
+                    activo:true,
+                    creado:"1970-01-01 00:00:01",
+                    actualizado:"1970-01-01 00:00:01"
+                },
+                creado:"1970-01-01 00:00:01",
+                actualizado:"1970-01-01 00:00:01"
+            },
+            {
+                id: 2,
+                titulo: "Descriptor 2",
+                descripcion:"Este es el Descriptor 2",
+                catalogo:"Catalogo 5",
+                tipo:{
+                    id: 3,
+                    nombre: "Tipo 3",
+                    aplicable:"S",
+                    activo:true,
+                    creado:"1970-01-01 00:00:01",
+                    actualizado:"1970-01-01 00:00:01"
+                },
+                creado:"1970-01-01 00:00:01",
+                actualizado:"1970-01-01 00:00:01"
+            }
+        ]
 
         //
 
-        vm.proyectos             = $scope.proyectos;
+        vm.descriptores        = $scope.descriptores;
+        vm.fondeos             = $scope.proyectos;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
@@ -161,7 +176,7 @@
 
         //////////////////
         function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            var results = query ? vm.fondeos.filter( createFilterFor(query) ) : vm.fondeos, deferred;
             return results;
 
         }
@@ -172,8 +187,8 @@
          */
         function createFilterFor(query) {
 
-            return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+            return function filterFn(fondeos) {
+                return (fondeos.titulo.indexOf(query) === 0);
             };
         }
 
@@ -181,7 +196,7 @@
          * Create function to delete item
          */
         $scope.deleteItem= function(index){
-            vm.selectedItem.etapas.splice(index, 1);
+            vm.selectedItem.descriptorProyecto.splice(index, 1);
             //console.log($scope.proyectos);
         }
 
@@ -191,25 +206,19 @@
 
         $scope.addItem = function()
         {
-            var etapa = {
-
+            var descriptor = {
                 id: $scope.id,
-                "fechaInicio": $scope.fInicio,
-                "fechaAprobado": $scope.fFin,
-                "pct": $scope.clvPct,
-                "idDescriptor": $scope.idDescriptor
-
+                idDescriptor:$scope.tipo.id,
+                observaciones:$scope.observaciones
             };
 
 
 
-            vm.selectedItem.etapas.push(etapa);
+            vm.selectedItem.descriptorProyecto.push(descriptor);
 
             $scope.id=null;
-            $scope.fInicio=null;
-            $scope.fFin=null;
-            $scope.clvPct=null;
-            $scope.idDescriptor=null;
+            $scope.tipo=null;
+            $scope.observaciones=null;
             $scope.registrarResultado.$setPristine();
 
         }
