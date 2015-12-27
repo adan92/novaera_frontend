@@ -180,11 +180,10 @@
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
     },
-    "DESCRIPTOR":
-    {
+    "DESCRIPTOR": {
       "MY_PROJECT": "Proyectos Registrados",
       "INSTRUCTIONS": "Busca tu proyecto para registrar los resultados",
-      "PROJECT_SELECT":"Selección de Proyecto",
+      "PROJECT_SELECT": "Selección de Proyecto",
       "IDKEY": "Descriptor",
       "MY_RESULTS": "Resultados Registrados",
       "INITIAL_DATE": "Fecha de Registro",
@@ -195,6 +194,7 @@
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
       "EXPECTED_RESULT": "Resultado Esperado"
+    },
     "BUSINESS_MODEL":
     {
       "PROJECT_SELECT":"Selección de Proyecto",
