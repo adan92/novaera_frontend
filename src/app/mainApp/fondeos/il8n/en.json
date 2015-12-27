@@ -120,8 +120,16 @@
       "NEXT": "Siguiente",
       "SEND": "Enviar",
       "GENERAL":"Datos Generales"
+    },
+    "DESCRIPTOR":
+    {
+      "TITLE":"Programas de Fondeo",
+      "INSTRUCTIONS":"Selecciona el Programa de Fondeo para Editar sus Descriptores",
+      "ADD":"Agregar un Descriptor",
+      "CURRENT":"Descriptores Actuales",
+      "TYPE":"Tipo de Descriptor",
+      "NOTES":"Observaciones"
     }
-
 
 
   }

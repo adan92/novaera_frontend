@@ -48,6 +48,22 @@
                     }
                 }
             })
+            .state('triangular.admin-default.descriptor_organizacion',{
+                url:'/descriptor_organizacion',
+                templateUrl:'app/mainApp/organizaciones/descriptor_organizacion.tmpl.html',
+                controller: 'descriptorOrganizacionController',
+                controllerAs: 'vm',
+                data:{
+                    layout:{
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    }
+                }
+            })
 
         ;
         // add menu to triangular
@@ -66,6 +82,11 @@
                 {
                     name: 'Información Legal',
                     state: 'triangular.admin-default.organizaciones_informacion',
+                    type:'link'
+                },
+                {
+                    name: 'Descriptor',
+                    state: 'triangular.admin-default.descriptor_organizacion',
                     type:'link'
                 }
             ]
