@@ -6,7 +6,7 @@
         .controller('mainLoginController', mainLoginController);
 
     /* @ngInject */
-    function mainLoginController($state,toastr, Auth,triSettings) {
+    function mainLoginController($state,toastr, Auth,User,triSettings) {
         var vm = this;
         vm.loginClick = loginClick;
         vm.socialLogins = [{
@@ -38,7 +38,10 @@
         function loginClick() {
             Auth.login(vm.user.username, vm.user.password)
                 .then(function(res) {
-                    $state.go('triangular.admin-default.proyectos');
+                    User.setUser().then(function(promis){
+                        $state.go('triangular.admin-default.proyectos');
+                    });
+
 
             }).catch(function(err){
                 toastr.error(err.data.error,"Error "+err.status);

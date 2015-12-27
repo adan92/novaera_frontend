@@ -1,0 +1,34 @@
+{
+  "MENU": {
+    "EXPINFO": {
+      "EXPINFO2": "Crea tu Propia consulta",
+      "EXPINFO1": "Manejo de Información"
+    }
+  },
+  "CONTENT":{
+      "TITLES":{
+      "LAST_REGISTERS" :"Ultimos registros",
+        "REGISTER_BY_TYPE_DESCRIPTOR":"Registros por tipo de descriptor",
+        "SELECTVALUES":"Seleccion valores a graficar",
+        "PROJECTS":"Proyectos",
+        "FONDEOS":"Programas de Fondeo",
+        "RESULTS":"Resultados",
+        "ORGANIZATIONS":"Organizaciones",
+        "PEOPLE":"Personas",
+        "PEOPLE_BY_ORGANIZATION":"Numero de Personas Por organizacion",
+        "TECNO_PARK":"Parques Tecnologicos",
+        "MOUNT":"Monto",
+        "IP":"Propiedad Intelectual",
+        "COUNTER":"Conteo por tipo",
+        "CHART_BY_AREA":"Grafico por area",
+        "FULLCHART":"Grafica Descriptiva General",
+        "INSTRUCTIONS":"Instrucciones"
+      }
+  }
+
+
+
+
+
+
+}

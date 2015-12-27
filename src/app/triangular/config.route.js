@@ -10,7 +10,10 @@
         $stateProvider
         .state('logout', {
             controller:'LogoutController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            data: {
+                requireLogin: false
+            }
         }).state('triangular', {
             abstract: true,
             templateUrl: 'app/triangular/layouts/default/default.tmpl.html',

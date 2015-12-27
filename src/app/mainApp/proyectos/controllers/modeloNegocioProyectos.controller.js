@@ -6,58 +6,55 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('impactoProyectosController', impactoProyectosController);
+        .controller('modeloNegocioProyectosController', modeloNegocioProyectosController);
 
     /* @ngInject */
-    function impactoProyectosController(Translate,Upload,Restangular,toastr,ROUTES) {
+    function modeloNegocioProyectosController(Translate,Upload,Restangular,toastr,ROUTES) {
 
         var vm                      = this;
         vm.steps                    = [
-            'PROJECT.IMPACT.PROJECT_SELECT',
-            'PROJECT.IMPACT.ENVIORNMENTAL_IMPACT',
-            'PROJECT.IMPACT.SCIENTIFIC_IMPACT',
-            'PROJECT.IMPACT.TECHNOLOGICAL_IMPACT',
-            'PROJECT.IMPACT.SOCIAL_IMPACT',
-            'PROJECT.IMPACT.ECONOMIC_IMPACT',
-            'PROJECT.IMPACT.VALUE_PROPOSAL',
-            'PROJECT.IMPACT.CLIENT_SEGMENTS',
-            'PROJECT.IMPACT.PROPOSED_SOLUTION',
-            'PROJECT.IMPACT.METRICS',
-            'PROJECT.IMPACT.CURRENT_SOLUTION'];
+            'PROJECT.BUSINESS_MODEL.PROJECT_SELECT',
+            'PROJECT.BUSINESS_MODEL.CHANNELS',
+            'PROJECT.BUSINESS_MODEL.COMPETITIVE_ADVANTAGE',
+            'PROJECT.BUSINESS_MODEL.PROBLEMATIQUE',
+            'PROJECT.BUSINESS_MODEL.COSTS',
+            'PROJECT.BUSINESS_MODEL.INCOME',
+            'PROJECT.BUSINESS_MODEL.KEY_ACTIVITIES',
+            'PROJECT.BUSINESS_MODEL.CLIENT_RELATIONSHIPS',
+            'PROJECT.BUSINESS_MODEL.KEY_RESOURCES',
+            'PROJECT.BUSINESS_MODEL.KEY_ALLIES'
+            ];
         vm.activate                 =  activate();
         vm.completed                =  0;
         vm.proyectos                =  null;
-        vm.Impacto                  =  {
+        vm.ModeloNegocio                  =  {
             id:null,
-            ImpactoAmbiental: null,
-            ImpactoCientifico: null,
-            ImpactoTecnologico: null,
-            ImpactoSocial: null,
-            ImpactoEconomico: null,
-            PropuestaDeValor: null,
-            SegmentosDeClientes: null,
-            SolucionPropuesta: null,
-            Metricas: null,
-            SolucionActual: null
+            Canales: null,
+            VentajaCompetitiva: null,
+            Problematica: null,
+            Costos: null,
+            Ingresos: null,
+            ActividadesClave: null,
+            RelacionesCliente: null,
+            RecursosClave: null,
+            AliadosClave: null
         }
         vm.file                     =  null;
         vm.fileList                 =  null;
         vm.selectedProject          =  null;
         vm.uploadFile               =  uploadFile;
-        vm.getImpacto               =  getImpacto;
+        vm.getModeloNegocio         =  getModeloNegocio;
 
         //File List
-        vm.impactoAFile             = null;
-        vm.impactoCFile             = null;
-        vm.impactoTFile             = null;
-        vm.impactoSFile             = null;
-        vm.impactoEFile             = null;
-        vm.propuestaVFile           = null;
-        vm.segmentosFile            = null;
-        vm.solucionPFile            = null;
-        vm.metricasFile             = null;
-        vm.solucionAFile            = null;
-        vm.recursosMFile            = null;
+        vm.canalesFile              = null;
+        vm.ventajaCFile             = null;
+        vm.problematicaFile         = null;
+        vm.costosFile               = null;
+        vm.ingresosFile             = null;
+        vm.actividadesCFile         = null;
+        vm.relacionesCFile          = null;
+        vm.recursosCFile            = null;
+        vm.aliadosCFile             = null;
 
         //Text
         vm.updateText               = updateText;
@@ -82,17 +79,13 @@
             }).catch(function(err){
 
             });
+
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
             vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
             vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
             vm.failTitle = Translate.translate('DIALOGS.FAILURE');
             vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
 
-
-
-
-            /*
-             */
         }
 
 
@@ -100,25 +93,24 @@
          * Función para obtener la ejecución de un proyecto seleccionado
          */
 
-        function getImpacto()
+        function getModeloNegocio()
         {
             vm.proyectoLabel = vm.selectedProject.Titulo;
-            Restangular.one('Impacto',vm.selectedProject.id).customGET().then(function(res){
-                vm.Impacto = res;
+            Restangular.one('ModeloNegocio',vm.selectedProject.id).customGET().then(function(res){
+                vm.ModeloNegocio = res;
 
-                Restangular.all('Impacto').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
+                Restangular.all('ModeloNegocio').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
                     vm.fileList             = res.Archivos;
-                    vm.impactoAFile         = search('ImpactoAmbiental');
-                    vm.impactoCFile         = search('ImpactoCientifico');
-                    vm.impactoTFile         = search('ImpactoTecnologico');
-                    vm.impactoSFile         = search('ImpactoSocial');
-                    vm.impactoEFile         = search('ImpactoEconomico');
-                    vm.propuestaVFile       = search('PropuestaDeValor');
-                    vm.segmentosFile        = search('SegmentosDeClientes');
-                    vm.solucionPFile        = search('SolucionPropuesta');
-                    vm.metricasFile         = search('Metricas');
-                    vm.solucionAFile        = search('SolucionActual');
-                    vm.recursosMFile        = search('RecursosMaterialesP');
+                    vm.canalesFile          = search('Canales');
+                    console.log(vm.canalesFile);
+                    vm.ventajaCFile         = search('VentajaCompetitiva');
+                    vm.problematicaFile     = search('Problematica');
+                    vm.costosFile           = search('Costos');
+                    vm.ingresosFile         = search('Ingresos');
+                    vm.actividadesCFile     = search('ActividadesClave');
+                    vm.relacionesCFile      = search('RelacionesCliente');
+                    vm.recursosCFile        = search('RecursosClave');
+                    vm.aliadosCFile         = search('AliadosClave');
                     vm.completed            = checkFinished();
 
                 }).catch(function(err){
@@ -128,18 +120,17 @@
 
 
             }).catch(function(err){
-                vm.Impacto                =  {
+                vm.ModeloNegocio                =  {
                     id:null,
-                    ImpactoAmbiental: null,
-                    ImpactoCientifico: null,
-                    ImpactoTecnologico: null,
-                    ImpactoSocial: null,
-                    ImpactoEconomico: null,
-                    PropuestaDeValor: null,
-                    SegmentosDeClientes: null,
-                    SolucionPropuesta: null,
-                    Metricas: null,
-                    SolucionActual: null
+                    Canales: null,
+                    VentajaCompetitiva: null,
+                    Problematica: null,
+                    Costos: null,
+                    Ingresos: null,
+                    ActividadesClave: null,
+                    RelacionesCliente: null,
+                    RecursosClave: null,
+                    AliadosClave: null
                 }
                 vm.completed            = checkFinished();
 
@@ -201,38 +192,32 @@
         {
             switch (type)
             {
-                case 'ImpactoAmbiental':
-                    vm.impactoAFile = file;
+                case 'Canales':
+                    vm.canalesFile = file;
                     break;
-                case 'ImpactoCientifico':
-                    vm.impactoCFile = file;
+                case 'VentajaCompetitiva':
+                    vm.ventajaCFile = file;
                     break;
-                case 'ImpactoTecnologico':
-                    vm.impactoTFile = file;
+                case 'Problematica':
+                    vm.problematicaFile = file;
                     break;
-                case 'ImpactoSocial':
-                    vm.impactoSFile = file;
+                case 'Costos':
+                    vm.costosFile = file;
                     break;
-                case 'ImpactoEconomico':
-                    vm.impactoEFile = file;
+                case 'Ingresos':
+                    vm.ingresosFile = file;
                     break;
-                case 'PropuestaDeValor':
-                    vm.propuestaVFile = file;
+                case 'ActividadesClave':
+                    vm.actividadesCFile = file;
                     break;
-                case 'SegmentosDeClientes':
-                    vm.segmentosFile = file;
+                case 'RelacionesCliente':
+                    vm.relacionesCFile = file;
                     break;
-                case 'SolucionPropuesta':
-                    vm.solucionPFile = file;
+                case 'RecursosClave':
+                    vm.recursosCFile = file;
                     break;
-                case 'Metricas':
-                    vm.metricasFile =file;
-                    break;
-                case 'SolucionActual':
-                    vm.solucionAFile =file;
-                    break;
-                case 'RecursosMaterialesP':
-                    vm.recursosMFile =file;
+                case 'AliadosClave':
+                    vm.aliadosCFile =file;
                     break;
             }
         }
@@ -240,27 +225,25 @@
         function checkFinished()
         {
             var completed = 0;
-            if( (vm.Impacto.Requisitos!=null && vm.Impacto.Requisitos!="") || vm.impactoAFile!=null)
+            if( (vm.ModeloNegocio.Canales!=null && vm.ModeloNegocio.Canales!="") || vm.canalesFile!=null)
                 completed+=1;
-            if( (vm.Impacto.ImpactoCientifico !=null && vm.Impacto.ImpactoCientifico !="") || vm.impactoCFile!=null)
+            if( (vm.ModeloNegocio.VentajaCompetitiva !=null && vm.ModeloNegocio.VentajaCompetitiva !="") || vm.ventajaCFile!=null)
                 completed+=1;
-            if( (vm.Impacto.ImpactoTecnologico!=null && vm.Impacto.ImpactoTecnologico!="") || vm.impactoTFile!=null)
+            if( (vm.ModeloNegocio.Problematica!=null && vm.ModeloNegocio.Problematica!="") || vm.problematicaFile!=null)
                 completed+=1;
-            if( (vm.Impacto.ImpactoSocial !=null && vm.Impacto.ImpactoSocial !="") || vm.impactoSFile!=null)
+            if( (vm.ModeloNegocio.Costos !=null && vm.ModeloNegocio.Costos !="") || vm.costosFile!=null)
                 completed+=1;
-            if( (vm.Impacto.ImpactoEconomico !=null && vm.Impacto.ImpactoEconomico !="") || vm.impactoEFile!=null)
+            if( (vm.ModeloNegocio.Ingresos !=null && vm.ModeloNegocio.Ingresos !="") || vm.ingresosFile!=null)
                 completed+=1;
-            if( (vm.Impacto.PropuestaDeValor !=null && vm.Impacto.PropuestaDeValor !="") || vm.propuestaVFile!=null)
+            if( (vm.ModeloNegocio.ActividadesClave !=null && vm.ModeloNegocio.ActividadesClave !="") || vm.actividadesCFile!=null)
                 completed+=1;
-            if( (vm.Impacto.SegmentosDeClientes !=null && vm.Impacto.SegmentosDeClientes !="") || vm.segmentosFile!=null)
+            if( (vm.ModeloNegocio.RelacionesCliente !=null && vm.ModeloNegocio.RelacionesCliente !="") || vm.relacionesCFile!=null)
                 completed+=1;
-            if( (vm.Impacto.SolucionPropuesta !=null && vm.Impacto.SolucionPropuesta !="") || vm.solucionPFile!=null)
+            if( (vm.ModeloNegocio.RecursosClave !=null && vm.ModeloNegocio.RecursosClave !="") || vm.recursosCFile!=null)
                 completed+=1;
-            if( (vm.Impacto.Metricas !=null && vm.Impacto.Metricas !="") || vm.metricasFile!=null )
+            if( (vm.ModeloNegocio.AliadosClave !=null && vm.ModeloNegocio.AliadosClave !="") || vm.aliadosCFile!=null )
                 completed+=1;
-            if( (vm.Impacto.SolucionActual !=null && vm.Impacto.SolucionActual !="") || vm.solucionAFile!=null)
-                completed+=1;
-            completed = (completed/10)*100
+            completed = (completed/9)*100
             completed = completed.toFixed(0)
             return completed;
         }
@@ -268,7 +251,7 @@
 
         /**
          * Función general para subir archivos, la BD hace el cambio tan pronto se suba el archivo dado
-         * el objeto vm.Impacto dado
+         * el objeto vm.ModeloNegocio dado
          * @param fileType
          */
 
@@ -278,24 +261,24 @@
             if(vm.file!=null)
             {
                 var route = null;
-                if(vm.Impacto.id!=null)
+                if(vm.ModeloNegocio.id!=null)
                 {
-                    route = 'Impacto/Update';
+                    route = 'ModeloNegocio/Update';
                 }
-                else route = 'Impacto';
+                else route = 'ModeloNegocio';
                 Upload.upload({
                     url: ROUTES.API_ROUTE+route,
                     data:{
                         file:vm.file,
                         type:fileType,
                         name:vm.file.name,
-                        Impacto:vm.Impacto,
+                        ModeloNegocio:vm.ModeloNegocio,
                         idProyecto:vm.selectedProject.id
                     },
                     disableProgress: false
                 }).then(function(res){
                     updateFileName(fileType,parseArchivo(res.data.Archivo));
-                    vm.Impacto= res.data.Impacto;
+                    vm.ModeloNegocio= res.data.ModeloNegocio;
                     vm.completed = checkFinished();
                     toastr.success(vm.successTitle,vm.successUpdate);
 
@@ -319,11 +302,11 @@
 
         function updateText()
         {
-            var request = {idProyecto:vm.selectedProject.id,Impacto:vm.Impacto};
-            if(vm.Impacto.id==null)
+            var request = {idProyecto:vm.selectedProject.id,ModeloNegocio:vm.ModeloNegocio};
+            if(vm.ModeloNegocio.id==null)
             {
-                Restangular.all('Impacto').customPOST(request).then(function(res){
-                    vm.Impacto = res.Impacto;
+                Restangular.all('ModeloNegocio').customPOST(request).then(function(res){
+                    vm.ModeloNegocio = res.ModeloNegocio;
                     toastr.success(vm.successTitle,vm.successStore);
                 }).catch(function(err){
                     toastr.error(vm.failTitle,vm.failMessage);
@@ -331,8 +314,8 @@
             }
             else
             {
-                Restangular.all('Impacto').all('Update').customPOST(request).then(function(res){
-                    vm.Impacto = res.Impacto;
+                Restangular.all('ModeloNegocio').all('Update').customPOST(request).then(function(res){
+                    vm.ModeloNegocio = res.ModeloNegocio;
                     toastr.success(vm.successTitle,vm.successUpdate);
                 }).catch(function(err){
                     toastr.error(vm.failTitle,vm.failMessage);

@@ -7,15 +7,20 @@
   "PROJECT":{
     "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
     "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
-    "DIALOGS":{
-      "YOU_SURE":"¿Estás Seguro?",
-      "ACCEPT":"Aceptar",
-      "CANCEL":"Cancelar",
-      "WARNING":"Eliminarás todos los registros seleccionados"
+    "REGISTER":{
+      "PROJECT_SELECT": "Selección de Proyecto",
+      "NEW_PROJECT": "Nuevo Proyecto",
+      "SELECTING_PROJECT": "Seleccionando Proyecto",
+      "INFO":"Información",
+      "BACKGROUND":"Antecedentes",
+      "JUSTIFICATION":"Justificación",
+      "OBJECTIVES":"Objetivos",
+      "REACH":"Alcances"
     },
     "WIZARD":{
       "TITLE": "Registro de Proyecto",
-      "TITLE2": "Ejecucion de Proyecto",
+      "TITLE2": "Ejecución",
+      "TITLE3": "Impacto",
       "IS_MINE": "El proyecto es mio",
       "IS_ORGANIZATION": "El proyecto es de una organización",
       "INFO":"Información General",
@@ -24,7 +29,8 @@
       "AIMS": "Objetivos",
       "REACH": "Alcances",
       "REQUIRED-FIELD":"Éste campo es requerido",
-      "FILE_UPLOAD":"Por favor, selecciona el archivo a subir",
+      "FILE_UPLOAD":"Selecciona el archivo a subir",
+      "UPDATE_TEXT": "Actualizar texto",
       "COMPLETED": "COMPLETADO",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
@@ -91,11 +97,12 @@
       "HIDE_ADD_CHECKBOX": "Click para ocultar",
       "SHOW_INFO": "Muestra el panel para visualizar información",
       "REMOVE_REGISTER": "Eliminar Registro",
-
+      "NEW_REGISTER":"Nuevo Registro",
       "INSTRUCTIONS": "Busca tu proyecto para ver y administrar la Propiedad Intelectual del mismo",
-      "INSTRUCTIONS_SELECT": "Selecciona un registro",
+      "INSTRUCTIONS_SELECT": "Selecciona un registro para editar o eliminar, presiona nuevo para agregar",
       "INSTRUCTIONS_TABS": "Información del registro",
       "INSTRUCTIONS_ADD": "Agregar registro",
+      "INSTRUCTIONS_EDIT": "Editar registro",
       "WARNING": "Selecciona tu proyecto para ver los registros",
       "SELECT": "Selecciona el registro de PI",
 
@@ -187,7 +194,19 @@
       "REMOVE_RESULT": "Eliminar Resultado",
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
-      "RESULT": "Resultado Esperado"
+      "EXPECTED_RESULT": "Resultado Esperado"
+    "BUSINESS_MODEL":
+    {
+      "PROJECT_SELECT":"Selección de Proyecto",
+      "CHANNELS":"Canales",
+      "COMPETITIVE_ADVANTAGE":"Venaja Competitiva",
+      "PROBLEMATIQUE":"Problemática",
+      "COSTS":"Costos",
+      "INCOME":"Ingresos",
+      "KEY_ACTIVITIES":"Actividades Clave",
+      "CLIENT_RELATIONSHIPS":"Relaciones con el Cliente",
+      "KEY_RESOURCES":"Recursos Clave",
+      "KEY_ALLIES":"Aliados Clave"
     }
   }
 
