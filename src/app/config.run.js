@@ -14,10 +14,13 @@
 
             var admin_menu ='Admin Menu';
 
+
             if (User.privileges()=='Supervisor')
             {
-                if(CustomMenu.findMenu(admin_menu)===null)
+                $log.debug('Supervisor Encontrado');
+                if(CustomMenu.findMenu(admin_menu)==null)
                 {
+                    $log.debug('Inyectando Menu');
                     CustomMenu.injectSupervisorMenu();
                 }
             }
@@ -25,6 +28,7 @@
             {
                 if(CustomMenu.findMenu(admin_menu)!==null)
                 {
+                    $log.debug('Encontrado Menu');
                     CustomMenu.removeMenu(admin_menu);
                 }
             }

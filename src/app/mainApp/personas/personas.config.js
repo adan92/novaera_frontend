@@ -80,7 +80,7 @@
         triMenuProvider.addMenu({
             name: 'MENU.PERSONAS.PERSONAS',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'zmdi zmdi-account',
             priority: 2.1,
             children:[
                 {

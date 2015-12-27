@@ -109,7 +109,7 @@
         triMenuProvider.addMenu({
             name: 'MENU.FONDEOS.FONDEOS',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'zmdi zmdi-money-box',
             priority: 2.1,
             children:[
                 {
