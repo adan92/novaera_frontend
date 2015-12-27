@@ -4,7 +4,7 @@
         .module('app', [
             'triangular','flow','ngFileUpload','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router','pascalprecht.translate', 'LocalStorageModule', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular),
-            'restangular','toastr','ngMdIcons',
+            'restangular','toastr','ngMdIcons','gantt',
             // 'seed-module'
             // uncomment above to activate the example seed module
             //'app.examples',

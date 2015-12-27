@@ -1,5 +1,11 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
     // TARJETA PARA BUSCAR PROYECTOS
+
+    md-card(flex='', layout='column')
+        div(gantt data='vm.data')
+            gantt-tree
+            gantt-groups
+
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
