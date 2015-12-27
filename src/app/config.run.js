@@ -16,7 +16,7 @@
 
             if (User.privileges()=='Supervisor')
             {
-                if(CustomMenu.findMenu(admin_menu)==null)
+                if(CustomMenu.findMenu(admin_menu)===null)
                 {
                     CustomMenu.injectSupervisorMenu();
                 }
