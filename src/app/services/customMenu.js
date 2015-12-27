@@ -46,14 +46,36 @@
             var adminMenu = {
                 name: 'Admin Menu',
                 type: 'dropdown',
-                icon: 'zmdi zmdi-info-outline',
+                icon: 'zmdi zmdi-lock-open',
                 priority: 2.1,
                 children:[
                     {
                         name: 'Validar Personas',
                         state: 'triangular.admin-default.admin',
+                        icon: 'fa fa-users',
                         type: 'link'
 
+                    },
+                    {
+                        name: 'MENU.DESCRIPTOR.DESCRIPTOR',
+                        type: 'dropdown',
+                        icon: 'zmdi zmdi-layers',
+                        priority: 2.1,
+                        children:[
+                            {
+                                name: 'Informacion',
+                                state: 'triangular.admin-default.descriptor',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'Tipo de Descriptor',
+                                state: 'triangular.admin-default.tipo_descriptor',
+                                type: 'link'
+
+                            }
+
+                        ]
                     }
                 ]};
             triMenu.menu.unshift(adminMenu);

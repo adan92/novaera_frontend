@@ -259,7 +259,7 @@
         triMenuProvider.addMenu({
             name: 'MENU.PROJECTS.PROJECTS',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'fa fa-briefcase',
             priority: 2.1,
             children:[
                 {

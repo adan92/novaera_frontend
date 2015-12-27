@@ -59,7 +59,7 @@
         triMenuProvider.addMenu({
             name: 'MENU.EXPINFO.EXPINFO1',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'zmdi zmdi-chart',
             priority: 2.1,
             children:[
                 {
