@@ -10,8 +10,21 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function etapasProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function etapasProyectosController($scope) {
         var vm = this;
+
+        vm.data = [
+            {
+                name: 'row1', tasks: [
+                {name: 'task1', from: '2015-10-31', to: '2015-11-30'},
+                 {name: 'task2', from: '2015-11-01', to: '2015-11-02'}
+            ]},
+        {name: 'row2', tasks: [
+            {name: 'task3', from:'2015-11-02', to: '2015-11-03'},
+            {name: 'task4', from: '2015-11-03', to: '2015-11-05'}
+        ]
+        }
+    ];
 
 
         $scope.resultados = [

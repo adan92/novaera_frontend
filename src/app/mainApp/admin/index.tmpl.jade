@@ -1,0 +1,28 @@
+//
+   Created by lockonDaniel on 12/26/15.
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    md-card
+        md-card-content
+            h3(translate) ADMINISTRATOR.WELCOME_MESSAGE
+    md-card
+        md-card-content
+            md-data-table-toolbar
+                h3(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
+            md-data-table-container
+                table(md-data-table md-row-select='vm.selectedItems')
+                    thead(md-order='vm.query.order')
+                            th(name='id' order-by='id')
+                            th(name='Nombre' order-by='Nombre')
+                            th(name='Apellido Paterno' order-by='ApellidoP')
+                            th(name='Apellido Materno' order-by='ApellidoM')
+                    tbody
+                        tr(md-auto-select ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                            td {{persona.id}}
+                            td {{persona.Nombre}}
+                            td {{persona.ApellidoP}}
+                            td {{persona.ApellidoM}}
+            md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.personas.length}}')
+            div(layout='row' layout-sm='column' layout-align='center center')
+                md-button.md-primary.md-raised(ng-click='vm.createDialog()' ng-disabled='vm.selectedItems.length==0')
+                    span(translate) ADMINISTRATOR.VALIDATE_USERS
+

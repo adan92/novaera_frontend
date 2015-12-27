@@ -72,7 +72,6 @@
         {
             Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
                     vm.proyectos = res.Proyectos;
-                    console.log(vm.proyectos);
             }).catch(function(err){
 
             });

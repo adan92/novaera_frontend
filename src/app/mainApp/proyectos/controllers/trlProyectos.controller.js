@@ -9,11 +9,10 @@
         .controller('trlProyectosController', trlProyectosController);
 
     /* @ngInject */
-    function trlProyectosController($scope, Restangular, toastr,$mdDialog,$translate,$q) {
+    function trlProyectosController($scope, Restangular, toastr,$mdDialog,Translate,$q) {
         var vm = this;
 
         vm.deferred         =    $q.defer();
-
         vm.today            =    new Date();
         //Variables a usar
         vm.proyectos        =    null;
@@ -96,22 +95,18 @@
             }).catch(function(err){
 
             });
-            $translate('PROJECT.DIALOGS.YOU_SURE').then(function(text){
-                vm.sureText = text;
-                $translate('PROJECT.DIALOGS.ACCEPT').then(function(text2){
-                    vm.acceptText = text2;
-                    $translate('PROJECT.DIALOGS.CANCEL').then(function(text3){
-                        vm.cancelText = text3;
-                        $translate('PROJECT.DIALOGS.WARNING').then(function(text4){
-                           vm.dialogText = text4;
-                            return text4;
-                        });
-                        return text3;
-                    });
-                    return text2;
-                });
-                return text;
-            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+
         }
 
 
@@ -201,6 +196,10 @@
                 toastr.error('Error al guardar los datos','Error');
             });
         }
+
+        /**
+         *
+         */
 
         function deleteTRL()
         {
