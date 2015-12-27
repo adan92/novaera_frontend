@@ -6,10 +6,12 @@
     "SIGNUP_LINK":"REGISTRARSE",
     "RETURN":"Regresar",
     "USERNAME":{
-      "LABEL":"Usuario"
+      "LABEL":"Usuario",
+      "PLEASE_ENTER":"Por favor introduce tu usuario"
     },
     "PASSWORD":{
-      "LABEL":"Contraseña"
+      "LABEL":"Contraseña",
+      "PLEASE_ENTER":"Por favor introduce tu contraseña"
     }
   }
 
