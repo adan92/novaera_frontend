@@ -12,6 +12,8 @@
            'app.mainApp.organizaciones',
            'app.mainApp.fondeos',
            'app.mainApp.personas',
+           'app.mainApp.admin',
+            'app.mainApp.explotacionInformacion'
 
         ]);
 })();
