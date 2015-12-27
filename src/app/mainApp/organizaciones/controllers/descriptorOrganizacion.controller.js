@@ -13,6 +13,41 @@
     function descriptorOrganizacionController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
 
+        $scope.descriptores = [
+            {
+                id: 1,
+                titulo: "Descriptor 1",
+                descripcion:"Este es el Descriptor 1",
+                catalogo:"Catalogo 1",
+                tipo:{
+                    id: 1,
+                    nombre: "Tipo 1",
+                    aplicable:"S",
+                    activo:true,
+                    creado:"1970-01-01 00:00:01",
+                    actualizado:"1970-01-01 00:00:01"
+                },
+                creado:"1970-01-01 00:00:01",
+                actualizado:"1970-01-01 00:00:01"
+            },
+            {
+                id: 2,
+                titulo: "Descriptor 2",
+                descripcion:"Este es el Descriptor 2",
+                catalogo:"Catalogo 5",
+                tipo:{
+                    id: 3,
+                    nombre: "Tipo 3",
+                    aplicable:"S",
+                    activo:true,
+                    creado:"1970-01-01 00:00:01",
+                    actualizado:"1970-01-01 00:00:01"
+                },
+                creado:"1970-01-01 00:00:01",
+                actualizado:"1970-01-01 00:00:01"
+            }
+        ]
+
         $scope.descriptor = [
             {
                 id:1,
@@ -345,6 +380,7 @@
 
         //
 
+        vm.descriptores       = $scope.descriptores;
         vm.organizaciones     = $scope.organizaciones;
         vm.selectedItem       = null;
         vm.searchText         = null;
@@ -386,12 +422,12 @@
         $scope.addItem = function()
         {
             var descriptor = {
-                id: $scope.descriptor.id,
+                id: $scope.id,
                 fecha_inicio : $scope.fInicio,
                 fecha_fin : $scope.fFin,
                 id_descriptor : $scope.idDescriptor,
                 tipo_resultado : $scope.resultado,
-                numero_resgistro : $scope.noRegistro
+                numero_registro : $scope.registro
             };
 
 

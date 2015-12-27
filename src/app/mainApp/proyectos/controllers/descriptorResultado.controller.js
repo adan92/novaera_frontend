@@ -192,26 +192,24 @@
         $scope.addItem = function()
         {
             var etapa = {
-                id: $scope.etapa.id,
-                fechaInicio: $scope.etapa.tarea,
-                fechaAprobado: $scope.etapaPrecedente,
-                clvPct: $scope.clvPct,
 
-                //id: 1,
-                //"fechaInicio": "05/01/2012",
-                //"fechaAprobado": "10/01/2012",
-                //"pct": "10",
-                //  "idDescriptor": "50125"
+                id: $scope.id,
+                "fechaInicio": $scope.fInicio,
+                "fechaAprobado": $scope.fFin,
+                "pct": $scope.clvPct,
+                "idDescriptor": $scope.idDescriptor
+
             };
 
 
 
             vm.selectedItem.etapas.push(etapa);
 
-            $scope.etapa=null;
-            $scope.etapaPrecedente=null;
-            $scope.tarea=null;
-            $scope.clvPct =null;
+            $scope.id=null;
+            $scope.fInicio=null;
+            $scope.fFin=null;
+            $scope.clvPct=null;
+            $scope.idDescriptor=null;
             $scope.registrarResultado.$setPristine();
 
         }
