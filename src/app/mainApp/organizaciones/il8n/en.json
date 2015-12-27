@@ -27,6 +27,14 @@
       "MISSION":"Misión",
       "EXPERIENCE": "Experiencias",
       "CONSTITUTIVE_ACT": "Acta Constitutiva (Arrastra archivo aquí)"
+    },
+    "DESCRIPTOR":{
+      "INSTRUCTIONS":"Busca una organización para ver sus descriptores",
+      "ADD":"Agregar Descriptor",
+      "CURRENT":"Descriptores Actuales",
+      "DELETE":"Eliminar Descriptor",
+      "FINIT":"Fecha de Inicio",
+      "FEND":"Fecha de Termino"
     }
   }
 }

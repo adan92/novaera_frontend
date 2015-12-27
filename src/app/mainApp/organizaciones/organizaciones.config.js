@@ -70,7 +70,7 @@
         triMenuProvider.addMenu({
             name: 'Organizaciones',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'fa fa-institution',
             priority: 2.1,
             children:[
                 {

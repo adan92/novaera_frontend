@@ -41,7 +41,7 @@
         triMenuProvider.addMenu({
             name: 'Introducción',
             type: 'link',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'zmdi zmdi-home',
             state: 'triangular.admin-default.intro',
             priority: 1
 

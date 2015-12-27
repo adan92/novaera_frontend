@@ -16,7 +16,7 @@
         'WY').split(' ').map(function(state) {
                 return {abbrev: state};
 
-            })
+            });
         $scope.rubros = ('Rubro1 Rubro2 Rubro3 Rubro4 Rubro5'+
         ' Rubro6').split(' ').map(function(rubro) {
                 return {abbrev: rubro};})

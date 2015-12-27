@@ -4,10 +4,10 @@
     <!-- TARJETA PARA BUSCAR PROYECTOS-->
     <div layout="row" layout-md="column">
 
-        <md-card flex layout-align="center center">
+        <md-card flex layout-padding>
             <md-card-content>
-                <h2 class="text-center" translate>ORGANIZATION.ORGANIZATIONS</h2>
-                <h3 class="text-center" translate>ORGANIZATION.DESCRIPTOR.INSTRUCTIONS</h3>
+                <h2 class="text-center" translate>PERSONAS.DESCRIPTOR.TITLE</h2>
+                <h3 class="text-center" translate>PERSONAS.DESCRIPTOR.INSTRUCTIONS</h3>
                 <md-autocomplete
                         class="margin-bottom-20"
                         ng-disabled="vm.isDisabled"
@@ -19,29 +19,31 @@
                         md-items="item in vm.querySearch(vm.searchText)"
                         md-item-text="item.nombre"
                         md-min-length="0"
-                        placeholder="Buscador de Organizaciones">
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
+                        placeholder="Selecciona a la persona">
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}} {{item.apellidoP}} {{item.apellidoM}}</span>
                 </md-autocomplete>
             </md-card-content>
         </md-card>
     </div>
 
-    <!-- Tarjeta para eliminar descriptores de Organizacion-->
+    <!-- Tarjeta para eliminar descriptores -->
     <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
-        <md-card flex="35" layout="column">
+        <md-card flex layout="column">
             <md-card-content>
-                <h2 translate class="text-center">ORGANIZATION.DESCRIPTOR.CURRENT</h2>
+                <h2 translate class="text-center">PERSONAS.DESCRIPTOR.CURRENT</h2>
                 <md-list>
-                    <md-list-item class="md-5-line" ng-repeat="descriptor in vm.selectedItem.descriptores">
+                    <md-list-item class="md-2-line" ng-repeat="descriptor in vm.selectedItem.descriptorPersona">
                         <div class="md-list-item-text">
-                            <h3>ID: {{descriptor.id}}</h3>
-                            <h4>Tipo: {{descriptor.idDescriptor}}</h4>
-                            <h5>Fecha de Inicio: {{descriptor.fecha_inicio}}</h5>
-                            <h5>Fecha de Termino: {{descriptor.fecha_fin}}</h5>
-                            <h5>Tipo de Resultado: {{descriptor.tipo_resultado}}</h5>
-                            <p>No. Registro: {{descriptor.numero_registro}}</p>
+                            <h3>id: {{descriptor.id}}</h3>
+                            <h3>idDescriptor: {{descriptor.idDescriptor}}</h3>
+                            <h4>Fecha Inicio: {{descriptor.fechaInicio}}</h4>
+                            <h4>Fecha Termino: {{descriptor.fechaTermino}}</h4>
+                            <h5>Tipo de Resultado: {{descriptor.tipoResultado}}</h5>
+                            <h5>Numero de Registro: {{descriptor.noRegistro}}</h5>
+                            <h6>Creado el: {{descriptor.creado}}</h6>
+                            <h6>Actualzado el: {{descriptor.actualizado}}</h6>
                         </div>
-                        <md-button ng-click="deleteItem(descriptor)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>ORGANIZATION.DESCRIPTOR.DELETE</span></md-button>
+                        <md-button ng-click="deleteItem(descriptor)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PERSONAS.DESCRIPTOR.DELETE</span></md-button>
                         <md-divider></md-divider>
                     </md-list-item>
 
@@ -51,13 +53,13 @@
             </md-card-content>
         </md-card>
 
-        <!-- Tarjeta para agregar descriptores de Organizacion -->
+        <!-- Tarjeta para agregar descriptores-->
 
         <md-card flex layout="column" ng-show="vm.selectedItem!=null">
             <md-card-content>
-                <h2 translate>ORGANIZATION.DESCRIPTOR.ADD</h2>
+                <h2 translate>PERSONAS.DESCRIPTOR.ADD</h2>
 
-                <form name="registrarDescriptor" novalidate>
+                <form name="agregarDescriptor" novalidate>
                     <md-input-container>
                         <label translate>PERSONAS.DESCRIPTOR.TYPE</label>
                         <md-select ng-model="tipo" required name="tipo">
@@ -66,10 +68,10 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                    <span class="placeholder" translate>ORGANIZATION.DESCRIPTOR.FINIT</span>
-                    <md-datepicker ng-model="fInicio" name="fInicio" md-placeholder="Introduce una fecha" required></md-datepicker><br></br>
-                    <span class="placeholder" translate>ORGANIZATION.DESCRIPTOR.FEND</span>
-                    <md-datepicker ng-model="fFin" name="fFin" md-placeholder="Introduce una fecha" required>{{myDate | 'mm/dd/YYYY'}}</md-datepicker><br></br>
+                    <span class="placeholder" translate>PERSONAS.DESCRIPTOR.FINIT</span>
+                    <md-datepicker ng-model="fecha_inicio" md-placeholder="Introduce una fecha" required></md-datepicker><br></br>
+                    <span class="placeholder" translate>PERSONAS.DESCRIPTOR.FEND</span>
+                    <md-datepicker ng-model="fecha_fin" md-placeholder="Introduce una fecha" required></md-datepicker><br></br>
                     <md-input-container>
                         <label translate>PERSONAS.DESCRIPTOR.TRESULT</label>
                         <input ng-model="resultado" required name="resultado">
@@ -78,7 +80,7 @@
                         <label translate>PERSONAS.DESCRIPTOR.NREGISTRO</label>
                         <input ng-model="registro" required name="registro">
                     </md-input-container>
-                    <md-button ng-disabled="registrarEtapa.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>ORGANIZATION.DESCRIPTOR.ADD</span></md-button>
+                    <md-button ng-disabled="registrarEtapa.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>PERSONAS.DESCRIPTOR.ADD</span></md-button>
                 </form>
 
             </md-card-content>

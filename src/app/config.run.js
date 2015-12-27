@@ -11,26 +11,27 @@
     /** @ngInject */
     function runBlock($log, $rootScope, User, $state, Auth,toastr,CustomMenu,Translate) {
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-
             var admin_menu ='Admin Menu';
-
             if (User.privileges()=='Supervisor')
             {
+                $log.debug('Supervisor Encontrado');
                 if(CustomMenu.findMenu(admin_menu)==null)
                 {
+                    $log.debug('Inyectando Menu');
                     CustomMenu.injectSupervisorMenu();
                 }
             }
             else
             {
-                if(CustomMenu.findMenu(admin_menu)!=null)
+                if(CustomMenu.findMenu(admin_menu)!==null)
                 {
+                    $log.debug('Encontrado Menu');
                     CustomMenu.removeMenu(admin_menu);
                 }
             }
 
 
-            if (toState.data.requirePrivileges !=undefined && toState.data.requirePrivileges!=User.privileges())
+            if (toState.data.requirePrivileges !==undefined && toState.data.requirePrivileges!=User.privileges())
             {
                 var title =Translate.translate('MESSAGES.ERROR_TITLE');
                 var message =Translate.translate('MESSAGES.UNAUTHORIZED');

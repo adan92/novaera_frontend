@@ -196,6 +196,25 @@
                 }
 
             })
+            .state('triangular.admin-default.descriptor_proyecto',{
+                url: '/descriptor_proyecto',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/descriptor_proyecto.tmpl.html',
+                // set the controller to load for this page
+                controller: 'descriptorProyectoController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    },
+                    requireLogin: true
+                }
+            })
             .state('triangular.admin-default.proyectos_impacto',{
                 url: '/proyectos_impacto',
                 // set the html template to show on this page
@@ -234,14 +253,13 @@
                     },
                     requireLogin: true
                 }
-
             })
         ;
         // add menu to triangular
         triMenuProvider.addMenu({
             name: 'MENU.PROJECTS.PROJECTS',
             type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
+            icon: 'fa fa-briefcase',
             priority: 2.1,
             children:[
                 {
@@ -290,6 +308,12 @@
                     state: 'triangular.admin-default.proyectos_propiedad_intelectual',
                     type: 'link'
 
+                },
+
+                {
+                    name: 'Descriptor Proyectos',
+                    state: 'triangular.admin-default.descriptor_proyecto',
+                    type: 'link'
                 },
                 {
                     name: 'Resultados',

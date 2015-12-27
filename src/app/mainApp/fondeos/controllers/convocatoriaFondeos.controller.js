@@ -12,7 +12,7 @@
         $scope.fondeos2 = ('Programa de Fondeo 1, Programa de Fondeo 3,Programa de Fondeo 4,Programa de Fondeo 2,'+
         ' Programa de Fondeo 5').split(',').map(function(fondeo2) {
                 return {abbrev: fondeo2};
-            })
+            });
 
 
         vm.todos = [

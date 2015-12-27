@@ -1,0 +1,29 @@
+{
+  "MENU": {
+    "DESCRIPTOR": {
+      "DESCRIPTOR": "Descriptores"
+    }
+  },
+  "DESCRIPTOR": {
+    "TIPO": {
+      "ADD":"Agregar Tipo de Descriptor",
+      "NAME":"Nombre",
+      "VALID":"Aplicable",
+      "ACTIVE":"Activo",
+      "CREATED":"Creado el",
+      "UPDATED":"Actualizado el",
+      "NEW":"Agregar Tipo",
+      "CURRENT":"Tipos de Descriptores Actuales",
+      "DELETE":"Eliminar Tipo"
+    },
+    "DESCRIPTOR":{
+      "ADD":"Agregar Descriptor",
+      "CATALOG":"Catalogo",
+      "CURRENT":"Descriptores Actuales",
+      "TYPE":"Tipo",
+      "DESCRIPTION":"Descripcion",
+      "DELETE":"Eliminar Descriptor",
+      "TITLE":"Titulo"
+    }
+  }
+}

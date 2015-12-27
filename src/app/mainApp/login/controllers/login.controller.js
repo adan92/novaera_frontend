@@ -39,7 +39,7 @@
             Auth.login(vm.user.username, vm.user.password)
                 .then(function(res) {
                     User.setUser().then(function(promis){
-                        $state.go('triangular.admin-default.proyectos');
+                        $state.go('triangular.admin-default.intro');
                     });
 
 
