@@ -26,7 +26,7 @@
             var token = Auth.getToken();
 
             if (token) {
-                config.headers['Authorization'] = 'Bearer ' + token;
+                config.headers.Authorization = 'Bearer ' + token;
                 // config.headers['access_token'] = token;
             }
 

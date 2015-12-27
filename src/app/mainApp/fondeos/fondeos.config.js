@@ -104,7 +104,7 @@
                         footer: true
                     }
                 }
-            })
+            });
         // add menu to triangular
         triMenuProvider.addMenu({
             name: 'MENU.FONDEOS.FONDEOS',
