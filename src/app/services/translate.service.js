@@ -15,7 +15,7 @@
     function Translate($translate,localStorageService) {
         var service ={
             translate:translate
-        }
+        };
 
         function translate(key)
         {

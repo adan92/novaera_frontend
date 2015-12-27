@@ -32,7 +32,7 @@
         vm.isOrganizacion       = false;
         vm.organizaciones       = null;
         vm.loadOrganizations    = loadOrganizations;
-        vm.saveProject          = saveProject
+        vm.saveProject          = saveProject;
 
 
         vm.isNewProject         = true;
@@ -105,13 +105,13 @@
 
         function activate()
         {
-            Restangular.all('Persona').customGET().then(function(res)
+            Restangular.all('Persona').customGET().then(function()
             {
                 //Ruta
                 Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
                     vm.projectList = res.Proyectos;
                 })
-            }).catch(function(err){
+            }).catch(function(){
                 $state.go('triangular.admin-default.personas_registro');
                 toastr.error('Debe de haber una persona registrada para acceder a este módulo','Error');
             });
@@ -148,14 +148,14 @@
 
             if(!vm.isOrganizacion)
             {
-                if(vm.proyecto.id==null){
+                if(vm.proyecto.id===null){
                     Restangular.all('Proyecto').all('Persona').customPOST(vm.proyecto).then(function(res){
                         toastr.success(vm.successText,vm.successStoreText);
                         vm.proyecto=res;
                         vm.proyectoLabel = vm.proyecto.Titulo;
 
                     }).catch(function(err){
-                        toastr.error(vm.failureText,vm.failureStoreText)
+                        toastr.error(vm.failureText,vm.failureStoreText);
                     })
                 }
                 else{
@@ -163,7 +163,7 @@
                         toastr.success(vm.successText,vm.successUpdateText);
                         vm.proyectoLabel = vm.proyecto.Titulo;
                     }).catch(function(err){
-                        toastr.error(vm.failureText,vm.failureStoreText)
+                        toastr.error(vm.failureText,vm.failureStoreText);
                     })
                 }
                 Restangular.all('Proyecto').all('Persona').customGET().then(function(res){

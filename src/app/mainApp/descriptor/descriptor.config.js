@@ -31,7 +31,9 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
             })
             .state('triangular.admin-default.tipo_descriptor',{
@@ -50,36 +52,10 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
-
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
-            })
-
-        // add menu to triangular
-        triMenuProvider.addMenu({
-            name: 'MENU.DESCRIPTOR.DESCRIPTOR',
-            type: 'dropdown',
-            icon: 'zmdi zmdi-info-outline',
-            priority: 2.1,
-            children:[
-                {
-                    name: 'Informacion',
-                    state: 'triangular.admin-default.descriptor',
-                    type: 'link'
-
-                },
-                {
-                    name: 'Tipo de Descriptor',
-                    state: 'triangular.admin-default.tipo_descriptor',
-                    type: 'link'
-
-                }
-
-            ]
-        });
-
-
-
-
+            });
     }
 })();

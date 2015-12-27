@@ -125,13 +125,13 @@
         function selectedItemChange()
         {
 
-            if(vm.selectedItem!=null)
+            if(vm.selectedItem!==null)
             {
                 Restangular.all('Proyecto').one('TRL',vm.selectedItem.id).customGET().then(function(res){
-                    vm.selectedItem.TRL = res.TRL
+                    vm.selectedItem.TRL = res.TRL;
                 }).catch(function(err){
 
-                })
+                });
             }
 
         }
@@ -188,7 +188,7 @@
             Restangular.all('Proyecto').all('TRL').customPOST(vm.TRL).then(function(res){
                toastr.success('Los datos se han guardado exitosamente','Éxito');
                 Restangular.all('Proyecto').one('TRL',vm.selectedItem.id).customGET().then(function(res){
-                    vm.selectedItem.TRL = res.TRL
+                    vm.selectedItem.TRL = res.TRL;
                 }).catch(function(err){
 
                 });
