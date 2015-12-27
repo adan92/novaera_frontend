@@ -330,7 +330,7 @@
             vm.selectedItem.resultados.push($scope.resultado);
             $scope.resultado=null;
             $scope.agregarResultado.$setPristine();
-        }
+        };
 
         /**
          * Funcion para agregar patente
@@ -344,7 +344,7 @@
             $scope.patente=null;
             $scope.agregarPatente.$setPristine();
 
-        }
+        };
 
     }
 })();

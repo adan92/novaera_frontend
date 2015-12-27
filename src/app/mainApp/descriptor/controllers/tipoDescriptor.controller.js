@@ -30,7 +30,7 @@
                 creado:"1970-01-01 00:00:01",
                 actualizado:"1970-01-01 00:00:01"
             }
-        ]
+        ];
         //
 
         vm.tiposDescriptor             = $scope.tiposDescriptor;
@@ -106,7 +106,7 @@
     function matcher()
     {
         return function(arr1,arr2){
-            if(arr2==null)
+            if(arr2===null)
                 return true;
 
             return arr1.filter(function(val){
@@ -117,7 +117,7 @@
                         returnable = false;
                 },val);
 
-                if(returnable==null)
+                if(returnable===null)
                     return true;
                 else return false;
             })

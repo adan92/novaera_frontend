@@ -23,14 +23,14 @@
             }
             else
             {
-                if(CustomMenu.findMenu(admin_menu)!=null)
+                if(CustomMenu.findMenu(admin_menu)!==null)
                 {
                     CustomMenu.removeMenu(admin_menu);
                 }
             }
 
 
-            if (toState.data.requirePrivileges !=undefined && toState.data.requirePrivileges!=User.privileges())
+            if (toState.data.requirePrivileges !==undefined && toState.data.requirePrivileges!=User.privileges())
             {
                 var title =Translate.translate('MESSAGES.ERROR_TITLE');
                 var message =Translate.translate('MESSAGES.UNAUTHORIZED');

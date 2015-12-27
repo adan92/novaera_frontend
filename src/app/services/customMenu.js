@@ -17,7 +17,7 @@
             findMenu:findMenu,
             injectSupervisorMenu:injectSupervisorMenu,
             removeMenu:removeMenu
-        }
+        };
 
         function removeMenu(key)
         {

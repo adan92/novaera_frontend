@@ -21,7 +21,7 @@
         function privileges()
         {
             var user = localStorageService.get('user') || null;
-            if(user == null)
+            if(user === null)
             {
                 return null;
             }
