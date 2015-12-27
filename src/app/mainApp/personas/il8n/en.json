@@ -46,6 +46,18 @@
       "PREV": "Anterior",
       "NEXT": "Siguiente",
       "SEND": "Enviar"
+    },
+    "DESCRIPTOR":{
+      "TITLE":"Personas Registradas",
+      "INSTRUCTIONS":"Selecciona una persona para modificar sus descriptores",
+      "CURRENT":"Descriptores de la persona actual",
+      "ADD":"Agregar Descriptor",
+      "DELETE":"Eliminar Descriptor",
+      "TYPE":"Tipo de Descriptor",
+      "FINIT":"Fecha Inicio",
+      "FEND":"Fecha de Termino",
+      "TRESULT":"Tipo de Resultado",
+      "NREGISTRO":"No. de Registro"
     }
 
 

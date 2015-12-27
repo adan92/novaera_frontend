@@ -53,7 +53,28 @@
                     requireLogin: true
 
                 }
+            })
+            .state('triangular.admin-default.personas_descriptor',{
+                url: '/personas_descriptor',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/personas/descriptor_persona.tmpl.html',
+                // set the controller to load for this page
+                controller: 'descriptorPersonasController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: true
+                    },
+                    requireLogin: true
+
+                }
             });
+
 
         // add menu to triangular
         triMenuProvider.addMenu({
@@ -71,6 +92,12 @@
                 {
                     name: 'Registro',
                     state: 'triangular.admin-default.personas_registro',
+                    type: 'link'
+
+                },
+                {
+                    name: 'Descriptor',
+                    state: 'triangular.admin-default.personas_descriptor',
                     type: 'link'
 
                 }
