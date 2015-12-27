@@ -53,7 +53,6 @@
                     requireLogin: true
 
                 }
-<<<<<<< HEAD
             })
             .state('triangular.admin-default.personas_descriptor',{
                 url: '/personas_descriptor',
@@ -74,10 +73,8 @@
                     requireLogin: true
 
                 }
-            })
-=======
             });
->>>>>>> master
+
 
         // add menu to triangular
         triMenuProvider.addMenu({

@@ -12,13 +12,8 @@
            'app.mainApp.organizaciones',
            'app.mainApp.fondeos',
            'app.mainApp.personas',
-<<<<<<< HEAD
            'app.mainApp.descriptor',
            'app.mainApp.admin'
-
-=======
-           'app.mainApp.admin'
->>>>>>> master
 
         ]);
 })();

@@ -180,7 +180,6 @@
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
     },
-<<<<<<< HEAD
     "DESCRIPTOR":
     {
       "MY_PROJECT": "Proyectos Registrados",
@@ -195,8 +194,7 @@
       "REMOVE_RESULT": "Eliminar Resultado",
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
-      "RESULT": "Resultado Esperado"
-=======
+      "EXPECTED_RESULT": "Resultado Esperado"
     "BUSINESS_MODEL":
     {
       "PROJECT_SELECT":"Selección de Proyecto",
@@ -209,7 +207,6 @@
       "CLIENT_RELATIONSHIPS":"Relaciones con el Cliente",
       "KEY_RESOURCES":"Recursos Clave",
       "KEY_ALLIES":"Aliados Clave"
->>>>>>> master
     }
   }
 
