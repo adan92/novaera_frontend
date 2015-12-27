@@ -11,10 +11,7 @@
     /** @ngInject */
     function runBlock($log, $rootScope, User, $state, Auth,toastr,CustomMenu,Translate) {
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-
             var admin_menu ='Admin Menu';
-
-
             if (User.privileges()=='Supervisor')
             {
                 $log.debug('Supervisor Encontrado');
