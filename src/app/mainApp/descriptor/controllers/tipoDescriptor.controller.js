@@ -111,8 +111,8 @@
             if(item!=undefined)
             {
                 //IF Ternario
-                item.Activo==1 ? item.Activo = true : item.Activo = false;
                 vm.tipoDescriptor = item;
+                item.Activo==1 ? vm.tipoDescriptor.Activo = true : vm.tipoDescriptor.Activo = false;
             }
         }
 

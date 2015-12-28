@@ -3,11 +3,11 @@
 
     angular
         .module('app.mainApp.explotacionInformacion')
-        .controller('ExplotacionInformacionController', ExplotacionInformacionController);
+        .controller('explotacionInformacionController', explotacionInformacionController);
 
     /* @ngInject */
 
-        function ExplotacionInformacionController($scope) {
+        function explotacionInformacionController($scope) {
             var vm = this;
             vm.columns = [{
                 title: 'Name',

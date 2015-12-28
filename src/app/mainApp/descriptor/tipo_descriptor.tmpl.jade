@@ -22,16 +22,30 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 h2.text-center(translate='') DESCRIPTOR.TIPO.CURRENT
                 md-list
                     md-list-item.md-4-line(ng-repeat='tipo in vm.tiposDescriptor')
-                        div(layout='row', flex='100', layout-align='space-around center')
-                            .md-list-item-text
-                                h3 Id: {{tipo.id}}
-                                h3 Nombre: {{tipo.Nombre}}
-                                h5 Aplicable: {{tipo.Aplicable}}
-                                h5 Activo: {{tipo.Activo}}
-                                h6 Creado el: {{tipo.created_at}}
-                                h6 Actualzado el: {{tipo.updated_at}}
-                            md-button.md-raised.md-primary(ng-click='vm.edit(tipo)')
-                                span(translate) DESCRIPTOR.TIPO.EDIT
-                            md-button.md-raised(ng-click='vm.createDialog($event,tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                span(translate='') DESCRIPTOR.TIPO.DELETE
+                        div(layout='row', flex, layout-align='space-around center' layout-sm='column')
+                            div.md-list-item-text(flex='50')
+                                h3
+                                    span(translate) DESCRIPTOR.TIPO.ID
+                                    span  {{tipo.id}}
+                                h3
+                                    span(translate) DESCRIPTOR.TIPO.NAME
+                                    span  {{tipo.Nombre}}
+                                h5
+                                    span(translate) DESCRIPTOR.TIPO.APPlICABLE
+                                    span  {{tipo.Aplicable}}
+                                h5
+                                    span(translate) DESCRIPTOR.TIPO.ACTIVE
+                                    span  {{tipo.Activo==1? 'Si':'No'}}
+                                h6
+                                    span(translate) DESCRIPTOR.TIPO.CREATED_AT
+                                    span {{tipo.created_at}}
+                                h6
+                                    span(translate) DESCRIPTOR.TIPO.UPDATED_AT
+                                    span {{tipo.updated_at}}
+                            div(flex='25')
+                                md-button.md-raised.md-primary(ng-click='vm.edit(tipo)')
+                                    span(translate) DESCRIPTOR.TIPO.EDIT
+                            div(flex='25')
+                                md-button.md-raised(ng-click='vm.createDialog($event,tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                    span(translate='') DESCRIPTOR.TIPO.DELETE
                         md-divider
