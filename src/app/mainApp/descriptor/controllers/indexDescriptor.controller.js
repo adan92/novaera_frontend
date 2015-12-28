@@ -10,56 +10,53 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function indexDescriptorController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function indexDescriptorController($scope,Restangular,Translate,toastr,$mdToast) {
         var vm = this;
 
-        $scope.tiposDescriptor = [
-            {
-                id: 1,
-                nombre: "Tipo de Descriptor 1",
-                aplicable:"S",
-                activo:true,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                nombre: "Tipo de Descriptor 2",
-                aplicable:"S",
-                activo:true,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ];
-
-        $scope.descriptores = [
-            {
-                id: 1,
-                titulo: "Descriptor 1",
-                descripcion:"Este es el Descriptor 1",
-                catalogo:"Catalogo 1",
-                tipo:{
-                    id: 1,
-                    nombre: "Descriptor 1",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ];
-
-        //
-
-        vm.descriptores       = $scope.descriptores;
-        vm.tiposDescriptor             = $scope.tiposDescriptor;
+        vm.activate           = activate();
+        vm.descriptores       = null;
+        vm.tiposDescriptor    = null;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        vm.resetForm          = resetForm;
+
+        function activate(){
+            Restangular.all('Descriptor').customGET().then(function(res){
+                vm.descriptores = res.Descriptor;
+                Restangular.all('TipoDescriptor').customGET().then(function(res){
+                    console.log(res.TipoDescriptor);
+                    vm.tiposDescriptor = res.TipoDescriptor;
+                }).catch(function(err){
+
+                });
+
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+
+        }
+
+
+        function resetForm()
+        {
+            vm.descriptor=null
+            $scope.agregarTipo.$setPristine();
+        }
+
 
 
         //////////////////

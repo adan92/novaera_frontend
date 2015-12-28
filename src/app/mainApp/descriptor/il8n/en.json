@@ -26,6 +26,9 @@
     },
     "DESCRIPTOR":{
       "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Descriptor",
+      "UPDATE":"Actualizar Descriptor",
+      "CLEAR": "Limpiar Campos",
       "CATALOG":"Catalogo",
       "CURRENT":"Descriptores Actuales",
       "TYPE":"Tipo",

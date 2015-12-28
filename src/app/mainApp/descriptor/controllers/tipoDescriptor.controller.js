@@ -12,13 +12,14 @@
     /* @ngInject */
     function tipoDescriptorController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
-        activate();
+        vm.activate         = activate();
         //Variables
         vm.tipoDescriptor   = null;
         vm.addItem          = addItem;
         vm.createDialog     = createDialog;
         vm.deleteDescriptor = deleteDescriptor;
         vm.edit             = edit;
+        vm.resetForm        = resetForm;
 
 
 
@@ -38,14 +39,20 @@
             }, function() {
                 console.log("Cancelado");
             });
-
-
         }
+
+        function resetForm()
+        {
+            vm.tipoDescriptor=null
+            $scope.agregarTipo.$setPristine();
+        }
+
 
 
         function activate()
         {
             Restangular.all('TipoDescriptor').customGET().then(function(res){
+                console.log(res.TipoDescriptor);
                 vm.tiposDescriptor = res.TipoDescriptor;
             }).catch(function(err){
 

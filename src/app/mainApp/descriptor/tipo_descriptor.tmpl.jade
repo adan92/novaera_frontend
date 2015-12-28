@@ -15,6 +15,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         label(translate='') DESCRIPTOR.TIPO.ACTIVE
                     md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') DESCRIPTOR.TIPO.NEW
+                    md-button.md-raised(ng-disabled='vm.tipoDescriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
     // Tarjeta para eliminar tipo de descriptor
     div(layout='row', layout-md='column')
         md-card(flex='', layout='column')

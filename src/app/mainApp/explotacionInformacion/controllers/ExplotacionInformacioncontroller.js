@@ -202,7 +202,7 @@
                     status: 'Aceptado',
                     date: '30-12-15',
                     descriptor: 'Servicios'
-                },
+                }
 
             ];
             //grafica de Pastel
