@@ -49,13 +49,7 @@
                 icon: 'zmdi zmdi-lock-open',
                 priority: 2.1,
                 children:[
-                    {
-                        name: 'Validar Personas',
-                        state: 'triangular.admin-default.admin',
-                        icon: 'fa fa-users',
-                        type: 'link'
 
-                    },
                     {
                         name: 'MENU.DESCRIPTOR.DESCRIPTOR',
                         type: 'dropdown',
@@ -75,8 +69,86 @@
 
                             }
 
+
+                        ]
+
+                    },
+                    {
+                        name: 'MENU.EXPINFO.EXPINFO1',
+                        type: 'dropdown',
+                        icon: 'zmdi zmdi-chart',
+                        priority: 2.1,
+                        children:[
+                            {
+                                name: 'MENU.EXPINFO.EXPINFO1',
+                                state: 'triangular.admin-default.explotacionInformacion',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'MENU.EXPINFO.EXPINFO2',
+                                state: 'triangular.admin-default.explotacionInformacionEsp',
+                                type: 'link'
+
+                            }
+
+                        ]
+                    },
+                    { name: 'MENU.PERSONAS.PERSONAS',
+                        type: 'dropdown',
+                        icon: 'zmdi zmdi-account',
+                        priority: 2.1,
+                        children:[
+                            {
+                                name: 'Información',
+                                state: 'triangular.admin-default.personas',
+                                icon: 'fa fa-user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'Validar Personas',
+                                state: 'triangular.admin-default.admin',
+                                icon: 'fa fa-users',
+                                type: 'link'
+
+                            }
+                        ]},
+                    {
+                        name: 'MENU.FONDEOS.FONDEOS',
+                        type: 'dropdown',
+                        icon: 'zmdi zmdi-money-box',
+                        priority: 2.1,
+                        children:[
+                            {
+                                name: 'Registro',
+                                state: 'triangular.admin-default.fondeos_registro',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'Convocatoria',
+                                state: 'triangular.admin-default.fondeos_convocatoria',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'Modalidad',
+                                state: 'triangular.admin-default.fondeos_modalidad',
+                                type: 'link'
+
+                            },
+                            {
+                                name: 'Descriptor',
+                                state: 'triangular.admin-default.fondeos_descriptor',
+                                type: 'link'
+
+                            }
+
+
                         ]
                     }
+
                 ]};
             triMenu.menu.unshift(adminMenu);
         }
