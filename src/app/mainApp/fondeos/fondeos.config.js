@@ -49,7 +49,11 @@
                         sideMenuSize: 'full',
                         footer: true
                     }
-                }
+
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             })
             .state('triangular.admin-default.fondeos_modalidad',{
                 url: '/fondeos_modalidad',
@@ -67,7 +71,10 @@
                         sideMenuSize: 'full',
                         footer: true
                     }
-                }
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             })
             .state('triangular.admin-default.fondeos_convocatoria',{
                 url: '/fondeos_convocatoria',
@@ -85,7 +92,10 @@
                         sideMenuSize: 'full',
                         footer: true
                     }
-                }
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             })
             .state('triangular.admin-default.fondeos_descriptor',{
                 url: '/fondeos_descriptor',
@@ -103,7 +113,10 @@
                         sideMenuSize: 'full',
                         footer: true
                     }
-                }
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             });
         // add menu to triangular
         triMenuProvider.addMenu({
@@ -117,32 +130,7 @@
                     state: 'triangular.admin-default.fondeos',
                     type: 'link'
 
-                },
-                {
-                    name: 'Registro',
-                    state: 'triangular.admin-default.fondeos_registro',
-                    type: 'link'
-
-                },
-                {
-                    name: 'Convocatoria',
-                    state: 'triangular.admin-default.fondeos_convocatoria',
-                    type: 'link'
-
-                },
-                {
-                    name: 'Modalidad',
-                    state: 'triangular.admin-default.fondeos_modalidad',
-                    type: 'link'
-
-                },
-                {
-                    name: 'Descriptor',
-                    state: 'triangular.admin-default.fondeos_descriptor',
-                    type: 'link'
-
                 }
-
 
             ]
         });
