@@ -53,7 +53,7 @@
 
         function resetForm()
         {
-            vm.descriptor=null
+            vm.descriptor=null;
             $scope.agregarTipo.$setPristine();
         }
 
