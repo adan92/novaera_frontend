@@ -6,7 +6,15 @@
   },
   "DESCRIPTOR": {
     "TIPO": {
+
+      "ID":"id: ",
+      "NAME":"Nombre: ",
+      "APPlICABLE":"Aplicable: ",
+      "ACTIVE":"Activo: ",
+      "CREATED_AT":"Creado el: ",
+      "UPDATED_AT":"Actualizado el: ",
       "ADD":"Agregar Tipo de Descriptor",
+      "EDIT":"Editar Tipo de Descriptor",
       "NAME":"Nombre",
       "VALID":"Aplicable",
       "ACTIVE":"Activo",
@@ -18,6 +26,9 @@
     },
     "DESCRIPTOR":{
       "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Descriptor",
+      "UPDATE":"Actualizar Descriptor",
+      "CLEAR": "Limpiar Campos",
       "CATALOG":"Catalogo",
       "CURRENT":"Descriptores Actuales",
       "TYPE":"Tipo",

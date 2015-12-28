@@ -31,7 +31,10 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
             })
             .state('triangular.admin-default.explotacionInformacionEsp',{
@@ -50,33 +53,15 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
 
                 }
             });
 
         // add menu to triangular
-        triMenuProvider.addMenu({
-            name: 'MENU.EXPINFO.EXPINFO1',
-            type: 'dropdown',
-            icon: 'zmdi zmdi-chart',
-            priority: 2.1,
-            children:[
-                {
-                    name: 'MENU.EXPINFO.EXPINFO1',
-                    state: 'triangular.admin-default.explotacionInformacion',
-                    type: 'link'
 
-                },
-                {
-                    name: 'MENU.EXPINFO.EXPINFO2',
-                    state: 'triangular.admin-default.explotacionInformacionEsp',
-                    type: 'link'
-
-                }
-
-            ]
-        });
 
 
 

@@ -1,0 +1,53 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2(translate='') DESCRIPTOR.TIPO.ADD
+                form(name='agregarTipo', novalidate='')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.TIPO.NAME
+                        input(ng-model='vm.tipoDescriptor.Nombre', required='', name='nombre')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.TIPO.VALID
+                        input(ng-model='vm.tipoDescriptor.Aplicable', required='', name='aplicable')
+                    md-switch.md-primary(ng-model='vm.tipoDescriptor.Activo', aria-label='Primary Switch', ng-init='activo = true')
+                        label(translate='') DESCRIPTOR.TIPO.ACTIVE
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') DESCRIPTOR.TIPO.NEW
+                    md-button.md-raised(ng-disabled='vm.tipoDescriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
+    // Tarjeta para eliminar tipo de descriptor
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') DESCRIPTOR.TIPO.CURRENT
+                md-list
+                    md-list-item.md-4-line(ng-repeat='tipo in vm.tiposDescriptor')
+                        div(layout='row', flex, layout-align='space-around center' layout-sm='column')
+                            div.md-list-item-text(flex='50')
+                                h3
+                                    span(translate) DESCRIPTOR.TIPO.ID
+                                    span  {{tipo.id}}
+                                h3
+                                    span(translate) DESCRIPTOR.TIPO.NAME
+                                    span  {{tipo.Nombre}}
+                                h5
+                                    span(translate) DESCRIPTOR.TIPO.APPlICABLE
+                                    span  {{tipo.Aplicable}}
+                                h5
+                                    span(translate) DESCRIPTOR.TIPO.ACTIVE
+                                    span  {{tipo.Activo==1? 'Si':'No'}}
+                                h6
+                                    span(translate) DESCRIPTOR.TIPO.CREATED_AT
+                                    span {{tipo.created_at}}
+                                h6
+                                    span(translate) DESCRIPTOR.TIPO.UPDATED_AT
+                                    span {{tipo.updated_at}}
+                            div(flex='25')
+                                md-button.md-raised.md-primary(ng-click='vm.edit(tipo)')
+                                    span(translate) DESCRIPTOR.TIPO.EDIT
+                            div(flex='25')
+                                md-button.md-raised(ng-click='vm.createDialog($event,tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                    span(translate='') DESCRIPTOR.TIPO.DELETE
+                        md-divider

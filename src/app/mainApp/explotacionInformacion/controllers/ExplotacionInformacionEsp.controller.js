@@ -3,10 +3,10 @@
 
     angular
         .module('app.mainApp.explotacionInformacion')
-        .controller('ExplotacionInformacionControllerEsp', ExplotacionInformacionControllerEsp);
+        .controller('explotacionInformacionControllerEsp', explotacionInformacionControllerEsp);
 
     /* @ngInject */
-    function ExplotacionInformacionControllerEsp(Restangular,toastr) {
+    function explotacionInformacionControllerEsp(Restangular,toastr) {
         var vm = this;
         vm=1;
 
