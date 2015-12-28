@@ -180,17 +180,24 @@
       "MATERIAL_RESOURCES": "Recursos Materiales"
 
     },
+
+
     "DESCRIPTOR": {
       "MY_PROJECT": "Proyectos Registrados",
-      "INSTRUCTIONS": "Busca tu proyecto para registrar los resultados",
+      "INSTRUCTIONS_PROJECT": "Busca tu proyecto para registrar los descriptores ",
+      "INSTRUCTIONSRESULT":"Busca tu proyecto para registrar los resultados",
       "PROJECT_SELECT": "Selección de Proyecto",
       "IDKEY": "Descriptor",
+      "NOTES": "Notas",
+      "CURRENT": "Descriptores almacenados actualmente",
+      "TYPE":"Tipo de descriptor",
       "MY_RESULTS": "Resultados Registrados",
       "INITIAL_DATE": "Fecha de Registro",
       "APROV_DATE": "Fecha de Aprobación",
       "PCT": "PCT",
       "RESULT": "Resultados",
       "REMOVE_RESULT": "Eliminar Resultado",
+      "ADD":"Agregar Descriptor",
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
       "EXPECTED_RESULT": "Resultado Esperado"
