@@ -1,0 +1,44 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    //
+      >
+      <!-- Tarjeta para ver los descriptores
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2(translate='') DESCRIPTOR.DESCRIPTOR.ADD
+                form(name='agregarTipo', novalidate='')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.TITLE
+                        input(ng-model='titulo', required='', name='titulo')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.DESCRIPTION
+                        input(ng-model='descripcion', required='', name='descripcion')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.CATALOG
+                        input(ng-model='catalog', required='', name='catalog')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.TYPE
+                        md-select(ng-model='tipo', required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.tiposDescriptor', value='{{tipo.tutulo}}')
+                                | {{tipo.id}}
+                    md-button.md-raised(ng-disabled='registrarTipo.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.ADD
+    // Tarjeta para eliminar tipo de descriptor
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') DESCRIPTOR.DESCRIPTOR.CURRENT
+                md-list
+                    md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptores')
+                        div(layout='row', flex='100', layout-align='space-around center')
+                            .md-list-item-text
+                                h3 Id: {{descriptor.id}}
+                                h3 Titulo: {{descriptor.titulo}}
+                                h5 Descripción: {{descriptor.descripcion}}
+                                h5 Catalogo: {{descriptor.catalogo}}
+                                h5 Tipo: {{descriptor.tipo.nombre}}
+                                h6 Creado el: {{descriptor.creado}}
+                                h6 Actualzado el: {{descriptor.actualizado}}
+                            md-button.md-raised(ng-click='deleteItem(descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                span(translate='') DESCRIPTOR.DESCRIPTOR.DELETE
+                        md-divider

@@ -1,0 +1,35 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2(translate='') DESCRIPTOR.TIPO.ADD
+                form(name='agregarTipo', novalidate='')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.TIPO.NAME
+                        input(ng-model='nombre', required='', name='nombre')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.TIPO.VALID
+                        input(ng-model='aplicable', required='', name='aplicable')
+                    md-switch.md-primary(ng-model='activo', aria-label='Primary Switch', ng-init='activo = true')
+                        label(translate='') DESCRIPTOR.TIPO.ACTIVE
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') DESCRIPTOR.TIPO.NEW
+    // Tarjeta para eliminar tipo de descriptor
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') DESCRIPTOR.TIPO.CURRENT
+                md-list
+                    md-list-item.md-4-line(ng-repeat='tipo in vm.tiposDescriptor')
+                        div(layout='row', flex='100', layout-align='space-around center')
+                            .md-list-item-text
+                                h3 Id: {{tipo.id}}
+                                h3 Nombre: {{tipo.nombre}}
+                                h5 Aplicable: {{tipo.aplicable}}
+                                h5 Activo: {{tipo.activo}}
+                                h6 Creado el: {{tipo.creado}}
+                                h6 Actualzado el: {{tipo.actualizado}}
+                            md-button.md-raised(ng-click='deleteItem(tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                span(translate='') DESCRIPTOR.TIPO.DELETE
+                        md-divider
