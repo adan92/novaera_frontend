@@ -31,7 +31,9 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requirePrivileges:'Supervisor',
+                    redirect:'auth.login'
                 }
             })
             .state('triangular.admin-default.personas_registro',{
@@ -83,12 +85,6 @@
             icon: 'zmdi zmdi-account',
             priority: 2.1,
             children:[
-                {
-                    name: 'Información',
-                    state: 'triangular.admin-default.personas',
-                    type: 'link'
-
-                },
                 {
                     name: 'Registro',
                     state: 'triangular.admin-default.personas_registro',
