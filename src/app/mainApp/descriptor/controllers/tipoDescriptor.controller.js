@@ -10,30 +10,61 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function tipoDescriptorController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function tipoDescriptorController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
+        activate();
+        //Variables
+        vm.tipoDescriptor   = null;
+        vm.addItem          = addItem;
+        vm.createDialog     = createDialog;
+        vm.deleteDescriptor = deleteDescriptor;
+        vm.edit             = edit;
 
-        $scope.tiposDescriptor = [
-            {
-                id: 1,
-                nombre: "Descriptor 1",
-                aplicable:"S",
-                activo:true,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                nombre: "Descriptor 2",
-                aplicable:"S",
-                activo:true,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ];
-        //
 
-        vm.tiposDescriptor             = $scope.tiposDescriptor;
+
+        function createDialog(ev,item)
+        {
+
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteDescriptor(item);
+            }, function() {
+                console.log("Cancelado");
+            });
+
+
+        }
+
+
+        function activate()
+        {
+            Restangular.all('TipoDescriptor').customGET().then(function(res){
+                vm.tiposDescriptor = res.TipoDescriptor;
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+        }
+
+
+
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
@@ -62,40 +93,82 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
-            vm.tiposDescriptor.splice(index, 1);
-            //console.log($scope.proyectos);
-        };
+        function deleteDescriptor(item){
+            Restangular.one('TipoDescriptor',item.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('TipoDescriptor').customGET().then(function(res){
+                    vm.tiposDescriptor = res.TipoDescriptor;
+                }).catch(function(err){
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            })
+        }
+
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                //IF Ternario
+                item.Activo==1 ? item.Activo = true : item.Activo = false;
+                vm.tipoDescriptor = item;
+            }
+        }
+
 
         /**
          * Create function to add item
          */
 
-        $scope.addItem = function()
+        function addItem()
         {
-            var tipo = {
-                id: $scope.id,
-                nombre: $scope.nombre,
-                aplicable:$scope.nombre,
-                activo:$scope.activo,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            };
+            //Restangular.all('TipoDescriptor') = http://127.0.0.1:8888/novaera_laravel/public/api/TipoDescriptor
+            //Restangular.one('TipoDescriptor',1) = idem/TipoDescriptor/1
+            if (vm.tipoDescriptor.id == null) {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.all('TipoDescriptor').customPOST(vm.tipoDescriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successStoreText);
+                    //Limpiamos las variables ligadas a formulario
+                    vm.tipoDescriptor.id = null;
+                    vm.tipoDescriptor.Nombre = null;
+                    vm.tipoDescriptor.Aplicable = null;
+                    vm.tipoDescriptor.Activo = null;
+                    //Pedimos la lista de descriptores de la BD
+                    Restangular.all('TipoDescriptor').customGET().then(function(res){
+                        vm.tiposDescriptor = res.TipoDescriptor;
+                    }).catch(function(err){
 
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
 
+            }
+            else
+            {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successUpdateText);
+                    //Limpiamos las variables ligadas a formulario
+                    vm.tipoDescriptor.id = null;
+                    vm.tipoDescriptor.Nombre = null;
+                    vm.tipoDescriptor.Aplicable = null;
+                    vm.tipoDescriptor.Activo = null;
+                    //Pedimos la lista de descriptores de la BD
+                    Restangular.all('TipoDescriptor').customGET().then(function(res){
+                        vm.tiposDescriptor = res.TipoDescriptor;
+                    }).catch(function(err){
 
-            vm.tiposDescriptor.push(tipo);
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
 
-
-            $scope.id = null;
-            $scope.nombre = null;
-            $scope.aplicable = null;
-            $scope.activo = null;
-            $scope.creado = null;
-            $scope.actualizado = null;
-            $scope.registrarResultado.$setPristine();
-
-        };
+        }
 
 
 

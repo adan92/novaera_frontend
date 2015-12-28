@@ -7,13 +7,13 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 form(name='agregarTipo', novalidate='')
                     md-input-container
                         label(translate='') DESCRIPTOR.TIPO.NAME
-                        input(ng-model='nombre', required='', name='nombre')
+                        input(ng-model='vm.tipoDescriptor.Nombre', required='', name='nombre')
                     md-input-container
                         label(translate='') DESCRIPTOR.TIPO.VALID
-                        input(ng-model='aplicable', required='', name='aplicable')
-                    md-switch.md-primary(ng-model='activo', aria-label='Primary Switch', ng-init='activo = true')
+                        input(ng-model='vm.tipoDescriptor.Aplicable', required='', name='aplicable')
+                    md-switch.md-primary(ng-model='vm.tipoDescriptor.Activo', aria-label='Primary Switch', ng-init='activo = true')
                         label(translate='') DESCRIPTOR.TIPO.ACTIVE
-                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') DESCRIPTOR.TIPO.NEW
     // Tarjeta para eliminar tipo de descriptor
     div(layout='row', layout-md='column')
@@ -25,11 +25,13 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         div(layout='row', flex='100', layout-align='space-around center')
                             .md-list-item-text
                                 h3 Id: {{tipo.id}}
-                                h3 Nombre: {{tipo.nombre}}
-                                h5 Aplicable: {{tipo.aplicable}}
-                                h5 Activo: {{tipo.activo}}
-                                h6 Creado el: {{tipo.creado}}
-                                h6 Actualzado el: {{tipo.actualizado}}
-                            md-button.md-raised(ng-click='deleteItem(tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                h3 Nombre: {{tipo.Nombre}}
+                                h5 Aplicable: {{tipo.Aplicable}}
+                                h5 Activo: {{tipo.Activo}}
+                                h6 Creado el: {{tipo.created_at}}
+                                h6 Actualzado el: {{tipo.updated_at}}
+                            md-button.md-raised.md-primary(ng-click='vm.edit(tipo)')
+                                span(translate) DESCRIPTOR.TIPO.EDIT
+                            md-button.md-raised(ng-click='vm.createDialog($event,tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
                                 span(translate='') DESCRIPTOR.TIPO.DELETE
                         md-divider

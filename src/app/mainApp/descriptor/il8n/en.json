@@ -7,6 +7,7 @@
   "DESCRIPTOR": {
     "TIPO": {
       "ADD":"Agregar Tipo de Descriptor",
+      "EDIT":"Editar Tipo de Descriptor",
       "NAME":"Nombre",
       "VALID":"Aplicable",
       "ACTIVE":"Activo",
