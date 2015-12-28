@@ -42,7 +42,7 @@
                 // set the html template to show on this page
                 templateUrl: 'app/mainApp/explotacionInformacion/explotacionInformacionEsp.tmpl.html',
                 // set the controller to load for this page
-                controller: 'registrarPersonasController',
+                controller: 'explotacionInformacionEspController',
                 controllerAs: 'vm',
                 data: {
                     layout: {
