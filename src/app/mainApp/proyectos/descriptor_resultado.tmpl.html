@@ -28,7 +28,7 @@
 
     <!-- Tarjeta para eliminar Resultados -->
     <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
-        <md-card flex="30" layout="column">
+        <md-card flex="40" layout="column">
             <md-card-content>
                 <h2 translate class="text-center">PROJECT.DESCRIPTOR.MY_RESULTS</h2>
                 <md-list>
@@ -36,10 +36,10 @@
                     <md-list-item class="md-4-line" ng-repeat="etapa in vm.selectedItem.etapas">
                         <div class="md-list-item-text">
                             <h3>ID: {{etapa.id}}</h3>
+                            <h5>Descriptor: {{etapa.idDescriptor}}</h5>
                             <h5>Fecha de Inicio: {{etapa.fechaInicio}}</h5>
                             <h5>Fecha de Aprobado: {{etapa.fechaAprobado}}</h5>
-                            <h5>PTC: {{etapa.pct}}</h5>
-                            <h5>PTC: {{etapa.pct}}</h5>
+                            <h5>PCT: {{etapa.pct}}</h5>
                         </div>
                         <md-button ng-click="deleteItem(etapa)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PROJECT.DESCRIPTOR.REMOVE_RESULT</span></md-button>
                         <md-divider></md-divider>

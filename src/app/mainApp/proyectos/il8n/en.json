@@ -37,7 +37,6 @@
       "SEND": "Enviar",
       "IN_PROGRESS": "En Progreso",
       "FINISHED": "Terminado"
-
     },
     "FORM":{
       "PROJECT_TITLE": "Titulo del Proyecto: ",
@@ -60,7 +59,6 @@
         "STAGES":"Etapas",
         "EXTRA":"Extra"
       }
-
     },
     "STAGES":
     {
@@ -178,11 +176,11 @@
       "FINANCIAL_RESOURCES": "Recursos Financieros",
       "TECHNOLOGICAL_RESOURCES": "Recursos Tecnológicos",
       "MATERIAL_RESOURCES": "Recursos Materiales"
-
     },
     "DESCRIPTOR": {
       "MY_PROJECT": "Proyectos Registrados",
-      "INSTRUCTIONS": "Busca tu proyecto para registrar los resultados",
+      "INSTRUCTIONSRESULT": "Busca tu proyecto para registrar los resultados",
+      "INSTRUCTIONSPROYEC": "Busca tu proyecto para editar los descriptores",
       "PROJECT_SELECT": "Selección de Proyecto",
       "IDKEY": "Descriptor",
       "MY_RESULTS": "Resultados Registrados",
