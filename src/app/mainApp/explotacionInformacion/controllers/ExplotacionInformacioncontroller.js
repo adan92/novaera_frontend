@@ -3,11 +3,11 @@
 
     angular
         .module('app.mainApp.explotacionInformacion')
-        .controller('ExplotacionInformacionController', ExplotacionInformacionController);
+        .controller('explotacionInformacionController', explotacionInformacionController);
 
     /* @ngInject */
 
-        function ExplotacionInformacionController($scope) {
+        function explotacionInformacionController($scope) {
             var vm = this;
             vm.columns = [{
                 title: 'Name',
@@ -202,23 +202,15 @@
                     status: 'Aceptado',
                     date: '30-12-15',
                     descriptor: 'Servicios'
-                },
+                }
 
             ];
             //grafica de Pastel
             $scope.PersonasLabels = ['P & D Systems', 'Merol', 'SACA', 'Universa', 'ronson & sons'];
             $scope.PersonasData = ['2', '1', '1', '2', '4'];
 
-            // grafica area
-            $scope.Personas_area_labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"];
-            $scope.Personas_area_series = ['P&D Systems', 'Merol', 'SACA', 'Universa', 'ronson & sons'];
-            $scope.Personas_area_data = [
-                [0, 1, 0, 2, 8, 3, 2],
-                [0, 0, 1, 1, 0, 0, 1],
-                [0, 0, 0, 0, 0, 0, 1],
-                [0, 0, 1, 0, 0, 0, 2],
-                [0, 0, 0, 0, 0, 1, 4]
-            ];
+
+
 
             vm.labels = ['Organizaciones', 'Personas', 'Proyectos', 'resultados'];
             vm.series = ['Aceptado-Validado', 'Rechasado-No validado','Por Validar'];
@@ -229,7 +221,7 @@
 
             ];
 
-            /////////
+            /////////// grafica area
             vm.labelspolar = ["Manufactura", "Tecnologia", "Servicios"];
             vm.datapolar = [6, 7, 7];
             vm.labelsfull = ["Tecnologia", "Manufactura", "Servicios"];

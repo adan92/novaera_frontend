@@ -1,0 +1,47 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    //
+      >
+      <!-- Tarjeta para ver los descriptores
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2(translate='') DESCRIPTOR.DESCRIPTOR.ADD
+                form(name='agregarTipo', novalidate='')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.TITLE
+                        input(ng-model='vm.descriptor.Titulo', required='', name='titulo')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.DESCRIPTION
+                        input(ng-model='vm.descriptor.Descripcion', required='', name='descripcion')
+                    md-input-container
+                        label(translate='') DESCRIPTOR.DESCRIPTOR.TYPE
+                        md-select(ng-model='vm.descriptor.idTipoDescriptor', required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.tiposDescriptor', value='{{tipo.id}}')
+                                | {{tipo.Nombre}}
+                    md-button.md-raised(ng-disabled='registrarTipo.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.ADD
+                    md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
+    // Tarjeta para eliminar tipo de descriptor
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') DESCRIPTOR.DESCRIPTOR.CURRENT
+                md-list
+                    md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptores')
+                        div(layout='row', flex='100', layout-align='space-around center')
+                            div.md-list-item-text(flex='50').md-list-item-text
+                                h3 Id: {{descriptor.id}}
+                                h3 Titulo: {{descriptor.Titulo}}
+                                h5 Descripción: {{descriptor.Descripcion}}
+                                h5 Tipo: {{descriptor.tipo_descriptor.Nombre}}
+                                h6 Creado el: {{descriptor.created_at}}
+                                h6 Actualzado el: {{descriptor.updated_at}}
+                            div(flex='25')
+                                md-button.md-raised.md-primary(ng-click='vm.descriptor=descriptor')
+                                    span(translate='') DESCRIPTOR.DESCRIPTOR.EDIT
+                            div(flex='25')
+                                md-button.md-raised(ng-click='deleteItem(descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                    span(translate='') DESCRIPTOR.DESCRIPTOR.DELETE
+
+                        md-divider
