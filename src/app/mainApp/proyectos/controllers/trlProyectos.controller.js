@@ -46,9 +46,12 @@
 
         vm.funcion            = funcion;
 
-        function funcion()
+        function funcion(item,key)
         {
-            console.log(vm.selectedRegisters);
+            /*
+            if(vm.selectedRegisters.length >= 2) {
+                $scope.$broadcast('md.table.deselect', vm.selectedRegisters[0], vm.selectedRegisters[0].idTRL);
+            }*/
         }
 
 
