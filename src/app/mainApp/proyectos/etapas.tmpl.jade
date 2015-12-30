@@ -1,10 +1,54 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
     // TARJETA PARA BUSCAR PROYECTOS
 
-    //md-card(flex='', layout='column')
+
+    md-card(flex='', layout='column')
+        h3.text-center Crear nueva etapa
+        div(flex layout='row' layout-sm='column' layout-align='center center')
+            form(name='createEtapa')
+                md-input-container
+                    label Nombre de la etapa
+                    input(type='text' ng-model='vm.newEtapa.name' required)
+        div(flex layout='row' layout-sm='column' layout-align='center center')
+            md-button.md-raised.md-primary(ng-click="vm.createEtapa()" ng-disabled='createEtapa.$invalid')
+                span Agregar etapa
+
+        md-divider
+        h3.text-center Agregar tarea a la etapa
+        div(flex layout='row' layout-sm='column' layout-align='center center')
+            md-input-container
+                label Selecciona Etapa
+                md-select(ng-model='vm.selectedEtapa')
+                    md-option(ng-repeat='etapa in vm.data' ng-value='etapa')
+                        span {{etapa.name}}
+            md-input-container
+                label Nombre de la Tarea
+                input(type='text' ng-model='vm.newTarea.name')
+            span De:
+            md-datepicker(ng-model='vm.newTarea.from')
+            span Hasta:
+            md-datepicker(ng-model='vm.newTarea.to')
+
+        div(flex layout='row' layout-sm='column' layout-align='center center')
+            //md-button.md-raised.md-primary(ng-click="vm.pushTarea()")
+                span Agregar tarea
+            md-button.md-raised.md-primary(ng-click="vm.newTarea=null")
+                span Limpiar Campos
+        md-divider
+
         div(gantt data='vm.data')
             gantt-tree
             gantt-groups
+            gantt-tooltips
+            gantt-bounds
+            gantt-progress
+            gantt-sortable
+            gantt-movable
+            gantt-draw-task(enabled='true' task-factory='vm.drawTaskFactory')
+            gantt-resize-sensor
+        div(flex layout='row' layout-align='center center')
+            md-button.md-raised.md-primary(ng-click="vm.logData()")
+                span Mostrar datos
 
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')

@@ -13,18 +13,104 @@
     function etapasProyectosController($scope) {
         var vm = this;
 
+        vm.newEtapa         = null;
+        vm.newTarea         = null;
+        vm.selectedEtapa    = null;
+        vm.logData          = logData;
+        vm.createEtapa      = createEtapa;
+        vm.pushTarea        = pushTarea;
+        vm.drawTaskFactory  = drawTaskFactory;
+        vm.clickTask        = clickTask;
+        vm.doubleClick      = doubleClick;
+
+        function doubleClick()
+        {
+            console.log('DoubleClick');
+        }
+
+
+        function drawTaskFactory() {
+            var newTask = {
+                name: 'New Task',
+                content: '<span class="text-white">{{task.model.name}}</span>'+
+                '<i class="text-white fa fa-cog" ng-click="scope.clickTask(task)"></i>' +
+                '<i class="text-white fa fa-times" ng-click="scope.removeTask(task.model)"></i>',
+                color:'#00BCD4'
+
+                // Other properties
+            };
+
+            return newTask;
+        }
+
+        $scope.clickTask = function(taskModel) {
+            console.log(taskModel);
+            vm.newTarea = taskModel.model;
+        };
+
+        $scope.removeTask = function(taskModel) {
+            vm.idTask=taskModel.id;
+            console.log("Searching for: "+taskModel.id);
+            for(var i=0;i<vm.data.length;i++)
+            {
+                console.log(vm.data[i].tasks);
+                var index = _.findIndex(vm.data[i].tasks,function(obj){
+                    return obj.id ==vm.idTask;
+                });
+                console.log(index);
+                if(index!=-1)
+                {
+                    vm.data[i].tasks.splice(index,1);
+                    break;
+                }
+
+            }
+            vm.idTask = null;
+
+        };
+
+        function clickTask(task)
+        {
+            console.log("Hola");
+        }
+
+
+        function logData()
+        {
+            console.log(vm.data);
+        }
+
+        function createEtapa()
+        {
+            vm.newEtapa.tasks = [];
+            vm.data.push(vm.newEtapa);
+            vm.newEtapa = null;
+        }
+
+        function pushTarea()
+        {
+
+
+            vm.selectedEtapa.tasks.push(vm.newTarea);
+        }
+
+
+
         vm.data = [
+        /*
             {
                 name: 'row1', tasks: [
-                {name: 'task1', from: '2015-10-31', to: '2015-11-30'},
-                 {name: 'task2', from: '2015-11-01', to: '2015-11-02'}
             ]},
-        {name: 'row2', tasks: [
-            {name: 'task3', from:'2015-11-02', to: '2015-11-03'},
-            {name: 'task4', from: '2015-11-03', to: '2015-11-05'}
-        ]
-        }
-    ];
+            {name: 'row2', tasks: [
+                {name: 'task3', from:'2015-11-02', to: '2015-11-03'},
+                {name: 'task4', from: '2015-11-04', to: '2015-11-05'}
+            ]
+            }, {name: 'Development', children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4']},
+            {name: 'Sprint 1', tooltips: false, tasks: [
+                {name: 'Product list view', color: '#F1C232', from: new Date(2015, 12, 21, 8, 0, 0), to: new Date(2015, 12, 25, 15, 0, 0),
+                    progress: 25}
+            ]}*/
+        ];
 
 
         $scope.resultados = [

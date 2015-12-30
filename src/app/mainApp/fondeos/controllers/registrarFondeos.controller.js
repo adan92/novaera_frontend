@@ -8,10 +8,8 @@
     /* @ngInject */
     function registrarFondeosController($scope, $timeout, $mdToast, $rootScope, $state) {
 
-        $scope.fondeo = {};
-
         var vm = this;
-
+        vm.fondeo = null;
 
         $scope.catalogoCalls = [
             {

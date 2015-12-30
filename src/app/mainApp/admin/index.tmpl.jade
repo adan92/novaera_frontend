@@ -6,21 +6,27 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
             h3(translate) ADMINISTRATOR.WELCOME_MESSAGE
     md-card
         md-card-content
-            md-data-table-toolbar
-                h3(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
-            md-data-table-container
-                table(md-data-table md-row-select='vm.selectedItems')
-                    thead(md-order='vm.query.order')
-                            th(name='id' order-by='id')
-                            th(name='Nombre' order-by='Nombre')
-                            th(name='Apellido Paterno' order-by='ApellidoP')
-                            th(name='Apellido Materno' order-by='ApellidoM')
-                    tbody
-                        tr(md-auto-select ng-repeat='persona in vm.personas | orderBy:vm.query.order')
-                            td {{persona.id}}
-                            td {{persona.Nombre}}
-                            td {{persona.ApellidoP}}
-                            td {{persona.ApellidoM}}
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    h3(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
+            md-table-container
+                table(md-table md-data-table md-row-select='' ng-model='vm.selectedItems')
+                    thead(md-head md-order='vm.query.order')
+                        tr(md-row)
+                            th(md-column md-order-by='id')
+                                span id
+                            th(md-column md-order-by='Nombre')
+                                span nombre
+                            th(md-column md-order-by='ApellidoP')
+                                span Apellido Paterno
+                            th(md-column md-order-by='ApellidoM')
+                                span Apellido Materno
+                    tbody(md-body)
+                        tr(md-row md-select='persona' md-select-id='{{persona.id}}'  md-auto-select ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                            td(md-cell) {{persona.id}}
+                            td(md-cell) {{persona.Nombre}}
+                            td(md-cell) {{persona.ApellidoP}}
+                            td(md-cell) {{persona.ApellidoM}}
             md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.personas.length}}')
             div(layout='row' layout-sm='column' layout-align='center center')
                 md-button.md-primary.md-raised(ng-click='vm.createDialog()' ng-disabled='vm.selectedItems.length==0')

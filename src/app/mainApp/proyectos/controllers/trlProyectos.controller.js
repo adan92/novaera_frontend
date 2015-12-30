@@ -43,7 +43,16 @@
 
         //Variables para el md-data-table
         vm.deleteTRL          = deleteTRL;
-        vm.selectedRegisters  = null;
+
+        vm.funcion            = funcion;
+
+        function funcion()
+        {
+            console.log(vm.selectedRegisters);
+        }
+
+
+        vm.selectedRegisters  = [];
         //Orden de la tabla md-data-table
         vm.query = {
             filter: '',
@@ -51,6 +60,12 @@
             order: 'id',
             page: 1
         };
+
+
+
+
+
+
 
         //Dialogo
 
