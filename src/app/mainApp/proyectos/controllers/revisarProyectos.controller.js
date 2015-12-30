@@ -98,7 +98,7 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 3",
                 montosolicitado: "150,0000",
-                montoApoyado: "60,0000",
+                montoApoyado: "50,0000",
                 trlInicial: "TRL 2",
                 trlFinal: "TRL4",
                 fechaRegistro: "20-10-2014",

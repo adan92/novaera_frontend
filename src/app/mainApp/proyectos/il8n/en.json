@@ -235,7 +235,8 @@
       "REQUIRED-FIELD":"Campo Obligatorio",
       "SAVE":"Solicitar Apoyo",
       "DELETE":"Eliminar",
-      "SOLICITUDES":"Solicitudes que posee el proyecto seleccionado"
+      "SOLICITUDES":"Solicitudes que posee el proyecto seleccionado",
+      "PROJECTSTATUS":"Estado Actual de mis Proyectos"
 
     }
   }

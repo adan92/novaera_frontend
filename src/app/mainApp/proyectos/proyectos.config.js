@@ -273,6 +273,25 @@
                     requireLogin: true
                 }
             })
+            .state('triangular.admin-default.revisarProyectos',{
+                url: '/revisarProyectos',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/revisarProyectos.tmpl.html',
+                // set the controller to load for this page
+                controller: 'revisarProyectosController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: false
+                    },
+                    requireLogin: true
+                }
+            })
         ;
         // add menu to triangular
         triMenuProvider.addMenu({
@@ -347,6 +366,11 @@
                 {
                     name: 'Inscribir Proyecto a Convocatoria',
                     state: 'triangular.admin-default.inscribirProyectoConvocatoria',
+                    type: 'link'
+                },
+                {
+                    name: 'Revisar Estado de Proyectos',
+                    state: 'triangular.admin-default.revisarProyectos',
                     type: 'link'
                 }
             ]
