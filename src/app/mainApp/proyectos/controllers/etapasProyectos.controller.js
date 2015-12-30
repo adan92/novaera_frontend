@@ -21,11 +21,22 @@
         vm.pushTarea        = pushTarea;
         vm.drawTaskFactory  = drawTaskFactory;
         vm.clickTask        = clickTask;
-        vm.doubleClick      = doubleClick;
+        vm.updateFrom       = updateFrom;
+        vm.updateTo         = updateTo;
+        vm.fromDate         = moment().subtract(1,'M').toDate();
+        vm.toDate           = moment().add(1,'M').toDate();
+        vm.headers          = ['month','week'];
 
-        function doubleClick()
+
+        function updateFrom()
         {
-            console.log('DoubleClick');
+            console.log(vm.newTarea.newFrom);
+            vm.newTarea.from = moment(vm.newTarea.newFrom);
+        }
+        function updateTo()
+        {
+            console.log(vm.newTarea.newTo);
+            vm.newTarea.to = moment(vm.newTarea.newTo);
         }
 
 
@@ -33,7 +44,7 @@
             var newTask = {
                 name: 'New Task',
                 content: '<span class="text-white">{{task.model.name}}</span>'+
-                '<i class="text-white fa fa-cog" ng-click="scope.clickTask(task)"></i>' +
+                '<i class="text-white fa fa-cog" ng-click="scope.clickTask(task.model)"></i>' +
                 '<i class="text-white fa fa-times" ng-click="scope.removeTask(task.model)"></i>',
                 color:'#00BCD4'
 
@@ -45,7 +56,9 @@
 
         $scope.clickTask = function(taskModel) {
             console.log(taskModel);
-            vm.newTarea = taskModel.model;
+            vm.newTarea = taskModel;
+            vm.newTarea.newTo = vm.newTarea.to.toDate();
+            vm.newTarea.newFrom = vm.newTarea.from.toDate();
         };
 
         $scope.removeTask = function(taskModel) {

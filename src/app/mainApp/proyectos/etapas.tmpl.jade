@@ -1,54 +1,50 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
     // TARJETA PARA BUSCAR PROYECTOS
+    md-card(flex layout='column')
+        md-card-content
+            h3 Gráfico de Gantt
+            div(flex layout='row' layout-sm='column' layout-align='space-around center')
+                h3.text-center Crear nueva etapa:
+                form(name='createEtapa')
+                    md-input-container
+                        label Nombre de la etapa
+                        input(type='text' ng-model='vm.newEtapa.name' required)
+                md-button.md-raised.md-primary(ng-click="vm.createEtapa()" ng-disabled='createEtapa.$invalid')
+                    span Agregar etapa
 
-
-    md-card(flex='', layout='column')
-        h3.text-center Crear nueva etapa
+            md-divider
+            div(flex gantt data='vm.data' from-date='vm.fromDate' to-date='vm.toDate' headers='vm.headers')
+                gantt-tree
+                gantt-groups
+                gantt-tooltips
+                gantt-bounds
+                gantt-progress
+                gantt-sortable
+                gantt-movable
+                gantt-draw-task(enabled='true' task-factory='vm.drawTaskFactory')
+                gantt-resize-sensor
+            md-divider
         div(flex layout='row' layout-sm='column' layout-align='center center')
-            form(name='createEtapa')
-                md-input-container
-                    label Nombre de la etapa
-                    input(type='text' ng-model='vm.newEtapa.name' required)
-        div(flex layout='row' layout-sm='column' layout-align='center center')
-            md-button.md-raised.md-primary(ng-click="vm.createEtapa()" ng-disabled='createEtapa.$invalid')
-                span Agregar etapa
-
-        md-divider
-        h3.text-center Agregar tarea a la etapa
-        div(flex layout='row' layout-sm='column' layout-align='center center')
-            md-input-container
-                label Selecciona Etapa
-                md-select(ng-model='vm.selectedEtapa')
-                    md-option(ng-repeat='etapa in vm.data' ng-value='etapa')
-                        span {{etapa.name}}
-            md-input-container
-                label Nombre de la Tarea
-                input(type='text' ng-model='vm.newTarea.name')
-            span De:
-            md-datepicker(ng-model='vm.newTarea.from')
-            span Hasta:
-            md-datepicker(ng-model='vm.newTarea.to')
-
-        div(flex layout='row' layout-sm='column' layout-align='center center')
-            //md-button.md-raised.md-primary(ng-click="vm.pushTarea()")
-                span Agregar tarea
-            md-button.md-raised.md-primary(ng-click="vm.newTarea=null")
-                span Limpiar Campos
-        md-divider
-
-        div(gantt data='vm.data')
-            gantt-tree
-            gantt-groups
-            gantt-tooltips
-            gantt-bounds
-            gantt-progress
-            gantt-sortable
-            gantt-movable
-            gantt-draw-task(enabled='true' task-factory='vm.drawTaskFactory')
-            gantt-resize-sensor
-        div(flex layout='row' layout-align='center center')
+            span Mostrar desde:
+            md-datepicker(ng-model='vm.fromDate')
+            span Mostrar hasta:
+            md-datepicker(ng-model='vm.toDate')
             md-button.md-raised.md-primary(ng-click="vm.logData()")
                 span Mostrar datos
+        md-divider
+        div(ng-show='vm.newTarea.id!=null' flex layout='row' layout-sm='column' layout-align='center center')
+            h3.text-center Editar tarea
+            md-input-container
+                label Nombre de la Tarea
+                input(ng-disabled='vm.newTarea.id==null' type='text' ng-model='vm.newTarea.name')
+            span De:
+            md-datepicker(ng-disabled='vm.newTarea.id==null' ng-change='vm.updateFrom()' ng-model='vm.newTarea.newFrom')
+            span Hasta:
+            md-datepicker(ng-disabled='vm.newTarea.id==null' ng-change='vm.updateTo()' ng-model='vm.newTarea.newTo')
+            md-button.md-raised.md-primary(ng-click="vm.newTarea=null")
+                span Dejar de editar
+
+
 
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
