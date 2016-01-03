@@ -215,25 +215,6 @@
         vm.selectedConvocatorias   =[];
         vm.selectedModalidad  =[];
 
-        vm.registrarSolicitud = registrarSolicitud;
-        function registrarSolicitud ( ){
-            vm.solicitud=
-                //Obtenemos los datos de la solicitud
-               // vm.solicitud.proyecto=vm.selectedItem.titulo;
-              //  vm.solicitud.modalidad=vm.selectedModalidad.nombre;
-               // vm.solicitud.convocatoria=vm.selectedConvocatorias.titulo;
-             //   vm.solicitud.montosolicitado="";
-               // vm.solicitud.montoApoyado="";
-              //  vm.solicitud.trlInicial="";
-               // vm.solicitud.trlFinal="",
-                //vm.solicitud.fechaRegistro="30-12-2015";
-                //vm.solicitud.fechaCierre="";
-                //vm.solicitud.resultado="";
-
-            //Habilitamos Visibilidad de las solicitudes
-            vm.showSolicitudes=true;
-
-        }
 
         function funcionfondeos(fondo,key){
             if(vm.selectedFondeos.length >1) {
