@@ -214,6 +214,11 @@
         vm.selectedFondeos     =[];
         vm.selectedConvocatorias   =[];
         vm.selectedModalidad  =[];
+        vm.Fondo;
+        vm.Modalidad;
+        vm.Convocatoria;
+        vm.fecha              = new Date();
+        vm.Date               =null;
 
 
         function funcionfondeos(fondo,key){
@@ -283,13 +288,19 @@
 
         $scope.addItem = function()
         {
+            vm.Fondo=vm.selectedFondeos[0];
+            vm.Modalidad=vm.selectedModalidad[0];
+            vm.Convocatoria=vm.selectedConvocatorias[0];
+
             var solicitud = {
-                fondo:vm.selectedFondeos,
+                fondo:vm.Fondo.titulo,
                 proyecto:vm.selectedItem.titulo,
-                modalidad:vm.selectedModalidad,
+                modalidad:vm.Modalidad.nombre,
+                convocatoria:vm.Convocatoria.titulo,
                 montosolicitado: $scope.montosolicitado,
                 trlInicial: $scope.trlInicial,
-                tecnopark: $scope.tecnopark
+                tecnopark: $scope.tecnopark,
+                fechaRegistro:vm.Fecha
             };
 
 
