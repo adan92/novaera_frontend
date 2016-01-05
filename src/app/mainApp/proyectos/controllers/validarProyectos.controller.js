@@ -19,7 +19,15 @@
         vm.selectedItem = null;
         vm.selectedSolicitudes = [];
         vm.validando =validando;
+        //vm.validarSolicitud = validarSolicitud;
+        vm.buscarSolicitud=buscarSolicitud;
+        vm.solicitudEncontrada=null;
+        vm.solicitudacomparar;
+        vm.showRow=false;
+        vm.idSolicitud=null;
 
+        vm.sol=null;
+        vm.i=0;
         vm.estados = [
             {
                 id: 1,
@@ -48,13 +56,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 1",
                 montosolicitado: "50,0000",
-                montoApoyado: "60,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 1",
                 trlFinal: "TRL1",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "20-10-2014",
                 resultado: "En Desarrollo del 2do Prototipo",
-                validado: "Terminado"
+                validado: ""
             }, {
                 id: 2,
                 proyecto: "Proyecto 1",
@@ -63,13 +71,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 3",
                 montosolicitado: "150,0000",
-                montoApoyado: "60,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 2",
                 trlFinal: "TRL4",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "31-12-15",
                 resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: "Terminado"
+                validado: ""
             }, {
                 id: 3,
                 proyecto: "Proyecto 3",
@@ -78,13 +86,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 1",
                 montosolicitado: "150,0000",
-                montoApoyado: "90,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 1",
                 trlFinal: "",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "20-10-2016",
                 resultado: "",
-                validado: "Aceptado"
+                validado: ""
             }, {
                 id: 4,
                 proyecto: "Proyecto 4",
@@ -93,13 +101,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 3",
                 montosolicitado: "150,0000",
-                montoApoyado: "60,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 2",
                 trlFinal: "TRL4",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "31-12-16",
                 resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: "Aceptado"
+                validado: ""
             },
             {
                 id: 5,
@@ -109,13 +117,12 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 4",
                 montosolicitado: "50,0000",
-                montoApoyado: "",
-                trlInicial: "TRL 1",
+                montoApoyado:"",          trlInicial: "TRL 1",
                 trlFinal: "",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "",
                 resultado: "",
-                validado: "Rechazado"
+                validado: ""
             }, {
                 id: 6,
                 proyecto: "Proyecto 8",
@@ -124,13 +131,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 3",
                 montosolicitado: "150,0000",
-                montoApoyado: "50,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 2",
                 trlFinal: "TRL4",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "",
                 resultado: "",
-                validado: "Rechazado"
+                validado: ""
             }, {
                 id: 7,
                 proyecto: "Proyecto 5",
@@ -139,13 +146,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 1",
                 montosolicitado: "50,0000",
-                montoApoyado: "60,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 1",
                 trlFinal: "TRL1",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "20-10-2014",
                 resultado: "En Desarrollo del 2do Prototipo",
-                validado: "Aceptado"
+                validado: ""
             }, {
                 id: 8,
                 proyecto: "Proyecto 3",
@@ -154,13 +161,13 @@
                 tecnopark: "Novaera",
                 convocatoria: "Convocatoria 3",
                 montosolicitado: "150,0000",
-                montoApoyado: "60,0000",
+                montoApoyado:"",
                 trlInicial: "TRL 2",
                 trlFinal: "TRL4",
                 fechaRegistro: "20-10-2014",
                 fechaCierre: "31-12-15",
                 resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: "Aceptado"
+                validado: ""
             },
 
 
@@ -197,6 +204,7 @@
 
             }
             vm.showValidate   = true;
+            vm.showRow=false;
 
         }
 
@@ -215,17 +223,51 @@
             };
         }
 
-        /**
-         * Create function to delete item
-         */
-        $scope.deleteItem = function (index) {
-            vm.solicitudes.splice(index, 1);
-            //console.log($scope.proyectos);
+        function buscarSolicitud(){
+
+           while(vm.solicitudEncontrada==null){
+
+                    vm.solicitudaencotrar= vm.solicitudes[vm.i];
+                if (vm.solicitudaencotrar.id==vm.idSolicitud){
+                    vm.solicitudaencotrar.montoApoyado=  $scope.montoApoyado;
+                    vm.solicitudaencotrar.validado=  $scope.estados;
+                    vm.solicitudEncontrada=vm.solicitudaencotrar;
+                    var solicitud = {
+                        id: vm.solicitudEncontrada.id,
+                        proyecto:vm.solicitudEncontrada.proyecto,
+                        fondo: vm.solicitudEncontrada.fondo,
+                        modalidad: vm.solicitudEncontrada.modalidad,
+                        tecnopark: vm.solicitudEncontrada.tecnopark,
+                        convocatoria: vm.solicitudEncontrada.convocatoria,
+                        montosolicitado: vm.solicitudEncontrada.montosolicitado,
+                        montoApoyado: vm.solicitudEncontrada.montoApoyado,
+                        trlInicial:vm.solicitudEncontrada.trlInicial,
+                        trlFinal:vm.solicitudEncontrada.trlFinal,
+                        fechaRegistro:vm.solicitudEncontrada.fechaRegistro,
+                        fechaCierre:vm.solicitudEncontrada.fechaCierre,
+                        resultado: vm.solicitudEncontrada.resultado,
+                        validado: vm.solicitudEncontrada.resultado
+                    };
+                    deleteItem(vm.i);
+                    vm.solicitudes.push(solicitud);
+                    }
+                else{
+                    vm.i++;
+                }
+
+            }
+        }
+        $scope.validarSolicitud=function(){
+            vm.sol=vm.selectedSolicitudes[0];
+            vm.idSolicitud=vm.sol.id;
+            vm.buscarSolicitud();
+            vm.showRow=true;
+            vm.showValidate=false;
+            vm.i=0;
+
+
         }
 
-        /**
-         * Create function to add item
-         */
 
         $scope.addItem = function () {
             var solicitud = {
@@ -238,6 +280,12 @@
             };
             vm.showValidate   = false;
         }
+
+        $scope.deleteItem= function(index){
+            vm.solicitudes.splice(index, 1);
+            //console.log($scope.proyectos);
+        }
+
     }
 })
 

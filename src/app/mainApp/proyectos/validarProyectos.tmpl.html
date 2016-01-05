@@ -72,7 +72,7 @@
                     <th md-column="md-column" md-order-by="trlFinal"><span>TRL Final</span></th>
                     <th md-column="md-column" md-order-by="fechaRegistro"><span>Fecha de Registro</span></th>
                     <th md-column="md-column" md-order-by="fechaCierre"><span>Fecha de Culminacion</span></th>
-                    <th md-column="md-column" md-order-by="resultado"><span>Resultado Entregado</span></th>
+                    <th md-column="md-column" md-order-by="resultado"><span>Resultado </span></th>
                      <th md-column="md-column" md-order-by="validado"><span>Estado Actual</span></th>
                  </tr>
                 </thead>
@@ -114,7 +114,7 @@
                                 <md-input-container>
                                     <label translate>PROJECT.INSCRIPTION.STATUS</label>
                                     <md-select  ng-model="estados" required name="estados">
-                                        <md-option ng-repeat="status in vm.estados" value="{{status.id}}">
+                                        <md-option ng-repeat="status in vm.estados" value="{{status.value}}">
                                             {{status.value}}
                                         </md-option>
                                     </md-select>
@@ -124,7 +124,7 @@
                                     <input ng-model="montoApoyado" required name="montoApoyado">
                                 </md-input-container>
 
-                                <md-button ng-disabled="registrarSolicitud.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>PROJECT.INSCRIPTION.VALIDATE</span></md-button>
+                                <md-button ng-disabled="registrarSolicitud.$invalid" ng-click="validarSolicitud()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>PROJECT.INSCRIPTION.VALIDATE</span></md-button>
                             </form>
                         </md-card-content>
                     </div>
@@ -133,4 +133,48 @@
         </div>
     </div>
 <md-divider></md-divider>
+<!-- TARJETA PARA Mostrar la ultima columna editada-->
+<div layout="row" layout-sm="column" layout-md="column" ng-show="vm.showRow">
+    <md-card flex layout="column">
+        <md-card-content>
+            <h3 class="text-center" translate>PROJECT.VALIDA.LASTEDITION</h3>
+            <md-list>
+
+                <div class="md-list-item-text" >
+                    <h3>Id:</h3>
+                    <h4>{{vm.solicitudEncontrada.id}}</h4>
+                    <h3>Proyecto:</h3>
+                    <h4>{{vm.solicitudEncontrada.proyecto}}</h4>
+                    <h3>Fondo:</h3>
+                    <h4>{{vm.solicitudEncontrada.fondo}}</h4>
+                    <h3>Convocatoria:</h3>
+                    <h4>{{vm.solicitudEncontrada.convocatoria}}</h4>
+                    <h3>Modalidad:</h3>
+                    <h4>{{vm.solicitudEncontrada.modalidad}}</h4>
+                    <h3>Parque Tecnologico:</h3>
+                    <h4>{{vm.solicitudEncontrada.tecnopark}}</h4>
+                    <h3>Monto Solicitado:</h3>
+                    <h4>{{vm.solicitudEncontrada.montosolicitado}}</h4>
+                    <h3>Monto Apoyado:</h3>
+                    <h4>{{vm.solicitudEncontrada.montoApoyado}}</h4>
+                    <h3>TRL Inicial:</h3>
+                    <h4>{{vm.solicitudEncontrada.trlInicial}}</h4>
+                    <h3>TRL Final:</h3>
+                    <h4>{{vm.solicitudEncontrada.trlFinal}}</h4>
+                    <h3>Fecha Registro:</h3>
+                    <h4>{{vm.solicitudEncontrada.fechaRegistro}}</h4>
+                    <h3>Fecha Cierre:</h3>
+                    <h4>{{vm.solicitudEncontrada.fechaCierre}}</h4>
+                    <h3>Resultado:</h3>
+                    <h4>{{vm.solicitudEncontrada.resultado}}</h4>
+                    <h3>Estado de la Solicitud:</h3>
+                    <h4>{{vm.solicitudEncontrada.validado}}</h4>
+                </div>
+
+                <md-divider></md-divider>
+            </md-list>
+
+        </md-card-content>
+    </md-card>
+</div>
 

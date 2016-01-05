@@ -244,7 +244,8 @@
     },
     "VALIDA":{
       "TITLE":"Modulo para gestionar las Solicitudes a Programas de Fondeo",
-      "SELECTPROGRAM":"Selecciona El Programa de Fondeo a Consultar"
+      "SELECTPROGRAM":"Selecciona El Programa de Fondeo a Consultar",
+      "LASTEDITION":"Ultima solicitud analizada"
     }
   }
 
