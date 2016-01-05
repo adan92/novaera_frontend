@@ -218,7 +218,7 @@
         vm.Modalidad;
         vm.Convocatoria;
         vm.fecha              = new Date();
-        vm.Date               =null;
+
 
 
         function funcionfondeos(fondo,key){
@@ -291,6 +291,7 @@
             vm.Fondo=vm.selectedFondeos[0];
             vm.Modalidad=vm.selectedModalidad[0];
             vm.Convocatoria=vm.selectedConvocatorias[0];
+            //vm.Date= String(fecha.getDate() + "-" + (fecha.getMonth() +1) + "-" + fecha.getFullYear());
 
             var solicitud = {
                 fondo:vm.Fondo.titulo,
@@ -300,7 +301,7 @@
                 montosolicitado: $scope.montosolicitado,
                 trlInicial: $scope.trlInicial,
                 tecnopark: $scope.tecnopark,
-                fechaRegistro:vm.Fecha
+                fechaRegistro:vm.fecha
             };
 
 
