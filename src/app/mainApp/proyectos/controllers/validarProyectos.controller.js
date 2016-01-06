@@ -213,6 +213,7 @@
         function querySearch(query) {
             var results = query ? vm.fondeos.filter(createFilterFor(query)) : vm.fondeos, deferred;
             return results;
+            vm.showRow=false;
 
         }
 
@@ -220,6 +221,7 @@
 
             return function filterFn(fondeo) {
                 return (proyecto.titulo.indexOf(query) === 0);
+
             };
         }
 
@@ -229,26 +231,27 @@
 
                     vm.solicitudaencotrar= vm.solicitudes[vm.i];
                 if (vm.solicitudaencotrar.id==vm.idSolicitud){
+                    alert(vm.solicitudaencotrar.id+'='+vm.idSolicitud);
                     vm.solicitudaencotrar.montoApoyado=  $scope.montoApoyado;
                     vm.solicitudaencotrar.validado=  $scope.estados;
                     vm.solicitudEncontrada=vm.solicitudaencotrar;
-                    var solicitud = {
-                        id: vm.solicitudEncontrada.id,
-                        proyecto:vm.solicitudEncontrada.proyecto,
-                        fondo: vm.solicitudEncontrada.fondo,
-                        modalidad: vm.solicitudEncontrada.modalidad,
-                        tecnopark: vm.solicitudEncontrada.tecnopark,
-                        convocatoria: vm.solicitudEncontrada.convocatoria,
-                        montosolicitado: vm.solicitudEncontrada.montosolicitado,
-                        montoApoyado: vm.solicitudEncontrada.montoApoyado,
-                        trlInicial:vm.solicitudEncontrada.trlInicial,
-                        trlFinal:vm.solicitudEncontrada.trlFinal,
-                        fechaRegistro:vm.solicitudEncontrada.fechaRegistro,
-                        fechaCierre:vm.solicitudEncontrada.fechaCierre,
-                        resultado: vm.solicitudEncontrada.resultado,
-                        validado: vm.solicitudEncontrada.resultado
-                    };
-                    deleteItem(vm.i);
+                        var solicitud = {
+                            id: vm.solicitudEncontrada.id,
+                            proyecto:vm.solicitudEncontrada.proyecto,
+                            fondo: vm.solicitudEncontrada.fondo,
+                            modalidad: vm.solicitudEncontrada.modalidad,
+                            tecnopark: vm.solicitudEncontrada.tecnopark,
+                            convocatoria: vm.solicitudEncontrada.convocatoria,
+                            montosolicitado: vm.solicitudEncontrada.montosolicitado,
+                            montoApoyado: vm.solicitudEncontrada.montoApoyado,
+                            trlInicial:vm.solicitudEncontrada.trlInicial,
+                            trlFinal:vm.solicitudEncontrada.trlFinal,
+                            fechaRegistro:vm.solicitudEncontrada.fechaRegistro,
+                            fechaCierre:vm.solicitudEncontrada.fechaCierre,
+                            resultado: vm.solicitudEncontrada.resultado,
+                            validado: vm.solicitudEncontrada.resultado
+                            };
+                    vm.solicitudes.splice(vm.i, 1);
                     vm.solicitudes.push(solicitud);
                     }
                 else{
@@ -269,22 +272,7 @@
         }
 
 
-        $scope.addItem = function () {
-            var solicitud = {
-                fondo: vm.selectedFondeos,
-                proyecto: vm.selectedItem.titulo,
-                modalidad: vm.selectedModalidad,
-                montosolicitado: $scope.montosolicitado,
-                trlInicial: $scope.trlInicial,
-                tecnopark: $scope.tecnopark
-            };
-            vm.showValidate   = false;
-        }
 
-        $scope.deleteItem= function(index){
-            vm.solicitudes.splice(index, 1);
-            //console.log($scope.proyectos);
-        }
 
     }
 })

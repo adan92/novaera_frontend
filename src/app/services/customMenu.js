@@ -74,6 +74,22 @@
 
                     },
                     {
+                        name: 'MENU.PROJECTS.PROJECTS',
+                        type: 'dropdown',
+                        icon: 'zmdi zmdi-layers',
+                        priority: 2.1,
+                        children:[
+
+                            {
+                                name: 'Validar Proyectos',
+                                state: 'triangular.admin-default.validarProyectos',
+                                type: 'link'
+                            }
+
+                        ]
+
+                    },
+                    {
                         name: 'MENU.EXPINFO.EXPINFO1',
                         type: 'dropdown',
                         icon: 'zmdi zmdi-chart',
