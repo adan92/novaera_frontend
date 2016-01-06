@@ -1,0 +1,51 @@
+<md-card flex >
+    <!-- Titulo del toolbar -->
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span translate>PROJECT.INSCRIPTION.PROJECTSTATUS</span>
+        </div>
+    </md-toolbar>
+    <!-- Cabecera de la md table-->
+    <md-table-container>
+        <table md-table="" md-row-select="" ng-model="vm.selectedSolicitudes">
+            <thead md-head="" md-order="vm.query.order">
+            <tr md-row="md-row">
+                <th md-column="md-column" md-order-by="id"><span>id</span></th>
+                <th md-column="md-column" md-order-by="proyecto"><span>Proyecto</span></th>
+                <th md-column="md-column" md-order-by="fondo"><span>Programa de Fondeo</span></th>
+                <th md-column="md-column" md-order-by="convocatoria"><span>Convocatoria</span></th>
+                <th md-column="md-column" md-order-by="modalidad"><span>Modalidad</span></th>
+                <th md-column="md-column" md-order-by="tecnopark"><span>Parque Tecnologico</span></th>
+                <th md-column="md-column" md-order-by="montosolicitado"><span>Monto Solicitado</span></th>
+                <th md-column="md-column" md-order-by="montoApoyado"><span>Monto Otorgado</span></th>
+                <th md-column="md-column" md-order-by="trlInicial"><span>TRL Inicial</span></th>
+                <th md-column="md-column" md-order-by="trlFinal"><span>TRL Final</span></th>
+                <th md-column="md-column" md-order-by="fechaRegistro"><span>Fecha de Registro</span></th>
+                <th md-column="md-column" md-order-by="fechaCierre"><span>Fecha de Culminacion</span></th>
+                <th md-column="md-column" md-order-by="resultado"><span>Resultado Entregado</span></th>
+                <th md-column="md-column" md-order-by="validado"><span>Estado Actual</span></th>
+            </tr>
+            </thead>
+            <!-- Cuerpo de la tabla -->
+            <tbody md-body="md-body">
+            <tr md-row="md-row" md-select="solicitud" md-select-id="{{solicitud.id}}" md-auto-select="md-auto-select" md-on-select="" ng-repeat="solicitud in vm.solicitudes | orderBy:vm.query.order">
+                <td md-cell="md-cell">{{solicitud.id}}</td>
+                <td md-cell="md-cell">{{solicitud.proyecto}}</td>
+                <td md-cell="md-cell">{{solicitud.fondo}}</td>
+                <td md-cell="md-cell">{{solicitud.convocatoria}}</td>
+                <td md-cell="md-cell">{{solicitud.modalidad}}</td>
+                <td md-cell="md-cell">{{solicitud.tecnopark}}</td>
+                <td md-cell="md-cell">{{solicitud.montosolicitado}}</td>
+                <td md-cell="md-cell">{{solicitud.montoApoyado}}</td>
+                <td md-cell="md-cell">{{solicitud.trlInicial}}</td>
+                <td md-cell="md-cell">{{solicitud.trlFinal}}</td>
+                <td md-cell="md-cell">{{solicitud.fechaRegistro}}</td>
+                <td md-cell="md-cell">{{solicitud.fechaCierre}}</td>
+                <td md-cell="md-cell">{{solicitud.resultado}}</td>
+                <td md-cell="md-cell">{{solicitud.validado}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    </md-card-content></md-card>
+<md-divider></md-divider>

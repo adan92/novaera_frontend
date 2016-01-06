@@ -37,20 +37,29 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                     md-input-container
+                                        label(translate='') FONDEOS.FEATURES.FONDEO_CALL
+                                        md-select(multiple='true', ng-model='call', required='')
+
+                                            md-option(ng-repeat='convocatoria in vm.convocatorias', value='{{convocatoria.id}}')
+                                                | {{convocatoria.titulo}}
+                                        div(ng-messages='projectInfo.descripcion.$error')
+                                              div(ng-message='', when='required')
+                                                   pan(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_MODALITY
-                                        md-select(ng-model='call', required='')
-                                            //
-                                              <md-option ng-repeat="call in catalogoCalls | matcher: vm.selectedItem.call_id" value="{{call}}">
-                                              {{call.nombre_call}}
-                                              </md-option>
-                                            md-option(ng-repeat='modalidad in modalidades', value='{{modalidad.abbrev}}')
-                                                | {{modalidad.abbrev}}
+                                        md-select(multiple='true', ng-model='modality', required='')
+
+
+                                            md-option(ng-repeat='modalidad in vm.modalidades', value='{{modalidad.id}}')
+                                                       | {{modalidad.nombre}}
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                 md-tab#fondeoT(ng-disabled='projectInfo.$invalid')
                     md-tab-label
+
                         span.oxy-step-label 2
                         span(translate='') FONDEOS.FEATURES.FONDEO_DESCRIPTION
                     md-tab-body

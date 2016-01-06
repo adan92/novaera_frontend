@@ -11,41 +11,68 @@
         var vm = this;
         vm.fondeo = null;
 
-        $scope.catalogoCalls = [
-            {
-                id_call: 1,
-                nombre_call:'Modalidad1',
-                requeriments_call: "<ul><li>Requisito 1</li><li>Requisito 2</li><li>Requisito 4</li><li>Requisito 5</li><li>Requisito 6</li></ul>",
-                monto_call: '$150,0000',
-                evaluation_call: "<ul><li>criterio 1</li><li>criterio 2</li><li>criterio 4</li><li>criterio 5</li><li>criterio 6</li></ul>",
-                deliver_call: "<ul><li>Entregable 1</li><li>Entregable 2</li><li>Entregable 3</li></ul>",
-                support_call:'Persona F�sica'
-            },
+        vm.convocatorias=[{
+            id:1,
+            titulo:"Convocatoria 1",
+            fechainicio:"12-12-15",
+            fechatermino:"12-03-16",
+            requisitos:"Mandar slicitud antes del 12 de diciembre",
+            monto:"$150,000"
+        },{
 
-            {
-                id_call: 2,
-                nombre_call:'Modalidad 2',
-                requeriments_call: "<ul><li>Requisito 1</li><li>Requisito 2</li>/ul>",
-                monto_call: '$250,0000',
-                evaluation_call: "<ul><li>criterio 1</li><li>criterio 2</li></ul>",
-                deliver_call: "<ul><li>Entregable 1</li><li>Entregable 2</li><li>Entregable 3</li>",
-                support_call:'Emprendedor'
-            },
-            {
-                id_call: 3,
-                nombre_call:'Modalidad 3',
-                requeriments_call: "<ul><li>Requisito 1</li><li>Requisito 2</li>/ul>",
-                monto_call: '$350,0000',
-                evaluation_call: "<ul><li>criterio 1</li><li>criterio 2</li></ul>",
-                deliver_call: "<ul><li>Entregable 1</li><li>Entregable 2</li><li>Entregable 3</li>",
-                support_call:'Persona Moral'
-            }
-
+            id:2,
+            titulo:"Convocatoria 2",
+            fechainicio:"24-12-15",
+            fechatermino:"30-03-16",
+            requisitos:"Mandar slicitud antes del 30 de diciembre",
+            monto:"$250,000",
+        },{
+            id: 3,
+            titulo: "Convocatoria 3",
+            fechainicio: "12-12-15",
+            fechatermino: "12-03-16",
+            requisitos: "Mandar slicitud antes del 12 de diciembre",
+            monto: "$150,000",
+        }
         ];
-        $scope.modalidades = ('Modalidad1 Modalidad2 Modalidad3 Modalidad4 Modalidad5'+
-        ' Modalidad6').split(' ').map(function(modalidad) {
-                return {abbrev: modalidad};
-            })
+        vm.modalidades=[
+            {
+                id: 1,
+                nombre: "Modalidad 1",
+                montos:"50,000-100,000",
+                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
+                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
+                figuras:"figura 1, figura 2, figura 3"
+            },{
+                id: 2,
+                nombre: "Modalidad 2",
+                montos:"20,000",
+                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
+                entregables:"Una vez entregado el apoyo debera entregar el documento 1",
+                figuras:"figura 1, figura 2, figura 3"
+            },{
+                id: 3,
+                nombre: "Modalidad 3",
+                montos:"100,000-150,000",
+                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
+                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
+                figuras:"figura 1, figura 2, figura 3"
+            },{
+                id: 4,
+                nombre: "Modalidad 4",
+                montos:"150,000-200,000",
+                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
+                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
+                figuras:"figura 1, figura 2, figura 3"
+            },{
+                id: 5,
+                nombre: "Modalidad 5",
+                montos:"350,000",
+                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
+                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
+                figuras:"figura 1, figura 2, figura 3"
+            },
+        ];
 
         //Datos
         $scope.fondeos=[
