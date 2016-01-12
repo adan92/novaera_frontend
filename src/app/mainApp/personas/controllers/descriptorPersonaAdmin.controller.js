@@ -1,0 +1,189 @@
+/**
+ * Created by Jorge Montiel on 10/15/15.
+ */
+(function() {
+    'use strict';
+
+    angular
+        .module('app.mainApp.personas')
+        .controller('descriptorPersonasController', descriptorPersonasController)
+        .filter('matcher',matcher);
+
+    /* @ngInject */
+    function descriptorPersonasController($scope,Restangular,Translate,toastr,$mdToast) {
+        var vm = this;
+
+
+        vm.descriptores       = null;
+        vm.personas           = null;
+        vm.descriptorPersonas = null;
+        vm.selectedItem       = null;
+        vm.searchText         = null;
+        vm.querySearch        = querySearch;
+        vm.simulateQuery      = false;
+        vm.isDisabled         = false;
+        vm.resetForm          = resetForm;
+        vm.activate           = activate();
+        vm.selectedItemChange = selectedItemChange;
+
+        function activate(){
+            Restangular.all('Persona').customGET().then(function(res){
+                vm.personas = res.Personas;
+                console.log(vm.personas);
+                Restangular.all('Descriptor').customGET().then(function(res){
+                    vm.descriptores = res.Descriptor;
+                }).catch(function(err){
+
+                });
+
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+
+        }
+
+        function selectedItemChange()
+        {
+            console.log("El Item cambio a: ");
+            console.log(vm.selectedItem);
+            Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
+                vm.descriptorPersonas = res.Descriptor;
+                console.log(res.Descriptor);
+            }).catch(function(err){
+
+            });
+        }
+
+        function resetForm()
+        {
+            vm.descriptor=null;
+            $scope.agregarDescriptor.$setPristine();
+        }
+        //////////////////
+        function querySearch (query) {
+            var results = query ? vm.personas.filter( createFilterFor(query) ) : vm.personas, deferred;
+            return results;
+        }
+
+
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+
+            return function filterFn(persona) {
+                return (persona.Nombre.indexOf(query) === 0);
+            };
+        }
+
+        /**
+         * Create function to delete item
+         */
+        $scope.deleteItem= function(index){
+            vm.selectedItem.descriptorPersona.splice(index, 1);
+            //console.log($scope.proyectos);
+        }
+
+        /**
+         * Create function to add item
+         */
+
+        $scope.addItem = function()
+        {
+            if (vm.descriptor.id == null) {
+                Restangular.all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                    toastr.success(vm.successText,vm.successStoreText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    //Pedimos la lista de descriptores de la BD
+                    vm.resetForm();
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
+
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+
+            }
+            else
+            {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successUpdateText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
+
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
+            var etapa = {
+                id: $scope.etapa.id,
+                tarea: $scope.etapa.tarea,
+                tareaPrecedente: $scope.etapaPrecedente,
+                entregable: $scope.entregable
+            };
+
+
+
+            vm.selectedItem.descriptorPersona.push(etapa);
+
+            $scope.etapa=null;
+            $scope.etapaPrecedente=null;
+            $scope.tarea=null;
+            $scope.entregable =null;
+            $scope.registrarResultado.$setPristine();
+
+        }
+
+
+
+
+
+    }
+
+    function matcher()
+    {
+        return function(arr1,arr2){
+            if(arr2==null)
+                return true;
+
+            return arr1.filter(function(val){
+
+                var returnable=null;
+                angular.forEach(arr2,function(item){
+                    if(item.id==val.id)
+                        returnable = false;
+                },val);
+
+                if(returnable==null)
+                    return true;
+                else return false;
+            })
+        }
+    }
+})
+
+();

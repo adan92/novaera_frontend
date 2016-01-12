@@ -1,23 +1,23 @@
 <div class="dashboard-container overlay-10 padded-content-page layout layout-row ng-scope">
-    <md-card flex="50" layout="column">
+    <md-card flex layout="column">
         <md-card-content layout-align="center center">
-            <h3 translate>CONTENT.TITLES.PEOPLE_BY_ORGANIZATION</h3>
+            <h3 class="text-center" translate>CONTENT.TITLES.PEOPLE_BY_ORGANIZATION</h3>
             <canvas id="doughnut" class="chart chart-doughnut"
                     chart-data="PersonasData" chart-labels="PersonasLabels" chart-legend="true">
             </canvas>
 
         </md-card-content>
     </md-card>
-    <md-card flex="50">
-        <h3 translate>CONTENT.TITLES.COUNTER</h3>
+    <md-card flex>
+        <h3 class="text-center" translate>CONTENT.TITLES.COUNTER</h3>
         <canvas class="chart-bar" chart-data="vm.data" chart-labels="vm.labels" chart-legend="true" chart-series="vm.series"></canvas>
     </md-card>
     </div>
-<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
+<div flex class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
 
-    <div class="layout layout-column layout-margin layout-sm layout-sm-column">
-        <div flex="100" layout="column">
-            <md-card flex="100">
+    <div flex class="layout layout-column layout-margin layout-sm layout-sm-column">
+        <div flex layout="column">
+            <md-card flex>
                 <img src="assets/images/backgrounds/material-backgrounds-shorts/mb-bg-06.jpg" alt="Card Image">
                 <div layout="row" layout-md="column">
 
@@ -53,8 +53,8 @@
 
     </div>
 </div>
-<div class="dashboard-container overlay-10 padded-content-page layout layout-row ng-scope">
-    <md-card flex="100" layout="column">
+<div flex>
+    <md-card flex layout="column">
         <md-card-content layout-align="center center">
             <h3 translate>CONTENT.TITLES.FULLCHART</h3>
             <canvas id="line" class="chart chart-line" chart-data="vm.datafull"
@@ -63,4 +63,4 @@
 
         </md-card-content>
     </md-card>
-   </div>
+</div>

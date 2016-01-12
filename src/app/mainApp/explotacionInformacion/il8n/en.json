@@ -7,21 +7,21 @@
   },
   "CONTENT":{
       "TITLES":{
-      "LAST_REGISTERS" :"Ultimos registros",
+      "LAST_REGISTERS" :"Últimos registros",
         "REGISTER_BY_TYPE_DESCRIPTOR":"Registros por tipo de descriptor",
-        "SELECTVALUES":"Seleccion valores a graficar",
+        "SELECTVALUES":"Selección valores a graficar",
         "PROJECTS":"Proyectos",
         "FONDEOS":"Programas de Fondeo",
         "RESULTS":"Resultados",
         "ORGANIZATIONS":"Organizaciones",
         "PEOPLE":"Personas",
-        "PEOPLE_BY_ORGANIZATION":"Numero de Personas Por organizacion",
-        "TECNO_PARK":"Parques Tecnologicos",
+        "PEOPLE_BY_ORGANIZATION":"Número de Personas Por organización",
+        "TECNO_PARK":"Parques Tecnológicos",
         "MOUNT":"Monto",
         "IP":"Propiedad Intelectual",
         "COUNTER":"Conteo por tipo",
-        "CHART_BY_AREA":"Grafico por area",
-        "FULLCHART":"Grafica Descriptiva General",
+        "CHART_BY_AREA":"Gráfico por area",
+        "FULLCHART":"Gráfica Descriptiva General",
         "INSTRUCTIONS":"Instrucciones"
       }
   }

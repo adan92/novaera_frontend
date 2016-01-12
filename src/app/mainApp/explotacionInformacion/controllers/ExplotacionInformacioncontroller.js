@@ -213,7 +213,7 @@
 
 
             vm.labels = ['Organizaciones', 'Personas', 'Proyectos', 'resultados'];
-            vm.series = ['Aceptado-Validado', 'Rechasado-No validado','Por Validar'];
+            vm.series = ['Aceptado-Validado', 'Rechazado-No validado','Por Validar'];
             vm.data = [
                 [5, 10, 3,0],
                 [0, 1, 1,0],

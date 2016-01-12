@@ -112,6 +112,13 @@
                                 icon: 'fa fa-users',
                                 type: 'link'
 
+                            },
+                            {
+                                name: 'Descriptor Personas',
+                                state: 'triangular.admin-default.personas_descriptor_admin',
+                                icon: 'zmdi zmdi-layers',
+                                type: 'link'
+
                             }
                         ]},
                     {
