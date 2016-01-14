@@ -6,47 +6,124 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('etapasProyectosController', etapasProyectosController)
-        .filter('matcher',matcher);
+        .controller('etapasProyectosController', etapasProyectosController);
 
     /* @ngInject */
-    function etapasProyectosController($scope) {
+    function etapasProyectosController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
-        vm.newEtapa         = null;
-        vm.newTarea         = null;
-        vm.selectedEtapa    = null;
-        vm.logData          = logData;
-        vm.createEtapa      = createEtapa;
-        vm.pushTarea        = pushTarea;
-        vm.drawTaskFactory  = drawTaskFactory;
-        vm.clickTask        = clickTask;
-        vm.updateFrom       = updateFrom;
-        vm.updateTo         = updateTo;
-        vm.fromDate         = moment().subtract(1,'M').toDate();
-        vm.toDate           = moment().add(1,'M').toDate();
-        vm.headers          = ['month','week'];
+        vm.activate                 = activate();
+        //Variables
+        vm.proyectos                = null;
+        vm.data                     = [];
+        vm.newEtapa                 = null;
+        vm.newTarea                 = null;
+        vm.selectedEtapa            = null;
+        vm.taskContent              = '<i class="text-white fa fa-cog" ng-click="scope.clickTask(task.model)"></i>'+
+                                      '<i class="text-white fa fa-times" ng-click="scope.removeTask(task.model)"></i>'+
+                                      '<span class="text-white">{{task.model.name}}</span>';
+        vm.taskColor                = '#78909C';
+        vm.newTaskColor             = '#00BCD4';
+        vm.editedTaskColor          = '#4CAF50';
+        vm.disableRequest           = false;
 
+        //Funciones que ejecuta el GANTT
+        vm.saveEtapas               = saveEtapas;
+        vm.createEtapa              = createEtapa;
+        vm.drawTaskFactory          = drawTaskFactory;
+        vm.updateFrom               = updateFrom;
+        vm.updateTo                 = updateTo;
+        //Variables para configurar GANTT
+        vm.fromDate                 = moment().subtract(1,'M').toDate();
+        vm.toDate                   = moment().add(1,'M').toDate();
+        vm.headers                  = ['month','week'];
+
+        //Otras funciones
+        vm.deleteEtapa              = deleteEtapa;
+        vm.selectedItemChange       = selectedItemChange;
+
+        /**
+         *Función que se ejecuta al inicio
+         */
+        function activate()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                vm.proyectos = res.Proyectos;
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+        }
+
+        function selectedItemChange(){
+            Restangular.all('Proyecto').one('EtapaProyecto',vm.selectedItem.id).customGET().then(function(res){
+                vm.data = res.EtapaProyecto;
+                console.log(vm.data);
+                formatEtapas(vm.taskColor);
+                console.log(vm.data);
+
+
+            }).catch(function(err){
+
+            });
+        }
+
+
+
+
+        /**
+         * Funciones para actualizar la fecha de la tarea seleccionada utilizando md-datepicker
+         */
 
         function updateFrom()
         {
-            console.log(vm.newTarea.newFrom);
             vm.newTarea.from = moment(vm.newTarea.newFrom);
         }
         function updateTo()
         {
-            console.log(vm.newTarea.newTo);
             vm.newTarea.to = moment(vm.newTarea.newTo);
         }
+
+        /**
+         * Función para eliminar etapa. Utiliza underscore para encontrar el índice de la tarea dado el id
+         */
+
+
+        function deleteEtapa()
+        {
+            if(vm.newEtapa!=null)
+            {
+                var index =_.findIndex(vm.data,function(obj)
+                {
+                    return obj.id = vm.newEtapa.id;
+                });
+                vm.data.splice(index,1);
+            }
+            vm.newEtapa = null;
+
+        }
+
+        /**
+         * Factory para dibujar tareas con click
+         * @returns {{name: string, content: string, color: string}}
+         */
 
 
         function drawTaskFactory() {
             var newTask = {
-                name: 'New Task',
-                content: '<span class="text-white">{{task.model.name}}</span>'+
-                '<i class="text-white fa fa-cog" ng-click="scope.clickTask(task.model)"></i>' +
-                '<i class="text-white fa fa-times" ng-click="scope.removeTask(task.model)"></i>',
-                color:'#00BCD4'
+                name: 'Nueva Tarea',
+                content: vm.taskContent,
+                color: vm.newTaskColor
 
                 // Other properties
             };
@@ -54,23 +131,28 @@
             return newTask;
         }
 
+        /**
+         * Funciones para editar y remover tarea al dar click en el ícono de engrane o de X
+         * Falta corregir detalle donde no permite utilizar la variable vm
+         */
+
         $scope.clickTask = function(taskModel) {
-            console.log(taskModel);
             vm.newTarea = taskModel;
             vm.newTarea.newTo = vm.newTarea.to.toDate();
             vm.newTarea.newFrom = vm.newTarea.from.toDate();
+            if(vm.newTarea.color==vm.taskColor)
+            {
+                vm.newTarea.color = vm.editedTaskColor;
+            }
         };
 
         $scope.removeTask = function(taskModel) {
             vm.idTask=taskModel.id;
-            console.log("Searching for: "+taskModel.id);
             for(var i=0;i<vm.data.length;i++)
             {
-                console.log(vm.data[i].tasks);
                 var index = _.findIndex(vm.data[i].tasks,function(obj){
                     return obj.id ==vm.idTask;
                 });
-                console.log(index);
                 if(index!=-1)
                 {
                     vm.data[i].tasks.splice(index,1);
@@ -82,16 +164,7 @@
 
         };
 
-        function clickTask(task)
-        {
-            console.log("Hola");
-        }
 
-
-        function logData()
-        {
-            console.log(vm.data);
-        }
 
         function createEtapa()
         {
@@ -100,141 +173,52 @@
             vm.newEtapa = null;
         }
 
-        function pushTarea()
+
+        /**
+         * Función para darle formato a las etapas recien llegadas
+         */
+
+        function saveEtapas()
         {
+            var request = {
+                idProyecto:vm.selectedItem.id,
+                EtapaProyecto:vm.data
+            };
+            vm.disableRequest =true;
+            Restangular.all('EtapaProyecto').customPOST(request).then(function(res){
+                vm.data = null;
+                vm.data = res.EtapaProyecto;
+                formatEtapas(vm.taskColor);
+                toastr.success(vm.successText,vm.successStoreText);
+                vm.disableRequest = false;
+            }).catch(function(err){
+                vm.disableRequest=false;
+                toastr.error(vm.failureText,vm.failureStoreText);
+            });
 
-
-            vm.selectedEtapa.tasks.push(vm.newTarea);
         }
 
 
 
-        vm.data = [
-        /*
-            {
-                name: 'row1', tasks: [
-            ]},
-            {name: 'row2', tasks: [
-                {name: 'task3', from:'2015-11-02', to: '2015-11-03'},
-                {name: 'task4', from: '2015-11-04', to: '2015-11-05'}
-            ]
-            }, {name: 'Development', children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4']},
-            {name: 'Sprint 1', tooltips: false, tasks: [
-                {name: 'Product list view', color: '#F1C232', from: new Date(2015, 12, 21, 8, 0, 0), to: new Date(2015, 12, 25, 15, 0, 0),
-                    progress: 25}
-            ]}*/
-        ];
+        /**
+         *
+         *
+         */
+        function formatEtapas(color)
+        {
+            angular.forEach(vm.data,function(item,key){
+                angular.forEach(item.tasks,function(task,key){
+                    task.content = vm.taskContent;
+                    task.color = color;
+                });
 
+            });
+        }
 
-        $scope.resultados = [
-            {
-                id: 1,
-                tarea:'Tarea',
-                FechaRegistro:'10/05/2015',
-                FechaAprobacion:'15/05/2015',
-                TPC:'5',
-                entregable: 'Entregable'
-            },
-            {
-                id: 2,
-                tarea:'Tarea2',
-                tareaPrecedente:'Tarea2',
-                entregable: 'Entregable2'
-            },
-            {
-                id: 3,
-                tarea:'Tarea3',
-                tareaPrecedente:'Tarea3',
-                entregable: 'Entregable3'
-            }
-        ];
-
-        //Datos
-        $scope.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Un proyecto mas"
-            }
-        ];
-        $scope.my_projects_labels= ['Electricidad','Agronomía','Calzado'];
-        $scope.my_projects_data= ['3','5','6'];
 
 
         //
 
-        vm.proyectos             = $scope.proyectos;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
@@ -256,69 +240,17 @@
         function createFilterFor(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
 
-        /**
-         * Create function to delete item
-         */
-        $scope.deleteItem= function(index){
-            vm.selectedItem.etapas.splice(index, 1);
-            //console.log($scope.proyectos);
-        }
-
-        /**
-         * Create function to add item
-         */
-
-        $scope.addItem = function()
-        {
-            var etapa = {
-                id: $scope.etapa.id,
-                tarea: $scope.etapa.tarea,
-                tareaPrecedente: $scope.etapaPrecedente,
-                entregable: $scope.entregable
-            };
-
-
-
-            vm.selectedItem.etapas.push(etapa);
-
-            $scope.etapa=null;
-            $scope.etapaPrecedente=null;
-            $scope.tarea=null;
-            $scope.entregable =null;
-            $scope.registrarResultado.$setPristine();
-
-        }
-
-
-
-
-
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2==null)
-                return true;
 
-            return arr1.filter(function(val){
 
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
-                        returnable = false;
-                },val);
 
-                if(returnable==null)
-                    return true;
-                else return false;
-            })
-        }
-    }
+
+
 })
 
 ();

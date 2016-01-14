@@ -6,8 +6,9 @@
         .controller('mainLoginController', mainLoginController);
 
     /* @ngInject */
-    function mainLoginController($state,toastr, Auth,User,triSettings) {
+    function mainLoginController($state,toastr, Auth,User,triSettings, Translate) {
         var vm = this;
+        vm.activate = activate();
         vm.loginClick = loginClick;
         vm.socialLogins = [{
             icon: 'fa fa-twitter',
@@ -33,18 +34,23 @@
             password: ''
         };
 
+        function activate()
+        {
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.loginFailureMessage = Translate.translate('DIALOGS.FAIL_LOGIN');
+        }
+
+
         ////////////////
 
         function loginClick() {
             Auth.login(vm.user.username, vm.user.password)
                 .then(function(res) {
-                    User.setUser().then(function(promis){
+                    User.setUser().then(function(promise){
                         $state.go('triangular.admin-default.intro');
                     });
-
-
             }).catch(function(err){
-                toastr.error(err.data.error,"Error "+err.status);
+                toastr.error(vm.loginFailureMessage,vm.failureText+" "+err.status);
             })
         }
     }
