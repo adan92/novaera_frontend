@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" persistUploadOnCheckin="false" />
+  <component name="PublishConfigData" serverName="Innmerka" persistUploadOnCheckin="false">
+    <serverData>
+      <paths name="Innmerka">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/novaera" local="$PROJECT_DIR$/dist" web="/novaera" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
 </project>

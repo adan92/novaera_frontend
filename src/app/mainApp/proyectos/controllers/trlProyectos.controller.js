@@ -43,7 +43,19 @@
 
         //Variables para el md-data-table
         vm.deleteTRL          = deleteTRL;
-        vm.selectedRegisters  = null;
+
+        vm.funcion            = funcion;
+
+        function funcion(item,key)
+        {
+            /*
+            if(vm.selectedRegisters.length >= 2) {
+                $scope.$broadcast('md.table.deselect', vm.selectedRegisters[0], vm.selectedRegisters[0].idTRL);
+            }*/
+        }
+
+
+        vm.selectedRegisters  = [];
         //Orden de la tabla md-data-table
         vm.query = {
             filter: '',
@@ -51,6 +63,12 @@
             order: 'id',
             page: 1
         };
+
+
+
+
+
+
 
         //Dialogo
 

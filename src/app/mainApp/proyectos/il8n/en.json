@@ -214,6 +214,38 @@
       "CLIENT_RELATIONSHIPS":"Relaciones con el Cliente",
       "KEY_RESOURCES":"Recursos Clave",
       "KEY_ALLIES":"Aliados Clave"
+    },
+    "INSCRIPTION":{
+      "INFOPROJECT":"Informacion del Proyecto",
+      "INFOPROGRAM":"Informacion del Programa De Fondeo",
+      "TITLE":"Bienvenido a la seccion para aplicar a un Programa de Fondeo",
+      "PROJECTSELECTED":"El proyecto Seleccionado fue:",
+      "SELECTPROJECT":"Selecciona el Proyecto que quieres inscribir",
+      "FONDEOACTIVE":"Programas de Fondeo Activos",
+      "CALLACTIVES":"Convocatorias Activas",
+      "MODALITYSAVALIABLES":"Modalidades Disponibles",
+      "INSCRIPTION":"Aplicar por esta modalidad",
+      "FIELDS":"Completa los siguientes  campos para mandar tu solicitud.",
+      "TECNOPARKS":"Parques Tecnologicos Disponibles para realizar la modalidad",
+      "MOUNT":"Monto Solicitado",
+      "CANCEL":"Cancelar",
+      "MOUNTBRING":"Monto Brindado",
+      "TRLBEGIN":"TRLinicial",
+      "TRLENDING":"TRL Final",
+      "RESULT":"Resultado",
+      "REQUIRED-FIELD":"Campo Obligatorio",
+      "VALIDATE":"Validar",
+      "STATUS":"Status seleccionado",
+      "SAVE":"Solicitar Apoyo",
+      "DELETE":"Eliminar",
+      "SOLICITUDES":"Solicitudes que posee el proyecto seleccionado",
+      "PROJECTSTATUS":"Estado Actual de mis Proyectos"
+
+    },
+    "VALIDA":{
+      "TITLE":"Modulo para gestionar las Solicitudes a Programas de Fondeo",
+      "SELECTPROGRAM":"Selecciona El Programa de Fondeo a Consultar",
+      "LASTEDITION":"Ultima solicitud analizada"
     }
   }
 }
