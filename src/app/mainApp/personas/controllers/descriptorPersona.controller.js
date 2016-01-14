@@ -10,97 +10,69 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorPersonasController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorPersonasController($scope,Restangular,Translate,toastr,$mdToast) {
         var vm = this;
 
-        $scope.personas = [
-            {
-                id: 1,
-                nombre: "Jorge Erik",
-                apellidoP:"Montiel",
-                apellidoM:"Arguijo",
-                Notas:"Amm",
-                Descripcion:"Alto",
-                idUser:2542,
-                descriptorPersona:[
-                ],
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                nombre: "Francisco Javier",
-                apellidoP:"Cerda",
-                apellidoM:"Martinez",
-                Notas:"Emm",
-                Descripcion:"Inteligente",
-                idUser:2543,
-                descriptorPersona:[
-                    {
-                        id:120,
-                        idDescriptor:1,
-                        fechaInicio:"02/05/2015",
-                        fechaTermino:"10/08/2015",
-                        tipoResultado:"Satisfactorio",
-                        noRegistro:"12684",
-                        creado:"1970-01-01 00:00:01",
-                        actualizado:"1970-01-01 00:00:01"
-                    }
-                ],
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ]
 
-        $scope.descriptores = [
-            {
-                id: 1,
-                titulo: "Descriptor 1",
-                descripcion:"Este es el Descriptor 1",
-                catalogo:"Catalogo 1",
-                tipo:{
-                    id: 1,
-                    nombre: "Tipo 1",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                titulo: "Descriptor 2",
-                descripcion:"Este es el Descriptor 2",
-                catalogo:"Catalogo 5",
-                tipo:{
-                    id: 3,
-                    nombre: "Tipo 3",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ]
-
-        vm.descriptores       = $scope.descriptores;
-        vm.personas           = $scope.personas;
+        vm.descriptores       = null;
+        vm.personas           = null;
+        vm.descriptorPersonas = null;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        vm.resetForm          = resetForm;
+        vm.activate           = activate();
+        vm.selectedItemChange = selectedItemChange;
 
+        function activate(){
+            Restangular.all('Persona').customGET().then(function(res){
+                vm.personas = res.Personas;
+                console.log(vm.personas);
+                Restangular.all('Descriptor').customGET().then(function(res){
+                    vm.descriptores = res.Descriptor;
+                }).catch(function(err){
+                });
 
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+
+        }
+
+        function selectedItemChange()
+        {
+            console.log("El Item cambio a: ");
+            console.log(vm.selectedItem);
+            Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
+                vm.descriptorPersonas = res.Descriptor;
+                console.log(res.Descriptor);
+            }).catch(function(err){
+
+            });
+        }
+
+        function resetForm()
+        {
+            vm.descriptor=null;
+            $scope.agregarDescriptor.$setPristine();
+        }
         //////////////////
         function querySearch (query) {
             var results = query ? vm.personas.filter( createFilterFor(query) ) : vm.personas, deferred;
             return results;
-
         }
 
 
@@ -110,7 +82,7 @@
         function createFilterFor(query) {
 
             return function filterFn(persona) {
-                return (persona.nombre.indexOf(query) === 0);
+                return (persona.Nombre.indexOf(query) === 0);
             };
         }
 
@@ -128,6 +100,44 @@
 
         $scope.addItem = function()
         {
+            if (vm.descriptor.id == null) {
+                Restangular.all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                    toastr.success(vm.successText,vm.successStoreText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    //Pedimos la lista de descriptores de la BD
+                    vm.resetForm();
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
+
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+
+            }
+            else
+            {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successUpdateText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
+
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
             var etapa = {
                 id: $scope.etapa.id,
                 tarea: $scope.etapa.tarea,

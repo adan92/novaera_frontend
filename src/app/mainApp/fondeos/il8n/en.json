@@ -126,6 +126,7 @@
       "TITLE":"Programas de Fondeo",
       "INSTRUCTIONS":"Selecciona el Programa de Fondeo para Editar sus Descriptores",
       "ADD":"Agregar un Descriptor",
+      "CLEAR":"Limpiar Campos",
       "CURRENT":"Descriptores Actuales",
       "TYPE":"Tipo de Descriptor",
       "NOTES":"Observaciones"

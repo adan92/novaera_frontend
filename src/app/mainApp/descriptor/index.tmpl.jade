@@ -17,7 +17,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         label(translate='') DESCRIPTOR.DESCRIPTOR.TYPE
                         md-select(ng-model='vm.descriptor.idTipoDescriptor', required='', name='tipo')
                             md-option(ng-repeat='tipo in vm.tiposDescriptor', value='{{tipo.id}}')
-                                | {{tipo.Nombre}}
+                                | {{tipo.Aplicable}} - {{tipo.Nombre}}
                     md-button.md-raised(ng-disabled='registrarTipo.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
                         span(translate='') DESCRIPTOR.DESCRIPTOR.ADD
                     md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')

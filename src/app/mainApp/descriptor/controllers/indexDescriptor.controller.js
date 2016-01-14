@@ -80,10 +80,30 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
-            vm.descriptores.splice(index, 1);
-            //console.log($scope.proyectos);
+        $scope.deleteItem= function(item){
+            Restangular.one('Descriptor',item.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('Descriptor').customGET().then(function(res){
+                    vm.descriptores = res.Descriptor;
+                }).catch(function(err){
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            })
         };
+
+
+        /**
+         * Create function to edit item
+         */
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.descriptor = item;
+            }
+        }
 
         /**
          * Create function to add item
@@ -91,30 +111,44 @@
 
         $scope.addItem = function()
         {
-            var descriptor = {
-                id: $scope.id,
-                titulo: $scope.titulo,
-                descripcion:$scope.descripcion,
-                catalogo:$scope.catalog,
-                tipo:$scope.tipo,
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            };
+            if (vm.descriptor.id == null) {
+                Restangular.all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                    toastr.success(vm.successText,vm.successStoreText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    //Pedimos la lista de descriptores de la BD
+                    vm.resetForm();
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
 
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
 
+            }
+            else
+            {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successUpdateText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.Titulo = null;
+                    vm.descriptor.Descripcion = null;
+                    vm.descriptor.idTipoDescriptor = null;
+                    Restangular.all('Descriptor').customGET().then(function(res){
+                        vm.descriptores = res.Descriptor;
+                    }).catch(function(err){
 
-            vm.descriptores.push(descriptor);
-
-
-            $scope.id = null;
-            $scope.titulo = null;
-            $scope.descripcion = null;
-            $scope.catalogo = null;
-            $scope.tipo = null;
-            $scope.creado = null;
-            $scope.actualizado = null;
-            $scope.registrarResultado.$setPristine();
-
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
         };
 
 

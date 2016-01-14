@@ -10,73 +10,74 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorFondeoController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorFondeoController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
-
-        $scope.descriptores = [
-            {
-                id: 1,
-                titulo: "Descriptor 1",
-                descripcion:"Este es el Descriptor 1",
-                catalogo:"Catalogo 1",
-                tipo:{
-                    id: 1,
-                    nombre: "Tipo 1",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                titulo: "Descriptor 2",
-                descripcion:"Este es el Descriptor 2",
-                catalogo:"Catalogo 5",
-                tipo:{
-                    id: 3,
-                    nombre: "Tipo 3",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ];
-
-        $scope.fondeos = [
-            {
-                id:1,
-                titulo:"Mi Proyecto",
-                publico:"Jovenes 25-30",
-                fondoTotal:"350,000.00 MXN",
-                criterios:"Viable",
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01",
-                descriptoresFondeos:[
-                    {
-                        id:15,
-                        idDescriptor:3,
-                        observaciones:"Proyecto basado en ..."
-                    }
-                ]
-            }
-        ];
 
         //
 
-        vm.descriptores        = $scope.descriptores;
-        vm.fondeos             = $scope.fondeos;
+        vm.descriptores       = null;
+        vm.fondeos            = null;
+        vm.descriptoresFondeo = null;
+        vm.fondeoDescriptor   = null;
+        vm.descriptor         = null;
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        vm.resetForm          = resetForm;
+        vm.activate           = activate();
+        vm.deleteItem         = deleteItem;
+        vm.createDialog       = createDialog;
+        vm.selectedItemChange = selectedItemChange;
 
+
+        function activate(){
+            Restangular.all('ProgramaFondeo').customGET().then(function(res){
+                vm.fondeos = res.ProgramaFondeo;
+                console.log(vm.fondeos);
+                Restangular.all('Descriptor').customGET().then(function(res){
+                    vm.descriptores = res.Descriptor;
+                }).catch(function(err){
+
+                });
+
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+        }
+
+        function selectedItemChange()
+        {
+            console.log(vm.selectedItem);
+            if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
+                console.log("Pre-Descriptores:");
+                Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                    console.log("Descriptoreindesds:");
+                    vm.descriptoresFondeo = res.Descriptor;
+                    console.log(res.Descriptor);
+                }).catch(function (err) {
+
+                });
+            }
+        }
+
+        function resetForm()
+        {
+            vm.descriptor=null;
+            $scope.agregarDescriptor.$setPristine();
+        }
 
         //////////////////
         function querySearch (query) {
@@ -85,6 +86,22 @@
 
         }
 
+        function createDialog(ev,item)
+        {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteItem(item);
+            }, function() {
+                console.log("Cancelado");
+            });
+        }
 
         /**
          * Create filter function for a query string
@@ -92,16 +109,25 @@
         function createFilterFor(query) {
 
             return function filterFn(fondeos) {
-                return (fondeos.titulo.indexOf(query) === 0);
+                return (fondeos.Titulo.indexOf(query) === 0);
             };
         }
 
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
-            vm.selectedItem.descriptoresFondeos.splice(index, 1);
-            //console.log($scope.proyectos);
+        function deleteItem(item){
+            console.log(item);
+            Restangular.all('ProgramaFondeo').one('Descriptor',item.pivot.ProgramaFondeo_id).all(item.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                    vm.descriptoresFondeo = res.Descriptor;
+                }).catch(function (err) {
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            })
         };
 
         /**
@@ -110,20 +136,50 @@
 
         $scope.addItem = function()
         {
-            var descriptor = {
-                id: $scope.id,
-                idDescriptor:$scope.tipo.id,
-                observaciones:$scope.observaciones
-            };
+            vm.descriptor.ProgramaFondeo_id = vm.selectedItem.id;
+            if (vm.descriptor.id == null) {
+                console.log('Descriptor Organizacion');
+                console.log(vm.descriptor);
+                Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successStoreText);
+                    //Limpiamos las variables ligadas a formulario
+                    vm.descriptor.id           = null;
+                    vm.descriptor.Descriptor_id = null;
+                    vm.descriptor.observaciones= null;
+                    vm.resetForm();
+                    //Pedimos la lista de descriptores de la BD
+                    Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptoresFondeo = res.Descriptor;
+                    }).catch(function (err) {
 
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
 
+            }
+            else
+            {
+                //Mandamos a grabar el tipo de descriptor
+                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText,vm.successUpdateText);
+                    //Limpiamos las variables ligadas a formulario
+                    vm.tipoDescriptor.id = null;
+                    vm.tipoDescriptor.Nombre = null;
+                    vm.tipoDescriptor.Aplicable = null;
+                    vm.tipoDescriptor.Activo = null;
+                    //Pedimos la lista de descriptores de la BD
+                    Restangular.all('TipoDescriptor').customGET().then(function(res){
+                        vm.tiposDescriptor = res.TipoDescriptor;
+                    }).catch(function(err){
 
-            vm.selectedItem.descriptoresFondeos.push(descriptor);
-
-            $scope.id=null;
-            $scope.tipo=null;
-            $scope.observaciones=null;
-            $scope.registrarResultado.$setPristine();
+                    });
+                }).catch(function(err){
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
 
         };
 

@@ -75,6 +75,28 @@
                     requireLogin: true
 
                 }
+            })
+            .state('triangular.admin-default.personas_descriptor_admin',{
+                url: '/persona_descriptor',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/personas/descriptor_persona_admin.tmpl.html',
+                // set the controller to load for this page
+                controller: 'descriptorPersonasAdminController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: true
+                    },
+                    requireLogin: true
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             });
 
 

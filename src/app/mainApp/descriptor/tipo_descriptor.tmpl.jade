@@ -1,5 +1,5 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
-    // TARJETA PARA BUSCAR PROYECTOS
+    // TARJETA PARA AREGAR TIPO DE DESCRIPTOR
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
@@ -9,15 +9,17 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         label(translate='') DESCRIPTOR.TIPO.NAME
                         input(ng-model='vm.tipoDescriptor.Nombre', required='', name='nombre')
                     md-input-container
-                        label(translate='') DESCRIPTOR.TIPO.VALID
-                        input(ng-model='vm.tipoDescriptor.Aplicable', required='', name='aplicable')
+                        label(translate='') DESCRIPTOR.TIPO.APPLICABLE
+                        md-select(ng-model='vm.tipoDescriptor.Aplicable', required='', name='aplicable')
+                            md-option(ng-repeat='tipo in vm.tipos', value='{{tipo.tipo}}')
+                                | {{tipo.tipo}} - {{tipo.descripcion}}
                     md-switch.md-primary(ng-model='vm.tipoDescriptor.Activo', aria-label='Primary Switch', ng-init='activo = true')
                         label(translate='') DESCRIPTOR.TIPO.ACTIVE
                     md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') DESCRIPTOR.TIPO.NEW
                     md-button.md-raised(ng-disabled='vm.tipoDescriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
                         span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
-    // Tarjeta para eliminar tipo de descriptor
+    // TARJETA PARA ELIMINAR TIPO DE DESCRIPTOR
     div(layout='row', layout-md='column')
         md-card(flex='', layout='column')
             md-card-content
@@ -33,7 +35,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     span(translate) DESCRIPTOR.TIPO.NAME
                                     span  {{tipo.Nombre}}
                                 h5
-                                    span(translate) DESCRIPTOR.TIPO.APPlICABLE
+                                    span(translate) DESCRIPTOR.TIPO.APPLICABLE
                                     span  {{tipo.Aplicable}}
                                 h5
                                     span(translate) DESCRIPTOR.TIPO.ACTIVE

@@ -10,8 +10,36 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function tipoDescriptorController($scope,Restangular,Translate,toastr,$mdDialog) {
+        function tipoDescriptorController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
+
+        vm.tipos = [
+            {
+                "tipo" : "H",
+                "descripcion":"Persona"
+            },
+            {
+                "tipo" : "O",
+                "descripcion":"Organizacion"
+            },
+            {
+                "tipo" : "P",
+                "descripcion":"Proyecto"
+            },
+            {
+                "tipo" : "R",
+                "descripcion":"Resultado"
+            },
+            {
+                "tipo" : "F",
+                "descripcion":"Programa de Fondeo"
+            },
+            {
+                "tipo" : "A",
+                "descripcion":"Todos"
+            }
+        ];
+
         vm.activate         = activate();
         //Variables
         vm.tipoDescriptor   = null;
@@ -21,11 +49,8 @@
         vm.edit             = edit;
         vm.resetForm        = resetForm;
 
-
-
         function createDialog(ev,item)
         {
-
             vm.ev = ev;
             var confirm = $mdDialog.confirm()
                 .title(vm.sureText)
@@ -43,11 +68,9 @@
 
         function resetForm()
         {
-            vm.tipoDescriptor=null
+            vm.tipoDescriptor=null;
             $scope.agregarTipo.$setPristine();
         }
-
-
 
         function activate()
         {
@@ -69,8 +92,6 @@
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
         }
-
-
 
         vm.selectedItem       = null;
         vm.searchText         = null;
@@ -134,6 +155,7 @@
             //Restangular.one('TipoDescriptor',1) = idem/TipoDescriptor/1
             if (vm.tipoDescriptor.id == null) {
                 //Mandamos a grabar el tipo de descriptor
+                console.log(vm.tipoDescriptor);
                 Restangular.all('TipoDescriptor').customPOST(vm.tipoDescriptor).then(function(res){
                     //Mandamos el mensaje de éxito
                     toastr.success(vm.successText,vm.successStoreText);
@@ -142,6 +164,7 @@
                     vm.tipoDescriptor.Nombre = null;
                     vm.tipoDescriptor.Aplicable = null;
                     vm.tipoDescriptor.Activo = null;
+                    vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
                     Restangular.all('TipoDescriptor').customGET().then(function(res){
                         vm.tiposDescriptor = res.TipoDescriptor;
@@ -174,13 +197,7 @@
                     toastr.error(vm.failureText,vm.failureStoreText);
                 });
             }
-
         }
-
-
-
-
-
     }
 
     function matcher()

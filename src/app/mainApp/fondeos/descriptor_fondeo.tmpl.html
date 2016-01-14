@@ -15,12 +15,12 @@
                         md-selected-item="vm.selectedItem"
                         md-search-text-change="vm.searchTextChange(vm.searchText)"
                         md-search-text="vm.searchText"
-                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-selected-item-change="vm.selectedItemChange()"
                         md-items="item in vm.querySearch(vm.searchText)"
-                        md-item-text="item.display"
+                        md-item-text="item.Titulo"
                         md-min-length="0"
                         placeholder="Busca tu Programa de Fondeo">
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.titulo}}</span>
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Titulo}}</span>
                 </md-autocomplete>
             </md-card-content>
         </md-card>
@@ -32,21 +32,22 @@
         <md-card flex="30" layout="column" ng-show="vm.selectedItem!=null">
             <md-card-content>
                 <h2 translate>FONDEOS.DESCRIPTOR.ADD</h2>
-                <form name="registrarResultado" novalidate>
+                <form name="agregarDescriptor" novalidate>
 
                     <md-input-container>
                         <label translate>FONDEOS.DESCRIPTOR.TYPE</label>
-                        <md-select ng-model="tipo" required name="tipo">
+                        <md-select ng-model="vm.descriptor.Descriptor_id" required name="tipo">
                             <md-option ng-repeat="tipo in vm.descriptores" value="{{tipo.id}}">
-                                {{tipo.titulo}}
+                                {{tipo.Titulo}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container>
                         <label translate>FONDEOS.DESCRIPTOR.NOTES</label>
-                        <input ng-model="observaciones" required name="observaciones">
+                        <input ng-model="vm.descriptor.observaciones" required name="observaciones">
                     </md-input-container>
                     <md-button ng-disabled="registrarDescriptor.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>FONDEOS.DESCRIPTOR.ADD</span></md-button>
+                    <md-button ng-disabled="vm.descriptor==null" ng-click="vm.resetForm()" ng-class="['md-primary','md-hue-2']" aria-label="primary button" class="md-raised"><span translate="">FONDEOS.DESCRIPTOR.CLEAR</span></md-button>
 
                 </form>
 
@@ -56,20 +57,17 @@
             <md-card-content>
                 <h2 translate class="text-center">FONDEOS.DESCRIPTOR.CURRENT</h2>
                 <md-list>
-                    <md-list-item class="md-4-line" ng-repeat="descriptor in vm.selectedItem.descriptoresFondeos">
+                    <md-list-item class="md-4-line" ng-repeat="descriptor in vm.descriptoresFondeo">
                         <div class="md-list-item-text">
-                            <h3>ID: {{descriptor.id}}</h3>
-                            <h5>ID Descriptor: {{descriptor.idDescriptor}}</h5>
-                            <h5>Observaciones: {{descriptor.observaciones}}</h5>
+                            <h3>ID: {{descriptor.pivot.id}}</h3>
+                            <h5>Descriptor: {{descriptor.Titulo}}</h5>
+                            <h5>Observaciones: {{descriptor.pivot.observaciones}}</h5>
                         </div>
-                        <md-button ng-click="deleteItem(etapa)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PROJECT.DESCRIPTOR.REMOVE_RESULT</span></md-button>
+                        <md-button ng-click="vm.createDialog($event,descriptor)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PROJECT.DESCRIPTOR.REMOVE_RESULT</span></md-button>
                         <md-divider></md-divider>
                     </md-list-item>
                 </md-list>
             </md-card-content>
         </md-card>
     </div>
-
-
-
 </div>

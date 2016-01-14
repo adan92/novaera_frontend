@@ -6,15 +6,15 @@
 
     angular
         .module('app.mainApp.personas')
-        .controller('descriptorPersonasController', descriptorPersonasController)
+        .controller('descriptorPersonasAdminController', descriptorPersonasAdminController)
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorPersonasController($scope,Restangular,Translate,toastr,$mdToast) {
+    function descriptorPersonasAdminController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
 
-        vm.descriptores       = null;
+        vm.descriptor         = null;
         vm.personas           = null;
         vm.descriptorPersonas = null;
         vm.selectedItem       = null;
@@ -25,6 +25,8 @@
         vm.resetForm          = resetForm;
         vm.activate           = activate();
         vm.selectedItemChange = selectedItemChange;
+        vm.deleteItem         = deleteItem;
+        vm.createDialog       = createDialog;
 
         function activate(){
             Restangular.all('Persona').customGET().then(function(res){
@@ -57,12 +59,15 @@
         {
             console.log("El Item cambio a: ");
             console.log(vm.selectedItem);
-            Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
-                vm.descriptorPersonas = res.Descriptor;
-                console.log(res.Descriptor);
-            }).catch(function(err){
+            if(vm.selectedItem.id != null) {
 
-            });
+                Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                    vm.descriptorPersonas = res.Descriptor;
+                    console.log(res.Descriptor);
+                }).catch(function (err) {
+
+                });
+            }
         }
 
         function resetForm()
@@ -76,6 +81,22 @@
             return results;
         }
 
+        function createDialog(ev,item)
+        {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteItem(item);
+            }, function() {
+                console.log("Cancelado");
+            });
+        }
 
         /**
          * Create filter function for a query string
@@ -90,28 +111,38 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
-            vm.selectedItem.descriptorPersona.splice(index, 1);
-            //console.log($scope.proyectos);
+        function deleteItem(item){
+            console.log('deleting');
+            Restangular.all('Persona').one('Descriptor',item.pivot.idPersona).all(item.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
+                    vm.descriptorPersonas = res.Descriptor;
+                    console.log(res.Descriptor);
+                }).catch(function(err){
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            })
         }
 
-        /**
-         * Create function to add item
-         */
 
         $scope.addItem = function()
         {
+            vm.descriptor.idPersona = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
-                Restangular.all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                Restangular.all('Persona').all('Descriptor').customPOST(vm.descriptor).then(function(res){
                     toastr.success(vm.successText,vm.successStoreText);
                     vm.descriptor.id = null;
                     vm.descriptor.Titulo = null;
                     vm.descriptor.Descripcion = null;
                     vm.descriptor.idTipoDescriptor = null;
+                    vm.descriptor.idPersona = null;
                     //Pedimos la lista de descriptores de la BD
                     vm.resetForm();
-                    Restangular.all('Descriptor').customGET().then(function(res){
-                        vm.descriptores = res.Descriptor;
+                    Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
+                        vm.descriptorPersonas = res.Descriptor;
+                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -130,8 +161,10 @@
                     vm.descriptor.Titulo = null;
                     vm.descriptor.Descripcion = null;
                     vm.descriptor.idTipoDescriptor = null;
-                    Restangular.all('Descriptor').customGET().then(function(res){
-                        vm.descriptores = res.Descriptor;
+                    vm.descriptor.idPersona = null;
+                    Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
+                        vm.descriptorPersonas = res.Descriptor;
+                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -139,23 +172,6 @@
                     toastr.error(vm.failureText,vm.failureStoreText);
                 });
             }
-            var etapa = {
-                id: $scope.etapa.id,
-                tarea: $scope.etapa.tarea,
-                tareaPrecedente: $scope.etapaPrecedente,
-                entregable: $scope.entregable
-            };
-
-
-
-            vm.selectedItem.descriptorPersona.push(etapa);
-
-            $scope.etapa=null;
-            $scope.etapaPrecedente=null;
-            $scope.tarea=null;
-            $scope.entregable =null;
-            $scope.registrarResultado.$setPristine();
-
         }
 
 

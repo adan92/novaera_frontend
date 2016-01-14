@@ -52,6 +52,7 @@
       "INSTRUCTIONS":"Selecciona una persona para modificar sus descriptores",
       "CURRENT":"Descriptores de la persona actual",
       "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Descriptor",
       "DELETE":"Eliminar Descriptor",
       "TYPE":"Tipo de Descriptor",
       "FINIT":"Fecha Inicio",
