@@ -1,5 +1,6 @@
 (function() {
     'use strict';
+    /* @ngInject */
     angular
         .module('app', [
             'triangular','flow','ngFileUpload','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngMaterial',

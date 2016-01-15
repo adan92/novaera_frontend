@@ -1,93 +1,118 @@
 'use strict';
 
-var path = require('path');
 var gulp = require('gulp');
-var conf = require('./conf');
+
+var paths = gulp.paths;
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
-gulp.task('partials', ['markups'], function () {
+gulp.task('partials',['markups'], function () {
   return gulp.src([
-    path.join(conf.paths.src, '/app/**/*.html'),
-    path.join(conf.paths.tmp, '/serve/app/**/*.html')
+    paths.src + '/app/**/*.html',
+    paths.tmp + '/app/**/*.html'
   ])
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe($.if(function(file) {
+        return $.match(file, ['!**/examples/*.html']);
+      },
+      $.minifyHtml({
+        empty: true,
+        spare: true,
+        quotes: true
+      }))
+    )
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
       module: 'app',
       root: 'app'
     }))
-    .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
+    .pipe(gulp.dest(paths.tmp + '/partials/'));
 });
 
 gulp.task('html', ['inject', 'partials'], function () {
-  var partialsInjectFile = gulp.src(path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'), { read: false });
+  var partialsInjectFile = gulp.src(paths.tmp + '/partials/templateCacheHtml.js', { read: false });
   var partialsInjectOptions = {
     starttag: '<!-- inject:partials -->',
-    ignorePath: path.join(conf.paths.tmp, '/partials'),
+    ignorePath: paths.tmp + '/partials',
     addRootSlash: false
   };
 
-  var htmlFilter = $.filter('*.html');
+  var htmlFilter = $.filter(['*.html', '!/src/app/elements/examples/*.html']);
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var assets;
 
-  return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
+  return gulp.src(paths.tmp + '/serve/*.html')
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
-    .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
+    .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.csso())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
+    .pipe($.replace('../bower_components/material-design-iconic-font/dist/fonts', '../fonts'))
+    .pipe($.replace('../font/weathericons-regular', '../fonts/weathericons-regular'))
     .pipe($.useref())
     .pipe($.revReplace())
     .pipe(htmlFilter)
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
-      quotes: true,
-      conditionals: true
+      quotes: true
     }))
     .pipe(htmlFilter.restore())
-    .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
-    .pipe($.size({ title: path.join(conf.paths.dist, '/'), showFiles: true }));
+    .pipe(gulp.dest(paths.dist + '/'))
+    .pipe($.size({ title: paths.dist + '/', showFiles: true }));
 });
 
-// Only applies for fonts from bower dependencies
-// Custom fonts are handled by the "other" task
+gulp.task('images', function () {
+  return gulp.src(paths.src + '/assets/images/**/*')
+    .pipe(gulp.dest(paths.dist + '/assets/images/'));
+});
+
 gulp.task('fonts', function () {
   return gulp.src($.mainBowerFiles())
-    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    .pipe($.filter('**/*.{eot,otf,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
-    .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
+    .pipe(gulp.dest(paths.dist + '/fonts/'));
 });
 
-gulp.task('other', function () {
-  var fileFilter = $.filter(function (file) {
-    return file.stat.isFile();
-  });
+gulp.task('translations', function () {
+  return gulp.src('src/**/il8n/*.json')
+    .pipe(gulp.dest(paths.dist + '/'))
+    .pipe($.size());
+});
 
-  return gulp.src([
-    path.join(conf.paths.src, '/**/*'),
-    path.join('!' + conf.paths.src, '/**/*.{html,css,js,styl,jade}')
-  ])
-    .pipe(fileFilter)
-    .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
+gulp.task('data', function () {
+  return gulp.src('src/**/data/*.json')
+    .pipe(gulp.dest(paths.dist + '/'))
+    .pipe($.size());
+});
+
+gulp.task('examplejs', function () {
+  return gulp.src('src/**/examples/*.{js,scss}')
+    .pipe(gulp.dest(paths.dist + '/'))
+    .pipe($.size());
+});
+
+gulp.task('jshint', function() {
+  gulp.src('src/**/*.js')
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('default'));
+});
+
+
+gulp.task('misc', function () {
+  return gulp.src(paths.src + '/favicon.png')
+    .pipe(gulp.dest(paths.dist + '/'));
 });
 
 gulp.task('clean', function (done) {
-  $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
+  $.del([paths.dist + '/', paths.tmp + '/'], done);
 });
 
-gulp.task('build', ['html', 'fonts', 'other']);
+gulp.task('buildapp', ['html', 'images', 'fonts', 'translations', 'misc', 'data', 'examplejs']);

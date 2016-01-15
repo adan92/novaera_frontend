@@ -38,15 +38,15 @@ gulp.task('styles', function () {
   return gulp.src([
     paths.src + '/app/app.scss'
   ])
-      .pipe(indexFilter)
-      .pipe($.inject(injectFiles, injectOptions))
-      .pipe(indexFilter.restore())
-      .pipe($.sass(sassOptions))
+    .pipe(indexFilter)
+    .pipe($.inject(injectFiles, injectOptions))
+    .pipe(indexFilter.restore())
+    .pipe($.sass(sassOptions))
 
-      .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']}))
-      .on('error', function handleError(err) {
-        console.error(err.toString());
-        this.emit('end');
-      })
-      .pipe(gulp.dest(paths.tmp + '/serve/app/'));
+  .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']}))
+    .on('error', function handleError(err) {
+      console.error(err.toString());
+      this.emit('end');
+    })
+    .pipe(gulp.dest(paths.tmp + '/serve/app/'));
 });

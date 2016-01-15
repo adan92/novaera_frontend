@@ -6,8 +6,7 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('revisarProyectosController', revisarProyectosController)
-        .filter('matcher',matcher);
+        .controller('revisarProyectosController', revisarProyectosController);
 
     /* @ngInject */
     function revisarProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {

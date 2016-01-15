@@ -265,26 +265,6 @@
 
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2==null)
-                return true;
-
-            return arr1.filter(function(val){
-
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
-                        returnable = false;
-                },val);
-
-                if(returnable==null)
-                    return true;
-                else return false;
-            })
-        }
-    }
 })
 
 ();

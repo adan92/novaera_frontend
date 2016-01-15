@@ -6,8 +6,7 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('validarProyectosController', validarProyectosController)
-        .filter('matcher',matcher);
+        .controller('validarProyectosController', validarProyectosController);
 
     /* @ngInject */
     function validarProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
