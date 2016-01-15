@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var path = require('path');
 
 var paths = gulp.paths;
 
@@ -9,10 +10,10 @@ var $ = require('gulp-load-plugins')({
 });
 
 gulp.task('partials',['markups'], function () {
-  return gulp.src([
-    paths.src + '/app/**/*.html',
-    paths.tmp + '/app/**/*.html'
-  ])
+    return gulp.src([
+            path.join(paths.src, '/app/**/*.html'),
+            path.join(paths.tmp, '/serve/app/**/*.html')
+        ])
     .pipe($.if(function(file) {
         return $.match(file, ['!**/examples/*.html']);
       },
@@ -111,8 +112,23 @@ gulp.task('misc', function () {
     .pipe(gulp.dest(paths.dist + '/'));
 });
 
+
+gulp.task('other', function () {
+  var fileFilter = $.filter(function (file) {
+    return file.stat.isFile();
+  });
+
+  return gulp.src([
+        path.join(paths.src, '/**/*'),
+        path.join('!' + paths.src, '/**/*.{html,css,js,styl,jade}')
+      ])
+      .pipe(fileFilter)
+      .pipe(gulp.dest(path.join(paths.dist, '/')));
+});
+
+
 gulp.task('clean', function (done) {
   $.del([paths.dist + '/', paths.tmp + '/'], done);
 });
 
-gulp.task('buildapp', ['html', 'images', 'fonts', 'translations', 'misc', 'data', 'examplejs']);
+gulp.task('buildapp', ['html', 'images', 'fonts', 'translations', 'misc', 'data', 'examplejs','other']);
