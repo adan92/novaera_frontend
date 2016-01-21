@@ -22,7 +22,6 @@
             $translate(key).then(function(text) {
                 localStorageService.set(key, text);
             });
-
             var text = localStorageService.get(key) || null;
             localStorageService.remove(key);
             return text;

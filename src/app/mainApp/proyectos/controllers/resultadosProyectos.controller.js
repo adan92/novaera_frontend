@@ -12,17 +12,35 @@
     function resultadosProyectosController($scope,Restangular,Translate,toastr) {
         var vm = this;
         vm.activate = activate();
+        vm.paisesProteccion = [];
+        vm.resultado = {
+            id: null,
+            idProyectoTRL: null,
+            Tipo: null,
+            Nombre: null,
+            Resumen: null,
+            NumeroRegistro: null,
+            Status: null,
+            PaisesProteccion: [],
+            PlanDeExplotacion: null,
+            AreaDeAplicacion: null,
+            Avance: null,
+            Fecha: null,
+            FechaAprobacion: null
+        };
 
-        $scope.proyecto = {};
-        vm.tipos = [{value:1,display:"Proceso"},{value:2,display:"Producto"},{value:3,display:"Servicio"}];
-        vm.status = [{value:1,display:"Sin iniciar"},{value:2,display:"En Proceso"},{value:3,display:"Completado"}];
+
+        vm.tipos = [{value:"Proceso",display:"Proceso"},{value:"Producto",display:"Producto"},{value:"Servicio",display:"Servicio"}];
+        vm.status = [{value:"Sin iniciar",display:"Sin iniciar"},{value:"En Proceso",display:"En Proceso"},{value:"Completado",display:"Completado"}];
 
 
         //
         vm.changeModel        = changeModel;
         vm.showTable          = true;
+        vm.changeResult       = changeResult;
+        vm.addResult          = addResult;
 
-        //Variables para el md-autocomplete
+        //Variables para el md-autocomplete de proyecto
         vm.querySearch        = querySearch;
         vm.selectedItemChange = selectedItemChange;
         vm.proyectos          = null;
@@ -30,6 +48,12 @@
         vm.searchText         = null;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        //Variables para el md-autocomplete de países
+        vm.selectedPais       = null;
+        vm.searchTextPais     = null;
+        vm.paisSearch         = paisSearch;
+        vm.appendPais         = appendPais;
+
 
         //Variables para la tabla
         vm.resultados         = null;
@@ -55,6 +79,12 @@
             }).catch(function(err){
 
             });
+            Restangular.all('Pais').customGET().then(function(res){
+                vm.paises = res.Pais;
+            }).catch(function(err){
+
+            });
+
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
             vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
@@ -70,8 +100,45 @@
         }
 
 
+        //
+        function changeResult(item)
+        {
+            vm.resultado = item;
+            if(vm.resultado.PaisesProteccion==null)
+            {
+                vm.resultado.PaisesProteccion = [];
+            }
+            else
+            {
+                try{
+                    vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
+                    console.log(vm.resultado.PaisesProteccion);
+                }catch (err)
+                {
+                }
+
+            }
+        }
+
+        ///
+
         function changeModel()
         {
+            vm.resultado = {
+                "id": null,
+                "idProyectoTRL": null,
+                "Tipo": null,
+                "Nombre": null,
+                "Resumen": null,
+                "NumeroRegistro": null,
+                "Status": null,
+                "PaisesProteccion": [],
+                "PlanDeExplotacion": null,
+                "AreaDeAplicacion": null,
+                "Avance": null,
+                "Fecha": null,
+                "FechaAprobacion": null
+            };
             if(vm.showTable)
             {
                 vm.tableModel = vm.resultados;
@@ -85,81 +152,55 @@
 
         //////////////////
         function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            var results = query ? vm.proyectos.filter( createFilterForProyecto(query) ) : vm.proyectos, deferred;
             return results;
 
         }
 
 
         /**
-         * Create filter function for a query string
+         * Filtro para Proyecto
          */
-        function createFilterFor(query) {
+        function createFilterForProyecto(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
 
         /**
-         * Columns for tables
+         * Filtro para País
          */
-
-        $scope.showTable = false;
-        vm.columns_resultados = [
-            {
-            title: 'id',
-            field: 'id',
-            sortable: true
-        },{
-            title: 'Título',
-            field: 'NombreTitulo',
-            sortable: true
-        },{
-            title: 'Tipo',
-            field: 'Tipo',
-            sortable: true
-        },{
-            title: 'Fecha',
-            field: 'Fecha',
-            sortable:true
-        },{
-            title: 'Descripción',
-            field: 'DescripciónResumen',
-            sortable:false
-        },{
-            title: 'Status',
-            field: 'Status',
-            sortable:true
+        function createFilterForPais(query) {
+            return function filterFn(pais) {
+                return (pais.Nombre.indexOf(query) === 0);
+            };
         }
-        ];
-        vm.columns_patentes = [
+
+
+        /**
+         * Buscar País
+         */
+        function paisSearch (query) {
+            var results = query ? vm.paises.filter( createFilterForPais(query) ) : vm.paises, deferred;
+            return results;
+        }
+
+        /**
+         * Función que regresa el mapeo del chip a un modelo
+         */
+        function appendPais(chip)
+        {
+            var index  =_.findIndex(vm.resultado.PaisesProteccion,function(obj){
+                return obj.Nombre === chip.Nombre;
+            });
+            if(index!=-1)
             {
-                title: 'id',
-                field: 'id',
-                sortable: true
-            },{
-                title: 'Titulo',
-                field: 'titulo',
-                sortable: false
-            },{
-                title: 'Registro',
-                field: 'fecha_registro',
-                sortable: true
-            },{
-                title: 'Aprobación',
-                field: 'fecha_aprobacion',
-                sortable: true
-            },{
-                title: 'Registro',
-                field: 'numero_registro',
-                sortable: false
-            },{
-                title: 'Paises',
-                field: 'paises_proteccion',
-                sortable: false
+                vm.resultado.PaisesProteccion.splice(index,1);
             }
-        ];
+            return chip;
+        }
+
 
         /**
          * Función de selección de proyecto
@@ -171,7 +212,6 @@
             vm.resultadosPromise.then(function(res){
                vm.resultados = res.Resultado;
                vm.tableModel = vm.resultados;
-                console.log(vm.tableModel);
             }).catch(function(err){
 
             });
@@ -189,28 +229,42 @@
          * Funcion para agregar resultado
          */
 
-        $scope.addResult = function()
+        function addResult(type)
         {
-            $scope.resultado.id =Math.floor((Math.random() * 10) + 2);
-            $scope.resultado.fecha= moment($scope.resultado.fecha).format('DD-MM-YYYY');
-            vm.selectedItem.resultados.push($scope.resultado);
-            $scope.resultado=null;
+            vm.resultado.idProyecto = vm.selectedItem.id;
+            if(type=="Patente")
+            {
+                vm.resultado.Tipo = type;
+                vm.resultado.PaisesProteccion = angular.toJson(vm.resultado.PaisesProteccion,0);
+            }
+
+            if(vm.resultado.id !=null)
+            {
+                console.log(vm.resultado);
+                Restangular.all('Proyecto').all('Resultados').customPUT(vm.resultado).then(function(res){
+                   vm.resultado = res;
+                   toastr.success(vm.successText,vm.successUpdateText);
+                }).catch(function(err)
+                {
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
+            else
+            {
+                Restangular.all('Proyecto').all('Resultados').customPOST(vm.resultado).then(function(res){
+                    vm.resultado = res;
+                    toastr.success(vm.successText,vm.successUpdateText);
+                }).catch(function(err)
+                {
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+
+            }
+
             $scope.agregarResultado.$setPristine();
         };
 
-        /**
-         * Funcion para agregar patente
-         */
-        $scope.addPatent = function()
-        {
-            $scope.patente.id =Math.floor((Math.random() * 10) + 2);
-            $scope.patente.fecha_registro= moment($scope.patente.fecha_registro).format('DD-MM-YYYY');
-            $scope.patente.fecha_aprobacion= moment($scope.patente.fecha_aprobacion).format('DD-MM-YYYY');
-            vm.selectedItem.patentes.push($scope.patente);
-            $scope.patente=null;
-            $scope.agregarPatente.$setPristine();
 
-        };
 
     }
 })();
