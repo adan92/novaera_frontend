@@ -8,34 +8,39 @@
         .module('app.mainApp.profile')
         .controller('indexProfileController', indexProfileController);
     /* @ngInject */
-    function indexProfileController($filter, $scope, Restangular, triBreadcrumbsService, SweetAlert, Profile) {
+    function indexProfileController($filter,  Restangular, triBreadcrumbsService, SweetAlert, Profile) {
         var vm = this;
-        $scope.perfiles = [];
+        vm.perfiles = [];
+
+        vm.addItem=addItem;
         activate();
+
+
         function activate() {
             triBreadcrumbsService.reset();
             triBreadcrumbsService.addCrumb("Profile");
             var promese = Restangular.all("Organizacion").customGET();
             promese.then(function (response) {
-                $scope.perfiles = [{
+                vm.perfiles=[{
                     id: 0,
                     type: "person",
                     "nombre": "Persona",
                     "imagen": "assets/images/avatars/persona.png"
                 }];
+
                 angular.forEach(response.Organizacion, function (value, key) {
-                    $scope.perfiles.push(
-                        {
-                            id: value.id,
-                            type: "org",
-                            "nombre": value.Titulo,
-                            "imagen": "assets/images/avatars/persona.png"
-                        }
-                    );
+
+                    vm.perfiles.push(
+                    {
+                        id: value.id,
+                        type: "org",
+                        "nombre": value.Titulo,
+                        "imagen": "assets/images/avatars/persona.png"
+                    });
                 });
                 if (Profile.isValidated()) {
                     var perf = Profile.profileInfo();
-                    $scope.data.avatar = perf.id;
+                    vm.data = perf.id;
                 }
 
             }).catch(function (e) {
@@ -44,9 +49,9 @@
             });
         }
 
-        $scope.addItem = function () {
-            var avatar = $scope.data.avatar;
-            if ($scope.isUndefinedOrNull(avatar)) {
+         function addItem() {
+            var avatar = vm.data;
+            if (isUndefinedOrNull(avatar)) {
                 SweetAlert.swal({
                         title: "¿Estas seguro?",
                         text: "Al no seleccionar un perfil, se colocará el perfil de persona de manera automática",
@@ -55,28 +60,32 @@
                         confirmButtonColor: "#DD6B55", confirmButtonText: "Acepto",
                         cancelButtonText: "Cancelar",
                         closeOnConfirm: false,
-                        closeOnCancel: false
+                        closeOnCancel: true
                     },
                     function (isConfirm) {
                         if (isConfirm) {
-                            Profile.setProfile($scope.perfiles[0]);
+                            Profile.setProfile(vm.perfiles[0]);
+                            SweetAlert.swal("Hecho!!", "¡Se ha guardado el tipo de perfil!!", "success");
+
                         }
                     }
                 );
 
+
             } else {
                 var perfil = JSON.parse(avatar);
-                var single_object = $filter('filter')($scope.perfiles, function (d) {
+                var single_object = $filter('filter')(vm.perfiles, function (d) {
                     return d.id === perfil;
                 })[0];
+                console.log(single_object);
                 Profile.setProfile(single_object);
                 SweetAlert.swal("Hecho!!", "¡Se ha guardado el tipo de perfil!!", "success");
             }
 
-        };
-        $scope.isUndefinedOrNull = function (val) {
+        }
+        function isUndefinedOrNull (val) {
             return angular.isUndefined(val) || val === null
-        };
+        }
 
     }
 
