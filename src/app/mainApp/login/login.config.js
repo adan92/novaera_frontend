@@ -16,6 +16,13 @@
         $translatePartialLoaderProvider.addPart('app/mainApp/login');
 
         $stateProvider
+            .state('logout', {
+                controller:'LogoutController',
+                controllerAs: 'vm',
+                data: {
+                    requireLogin: false
+                }
+            })
             .state('auth', {
                 abstract: true,
                 templateUrl: 'app/mainApp/login/authentication.tmpl.html'

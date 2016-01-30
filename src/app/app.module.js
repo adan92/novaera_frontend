@@ -20,6 +20,8 @@
             'gantt.overlap',
             'gantt.resizeSensor',
             'ang-drag-drop',
+            //JWT
+            'angular-jwt',
 
 
             // 'seed-module'
