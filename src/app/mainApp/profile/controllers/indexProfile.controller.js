@@ -1,6 +1,3 @@
-/**
- * Created by Jorge Montiel on 10/15/15.
- */
 (function () {
     'use strict';
 
@@ -8,13 +5,14 @@
         .module('app.mainApp.profile')
         .controller('indexProfileController', indexProfileController);
     /* @ngInject */
-
     function indexProfileController($filter,  Restangular, triBreadcrumbsService, SweetAlert, Profile) {
         var vm = this;
         vm.perfiles = [];
 
         vm.addItem=addItem;
         activate();
+
+
         function activate() {
             triBreadcrumbsService.reset();
             triBreadcrumbsService.addCrumb("Profile");
@@ -26,7 +24,9 @@
                     "nombre": "Persona",
                     "imagen": "assets/images/avatars/persona.png"
                 }];
+
                 angular.forEach(response.Organizacion, function (value, key) {
+
                     vm.perfiles.push(
                     {
                         id: value.id,
