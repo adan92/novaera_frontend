@@ -29,7 +29,6 @@
                 config.headers.Authorization = 'Bearer ' + token;
                 // config.headers['access_token'] = token;
             }
-
             return config;
         }
 
@@ -40,10 +39,26 @@
 
         function responseError(response) {
             var $state = $injector.get('$state');
-            if (response.status === 401) {
+            var Auth = $injector.get('Auth');
 
-                $injector.get('Auth').logout();
-                $state.go('auth.login');
+            if (response.status === 401) {
+                if(Auth.isTokenExpired())
+                {
+                    var promise = Auth.refreshToken();
+                    promise.then(function(res){
+                    }).catch(function(err)
+                    {
+                        $injector.get('Auth').logout();
+                        $state.go('auth.login');
+                    });
+
+                }
+                else
+                {
+                    $injector.get('Auth').logout();
+                    $state.go('auth.login');
+                }
+
             }
 
             return $q.reject(response);
