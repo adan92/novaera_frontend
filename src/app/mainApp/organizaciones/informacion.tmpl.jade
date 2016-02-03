@@ -1,4 +1,4 @@
-.dashboard-container.overlay-10.padded-content-page(layout layout-column).informacion-organizaciones
+div(layout layout-column).informacion-organizaciones
   div(layout="column" flex)
     //- tarjeta buscar organizaciones
     div(layout)
@@ -15,16 +15,15 @@
     h3.md-header(ng-if="vm.isCreating === true") Nueva Organización
     h3.md-header(ng-if="vm.isEditing === true") Modificar Organización
 
-    div(ng-show="vm.isCreating || vm.isEditing" layout="column" layout-margin)
+    pre {{vm.form.$invalid| json:2}}
+    form(ng-show="vm.isCreating || vm.isEditing" layout="column" layout-margin name="vm.form")
       //- tarjeta datos generales
       .md-whiteframe-z1.md-padding.md-card(flex)
-        //- h4.md-subheader Datos Generales
 
         div(layout layout-sm="column")
           md-input-container(flex).nombre-organizacion.md-no-float
             label Nombre de la Organización
-            input(type="text" ng-model="vm.org.Titulo" required)
-
+            input(type="text" ng-model="vm.org.Titulo" required name="Titulo")
 
         div(layout layout-sm="column")
           md-input-container(flex)
@@ -40,10 +39,6 @@
             label Descripción
             textarea(ng-model="vm.org.Descripcion" required rows="5" md-maxlength="400")
 
-          //- md-input-container(flex)
-          //-   label Nombre de la Organización
-          //-   input(type="text" ng-model="vm.org.Titulo" required)
-
       .md-whiteframe-z1.md-padding.md-card(flex)
         h4.md-subheader Información Legal
         div(layout layout-sm="column")
@@ -58,10 +53,6 @@
           md-input-container(flex)
             label Giro de la Empresa
             input(type="text" ng-model="vm.org.Giro" required)
-            //- md-select(ng-model="vm.org.Giro" required)
-            //-   md-option(value="A") Giro A
-            //-   md-option(value="B") Giro B
-            //-   md-option(value="C") Giro C
 
         div(layout layout-sm="column")
 
@@ -96,42 +87,46 @@
             p.md-subhead RENIECyT
             input(type="file" ng-model="vm.RENIECyTFile")
 
+      div(layout flex layout-sm="column")
+        .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="40")
+          h4.md-subheader Personas en la Organización
+          md-list
+            md-list-item.md-3-line.md-long-text( ng-repeat="persona in vm.personas")
+              .md-list-item-text
+                h3 {{persona.Nombre}} {{persona.ApellidoP}} {{persona.ApellidoM}}
+                h4 {{persona.pivot.Puesto}} desde {{persona.pivot.FechaInicio | date:'dd/MM/yyyy'}}
+                p {{persona.Descripcion ? persona.Descripcion : 'Sin Descripción'}}
+              md-menu.md.secondary(md-position-mode="target-right target")
+                md-button.md-icon-button( ng-click="vm.openMenu($mdOpenMenu, $event)")
+                  md-icon.material-icon more_vert
+                md-menu-content(width="2")
+                  md-menu-item
+                    md-button(ng-click="vm.viewPerson(persona)" md-menu-align-target)
+                      md-icon.material-icon person
+                      | Ver Persona
+                  //- md-menu-item
+                  //-   md-button(ng-click="vm.editPerson(persona)" md-menu-align-target)
+                  //-     md-icon.material-icon edit
+                  //-     | Editar Persona
+                  md-menu-divider
+                  md-menu-item
+                    md-button(ng-click="vm.removePerson(persona)" md-menu-align-target)
+                      md-icon.material-icon close
+                      | Eliminar Persona
+          div(layout layout-align="end-center")
+            md-button.md-raised.md-primary(ng-click="vm.selectAddPerson()")
+              md-icon.material-icon person_add
+              | Agregar Persona
 
 
+        .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="60" ng-show="vm.isAddingPerson && !vm.isViewingPerson")
+          h4.md-subheader Crear un contacto
+          p Crear un contacto
 
-          //- div(layout="column" flex layout-align="center-center")
-
-          //-     span check
-          //-   span Validado por RENIECyT
-          //- div(layout="column" flex layout-align="center-center")
-
-          //-   span Acta Validada
-
-          //- div
-          //- md-checkbox.md-primary(ng-show="vm.org.RFCValidated" disabled)
-          //- RFC Validado
-
-          //- md-checkbox.md-primary(ng-show="vm.org.RENIECyTValidated" disabled) Validado por RENIECyT
-
-          //- md-checkbox.md-primary(ng-show="vm.org.ActaValidated" disabled)
-
-
-
-      .md-whiteframe-z1.md-padding.md-card(flex)
-        h4.md-subheader Contactos
-        p Contactos
+        .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="60" ng-show="!vm.isAddingPerson && vm.isViewingPerson")
+          h4.md-subheader Revisar una persona
+          pre {{vm.viewingPerson | json:2}}
 
       div.md-padding(layout layout-align="end-center")
-        md-button.md-raised Cancelar
-        md-button.md-primary.md-raised(ng-click="vm.submitForm()") Guardar
-
-
-
-
-
-
-
-
-
-
-
+        md-button.md-raised(ng-click="vm.resetForm()") Cancelar
+        md-button.md-primary.md-raised(ng-click="vm.submitForm()" ng-disabled="vm.form.$invalid === true") Guardar

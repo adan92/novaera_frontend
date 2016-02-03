@@ -1,5 +1,6 @@
 .tmp
+.env
 bower_components
-node_modules
+node_modules 
 .idea/
-dist/
+dist/ 
