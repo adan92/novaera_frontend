@@ -680,12 +680,6 @@
         }
       }];
 
-      Restangular.all('Organizacion').getList()
-      .then(function(res){
-        debugger
-      });
-
-
 
 
       vm.openMenu = function($mdOpenMenu, ev) {
