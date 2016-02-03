@@ -6,8 +6,8 @@
         .constant('ROUTES',{
 
             //DANIEL
-            FILE_ROUTE:'http://homestead.app/',
-            API_ROUTE: 'http://homestead.app/api/'
+            FILE_ROUTE:'/',
+            API_ROUTE: 'api/'
 
 
 

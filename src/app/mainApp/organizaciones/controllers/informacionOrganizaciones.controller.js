@@ -12,7 +12,7 @@
     .controller('informacionOrganizacionesController', informacionOrganizacionesController);
 
   /* @ngInject */
-  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log) {
+  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log, Restangular) {
     var vm = this;
 
     //     vm.addItem = addItem;
@@ -639,18 +639,28 @@
 
     activate();
 
-    function activate() {
+    vm.resetForm = resetForm;
+
+    function resetForm() {
+      vm.org = {};
       vm.isEditing = false;
       vm.isCreating = false;
+    }
 
-      vm.validations = [
-      {
+    function activate() {
+      vm.isEditing = false;
+      vm.isCreating = true;
+
+      vm.isCreatingPerson = false;
+      vm.isViewingPerson = false;
+
+      vm.validations = [{
         field: 'isValidated',
         label: {
           success: 'Organización Validada',
           error: 'Organización no validada'
         }
-      },{
+      }, {
         field: 'RFCValidated',
         label: {
           success: 'RFC Validado',
@@ -670,38 +680,48 @@
         }
       }];
 
-      vm.org = {
-        "id": 1,
-        "Titulo": "Mi Organizacion",
-        "Descripcion": "Una Nueva Organizacion",
-        "Mision": "Ser la mejor organizacion",
-        "RFC": "FARD921018",
-        "Vision": "Seremos la mejor organizacion dentro de 20 a\u00f1os",
-        "Giro": null,
-        "DireccionFiscal": null,
-        "idContacto": 1,
-        "idMunicipio": 0,
-        "RepresentanteLegal": "Chadwick Carreto Arellano",
-        "RazonSocial": "Empresa S.A de C.V",
-        "Archivos": null,
-        "isValidated": 0,
-        "RENIECyTValidated": 0,
-        "RFCValidated": 0,
-        "ActaValidated": 0,
-        "created_at": "2016-01-28 06:39:17",
-        "updated_at": "2016-01-28 06:39:17",
-        "pivot": {
-          "idPersona": 1,
-          "idOrganizacion": 1,
-          "Puesto": "CEO",
-          "FechaInicio": "2014-01-01",
-          "FechaTermino": null,
-          "Owner": 1,
-          "WritePermissions": 0
-        }
-      };
+      Restangular.all('Organizacion').getList()
+      .then(function(res){
+        debugger
+      });
+
+
+
+
+      vm.openMenu = function($mdOpenMenu, ev) {
+        var originatorEv = ev;
+        $mdOpenMenu(ev);
+      }
+
+      vm.viewPerson = function() {
+        console.log('me quieren ver!');
+      }
 
     }
+
+
+    vm.viewPerson = viewPerson;
+    vm.addPerson = addPerson;
+
+
+    function viewPerson(person){
+      vm.isViewingPerson = true;
+      vm.isAddingPerson = false;
+
+      vm.viewingPerson = person;
+
+      console.log(person);
+
+    }
+
+    function addPerson(personId){
+      vm.isAddingPerson = true;
+      vm.isViewingPerson = false;
+
+
+    }
+
+    function removePerson(){}
 
   }
 })();
