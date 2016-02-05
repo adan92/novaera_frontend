@@ -1,6 +1,3 @@
-/**
- * Created by lockonDaniel on 12/17/15.
- */
 (function () {
     'use strict';
 
@@ -337,3 +334,5 @@
 
     }
 })();
+Status API Training Shop Blog About Pricing
+
