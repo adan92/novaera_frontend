@@ -161,7 +161,11 @@
       "PROPOSED_SOLUTION":"Solución Propuesta",
       "METRICS":"Métricas",
       "CURRENT_SOLUTION":"Solución Actual",
-      "SELECT_YOUR_PROJECT":"Selecciona tu proyecto"
+      "SELECT_YOUR_PROJECT":"Selecciona tu proyecto",
+      "MESSAGES":{
+        "SUCESS_FINISH":"Actualizo el registro de manera exitosa",
+        "TITLE_SUCESS_FINISH":"Exitoso"
+      }
 
     },
     "EXECUTION":
