@@ -70,12 +70,14 @@
 
         function getAllProjects() {
             var deferred = $q.defer();
+            console.log(profile.type);
             if (profile.type === "person") {
                 Restangular.all('Proyecto').all('Persona').customGET().then(function (res) {
 
                     deferred.resolve(res.Proyectos);
                 });
             } else {
+                console.log("organizacion");
                 Restangular.all('Proyecto').all('Organizacion').customGET(profile.id).then(function (res) {
                     deferred.resolve(res.Proyectos);
                 });
