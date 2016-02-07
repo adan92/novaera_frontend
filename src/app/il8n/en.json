@@ -11,7 +11,8 @@
         "SUCCESS_UPDATE": "Éxito al actualizar los datos",
         "SUCCESS_DELETE": "Éxito al eliminar los datos",
         "FAIL_STORE": "Error al guardar los datos",
-        "FAIL_DELETE": "Error al eliminar los datos"
+        "FAIL_DELETE": "Error al eliminar los datos",
+        "FAIL_LOGIN":"Error al iniciar sesión. Usuario o contraseña incorrectos"
     },
     "GENERAL": {
         "CANCEL": "Cancel",

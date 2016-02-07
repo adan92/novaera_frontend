@@ -1,63 +1,59 @@
 'use strict';
 
-var path = require('path');
 var gulp = require('gulp');
-var conf = require('./conf');
 
-var browserSync = require('browser-sync');
-var browserSyncSpa = require('browser-sync-spa');
+var paths = gulp.paths;
 
 var util = require('util');
 
-var proxyMiddleware = require('http-proxy-middleware');
+var browserSync = require('browser-sync');
 
-function browserSyncInit(baseDir, browser) {
+var middleware = require('./proxy');
+
+function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
 
   var routes = null;
-  if(baseDir === conf.paths.src || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.src) !== -1)) {
+  if(baseDir === paths.src || (util.isArray(baseDir) && baseDir.indexOf(paths.src) !== -1)) {
     routes = {
       '/bower_components': 'bower_components'
     };
   }
 
-  var server = {
-    baseDir: baseDir,
-    routes: routes
-  };
-
-  /*
-   * You can add a proxy to your backend by uncommenting the line bellow.
-   * You just have to configure a context which will we redirected and the target url.
-   * Example: $http.get('/users') requests will be automatically proxified.
-   *
-   * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
-   */
-  // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
-
-  browserSync.instance = browserSync.init({
+  browserSync.instance = browserSync.init(files, {
     startPath: '/',
-    server: server,
+    server: {
+      baseDir: baseDir,
+      middleware: middleware,
+      routes: routes
+    },
+    port: 3000,
     browser: browser
   });
 }
 
-browserSync.use(browserSyncSpa({
-  selector: '[ng-app]'// Only needed for angular apps
-}));
-
 gulp.task('serve', ['watch'], function () {
-  browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
+  browserSyncInit([
+    paths.tmp + '/serve',
+    paths.src
+  ], [
+    paths.tmp + '/serve/app/**/*.css',
+    paths.src + '/app/**/*.js',
+    paths.src + 'src/assets/images/**/*',
+    paths.tmp + '/serve/*.html',
+    paths.tmp + '/serve/app/**/*.html',
+    paths.src + '/app/**/*.html'
+  ]);
 });
 
-gulp.task('serve:dist', ['build'], function () {
-  browserSyncInit(conf.paths.dist);
+gulp.task('serve:dist', ['buildapp'], function () {
+  browserSyncInit(paths.dist);
 });
 
 gulp.task('serve:e2e', ['inject'], function () {
-  browserSyncInit([conf.paths.tmp + '/serve', conf.paths.src], []);
+  browserSyncInit([paths.tmp + '/serve', paths.src], null, []);
 });
 
-gulp.task('serve:e2e-dist', ['build'], function () {
-  browserSyncInit(conf.paths.dist, []);
+gulp.task('serve:e2e-dist', ['buildapp'], function () {
+  browserSyncInit(paths.dist, null, []);
 });

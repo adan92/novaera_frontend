@@ -1,25 +1,35 @@
 'use strict';
 
-var path = require('path');
 var gulp = require('gulp');
-var conf = require('./conf');
 
-var karma = require('karma');
+var $ = require('gulp-load-plugins')();
+
+var wiredep = require('wiredep');
+
+var paths = gulp.paths;
 
 function runTests (singleRun, done) {
-  karma.server.start({
-    configFile: path.join(__dirname, '/../karma.conf.js'),
-    singleRun: singleRun,
-    autoWatch: !singleRun
-  }, function() {
-    done();
+  var bowerDeps = wiredep({
+    directory: 'bower_components',
+    exclude: ['bootstrap-sass-official'],
+    dependencies: true,
+    devDependencies: true
   });
+
+  var testFiles = bowerDeps.js.concat([
+    paths.src + '/app/**/*.js'
+  ]);
+
+  gulp.src(testFiles)
+    .pipe($.karma({
+      configFile: 'karma.conf.js',
+      action: (singleRun)? 'run': 'watch'
+    }))
+    .on('error', function (err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
 }
 
-gulp.task('test', ['scripts'], function(done) {
-  runTests(true, done);
-});
-
-gulp.task('test:auto', ['watch'], function(done) {
-  runTests(false, done);
-});
+gulp.task('test', function (done) { runTests(true /* singleRun */, done) });
+gulp.task('test:auto', function (done) { runTests(false /* singleRun */, done) });

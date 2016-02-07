@@ -1,0 +1,19 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    //
+      >
+      <!-- Tarjeta para ver los descriptores
+    md-card(flex='100' layout="column" layout-align="center center")
+        md-card-content
+            h3(translate) PROJECT.TITLE
+
+    md-card(flex='100' layout="column" layout-align="center center")
+        md-card-content
+            p
+            strong {{vm.data.avatar.id}}
+            md-radio-group.elements-radio-avatar(ng-model="vm.data")
+                md-radio-button(ng-repeat="avatar in vm.perfiles", value="{{avatar.id}}", style="float:left;text-align:center;",aria-label="avatar" )
+                    img(ng-src="{{avatar.imagen}}")
+                    p {{avatar.nombre}}
+
+        md-button.md-raised(ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+            span(translate='') PROJECT.ADD

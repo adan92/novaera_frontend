@@ -13,9 +13,9 @@ gulp.task('markups', function() {
     path.extname = '.html';
   }
 
-  return gulp.src(path.join(conf.paths.src, '/app/**/*.jade'))
-    .pipe($.consolidate('jade', { basedir: conf.paths.src, doctype: 'html', pretty: '  ' })).on('error', conf.errorHandler('Jade'))
+  return gulp.src(path.join(gulp.paths.src, '/app/**/*.jade'))
+    .pipe($.consolidate('jade', { basedir: gulp.paths.src, doctype: 'html', pretty: '  ' })).on('error', conf.errorHandler('Jade'))
     .pipe($.rename(renameToHtml))
-    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
+    .pipe(gulp.dest(path.join(gulp.paths.tmp, '/serve/app/')))
     .pipe(browserSync.reload({ stream: true }));
 });

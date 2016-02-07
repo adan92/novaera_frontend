@@ -54,19 +54,25 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
          md-card-content
 
             //tri-table.elements-image-table-example(ng-show='vm.selectedItem!=null', columns='vm.columns', contents='vm.selectedItem.TRL', page-size='5')
-            md-data-table-toolbar
-               h3.text-center(translate='') PROJECT.TRL.INSTRUCTIONS_TABLE
-            md-data-table-container
-               table(md-data-table md-row-select="vm.selectedRegisters")
-                  thead(md-order="vm.query.order")
-                     th(name='TRL' order-by='idTRL')
-                     th(name='Descripcion' order-by='Descripcion')
-                     th(name='Fecha' order-by='Fecha')
-                  tbody
-                     tr(ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
-                        td {{item.idTRL}}
-                        td {{item.Descripcion}}
-                        td {{item.Fecha}}
+            md-toolbar.md-table-toolbar.md-default
+               .md-toolbar-tools
+                  span TRL
+            md-table-container
+
+               table(md-table='', md-row-select='', ng-model='vm.selectedRegisters')
+                  thead(md-head='', md-order='vm.query.order')
+                     tr(md-row)
+                        th(md-column md-order-by='idTRL')
+                           span id
+                        th(md-column md-order-by='Descripcion')
+                           span Descripcion
+                        th(md-column md-order-by='Fecha')
+                           span Fecha
+                  tbody(md-body)
+                     tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select='vm.funcion' ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
+                        td(md-cell) {{item.idTRL}}
+                        td(md-cell) {{item.Descripcion}}
+                        td(md-cell) {{item.Fecha}}
             div(layout="row" layout-sm="column" layout-align="end center")
                md-button.md-raised.md-warn(ng-click="vm.createDialog($event)" ng-disabled="vm.selectedRegisters.length==0")
                   span(translate) PROJECT.TRL.DELETE_TRL

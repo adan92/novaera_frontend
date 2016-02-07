@@ -14,7 +14,15 @@
            'app.mainApp.personas',
            'app.mainApp.admin',
            'app.mainApp.explotacionInformacion',
-           'app.mainApp.descriptor'
+           'app.mainApp.descriptor',
+            'app.mainApp.profile'
 
-        ]);
+        ]).filter('offset', function() {
+        return function (input, start) {
+            if (input != null) {
+                return input.slice(parseInt(start, 10));
+            }
+            return null;
+        };
+    });
 })();

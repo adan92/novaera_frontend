@@ -1,0 +1,176 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    div(layout='column', layout-margin='', layout-md='column')
+        // TARJETA PARA BUSCAR PROYECTOS Y VER RESULTADOS
+        md-card(flex='50', layout-align='center center')
+            md-card-content
+                h2.text-center(translate='') PROJECT.RESULTS.MY_PROJECTS
+                h3.text-center(translate='') PROJECT.RESULTS.INSTRUCTIONS
+                md-autocomplete.margin-bottom-20(
+                ng-disabled='vm.isDisabled',
+                md-no-cache='vm.noCache',
+                md-selected-item='vm.selectedItem',
+                md-search-text-change='vm.searchTextChange(vm.searchText)',
+                md-search-text='vm.searchText',
+                md-selected-item-change='vm.selectedItemChange()',
+                md-items='item in vm.proyectos',
+                md-item-text='item.Titulo',
+                md-min-length='0',
+                placeholder='Busca tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+
+
+
+        // Panel de Control
+        md-card(flex='50', layout-align='center center')
+            md-card-content
+                h2.text-center(ng-show='vm.selectedItem==null', translate='') PROJECT.RESULTS.WARNING
+                div(ng-show='vm.selectedItem!=null')
+                    h2.text-center(translate='') PROJECT.RESULTS.GENERAL_INFO
+                    div(layout='row', layout-sm='column')
+                        span.text-center.text-bold(translate='') PROJECT.RESULTS.TITLE
+                        span : {{vm.selectedItem.Titulo}}
+                    div(layout='row', layout-sm='column')
+                        span.text-center.text-bold(translate='') PROJECT.RESULTS.DESCRIPTION
+                        span : {{vm.selectedItem.Descripcion}}
+                    md-checkbox(ng-model='vm.showTable',ng-change='vm.changeModel()',aria-label='Checkbox 1')
+                        span(ng-show='vm.showTable', translate='') PROJECT.RESULTS.SHOW_RESULTS
+                        span(ng-show='!vm.showTable', translate='') PROJECT.RESULTS.SHOW_PATENTS
+    div(layout='row', layout-md='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='')
+            md-card-content
+                md-table-container
+                    table(md-table md-data-table md-progress='[vm.resultadosPromise,vm.patentesPromise]')
+                        thead(md-head md-order='vm.query.order')
+                            tr(md-row)
+                                th(md-column md-order-by='id')
+                                    span id
+                                th(md-column md-order-by='Nombre')
+                                    span Nombre
+                                th(md-column md-order-by='Resumen')
+                                    span Descripción
+                                th(md-column md-order-by='Status')
+                                    span Status
+                                th(md-column md-order-by='Tipo')
+                                    span Tipo
+                                th(md-column)
+                                    span Seleccionar
+                        tbody(md-body)
+                            tr(md-row md-select='resultado' ng-repeat='resultado in vm.tableModel | orderBy:vm.query.order')
+                                td(md-cell) {{resultado.id}}
+                                td(md-cell) {{resultado.Nombre}}
+                                td(md-cell) {{resultado.Resumen}}
+                                td(md-cell) {{resultado.Status}}
+                                td(md-cell) {{resultado.Tipo}}
+                                td(md-cell)
+                                    md-button.md-primary.md-raised(ng-click='vm.changeResult(resultado)')
+                                        span Seleccionar
+                md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.tableModel.length}}')
+
+    div(layout='row', layout-margin='', layout-md='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='', ng-show='vm.showTable')
+            md-card-content
+                h2.text-center(translate='') PROJECT.RESULTS.ADD_RESULTS
+                form(name='agregarResultado')
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.NAME
+                        input(type='text', name='nombre', ng-model='vm.resultado.Nombre', required='')
+                        div(ng-messages='agregarResultado.nombre.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.DESCRIPTION
+                        input(type='text', name='descripcion', ng-model='vm.resultado.Resumen', required='')
+                        div(ng-messages='agregarResultado.descripcion.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.APPLICATION_FIELD
+                        input(type='text', name='area_aplicacion', ng-model='vm.resultado.AreaDeAplicacion', required='')
+                        div(ng-messages='agregarResultado.area_aplicacion.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.TYPE
+                        md-select(ng-model='vm.resultado.Tipo', name='tipo', required='')
+                            md-option(ng-repeat='tipo in vm.tipos', value='{{tipo.value}}')
+                                | {{tipo.display}}
+                        div(ng-messages='agregarResultado.tipo.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    label.placeholder(translate='') PROJECT.RESULTS.FORM.DATE
+                    md-datepicker(ng-model='vm.resultado.Fecha', md-placeholder='Introduce una fecha', required='')
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.PROGRESS
+                        input(type='text', name='avance', ng-model='vm.resultado.Avance', required='')
+                        div(ng-messages='agregarResultado.avance.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.STATUS
+                        md-select(ng-model='vm.resultado.Status', name='status', required='')
+                            md-option(ng-repeat='status in vm.status', value='{{status.value}}')
+                                | {{status.display}}
+                        div(ng-messages='agregarResultado.status.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.OPERATIONAL_PLAN
+                        input(type='text', name='plan_explotacion', ng-model='vm.resultado.PlanDeExplotacion', required='')
+                        div(ng-messages='agregarResultado.plan_explotacion.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-button.md-raised(ng-disabled='agregarResultado.$invalid', ng-click='vm.addResult("Resultado")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.RESULTS.ADD_RESULT
+        md-card(flex='', ng-show='!vm.showTable')
+            md-card-content
+                h2.text-center(translate='') PROJECT.RESULTS.ADD_PATENTS
+                form(name='agregarPatente')
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.TITLE
+                        input(type='text', name='titulo', ng-model='vm.resultado.Nombre', required='')
+                        div(ng-messages='agregarPatente.titulo.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.SUMMARY
+                        input(type='text', name='resumen', ng-model='vm.resultado.Resumen', required='')
+                        div(ng-messages='agregarPatente.resumen.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    span.placeholder(translate='') PROJECT.RESULTS.FORM.REGISTER_DATE
+                    md-datepicker(ng-model='vm.resultado.Fecha', md-placeholder='Introduce una fecha', required='')
+                    br
+                    br
+                    span.placeholder(translate='') PROJECT.RESULTS.FORM.APPROVAL_DATE
+                    md-datepicker(ng-model='vm.resultado.FechaAprobacion', md-placeholder='Introduce una fecha', required='')
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.REGISTER_NUMBER
+                        input(type='text', name='numero_registro', ng-model='vm.resultado.NumeroRegistro', required='')
+                        div(ng-messages='agregarPatente.numero_registro.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-chips(
+                        ng-model ='vm.resultado.PaisesProteccion'
+                        md-autocomplete-snap
+                        md-require-match="true"
+                        md-on-append="vm.appendPais($chip)"
+                        )
+                        md-autocomplete(
+                            md-selected-item='vm.selectedPais'
+                            md-search-text='vm.searchTextPais'
+                            md-items='pais in vm.paisSearch(vm.searchTextPais)'
+                            md-item-text='pais.Nombre'
+                            placeholder='Países de Protección'
+                            )
+                            span(md-highlight-text='vm.searchTextPais') {{pais.Nombre}}
+                        md-chip-template
+                            span
+                                strong {{$chip.Nombre}}
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.OPERATIONAL_PLAN
+                        input(type='text', name='plan_explotacion', ng-model='vm.resultado.PlanDeExplotacion', required='')
+                        div(ng-messages='agregarPatente.plan_explotacion.$error')
+                            div(ng-message='required')
+                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-button.md-raised(type='button' ng-disabled='agregarPatente.$invalid', ng-click='vm.addResult("Patente")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.RESULTS.ADD_PATENT

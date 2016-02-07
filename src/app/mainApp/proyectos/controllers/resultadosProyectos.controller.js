@@ -9,342 +9,262 @@
         .controller('resultadosProyectosController', resultadosProyectosController);
 
     /* @ngInject */
-    function resultadosProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function resultadosProyectosController($scope,Restangular,Translate,toastr) {
         var vm = this;
-        $scope.proyecto = {};
-        vm.tipos = [{value:1,display:"Proceso"},{value:2,display:"Producto"},{value:3,display:"Servicio"}];
-        vm.status = [{value:1,display:"Sin iniciar"},{value:2,display:"En Proceso"},{value:3,display:"Completado"}];
+        vm.activate = activate();
+        vm.paisesProteccion = [];
+        vm.resultado = {
+            id: null,
+            idProyectoTRL: null,
+            Tipo: null,
+            Nombre: null,
+            Resumen: null,
+            NumeroRegistro: null,
+            Status: null,
+            PaisesProteccion: [],
+            PlanDeExplotacion: null,
+            AreaDeAplicacion: null,
+            Avance: null,
+            Fecha: null,
+            FechaAprobacion: null
+        };
 
 
-
-        //Lista de proyectos
-        $scope.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                pi_tt:[
-                    {
-                        id: 1,
-                        productos:"<h3>Productos de Propiedad</h3><br><ul><li>Producto 1</li></ul>",
-                        procesos: "Procesos de transferencia",
-                        valuacion:"<h3>Los procesos de Valuación fueron los Siguientes:</h3><ul><li>Se validó el uso de la tecnología con respecto a la competencia</li><li>Se validó que la tecnología fuera económicamente factible</li><li>Se validó el impacto que se tiene en el medio ambiente</li></ul><p>Cabe destacar que <b><u>ésta tecnología es nueva.</u></b></p><blockquote><p>Éste es solamente otro apartado</p></blockquote>"
-                    },
-                    {
-                        id: 2,
-                        productos:"Productos de propiedad",
-                        procesos: "Procesos de transferencia",
-                        valuacion:"La valoracion de la tecnología"
-                    }
-                ],
-                resultados:[
-                    {
-                        id:1,
-                        nombre: 'Resultado 1',
-                        descripcion: 'El Resultado',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Proceso',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    },
-                    {
-                        id:1,
-                        nombre: 'Resultado 2',
-                        descripcion: 'El Resultado 2',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Producto',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                patentes:[
-                    {
-                        id:1,
-                        titulo:'Título de la patente',
-                        resumen: 'El sistema de registro de proyectos de emprendimiento es un sistema responsivo',
-                        fecha_registro:'18-10-2015',
-                        fecha_aprobacion:'19-10-2015',
-                        numero_registro:'123456789',
-                        paises_proteccion: 'Mexico, EUA, Canadá',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                resultados:[
-                    {
-                        id:1,
-                        nombre: 'Resultado 1',
-                        descripcion: 'El Resultado',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Proceso',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    },
-                    {
-                        id:1,
-                        nombre: 'Resultado 2',
-                        descripcion: 'El Resultado 2',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Producto',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                patentes:[
-                    {
-                        id:1,
-                        titulo:'Título de la patente',
-                        resumen: 'El sistema de registro de proyectos de emprendimiento es un sistema responsivo',
-                        fecha_registro:'18-10-2015',
-                        fecha_aprobacion:'19-10-2015',
-                        numero_registro:'123456789',
-                        paises_proteccion: 'Mexico, EUA, Canadá',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        tarea:'Tarea',
-                        tareaPrecedente:'Tarea',
-                        entregable: 'Entregable'
-                    },
-                    {
-                        id: 2,
-                        tarea:'Tarea2',
-                        tareaPrecedente:'Tarea2',
-                        entregable: 'Entregable2'
-                    }
-
-                ],
-                trl:[
-                    {id:1,descripcion:"Principios básicos observados y reportados", fecha:"10-10-2015"},
-                    {id:2,descripcion:"Concepto y/o aplicación tecnológica formulado", fecha:"11-10-2015"}
-                ],
-                resultados:[
-                    {
-                        id:1,
-                        nombre: 'Resultado 1',
-                        descripcion: 'El Resultado',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Proceso',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    },
-                    {
-                        id:1,
-                        nombre: 'Resultado 2',
-                        descripcion: 'El Resultado 2',
-                        palabras_clave: 'Resultado, Proyecto, Desarrollo',
-                        area_aplicacion: 'Venta de Proyectos',
-                        tipo: 'Producto',
-                        fecha: '12-10-2010',
-                        avance: 'Completado',
-                        status: 'Operativo',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                patentes:[
-                    {
-                        id:1,
-                        titulo:'Título de la patente',
-                        resumen: 'El sistema de registro de proyectos de emprendimiento es un sistema responsivo',
-                        fecha_registro:'18-10-2015',
-                        fecha_aprobacion:'19-10-2015',
-                        numero_registro:'123456789',
-                        paises_proteccion: 'Mexico, EUA, Canadá',
-                        plan_explotacion: 'El plan es que se registren las personas dentro del sistema'
-                    }
-                ],
-                display:"Un proyecto mas"
-            }
-        ];
+        vm.tipos = [{value:"Proceso",display:"Proceso"},{value:"Producto",display:"Producto"},{value:"Servicio",display:"Servicio"}];
+        vm.status = [{value:"Sin iniciar",display:"Sin iniciar"},{value:"En Proceso",display:"En Proceso"},{value:"Completado",display:"Completado"}];
 
 
-        //Variables para el md-autocomplete
+        //
+        vm.changeModel        = changeModel;
+        vm.showTable          = true;
+        vm.changeResult       = changeResult;
+        vm.addResult          = addResult;
 
-        vm.proyectos             = $scope.proyectos;
+        //Variables para el md-autocomplete de proyecto
+        vm.querySearch        = querySearch;
+        vm.selectedItemChange = selectedItemChange;
+        vm.proyectos          = null;
         vm.selectedItem       = null;
         vm.searchText         = null;
-        vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        //Variables para el md-autocomplete de países
+        vm.selectedPais       = null;
+        vm.searchTextPais     = null;
+        vm.paisSearch         = paisSearch;
+        vm.appendPais         = appendPais;
+
+
+        //Variables para la tabla
+        vm.resultados         = null;
+        vm.patentes           = null;
+        vm.resultadosPromise  = null;
+        vm.patentesPromise    = null;
+        vm.proyectosPromise   = null;
+        vm.tableModel         = null;
+
+        vm.query            = {
+            filter: '',
+            limit: '10',
+            order: 'id',
+            page: 1
+        };
+
+
+
+        function activate()
+        {
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                vm.proyectos = res.Proyectos;
+            }).catch(function(err){
+
+            });
+            Restangular.all('Pais').customGET().then(function(res){
+                vm.paises = res.Pais;
+            }).catch(function(err){
+
+            });
+
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+
+        }
+
+
+        //
+        function changeResult(item)
+        {
+            vm.resultado = item;
+            if(vm.resultado.PaisesProteccion==null)
+            {
+                vm.resultado.PaisesProteccion = [];
+            }
+            else
+            {
+                try{
+                    vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
+                    console.log(vm.resultado.PaisesProteccion);
+                }catch (err)
+                {
+                }
+
+            }
+        }
+
+        ///
+
+        function changeModel()
+        {
+            vm.resultado = {
+                "id": null,
+                "idProyectoTRL": null,
+                "Tipo": null,
+                "Nombre": null,
+                "Resumen": null,
+                "NumeroRegistro": null,
+                "Status": null,
+                "PaisesProteccion": [],
+                "PlanDeExplotacion": null,
+                "AreaDeAplicacion": null,
+                "Avance": null,
+                "Fecha": null,
+                "FechaAprobacion": null
+            };
+            if(vm.showTable)
+            {
+                vm.tableModel = vm.resultados;
+            }
+            else
+            {
+                vm.tableModel = vm.patentes;
+            }
+        }
 
 
         //////////////////
         function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            var results = query ? vm.proyectos.filter( createFilterForProyecto(query) ) : vm.proyectos, deferred;
             return results;
 
         }
 
 
         /**
-         * Create filter function for a query string
+         * Filtro para Proyecto
          */
-        function createFilterFor(query) {
+        function createFilterForProyecto(query) {
 
             return function filterFn(proyecto) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
 
         /**
-         * Columns for tables
+         * Filtro para País
          */
-
-        $scope.showTable = false;
-        vm.columns_resultados = [
-            {
-            title: 'id',
-            field: 'id',
-            sortable: true
-        },{
-            title: 'Nombre',
-            field: 'nombre',
-            sortable: true
-        },{
-            title: 'Fecha',
-            field: 'fecha',
-            sortable: true
-        },{
-            title: 'Palabras Clave',
-            field: 'palabras_clave',
-            sortable:false
-        },{
-            title: 'Avance',
-            field: 'avance',
-            sortable:false
-        },{
-            title: 'Status',
-            field: 'status',
-            sortable:false
+        function createFilterForPais(query) {
+            return function filterFn(pais) {
+                return (pais.Nombre.indexOf(query) === 0);
+            };
         }
-        ];
-        vm.columns_patentes = [
-            {
-                title: 'id',
-                field: 'id',
-                sortable: true
-            },{
-                title: 'Titulo',
-                field: 'titulo',
-                sortable: false
-            },{
-                title: 'Registro',
-                field: 'fecha_registro',
-                sortable: true
-            },{
-                title: 'Aprobación',
-                field: 'fecha_aprobacion',
-                sortable: true
-            },{
-                title: 'Registro',
-                field: 'numero_registro',
-                sortable: false
-            },{
-                title: 'Paises',
-                field: 'paises_proteccion',
-                sortable: false
-            }
-        ];
+
 
         /**
-         * Watch
+         * Buscar País
          */
+        function paisSearch (query) {
+            var results = query ? vm.paises.filter( createFilterForPais(query) ) : vm.paises, deferred;
+            return results;
+        }
+
+        /**
+         * Función que regresa el mapeo del chip a un modelo
+         */
+        function appendPais(chip)
+        {
+            var index  =_.findIndex(vm.resultado.PaisesProteccion,function(obj){
+                return obj.Nombre === chip.Nombre;
+            });
+            if(index!=-1)
+            {
+                vm.resultado.PaisesProteccion.splice(index,1);
+            }
+            return chip;
+        }
+
+
+        /**
+         * Función de selección de proyecto
+         */
+
+        function selectedItemChange()
+        {
+            vm.resultadosPromise = Restangular.all('Proyecto').one('Resultados',vm.selectedItem.id).all('Todos').customGET();
+            vm.resultadosPromise.then(function(res){
+               vm.resultados = res.Resultado;
+               vm.tableModel = vm.resultados;
+            }).catch(function(err){
+
+            });
+            vm.patentesPromise = Restangular.all('Proyecto').one('Resultados',vm.selectedItem.id).all('Patente').customGET();
+            vm.patentesPromise.then(function(res){
+                vm.patentes = res.Resultado;
+            }).catch(function(err){
+
+            });
+
+        }
 
 
         /**
          * Funcion para agregar resultado
          */
 
-        $scope.addResult = function()
+        function addResult(type)
         {
-            $scope.resultado.id =Math.floor((Math.random() * 10) + 2);
-            $scope.resultado.fecha= moment($scope.resultado.fecha).format('DD-MM-YYYY');
-            vm.selectedItem.resultados.push($scope.resultado);
-            $scope.resultado=null;
+            vm.resultado.idProyecto = vm.selectedItem.id;
+            if(type=="Patente")
+            {
+                vm.resultado.Tipo = type;
+                vm.resultado.PaisesProteccion = angular.toJson(vm.resultado.PaisesProteccion,0);
+            }
+
+            if(vm.resultado.id !=null)
+            {
+                console.log(vm.resultado);
+                Restangular.all('Proyecto').all('Resultados').customPUT(vm.resultado).then(function(res){
+                   vm.resultado = res;
+                   toastr.success(vm.successText,vm.successUpdateText);
+                }).catch(function(err)
+                {
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+            }
+            else
+            {
+                Restangular.all('Proyecto').all('Resultados').customPOST(vm.resultado).then(function(res){
+                    vm.resultado = res;
+                    toastr.success(vm.successText,vm.successUpdateText);
+                }).catch(function(err)
+                {
+                    toastr.error(vm.failureText,vm.failureStoreText);
+                });
+
+            }
+
             $scope.agregarResultado.$setPristine();
         };
 
-        /**
-         * Funcion para agregar patente
-         */
-        $scope.addPatent = function()
-        {
-            $scope.patente.id =Math.floor((Math.random() * 10) + 2);
-            $scope.patente.fecha_registro= moment($scope.patente.fecha_registro).format('DD-MM-YYYY');
-            $scope.patente.fecha_aprobacion= moment($scope.patente.fecha_aprobacion).format('DD-MM-YYYY');
-            vm.selectedItem.patentes.push($scope.patente);
-            $scope.patente=null;
-            $scope.agregarPatente.$setPristine();
 
-        };
 
     }
 })();
