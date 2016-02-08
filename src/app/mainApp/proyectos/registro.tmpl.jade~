@@ -1,0 +1,109 @@
+<<<<<<< 2f7f364371b56c09fa10902a4ce92692dec7a464
+=======
+<<<<<<< 63f0e745ff5831ad313d2382a3718831acb7c89e
+//
+   Created by lockonDaniel on 12/21/15.
+
+>>>>>>> Se agregaron nuevos servicios para la parte de restangular
+div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
+   div(layout='row', layout-align='center center')
+      p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO
+   div(flex='', layout='row', layout-align='center center', layout-fill='')
+      .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
+         md-toolbar.md-primary
+            .md-toolbar-tools(flex)
+               div(flex layout='column')
+                  div(flex layout='row' layout-sm='column' layout-align='space-between center' )
+                     h2(translate='') PROJECT.WIZARD.TITLE
+                     h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                     h2 {{triWizard.progress}}%
+                        span(translate='') PROJECT.WIZARD.COMPLETED
+                  div(flex layout='row' layout-sm='column' layout-align='center center' )
+                     h3(translate='') {{vm.proyectoLabel}}
+            md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+         md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
+            md-tab#selectProject
+               md-tab-label
+                  span.oxy-step-label 1
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectSelect', tri-wizard-form, novalidate='')
+                        div(layout='column', flex='')
+                           md-switch(ng-model="vm.isNewProject" ng-change="vm.changeSwitch()")
+                              span(translate='') PROJECT.REGISTER.NEW_PROJECT
+
+                           md-input-container(ng-show="!vm.isNewProject")
+                              label
+                                 span(translate='') PROJECT.IMPACT.SELECT_YOUR_PROJECT
+                              md-select(md-on-close='vm.getProyecto()', ng-model='vm.selectedProject', name='select', ng-required='!vm.isNewProject')
+                                 md-option(ng-repeat='proyecto in vm.projectList', value='{{proyecto.id}}')
+                                    | {{proyecto.Titulo}}
+                              div(ng-messages='projectSelect.select.$error')
+                                 div(ng-message='required')
+                                    span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+            md-tab#info(ng-disabled="vm.isNewProject? false: vm.selectedProject==null")
+               md-tab-label
+                  span.oxy-step-label 2
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectInfo', tri-wizard-form, novalidate='')
+                        div(layout='column', flex='')
+                           md-input-container
+                              label(translate='') PROJECT.FORM.PROJECT_TITLE
+                              input(name='titulo', required, type='text', ng-model='vm.proyecto.Titulo')
+                              div(ng-messages='projectInfo.titulo.$error')
+                                 div(ng-message='', when='required')
+                                    span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                           md-input-container
+                              label(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
+                              textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='300')
+                              div(ng-messages='projectInfo.descripcion.$error')
+                                 div(ng-message='', when='required')
+                                    span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+            md-tab#history(ng-disabled='projectInfo.$invalid')
+               md-tab-label
+                  span.oxy-step-label 3
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectHistory', tri-wizard-form)
+                        div(flex='', layout='column', layout-wrap='')
+                           md-input-container
+                              div(text-angular='', required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
+                              label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                              md-divider
+            md-tab#justification(ng-disabled='projectHistory.$invalid')
+               md-tab-label
+                  span.oxy-step-label 4
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectJustification', tri-wizard-form)
+                        div(flex='', layout='column', layout-wrap='')
+                           md-input-container
+                              div(text-angular='', required, ng-model='vm.proyecto.Justificacion', ta-toolbar="[['bold','italics','ul','ol']]")
+                              label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                              md-divider
+            md-tab#aims(ng-disabled='projectJustification.$invalid')
+               md-tab-label
+                  span.oxy-step-label 5
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectAims', tri-wizard-form)
+                        md-input-container
+                           div(text-angular='', required, ng-model='vm.proyecto.Objetivos', ta-toolbar="[['bold','italics','ul','ol']]")
+                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                           md-divider
+            md-tab#reach(ng-disabled='projectAims.$invalid')
+               md-tab-label
+                  span.oxy-step-label 6
+               md-tab-body
+                  .wizard.layout-padding
+                     form(name='projectReach', tri-wizard-form)
+                        md-input-container
+                           div(text-angular='', required, ng-model='vm.proyecto.Alcances', ta-toolbar="[['bold','italics','ul','ol']]")
+                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                           md-divider
+         .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 5', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 5', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-accent.md-raised(ng-click='vm.saveProject()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 5 ', translate='PROJECT.WIZARD.SEND')
+
