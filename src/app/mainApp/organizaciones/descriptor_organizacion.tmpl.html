@@ -28,13 +28,13 @@
 
     <!-- Tarjeta para eliminar descriptores de Organizacion-->
     <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
-        <md-card flex="35" layout="column">
+        <md-card flex="70" layout="column">
             <md-card-content flex>
                 <h2 translate class="text-center">ORGANIZATION.DESCRIPTOR.CURRENT</h2>
                 <md-list flex>
                     <md-list-item class="md-5-line" ng-repeat="descriptor in vm.descriptorPersonas">
                         <div layout="row" flex layout-align="space-around center" layout-sm="column">
-                            <div flex="50" class="md-list-item-text">
+                            <div flex="60" class="md-list-item-text">
                             <h3>ID: {{descriptor.id}}</h3>
                             <h4>Tipo: {{descriptor.Titulo}}</h4>
                             <h5>Fecha de Inicio: {{descriptor.pivot.FechaInicio}}</h5>
@@ -44,8 +44,6 @@
                                 </div>
                         <div flex="25">
                             <md-button ng-click="vm.edit(descriptor)" class="md-raised md-primary"><span translate="">PERSONAS.DESCRIPTOR.EDIT</span></md-button>
-                        </div>
-                        <div flex="25">
                             <md-button ng-click="vm.createDialog($event,descriptor)" ng-class="['md-warn','md-hue-2']" aria-label="warn button" class="md-raised"><span translate="">PERSONAS.DESCRIPTOR.DELETE</span></md-button>
                         </div>
                             </div>
