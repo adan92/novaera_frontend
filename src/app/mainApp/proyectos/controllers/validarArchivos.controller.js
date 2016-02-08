@@ -6,9 +6,7 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('validarArchivosController', validarArchivosController)
-        .filter('matcher',matcher);
-
+        .controller('validarArchivosController', validarArchivosController);
     /* @ngInject */
     function validarArchivosController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
