@@ -18,7 +18,9 @@
             API_ROUTE: 'http://192.168.10.10/api/'
 
             //FILE_ROUTE:'http://189.189.108.60:8888/novaera_laravel/public/',
-            //API_ROUTE: 'http://189.189.108.60:8888/novaera_laravel/public/api/'
+            //API_ROUTE: 'http://189.189.108.60:8888/novaera_laravel/public/a
+
+            //Virtualizado
             //FILE_ROUTE:'http://148.204.58.168/novaera_laravel/public/',
             //API_ROUTE: 'http://148.204.58.168/novaera_laravel/public/api/'
             //Equipo
