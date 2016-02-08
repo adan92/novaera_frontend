@@ -28,7 +28,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     }
                 }
             })
@@ -44,7 +44,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     }
                 }
             })
@@ -60,7 +60,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     }
                 }
             })

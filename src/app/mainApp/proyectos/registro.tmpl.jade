@@ -56,14 +56,6 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                               div(ng-messages='projectInfo.descripcion.$error')
                                  div(ng-message='', when='required')
                                     span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-                           md-input-container(ng-show='vm.isOrganization')
-                              label Selecciona la Organización
-                              md-select(ng-model='vm.proyecto.Organizacion', md-on-open='vm.loadOrganizations()')
-                                 md-option(ng-repeat='organizacion in vm.organizaciones', value='{{organizacion.id}}') {{organizacion.nombre}}
-                           label.material Selecciona si el proyecto es tuyo o de una organización
-                           md-checkbox(ng-model='vm.isOrganization', aria-label='Checkbox 1')
-                              span(ng-show='vm.isOrganization', translate='') PROJECT.WIZARD.IS_ORGANIZATION
-                              span(ng-show='!vm.isOrganization', translate='') PROJECT.WIZARD.IS_MINE
             md-tab#history(ng-disabled='projectInfo.$invalid')
                md-tab-label
                   span.oxy-step-label 3
