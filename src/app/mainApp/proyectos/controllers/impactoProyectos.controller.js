@@ -9,9 +9,10 @@
         .controller('impactoProyectosController', impactoProyectosController);
 
     /* @ngInject */
-    function impactoProyectosController(Proyecto, Impacto, Translate, Upload, toastr, ROUTES) {
+    function impactoProyectosController(Proyecto, Operation, Translate, Upload, toastr, ROUTES) {
 
         var vm = this;
+        Operation.setTypeOperation("Impacto");
         vm.steps = [
             'PROJECT.IMPACT.PROJECT_SELECT',
             'PROJECT.IMPACT.ENVIORNMENTAL_IMPACT',
@@ -98,10 +99,10 @@
 
         function getImpacto() {
             vm.proyectoLabel = vm.selectedProject.Titulo;
-            var promise = Impacto.getImpacto(vm.selectedProject.id);
+            var promise = Operation.getOperation(vm.selectedProject.id);
             promise.then(function (res) {
                 vm.Impacto = res;
-                var pros = Impacto.getFileImpacto(vm.selectedProject.id);
+                var pros = Operation.getFileOperation(vm.selectedProject.id);
                 pros.then(function (res) {
                     vm.fileList = res.Archivos;
                     vm.impactoAFile = search('ImpactoAmbiental');
@@ -266,9 +267,9 @@
             if (vm.file != null) {
                 var route = null;
                 if (vm.Impacto.id != null) {
-                    route = Impacto.getUrl("up");
+                    route = Operation.getUrl("up");
                 }
-                else route = Impacto.getUrl("ins");
+                else route = Operation.getUrl("ins");
                 Upload.upload({
                     url: ROUTES.API_ROUTE + route,
                     data: {
@@ -312,7 +313,7 @@
             console.log(request);
             var promise = null;
             if (vm.Impacto.id == null) {
-                promise = Impacto.saveImpacto(request);
+                promise = Operation.saveOperation(request);
                 promise.then(function (res) {
                     vm.Impacto = res.Impacto;
                     toastr.success(vm.successTitle, vm.successStore);
@@ -321,7 +322,7 @@
                 });
             }
             else {
-                promise = Impacto.updateImpacto(request);
+                promise = Operation.updateOperation(request);
                 promise.then(function (res) {
                     vm.Impacto = res.Impacto;
                     toastr.success(vm.successTitle, vm.successUpdate);

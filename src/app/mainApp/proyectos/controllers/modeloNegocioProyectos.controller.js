@@ -9,8 +9,8 @@
         .controller('modeloNegocioProyectosController', modeloNegocioProyectosController);
 
     /* @ngInject */
-    function modeloNegocioProyectosController(Translate,Upload,Restangular,toastr,ROUTES) {
-
+    function modeloNegocioProyectosController(Proyecto, Operation, Translate,Upload,toastr,ROUTES) {
+        Operation.setTypeOperation("ModeloNegocio");
         var vm                      = this;
         vm.steps                    = [
             'PROJECT.BUSINESS_MODEL.PROJECT_SELECT',
@@ -74,12 +74,10 @@
 
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
             });
-
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
             vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
             vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
@@ -96,10 +94,12 @@
         function getModeloNegocio()
         {
             vm.proyectoLabel = vm.selectedProject.Titulo;
-            Restangular.one('ModeloNegocio',vm.selectedProject.id).customGET().then(function(res){
+            var promise = Operation.getOperation(vm.selectedProject.id);
+            promise.then(function (res) {
                 vm.ModeloNegocio = res;
 
-                Restangular.all('ModeloNegocio').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
+                var pros = Operation.getFileOperation(vm.selectedProject.id);
+                pros.then(function (res) {
                     vm.fileList             = res.Archivos;
                     vm.canalesFile          = search('Canales');
                     console.log(vm.canalesFile);
@@ -263,9 +263,9 @@
                 var route = null;
                 if(vm.ModeloNegocio.id!=null)
                 {
-                    route = 'ModeloNegocio/Update';
+                    route = Operation.getUrl("up");
                 }
-                else route = 'ModeloNegocio';
+                else route =  Operation.getUrl("ins");
                 Upload.upload({
                     url: ROUTES.API_ROUTE+route,
                     data:{
@@ -283,13 +283,13 @@
                     toastr.success(vm.successTitle,vm.successUpdate);
 
 
-                }), function (resp) {
+                }).catch( function (resp) {
                     console.log('Error status: ' + resp.status);
                     toastr.error(vm.failTitle,vm.failMessage);
-                }, function (evt) {
+                });/*, function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                };
+                };*/
 
 
             }
@@ -302,10 +302,12 @@
 
         function updateText()
         {
+            var promise = null;
             var request = {idProyecto:vm.selectedProject.id,ModeloNegocio:vm.ModeloNegocio};
             if(vm.ModeloNegocio.id==null)
             {
-                Restangular.all('ModeloNegocio').customPOST(request).then(function(res){
+                promise = Operation.saveOperation(request);
+                promise.then(function (res) {
                     vm.ModeloNegocio = res.ModeloNegocio;
                     toastr.success(vm.successTitle,vm.successStore);
                 }).catch(function(err){
@@ -314,7 +316,8 @@
             }
             else
             {
-                Restangular.all('ModeloNegocio').all('Update').customPOST(request).then(function(res){
+                promise = Operation.updateOperation(request);
+                promise.then(function (res) {
                     vm.ModeloNegocio = res.ModeloNegocio;
                     toastr.success(vm.successTitle,vm.successUpdate);
                 }).catch(function(err){

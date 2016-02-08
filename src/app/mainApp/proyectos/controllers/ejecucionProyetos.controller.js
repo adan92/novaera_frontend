@@ -10,7 +10,8 @@
         .controller('ejecucionProyectosController', ejecucionProyectosController);
 
     /* @ngInject */
-    function ejecucionProyectosController(Translate,Upload,Restangular,toastr,ROUTES) {
+    function ejecucionProyectosController(Proyecto,Operation,Translate,Upload,toastr,ROUTES) {
+        Operation.setTypeOperation("Ejecucion");
         var vm = this;
         vm.activate                 =  activate();
         vm.completed               =  0;
@@ -80,11 +81,11 @@
 
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
             });
+
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
             vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
             vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
@@ -101,10 +102,12 @@
         function getEjecucion()
         {
             vm.proyectoLabel = vm.selectedProject.Titulo;
-            Restangular.one('Ejecucion',vm.selectedProject.id).customGET().then(function(res){
+            var promise = Operation.getOperation(vm.selectedProject.id);
+            promise.then(function (res) {
                 vm.Ejecucion = res;
 
-                Restangular.all('Ejecucion').one('Archivos',vm.selectedProject.id).customGET().then(function(res){
+                var pros = Operation.getFileOperation(vm.selectedProject.id);
+                pros.then(function (res) {
                     vm.fileList             = res.Archivos;
                     vm.requisitosFile       = search('Requisitos');
                     vm.entornoFile          = search('AnalisisEntornoP');
@@ -260,8 +263,8 @@
                 completed+=1;
             if( (vm.Ejecucion.RecursosMaterialesP !=null && vm.Ejecucion.RecursosMaterialesP !="") || vm.recursosMFile!=null)
                 completed+=1;
-            completed = (completed/11)*100
-            completed = completed.toFixed(0)
+            completed = (completed/11)*100;
+            completed = completed.toFixed(0);
             return completed;
         }
 
@@ -280,9 +283,9 @@
                 var route = null;
                 if(vm.Ejecucion.id!=null)
                 {
-                    route = 'Ejecucion/Update';
+                    route = Operation.getUrl("up");
                 }
-                else route = 'Ejecucion';
+                else route =  Operation.getUrl("ins");
                 Upload.upload({
                     url: ROUTES.API_ROUTE+route,
                     data:{
@@ -300,13 +303,13 @@
                     toastr.success(vm.successTitle,vm.successUpdate);
 
 
-                }), function (resp) {
+                }).catch( function (resp) {
                     console.log('Error status: ' + resp.status);
                     toastr.error(vm.failTitle,vm.failMessage);
-                }, function (evt) {
+                });/*, function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                };
+                };*/
 
 
             }
@@ -320,9 +323,11 @@
         function updateText()
         {
             var request = {idProyecto:vm.selectedProject.id,Ejecucion:vm.Ejecucion};
+            var promise = null;
             if(vm.Ejecucion.id==null)
             {
-                Restangular.all('Ejecucion').customPOST(request).then(function(res){
+                promise = Operation.saveOperation(request);
+                promise.then(function (res) {
                     vm.Ejecucion = res.Ejecucion;
                     toastr.success(vm.successTitle,vm.successStore);
                 }).catch(function(err){
@@ -331,7 +336,8 @@
             }
             else
             {
-                Restangular.all('Ejecucion').all('Update').customPOST(request).then(function(res){
+                promise = Operation.updateOperation(request);
+                promise.then(function (res) {
                     vm.Ejecucion = res.Ejecucion;
                     toastr.success(vm.successTitle,vm.successUpdate);
                 }).catch(function(err){
@@ -341,7 +347,5 @@
             }
             vm.completed = checkFinished();
         }
-
-
     }
 })();
