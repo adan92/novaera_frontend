@@ -21,7 +21,7 @@
  /*
   * Location of your backend server
   */
- var defaultProxyTarget = 'http://homestead.app/';
+ var defaultProxyTarget = 'http://148.204.58.168/novaera_laravel/public/';
  var proxyTarget = process.env.PROXY_TARGET || defaultProxyTarget;
 
  var proxy = httpProxy.createProxyServer({
