@@ -6,7 +6,7 @@
         .controller('registrarProyectoController', registrarProyectoController);
 
     /* @ngInject */
-    function registrarProyectoController(Persona, Proyecto, Profile, $scope, toastr, Restangular, $state, Translate) {
+    function registrarProyectoController(Persona, Proyecto, $scope, toastr, Restangular, $state, Translate) {
 
         var vm = this;
         activate();

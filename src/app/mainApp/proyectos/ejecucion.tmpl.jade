@@ -291,4 +291,4 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            h3 {{vm.recursosMFile.Nombre}}
          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
             md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 11', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 11', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='vm.completed == 100 && triWizard.currentStep >= 10', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')

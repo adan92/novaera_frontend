@@ -9,10 +9,10 @@
         .controller('propiedadIntelectualProyectosController', propiedadIntelectualProyectosController);
 
     /* @ngInject */
-    function propiedadIntelectualProyectosController(Restangular,Translate,toastr,$mdDialog) {
+    function propiedadIntelectualProyectosController(propiedadIntelectual,Proyecto,Operation,Translate,toastr,$mdDialog) {
         var vm = this;
 
-
+        Operation.setTypeOperation("TransferenciaTecnologica");
         activate();
         //Variables para los registros de transferencia tecnologica
         vm.transferenciaRegisters        = null;
@@ -36,10 +36,9 @@
 
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -65,11 +64,11 @@
                 idProyecto:vm.selectedItem.id,
                 TransferenciaTecnologica:vm.selectedPropiedad
             };
-
+            var promise = null;
             if(vm.selectedPropiedad.id!=null)
             {
-                Restangular.all('TransferenciaTecnologica').all('Update').customPOST(request).then(function(res)
-                {
+                promise = Operation.saveOperation(request);
+                promise.then(function (res) {
                     vm.selectedPropiedad = res.TransferenciaTecnologica;
                     toastr.success(vm.successText,vm.successUpdateText);
                 }).catch(function(err)
@@ -79,8 +78,8 @@
             }
             else
             {
-                Restangular.all('TransferenciaTecnologica').customPOST(request).then(function(res)
-                {
+                promise = Operation.updateOperation(request);
+                promise.then(function (res) {
                     vm.selectedPropiedad = res.TransferenciaTecnologica;
                     toastr.success(vm.successText,vm.successStoreText);
                 }).catch(function(err){
@@ -123,9 +122,11 @@
 
         function deleteRegister()
         {
-            Restangular.one('TransferenciaTecnologica',vm.selectedPropiedad.id).customDELETE().then(function(res){
+            var promise=propiedadIntelectual.deletePropiedadIntelectual(vm.selectedPropiedad.id);
+            promise.then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
-                Restangular.all('Proyecto').one('TransferenciaTecnologica',vm.selectedItem.id).customGET().then(function(res){
+                var proms=Proyecto.getProjectTransTecById(vm.selectedItem.id);
+                proms.then(function(res){
                     vm.transferenciaRegisters = res.TransferenciaTecnologica;
                 }).catch(function(err){
 
@@ -133,10 +134,6 @@
             }).catch(function(err){
                 toastr.error(vm.failureText,vm.failureDeleteText);
             });
-
-
-
-
         }
 
 
@@ -148,8 +145,8 @@
         {
             if(vm.selectedItem!=null)
             {
-
-                Restangular.all('Proyecto').one('TransferenciaTecnologica',vm.selectedItem.id).customGET().then(function(res){
+                var proms=Proyecto.getProjectTransTecById(vm.selectedItem.id);
+                proms.then(function(res){
                     vm.transferenciaRegisters = res.TransferenciaTecnologica;
                 }).catch(function(err){
 

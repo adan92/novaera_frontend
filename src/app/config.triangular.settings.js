@@ -15,6 +15,7 @@
     {
         var api = ROUTES.API_ROUTE;
         RestangularProvider.setBaseUrl(api);
+
         $httpProvider.interceptors.push('AuthInterceptor');
     }
 

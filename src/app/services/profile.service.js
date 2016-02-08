@@ -9,7 +9,7 @@
         .factory('Profile', Profile);
 
     /* @ngInject */
-    function Profile($q,Restangular,localStorageService) {
+    function Profile(localStorageService) {
         var service ={
             setProfile:setProfile,
             clearProfile:clearProfile,
@@ -22,10 +22,12 @@
         function isValidated()
         {
             var user = profileInfo();
-            if(user===null)
+            if(user===null) {
                 return false;
-            if(user.isValidated===0)
+            }
+            if(user.isValidated===0) {
                 return false;
+            }
             return true;
         }
 
