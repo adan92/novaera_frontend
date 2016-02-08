@@ -10,7 +10,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
             div.md-toolbar-tools(flex layout='column')
                div(flex layout='column')
                   div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
-                     h2(translate='') PROJECT.WIZARD.TITLE3
+                     h2(translate='') PROJECT.WIZARD.TITLE4
                      h2
                         | {{vm.completed}}%
                         span(translate='') PROJECT.WIZARD.COMPLETED
@@ -245,4 +245,4 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            h3 {{vm.aliadosCFile.Nombre}}
          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
             md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 10', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 10', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
