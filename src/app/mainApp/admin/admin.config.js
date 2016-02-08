@@ -28,7 +28,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true,
                     requirePrivileges:'Supervisor',

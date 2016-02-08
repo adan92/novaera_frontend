@@ -4,12 +4,18 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
     div(flex='', layout='row', layout-align='center center', layout-fill='')
         .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
             md-toolbar.md-primary
-                .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-                    h2(translate='') FONDEOS.WIZARD.TITLE
-                    h2
-                        | {{triWizard.progress}}%
-                        span(translate='') FONDEOS.WIZARD.COMPLETED
-                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+                 div.md-toolbar-tools(flex layout='column')
+                    div(flex layout='column')
+                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
+                                h2(translate='') FONDEOS.WIZARD.TITLE
+                                h2
+                                    |{{vm.completed}}%
+                                    span(translate='') FONDEOS.WIZARD.COMPLETED
+                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
+                            h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                            h3(translate='') {{vm.FondeoLabel}}
+                 md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
+
             md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
                 md-tab#info
                     md-tab-label
@@ -21,42 +27,23 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                 div(layout='column', flex='')
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TITLE
-                                        input(name='titulo', required='', type='text', ng-model='vm.fondeo.titulo')
+                                        input(name='titulo', required='', type='text', ng-model='vm.Fondeo.titulo')
                                         div(ng-messages='projectInfo.titulo.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TOTAL
-                                        textarea(name='descripcion', required='', ng-model='vm.fondeo.fondo_Total', md-maxlength='10')
+                                        textarea(name='descripcion', required='', ng-model='vm.Fondeo.fondo_Total', md-maxlength='10')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TARGET
-                                        textarea(name='target', required='', ng-model='vm.fondeo.target', md-maxlength='500')
+                                        textarea(name='target', required='', ng-model='vm.Fondeo.target', md-maxlength='500')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                     md-input-container
-                                        label(translate='') FONDEOS.FEATURES.FONDEO_CALL
-                                        md-select(multiple='true', ng-model='call', required='')
-
-                                            md-option(ng-repeat='convocatoria in vm.convocatorias', value='{{convocatoria.id}}')
-                                                | {{convocatoria.titulo}}
-                                        div(ng-messages='projectInfo.descripcion.$error')
-                                              div(ng-message='', when='required')
-                                                   pan(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-
-                                    md-input-container
-                                        label(translate='') FONDEOS.FEATURES.FONDEO_MODALITY
-                                        md-select(multiple='true', ng-model='modality', required='')
-
-
-                                            md-option(ng-repeat='modalidad in vm.modalidades', value='{{modalidad.id}}')
-                                                       | {{modalidad.nombre}}
-                                        div(ng-messages='projectInfo.descripcion.$error')
-                                            div(ng-message='', when='required')
-                                                span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                     
                 md-tab#fondeoT(ng-disabled='projectInfo.$invalid')
                     md-tab-label
 
@@ -67,7 +54,7 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                             form(name='fondeoFondeoDesc', tri-wizard-form='')
                                 div(flex='', layout='column', layout-wrap='')
                                     md-input-container
-                                        div(text-angular='', required='', ng-model='vm.fondeo.fondeoDesc', ta-toolbar="[['bold','italics','ul','ol']]")
+                                        div(text-angular='', required='', ng-model='vm.Fondeo.fondeoDesc', ta-toolbar="[['bold','italics','ul','ol']]")
                                         label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                         md-divider
                             div(layout='column', flex='')

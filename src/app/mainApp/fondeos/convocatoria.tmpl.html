@@ -6,7 +6,7 @@
     </div>
 
     <div flex layout="row" layout-align="center center" layout-fill>
-        <div flex="80" class="md-whiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
+        <div flex="80" class="md-w  hiteframe-z1 margin-bottom-100" layout="column" tri-wizard>
             <md-toolbar class="md-primary">
                 <div flex class="md-toolbar-tools" layout="row" layout-align="space-between center">
                     <h2 translate>FONDEOS.CALL.TITLE</h2><h2> {{triWizard.progress}}% <span translate>FONDEOS.WIZARD.COMPLETED</span></h2>
@@ -61,14 +61,14 @@
                                             </div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container>
-                                        <label translate>FONDEOS.MODALITY.FONDEOS</label>
-                                        <md-select ng-model="call" required>
-
-                                            <md-option ng-repeat="fondeo2 in fondeos2" value="{{fondeo2.abbrev}}">
-                                                {{fondeo2.abbrev}}
-                                            </md-option>
-                                        </md-select>
+                                             <md-input-container>
+                                            <label translate>FONDEOS.MODALITY.FONDEOS</label>
+                                            <md-select  ng-model="fondeo" required name="fondeo">
+                                                <md-option ng-repeat="fondeo in vm.programasfondeo" value="{{fondeo.id}}">
+                                                    {{fondeo.title}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
                                         <div ng-messages="projectInfo.descripcion.$error">
                                             <div ng-message when="required">
                                                 <span translate>FONDEOS.WIZARD.REQUIRED-FIELD</span>
@@ -131,7 +131,7 @@
     </div>
 
     <!--End wizard-->
-    <div class="todo-container" flex layout="column" layout-align="center center">
+    <div class="todo-container" flex layout="column" layout-align="center center" ng-show="true">
         <div layout-fill layout="row" layout-align="center center">
             <md-card flex="100" flex-sm="100" class="margin-top-20 margin-bottom-20">
                 <md-toolbar md-theme="{{triSkin.elements.content}}">

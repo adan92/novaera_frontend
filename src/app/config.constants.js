@@ -14,12 +14,11 @@
 
             //Virtualizado
            // FILE_ROUTE:'http://homestead.app/',
-           // API_ROUTE: 'http://homestead.app/api/'
-
-
-            //Virtualizado
+           //FILE_ROUTE:'http://homestead.app/',
+            //API_ROUTE: 'http://homestead.app/api/'
+            //Homestead windows
             FILE_ROUTE:'http://192.168.10.10/',
-            API_ROUTE: 'http://192.168.10.10/api/'
+            API_ROUTE:'http://192.168.10.10/api/'
 
             //FILE_ROUTE:'http://189.189.108.60:8888/novaera_laravel/public/',
             //API_ROUTE: 'http://189.189.108.60:8888/novaera_laravel/public/api/'

@@ -31,7 +31,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     }
                 }
             })

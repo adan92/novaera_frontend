@@ -1,0 +1,177 @@
+<md-card flex >
+    <!-- Titulo del toolbar -->
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span translate>PROJECT.VALIDA.TITLE2</span>
+        </div>
+    </md-toolbar>
+    <!--Busqueda de Proyectos-->
+</md-card>
+<!-- TARJETA PARA BUSCAR PROYECTOS-->
+<div layout="row" layout-md="column">
+
+    <md-card flex layout-padding>
+        <md-card-content>
+
+            <h3 class="text-center" translate>PROJECT.VALIDA.SELECTEDPROYECT</h3>
+            <md-autocomplete
+                    class="margin-bottom-20"
+                    ng-disabled="vm.isDisabled"
+                    md-no-cache="vm.noCache"
+                    md-selected-item="vm.selectedItem"
+                    md-search-text-change="vm.searchTextChange(vm.searchText)"
+                    md-search-text="vm.searchText"
+                    md-selected-item-change="vm.selectedItemChange(item)"
+                    md-items="item in vm.querySearch(vm.searchText)"
+                    md-item-text="item.titulo"
+                    md-min-length="0"
+                    placeholder="Selecciona el Proyecto">
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.titulo}}, Descripcion: {{item.descripcion}}, Antecedentes:{{item.antecedentes}}</span>
+            </md-autocomplete>
+
+        </md-card-content>
+    </md-card>
+</div>
+<md-toolbar  ng-show="vm.selectedItem!=null">
+    <div class="md-toolbar-tools">
+        <h2>
+            {{vm.selectedItem.titulo}} - {{vm.title}}
+        </h2>
+        <span flex></span>
+        <md-menu>
+            <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+            </md-button>
+            <md-menu-content width="3">
+                <md-menu-item>
+                    <md-button ng-click="vm.showInfoejecucion()">
+                        <md-icon md-font-icon="zmdi zmdi-settings" ></md-icon>
+                        Ejecucion
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="vm.showInfoimpacto()">
+                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                        Impacto
+                    </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                    <md-button ng-click="vm.showInfonegocio()">
+                        <md-icon md-font-icon="zmdi zmdi-money-box"></md-icon>
+                        Modelo de Negocio
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button ng-click="vm.showInfoproject()">
+                        <md-icon md-font-icon="fa fa-info-circle"></md-icon>
+                        Informacion general
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
+
+    </div>
+</md-toolbar>
+
+<!--Cuerpo-->
+<div layout="column" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
+
+    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
+        <md-card flex layout="row"  layout-sm="column">
+            <md-card-content>
+                <md-input-container>
+                    <label  ng-show="inputDisabled">Informacion Validada</label>
+                </md-input-container>
+                <md-switch ng-model="inputDisabled">
+                    Valida/ Invalida Informacion
+                </md-switch>
+            </md-card-content>
+            <md-card-content>
+                <md-input-container>
+                    <label  ng-show="inputDisabled2">Archivo Validado</label>
+                </md-input-container>
+                <md-switch ng-model="inputDisabled2">
+                    Valida/ Invalida Archivos
+                </md-switch>
+            </md-card-content>
+            <md-card-content>
+
+                <md-input-container>
+                    <label  ng-show="vm.file!=null">Archivos Relacionados</label>
+                </md-input-container>
+                <md-button class="md-fab"  aria-label="fab button" ng-click="vm.activarfiles()" ng-show="vm.file!=null" >
+                    <md-icon md-font-icon="zmdi zmdi-archive"></md-icon>
+                </md-button>
+            </md-card-content>
+        </md-card>
+
+    </div>
+    <md-card flex layout="row" >
+
+        <!-- Incrustamos por Area consultada -->
+        <md-card flex layout="column" >
+            <!-- TARJETA PARA Mostrar su informacion-->
+            <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.showInfo==true">
+
+                    <md-card-content flex layout="column">
+                        <h2 translate class="text-center">PROJECT.INSCRIPTION.INFOPROJECT</h2>
+                        <md-list>
+
+                            <div class="md-list-item-text" >
+                                <h3>id: {{vm.selectedItem.id}}</h3>
+                                <h3>Titulo: {{vm.selectedItem.titulo}}</h3>
+                                <h4>Descripcion: {{vm.selectedItem.descripcion}}</h4>
+                                <h4>Antecedentes: {{vm.selectedItem.antecedentes}}</h4>
+                                <h4>Justificacion: {{vm.selectedItem.justificacion}}</h4>
+                                <h5>Objetivos: {{vm.selectedItem.objetivos}}</h5>
+                                <h6>Alcances: {{vm.selectedItem.alcances}}</h6>
+                            </div>
+
+                            <md-divider></md-divider>
+                        </md-list>
+
+                    </md-card-content>
+
+            </div>
+            <div  layout="row" layout-sm="column" layout-md="column" ng-show="vm.showejecucion==true" ng-include="'modelosInfo/ejecucion.html'" >
+
+                <md-card-content flex layout="column"> Ejecucion</md-card-content>
+            </div>
+            <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.shownegocio==true">
+                <md-card-content flex layout="column">Negocio</md-card-content></div>
+            <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.showimpacto==true">
+                <md-card-content flex layout="column">Impacto</md-card-content></div>
+
+        </md-card>
+
+        <!-- Finaliza el incrustado -->
+        <!--Menu de archivos-->
+        <md-card flex="40" layout="column" ng-show="vm.showfiles==true" >
+            <!-- Cabecera de la md table-->
+            <md-table-container>
+                <table md-table="" md-row-select="" ng-model="vm.files">
+                    <thead md-head="" md-order="vm.query.order">
+                    <tr md-row="md-row">
+                        <th md-column="md-column" md-order-by="ruta"><span>Archivo</span></th>
+                        <th md-column="md-column" md-order-by="type"><span>Tipo</span></th>
+                        <th md-column="md-column" md-order-by="fecha"><span>Modificado</span></th>
+                     </tr>
+                    </thead>
+                    <!-- Cuerpo de la tabla -->
+                    <tbody md-body="md-body">
+                    <tr md-row="md-row" md-select="file" md-select-id="{{archivo.id}}" md-auto-select="md-auto-select" md-on-select="vm.fileselect()" ng-repeat="archivo in vm.file | orderBy:vm.query.order">
+                        <td md-cell="md-cell">{{archivo.ruta}}</td>
+                        <td md-cell="md-cell">{{archivo.tipoArchivo}}</td>
+                        <td md-cell="md-cell">{{archivo.fecha}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card>
+        <!--Termina menu de archivos -->
+    </md-card>
+</div>
