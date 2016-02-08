@@ -60,9 +60,9 @@
 
         function selectedItemChange()
         {
-            console.log(vm.selectedItem);
+            //console.log(vm.selectedItem);
             if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
-                console.log("Pre-Descriptores:");
+                //console.log("Pre-Descriptores:");
                 Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     console.log("Descriptoreindesds:");
                     vm.descriptoresFondeo = res.Descriptor;
@@ -117,8 +117,10 @@
          * Create function to delete item
          */
         function deleteItem(item){
+            console.log("Eliminar Descriptor");
             console.log(item);
-            Restangular.all('ProgramaFondeo').one('Descriptor',item.pivot.ProgramaFondeo_id).all(item.id).customDELETE().then(function(res){
+            Restangular.all('ProgramaFondeo').one('Descriptor',item.pivot.idProgramaFondeo).all(item.pivot.id).customDELETE().then(function(res){
+                console.log(res.Descriptor);
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptoresFondeo = res.Descriptor;
@@ -136,16 +138,17 @@
 
         $scope.addItem = function()
         {
-            vm.descriptor.ProgramaFondeo_id = vm.selectedItem.id;
+
+            vm.descriptor.idProgramaFondeo = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
-                console.log('Descriptor Organizacion');
-                console.log(vm.descriptor);
+                //console.log('Agregar Descriptor Programa de Fondeo');
+                //console.log(vm.descriptor);
                 Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function(res){
                     //Mandamos el mensaje de éxito
                     toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
                     vm.descriptor.id           = null;
-                    vm.descriptor.Descriptor_id = null;
+                    vm.descriptor.idDescriptor = null;
                     vm.descriptor.observaciones= null;
                     vm.resetForm();
                     //Pedimos la lista de descriptores de la BD

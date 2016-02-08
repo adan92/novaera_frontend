@@ -36,7 +36,7 @@
 
                     <md-input-container>
                         <label translate>FONDEOS.DESCRIPTOR.TYPE</label>
-                        <md-select ng-model="vm.descriptor.Descriptor_id" required name="tipo">
+                        <md-select ng-model="vm.descriptor.idDescriptor" required name="tipo">
                             <md-option ng-repeat="tipo in vm.descriptores" value="{{tipo.id}}">
                                 {{tipo.Titulo}}
                             </md-option>
@@ -48,22 +48,23 @@
                     </md-input-container>
                     <md-button ng-disabled="registrarDescriptor.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>FONDEOS.DESCRIPTOR.ADD</span></md-button>
                     <md-button ng-disabled="vm.descriptor==null" ng-click="vm.resetForm()" ng-class="['md-primary','md-hue-2']" aria-label="primary button" class="md-raised"><span translate="">FONDEOS.DESCRIPTOR.CLEAR</span></md-button>
-
                 </form>
-
             </md-card-content>
         </md-card>
-        <md-card flex layout="column">
+        <md-card flex="70" layout="column">
             <md-card-content>
                 <h2 translate class="text-center">FONDEOS.DESCRIPTOR.CURRENT</h2>
                 <md-list>
                     <md-list-item class="md-4-line" ng-repeat="descriptor in vm.descriptoresFondeo">
-                        <div class="md-list-item-text">
+                        <div flex="40" class="md-list-item-text">
                             <h3>ID: {{descriptor.pivot.id}}</h3>
                             <h5>Descriptor: {{descriptor.Titulo}}</h5>
                             <h5>Observaciones: {{descriptor.pivot.observaciones}}</h5>
                         </div>
+                        <div flex="25">
+                        <md-button ng-click="vm.edit(descriptor)" class="md-raised md-primary"><span translate="">PERSONAS.DESCRIPTOR.EDIT</span></md-button>
                         <md-button ng-click="vm.createDialog($event,descriptor)" class="md-raised" ng-class="['md-warn','md-hue-2']" aria-label="warn button"><span translate>PROJECT.DESCRIPTOR.REMOVE_RESULT</span></md-button>
+                            </div>
                         <md-divider></md-divider>
                     </md-list-item>
                 </md-list>

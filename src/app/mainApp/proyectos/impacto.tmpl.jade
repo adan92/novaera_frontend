@@ -262,10 +262,11 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SolucionActual')")
                               md-button.md-fab.md-primary
                                  ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.soluionAFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                     div(ng-show='vm.solucionAFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.soluionAFile.Ruta}}')
-                           h3 {{vm.soluionAFile.Nombre}}
+                        a(href='{{vm.solucionAFile.Ruta}}')
+                           h3 {{vm.solucionAFile.Nombre}}
          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
-            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 10', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 10', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep >=9', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-accent.md-raised(ng-click='vm.saveProject()', ng-show='vm.completed == 100 && triWizard.currentStep == 10 ', translate='PROJECT.WIZARD.SEND')

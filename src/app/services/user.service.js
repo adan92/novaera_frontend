@@ -56,11 +56,11 @@
         {
             var deferred = $q.defer();
             Restangular.all('User').customGET().then(function(res){
+                console.log(res);
                 localStorageService.set('user', res);
                 deferred.resolve(res);
             }).catch(function(err){
                 deferred.reject(err);
-
             });
             return deferred.promise;
         }

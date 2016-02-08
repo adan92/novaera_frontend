@@ -1,40 +1,26 @@
 <div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
 
 
-    <!-- TARJETA PARA BUSCAR PROYECTOS-->
+    <!-- TARJETA PARA BUSCAR PERSONAS-->
     <div layout="row" layout-md="column">
 
         <md-card flex layout-padding>
             <md-card-content>
-                <h2 class="text-center" translate>PERSONAS.DESCRIPTOR.TITLE</h2>
-                <h3 class="text-center" translate>PERSONAS.DESCRIPTOR.INSTRUCTIONS</h3>
-                <md-autocomplete
-                        class="margin-bottom-20"
-                        ng-disabled="vm.isDisabled"
-                        md-no-cache="vm.noCache"
-                        md-selected-item="vm.selectedItem"
-                        md-search-text-change="vm.searchTextChange(vm.searchText)"
-                        md-search-text="vm.searchText"
-                        md-selected-item-change="vm.selectedItemChange()"
-                        md-items="item in vm.querySearch(vm.searchText)"
-                        md-item-text="item.Nombre"
-                        md-min-length="0"
-                        placeholder="Selecciona a la persona">
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}</span>
-                </md-autocomplete>
+                <h2 class="text-center" translate>PERSONAS.DESCRIPTOR.WELCOME</h2>
+                <h3 class="text-center" >{{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}</h3>
             </md-card-content>
         </md-card>
     </div>
 
     <!-- Tarjeta para eliminar descriptores -->
-    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
-        <md-card flex="60" layout="column">
+    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.persona!=null">
+        <md-card flex="70" layout="column">
             <md-card-content>
                 <h2 translate class="text-center">PERSONAS.DESCRIPTOR.CURRENT</h2>
                 <md-list>
                     <md-list-item class="md-4-line" ng-repeat="descriptor in vm.descriptorPersonas">
                         <div layout="row" flex="flex" layout-align="space-around center" layout-sm="column">
-                            <div flex="50" class="md-list-item-text">
+                            <div flex="40" class="md-list-item-text">
                                 <!--h3>id: {{descriptor.id}}</h3-->
                                 <h3>Titulo: {{descriptor.Titulo}}</h3>
                                 <h4>Fecha Inicio: {{descriptor.pivot.FechaInicio}}</h4>
@@ -46,8 +32,6 @@
                             </div>
                             <div flex="25">
                                 <md-button ng-click="vm.edit(descriptor)" class="md-raised md-primary"><span translate="">PERSONAS.DESCRIPTOR.EDIT</span></md-button>
-                            </div>
-                            <div flex="25">
                                 <md-button ng-click="vm.createDialog($event,descriptor)" ng-class="['md-warn','md-hue-2']" aria-label="warn button" class="md-raised"><span translate="">PERSONAS.DESCRIPTOR.DELETE</span></md-button>
                             </div>
                         </div>
@@ -62,14 +46,14 @@
 
         <!-- Tarjeta para agregar descriptores-->
 
-        <md-card flex layout="column" ng-show="vm.selectedItem!=null">
+        <md-card flex layout="column" ng-show="vm.persona!=null">
             <md-card-content>
                 <h2 translate>PERSONAS.DESCRIPTOR.ADD</h2>
 
                 <form name="agregarDescriptor" novalidate>
                     <md-input-container>
                         <label translate>PERSONAS.DESCRIPTOR.TYPE</label>
-                        <md-select ng-model="vm.descriptor.idDescriptor" required name="tipo">
+                            <md-select ng-model="vm.descriptor.idDescriptor" required name="tipo">
                             <md-option ng-repeat="tipo in vm.descriptores" value="{{tipo.id}}">
                                 {{tipo.Titulo}}
                             </md-option>

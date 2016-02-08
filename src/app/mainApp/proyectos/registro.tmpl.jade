@@ -1,6 +1,5 @@
 //
    Created by lockonDaniel on 12/21/15.
-
 div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
    div(layout='row', layout-align='center center')
       p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO
@@ -56,14 +55,6 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                               div(ng-messages='projectInfo.descripcion.$error')
                                  div(ng-message='', when='required')
                                     span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-                           md-input-container(ng-show='vm.isOrganization')
-                              label Selecciona la Organización
-                              md-select(ng-model='vm.proyecto.Organizacion', md-on-open='vm.loadOrganizations()')
-                                 md-option(ng-repeat='organizacion in vm.organizaciones', value='{{organizacion.id}}') {{organizacion.nombre}}
-                           label.material Selecciona si el proyecto es tuyo o de una organización
-                           md-checkbox(ng-model='vm.isOrganization', aria-label='Checkbox 1')
-                              span(ng-show='vm.isOrganization', translate='') PROJECT.WIZARD.IS_ORGANIZATION
-                              span(ng-show='!vm.isOrganization', translate='') PROJECT.WIZARD.IS_MINE
             md-tab#history(ng-disabled='projectInfo.$invalid')
                md-tab-label
                   span.oxy-step-label 3
@@ -110,3 +101,5 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
             md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 5', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
             md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 5', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
             md-button.md-accent.md-raised(ng-click='vm.saveProject()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 5 ', translate='PROJECT.WIZARD.SEND')
+Status API Training Shop Blog About Pricing
+

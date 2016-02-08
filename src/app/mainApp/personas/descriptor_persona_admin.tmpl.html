@@ -1,0 +1,95 @@
+<div class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope">
+
+
+    <!-- TARJETA PARA BUSCAR PERSONAS-->
+    <div layout="row" layout-md="column">
+
+        <md-card flex layout-padding>
+            <md-card-content>
+                <h2 class="text-center" translate>PERSONAS.DESCRIPTOR.TITLE</h2>
+                <h3 class="text-center" translate>PERSONAS.DESCRIPTOR.INSTRUCTIONS</h3>
+                <md-autocomplete
+                        class="margin-bottom-20"
+                        ng-disabled="vm.isDisabled"
+                        md-no-cache="vm.noCache"
+                        md-selected-item="vm.selectedItem"
+                        md-search-text-change="vm.searchTextChange(vm.searchText)"
+                        md-search-text="vm.searchText"
+                        md-selected-item-change="vm.selectedItemChange()"
+                        md-items="item in vm.querySearch(vm.searchText)"
+                        md-item-text="item.Nombre"
+                        md-min-length="0"
+                        placeholder="Selecciona a la persona">
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Nombre}} {{item.ApellidoP}} {{item.ApellidoM}}</span>
+                </md-autocomplete>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <!-- Tarjeta para eliminar descriptores -->
+    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.selectedItem!=null">
+        <md-card flex="70" layout="column">
+            <md-card-content>
+                <h2 translate class="text-center">PERSONAS.DESCRIPTOR.CURRENT</h2>
+                <md-list>
+                    <md-list-item class="md-4-line" ng-repeat="descriptor in vm.descriptorPersonas">
+                        <div layout="row" flex="flex" layout-align="space-around center" layout-sm="column">
+                            <div flex="40" class="md-list-item-text">
+                                <!--h3>id: {{descriptor.id}}</h3-->
+                                <h3>Titulo: {{descriptor.Titulo}}</h3>
+                                <h4>Fecha Inicio: {{descriptor.pivot.FechaInicio}}</h4>
+                                <h4>Fecha Termino: {{descriptor.pivot.FechaTermino}}</h4>
+                                <h5>Tipo de Resultado: {{descriptor.pivot.TipoResultado}}</h5>
+                                <h5>Numero de Registro: {{descriptor.pivot.NumeroRegistro}}</h5>
+                                <h6>Creado el: {{descriptor.created_at}}</h6>
+                                <h6>Actualzado el: {{descriptor.updated_at}}</h6>
+                            </div>
+                            <div flex="25">
+                                <md-button ng-click="vm.edit(descriptor)" class="md-raised md-primary"><span translate="">PERSONAS.DESCRIPTOR.EDIT</span></md-button>
+                                <md-button ng-click="vm.createDialog($event,descriptor)" ng-class="['md-warn','md-hue-2']" aria-label="warn button" class="md-raised"><span translate="">PERSONAS.DESCRIPTOR.DELETE</span></md-button>
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+
+                </md-list>
+
+
+            </md-card-content>
+        </md-card>
+
+        <!-- Tarjeta para agregar descriptores-->
+
+        <md-card flex layout="column" ng-show="vm.selectedItem!=null">
+            <md-card-content>
+                <h2 translate>PERSONAS.DESCRIPTOR.ADD</h2>
+
+                <form name="agregarDescriptor" novalidate>
+                    <md-input-container>
+                        <label translate>PERSONAS.DESCRIPTOR.TYPE</label>
+                        <md-select ng-model="vm.descriptor.idDescriptor" required name="tipo">
+                            <md-option ng-repeat="tipo in vm.descriptores" value="{{tipo.id}}">
+                                {{tipo.Titulo}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <span class="placeholder" translate>PERSONAS.DESCRIPTOR.FINIT</span>
+                    <md-datepicker ng-model="vm.descriptor.FechaInicio" md-placeholder="Introduce una fecha" required></md-datepicker><br></br>
+                    <span class="placeholder" translate>PERSONAS.DESCRIPTOR.FEND</span>
+                    <md-datepicker ng-model="vm.descriptor.FechaTermino" md-placeholder="Introduce una fecha" required></md-datepicker><br></br>
+                    <md-input-container>
+                        <label translate>PERSONAS.DESCRIPTOR.TRESULT</label>
+                        <input ng-model="vm.descriptor.TipoResultado" required name="resultado">
+                    </md-input-container>
+                    <md-input-container>
+                        <label translate>PERSONAS.DESCRIPTOR.NREGISTRO</label>
+                        <input ng-model="vm.descriptor.NumeroRegistro" required name="registro">
+                    </md-input-container>
+                    <md-button ng-disabled="registrarEtapa.$invalid" ng-click="addItem()" class="md-raised" ng-class="['md-primary','md-hue-2']" aria-label="warn button" ><span translate>PERSONAS.DESCRIPTOR.ADD</span></md-button>
+                    <md-button ng-disabled="vm.descriptor==null" ng-click="vm.resetForm()" ng-class="['md-primary','md-hue-2']" aria-label="primary button" class="md-raised"><span translate="">DESCRIPTOR.DESCRIPTOR.CLEAR</span></md-button>
+                </form>
+
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
