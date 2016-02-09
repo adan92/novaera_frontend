@@ -12,7 +12,7 @@
     .controller('informacionOrganizacionesController', informacionOrganizacionesController);
 
   /* @ngInject */
-  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log, Restangular) {
+  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log, Restangular, $mdDialog) {
     var vm = this;
 
     //     vm.addItem = addItem;
@@ -683,30 +683,45 @@
       vm.waiting = true;
 
       Restangular.all('Organizacion')
-      .customGET()
-      .then(function(res){
-        vm.waiting = false;
-        vm.orgList = res.plain().Organizacion;
+        .customGET()
+        .then(function(res) {
+          vm.waiting = false;
+          vm.orgList = res.plain().Organizacion;
 
-        for(var i in vm.orgList){
-          vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
-          vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
-        }
+          for (var i in vm.orgList) {
+            vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
+            vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
+          }
 
-      });
+        });
+
+
 
 
     }
 
-    vm.editOrg = function(org){
-      vm.org = org;
-      vm.isEditing = true;
+    vm.editOrg = function(org, index) {
+      vm.waiting = true;
+      vm.indexEdited = index;
+
+      Restangular.all('Organizacion')
+        .one('Persona', org.id)
+        .customGET()
+        .then(function(res) {
+          vm.waiting = false;
+          vm.org = angular.copy(org);
+          vm.isEditing = true;
+
+          vm.personas = res.plain().Persona;
+        }, function(err) {
+          $log.err('Error!', err.status);
+        })
 
     }
 
     vm.submitForm = submitForm;
 
-    function submitForm(){
+    function submitForm() {
       var org = angular.copy(vm.org);
 
       delete org.pivot
@@ -714,15 +729,50 @@
       delete org.updated_at
 
       Restangular.one('Organizacion', vm.org.id)
-      .customPUT(org)
-      .then(function(res){
-        vm.org = res.plain();
-      })
+        .customPUT(org)
+        .then(function(res) {
+          vm.org = res.plain();
+          vm.orgList[vm.indexEdited] = res.plain();
+
+          showAlert('success');
+        }, function(res) {
+          showAlert('error', res.status);
+        })
     }
 
     vm.openMenu = function($mdOpenMenu, ev) {
       // var originatorEv = ev;
       $mdOpenMenu(ev);
+    }
+
+    function showAlert(result, errCode) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      // Modal dialogs should fully cover application
+      // to prevent interaction outside of dialog
+
+      var messages = {
+        success: {
+          title: 'Información guardada correctamente',
+          content: 'Los datos han sido guardados correctamente'
+        },
+        error: {
+          title: 'Error al guardar la información',
+          content: 'Hubo un error al guardar la información (' + errCode + ')'
+        }
+      }
+
+      var msg = messages[result];
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title(msg.title)
+        .content(msg.content)
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Continuar')
+
+        // .targetEvent(ev)
+      );
     }
 
     vm.viewPerson = function() {
