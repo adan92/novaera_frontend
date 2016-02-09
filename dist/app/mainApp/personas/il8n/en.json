@@ -1,0 +1,70 @@
+{
+  "MENU": {
+    "PERSONAS": {
+      "PERSONAS": "Personas"
+    }
+  },
+  "PERSONAS":{
+    "INTRO": "Sigue los pasos para registrar un Nueva Persona",
+    "INTRO_TERMINOS": "Sigue los pasos para registrar Nueva Persona",
+    "WIZARD":{
+      "TITLE": "Registro de Información Personal",
+      "SAVE": "Guardar",
+      "UPDATE": "Actualizar",
+      "TITLE2": "Registro de Información Laboral",
+      "TITLE3": "Registro  de Información de Contacto",
+      "TITLE4": "Registro  de Información de Direccion",
+      "TITLE5": "Registro  de Otra Informacion",
+      "LASTNAME":"       Apellido Paterno",
+      "LASTNAME2":"Apellido Materno",
+      "NAME":"Nombre",
+      "MAIL":"       Correo Electronico",
+      "ORGANIZATION":"Organizacion",
+      "JOB":"Puesto",
+      "WORKPHONE":"Teléfono del Trabajo",
+      "LOCALPHONE":"Teléfono Local",
+      "MOBILEPHONE":"Teléfono Celular",
+      "FAX":"Número de Fax",
+      "WEBPAGE":"Página Web",
+      "ADDRESS":"Calle",
+      "NEIGHBOURHOOD":"Colonia",
+      "EXT_NUMBER":"Numero Exterior",
+      "INT_NUMBER":"Numero Interior",
+      "CITY":"Ciudad",
+      "STATE":"Estado o Provincia",
+      "ZIPCODE":"Codigo Postal",
+      "COUNTRY":"Pais",
+      "WEBADDRESS":"Pagina Web",
+      "WEBADDRESS_DES":"Descripcion",
+      "LASTREGISTERS":"Ultimos Registros",
+      "NOTES":"Notas",
+      "TOTALREGISTERS":"Registros por Organizacion ultimo mes",
+      "HISTORIALREGISTER":"Historial de Registros en el año",
+      "REQUIRED-FIELD":"Éste campo es requerido",
+      "CANCEL":"Cancelar",
+      "COMPLETED": "Completado",
+      "PREV": "Anterior",
+      "NEXT": "Siguiente",
+      "SEND": "Enviar"
+    },
+    "DESCRIPTOR":{
+      "TITLE":"Personas Registradas",
+      "INSTRUCTIONS":"Selecciona una persona para modificar sus descriptores",
+      "CURRENT":"Descriptores de la persona actual",
+      "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Descriptor",
+      "DELETE":"Eliminar Descriptor",
+      "TYPE":"Tipo de Descriptor",
+      "FINIT":"Fecha Inicio",
+      "FEND":"Fecha de Termino",
+      "TRESULT":"Tipo de Resultado",
+      "NREGISTRO":"No. de Registro",
+      "WELCOME":"Bienvenido"
+    }
+
+
+
+    }
+
+
+}

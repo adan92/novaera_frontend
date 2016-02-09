@@ -1,0 +1,18 @@
+{
+  "LOGIN":{
+    "TITLE":"INICIO DE SESIÓN",
+    "FORGOT":"OLVIDÉ MI CONTRASEÑA",
+    "BUTTON":"INICIAR SESIÓN",
+    "SIGNUP_LINK":"REGISTRARSE",
+    "RETURN":"Regresar",
+    "USERNAME":{
+      "LABEL":"Usuario",
+      "PLEASE_ENTER":"Por favor introduce tu usuario"
+    },
+    "PASSWORD":{
+      "LABEL":"Contraseña",
+      "PLEASE_ENTER":"Por favor introduce tu contraseña"
+    }
+  }
+
+}

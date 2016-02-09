@@ -680,42 +680,58 @@
         }
       }];
 
+      Restangular.all('Organizacion')
+      .customGET()
+      .then(function(res){
+        vm.orgList = res.plain().Organizacion;
 
+        for(var i in vm.orgList){
+          vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
+          vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
+        }
+        debugger
+      });
 
-      vm.openMenu = function($mdOpenMenu, ev) {
-        var originatorEv = ev;
-        $mdOpenMenu(ev);
-      }
-
-      vm.viewPerson = function() {
-        console.log('me quieren ver!');
-      }
 
     }
 
+    vm.editOrg = function(org){
+      vm.org = org;
+      vm.isEditing = true;
+
+
+    }
+
+    vm.openMenu = function($mdOpenMenu, ev) {
+      // var originatorEv = ev;
+      $mdOpenMenu(ev);
+    }
+
+    vm.viewPerson = function() {
+      // console.log('me quieren ver!');
+    }
 
     vm.viewPerson = viewPerson;
     vm.addPerson = addPerson;
 
 
-    function viewPerson(person){
+    function viewPerson(person) {
       vm.isViewingPerson = true;
       vm.isAddingPerson = false;
 
       vm.viewingPerson = person;
 
-      console.log(person);
 
     }
 
-    function addPerson(personId){
+    function addPerson(personId) {
       vm.isAddingPerson = true;
       vm.isViewingPerson = false;
 
 
     }
 
-    function removePerson(){}
+    function removePerson() {}
 
   }
 })();
