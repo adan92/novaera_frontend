@@ -21,5 +21,5 @@
       //Homestead windows
       //   FILE_ROUTE: 'http://192.168.10.10/',
       // API_ROUTE: 'http://192.168.10.10/api/'
-    });
-})();
+    }); 
+})(); 
