@@ -680,16 +680,19 @@
         }
       }];
 
+      vm.waiting = true;
+
       Restangular.all('Organizacion')
       .customGET()
       .then(function(res){
+        vm.waiting = false;
         vm.orgList = res.plain().Organizacion;
 
         for(var i in vm.orgList){
           vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
           vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
         }
-        debugger
+
       });
 
 
@@ -699,7 +702,22 @@
       vm.org = org;
       vm.isEditing = true;
 
+    }
 
+    vm.submitForm = submitForm;
+
+    function submitForm(){
+      var org = angular.copy(vm.org);
+
+      delete org.pivot
+      delete org.created_at
+      delete org.updated_at
+
+      Restangular.one('Organizacion', vm.org.id)
+      .customPUT(org)
+      .then(function(res){
+        vm.org = res.plain();
+      })
     }
 
     vm.openMenu = function($mdOpenMenu, ev) {

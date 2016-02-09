@@ -1,6 +1,6 @@
 div(class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope")
-  div(layout layout-column  layout-margin).informacion-organizaciones
-    div(layout="column" flex)
+  div(layout layout-column ).informacion-organizaciones
+    div(layout="column" flex  layout-margin)
       //- tarjeta buscar organizaciones
       div(layout)
         div(flex)
@@ -9,13 +9,15 @@ div(class="dashboard-container overlay-10 padded-content-page layout layout-colu
             md-icon(class="material-icons") add
             span Nueva Organización
 
-      div(ng-if="!vm.isCreating && !vm.isEditing")
-        md-autocomplete(class="margin-bottom-20" ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre" md-min-length="0" placeholder="Busca una organización...")
-          span(md-highlight-text="vm.searchText" md-highlight-flags="^i") {{item.nombre}}
+      //- div(ng-if="!vm.isCreating && !vm.isEditing")
+      //-   md-autocomplete(class="margin-bottom-20" ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre" md-min-length="0" placeholder="Busca una organización...")
+      //-     span(md-highlight-text="vm.searchText" md-highlight-flags="^i") {{item.nombre}}
 
       div(flex)
-        .md-whiteframe-z1.md-padding.md-card
-          div(layout flex ng-repeat="org in vm.orgList")
+        div(layout flex layout-align="center-center" ng-if="vm.waiting")
+          span.fa.fa-3x.fa-spin.fa-circle-o-notch
+        .md-whiteframe-z1.md-padding.md-card(ng-repeat="org in vm.orgList" ng-if="vm.orgList")
+          div(layout flex)
             div(flex)
               h4.md-subheader {{org.Titulo}} - {{org.RazonSocial}}
               p.md-body-2 Última actualizacion: {{org.updated_at | date:'dd/MM/yyyy'}}
@@ -25,7 +27,7 @@ div(class="dashboard-container overlay-10 padded-content-page layout layout-colu
 
 
       //- pre {{vm.form.$invalid| json:2}}
-      form(ng-show="vm.isCreating || vm.isEditing" layout="column" name="vm.form")
+      form(ng-show="vm.isCreating || vm.isEditing" layout="column" name="vm.form" layout-margin)
         //- tarjeta datos generales
         .md-whiteframe-z1.md-padding.md-card(flex)
           h4.md-subheader Datos Generales
