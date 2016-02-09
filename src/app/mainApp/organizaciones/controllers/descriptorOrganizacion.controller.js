@@ -162,23 +162,26 @@
                 }).catch(function(err){
                     toastr.error(vm.failureText,vm.failureStoreText);
                 });
-
             }
             else
             {
                 //Mandamos a grabar el tipo de descriptor
-                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
+                console.log(vm.descriptor);
+                Restangular.all('Organizacion').one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
                     //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successUpdateText);
+                    console.log(res.message);
+                    toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.tipoDescriptor.id = null;
-                    vm.tipoDescriptor.Nombre = null;
-                    vm.tipoDescriptor.Aplicable = null;
-                    vm.tipoDescriptor.Activo = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.FechaInicio = null;
+                    vm.descriptor.FechaTermino = null;
+                    vm.descriptor.NumeroRegistro = null;
+                    vm.descriptor.TipoResultado = null;
+                    vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
-                    Restangular.all('TipoDescriptor').customGET().then(function(res){
-                        vm.tiposDescriptor = res.TipoDescriptor;
-                    }).catch(function(err){
+                    Restangular.all('Organizacion').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptorPersonas = res.Descriptor;
+                    }).catch(function (err) {
 
                     });
                 }).catch(function(err){
@@ -189,6 +192,11 @@
 
         function edit(item)
         {
+            if(item!=undefined)
+            {
+                console.log(item.pivot);
+                vm.descriptor = item.pivot;
+            }
         }
 
 

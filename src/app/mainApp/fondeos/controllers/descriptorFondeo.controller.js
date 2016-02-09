@@ -25,6 +25,7 @@
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        vm.edit               = edit;
         vm.resetForm          = resetForm;
         vm.activate           = activate();
         vm.deleteItem         = deleteItem;
@@ -132,24 +133,32 @@
             })
         };
 
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                console.log(item.pivot);
+                vm.descriptor = item.pivot;
+            }
+        }
+
         /**
          * Create function to add item
          */
 
         $scope.addItem = function()
         {
-
             vm.descriptor.idProgramaFondeo = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
                 //console.log('Agregar Descriptor Programa de Fondeo');
                 //console.log(vm.descriptor);
-                Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function (res) {
                     //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successStoreText);
+                    toastr.success(vm.successText, vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.descriptor.id           = null;
+                    vm.descriptor.id = null;
                     vm.descriptor.idDescriptor = null;
-                    vm.descriptor.observaciones= null;
+                    vm.descriptor.observaciones = null;
                     vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
                     Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
@@ -157,33 +166,31 @@
                     }).catch(function (err) {
 
                     });
-                }).catch(function(err){
-                    toastr.error(vm.failureText,vm.failureStoreText);
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
                 });
 
             }
-            else
-            {
+            else {
                 //Mandamos a grabar el tipo de descriptor
-                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
+                Restangular.one('ProgramaFondeo').one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function (res) {
                     //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successUpdateText);
+                    toastr.success(vm.successText, vm.successUpdateText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.tipoDescriptor.id = null;
-                    vm.tipoDescriptor.Nombre = null;
-                    vm.tipoDescriptor.Aplicable = null;
-                    vm.tipoDescriptor.Activo = null;
+                    vm.descriptor.id = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.observaciones = null;
+                    vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
-                    Restangular.all('TipoDescriptor').customGET().then(function(res){
-                        vm.tiposDescriptor = res.TipoDescriptor;
-                    }).catch(function(err){
+                    Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptoresFondeo = res.Descriptor;
+                    }).catch(function (err) {
 
                     });
-                }).catch(function(err){
-                    toastr.error(vm.failureText,vm.failureStoreText);
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
-
         };
 
 
