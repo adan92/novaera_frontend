@@ -12,7 +12,9 @@
             getProjectById: getProjectById,
             saveProject:saveProject,
             updateProject:updateProject,
-            getProjectTransTecById:getProjectTransTecById
+            getProjectTransTecById:getProjectTransTecById,
+            getEtapasProject:getEtapasProject,
+            saveEtapasProject:saveEtapasProject
         };
         function getPerfil() {
             var profile;
@@ -23,6 +25,45 @@
                 $state.go('triangular.admin-default.profiles');
                 toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
             }
+        }
+        function saveEtapasProject(request){
+            var profile=getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('EtapaProyecto').customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(false);
+                });
+            }else{
+                Restangular.all('Proyecto').all('EtapaProyecto').one('Organizacion',profile.id).customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(false);
+                });
+            }
+            return deferred.promise;
+        }
+        function getEtapasProject(id){
+            var profile=getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').one('EtapaProyecto',id).customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            } else {
+                Restangular.all('Proyecto').one('EtapaProyecto',id).one('Organizacion',profile.id).customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
         }
         function getProjectTransTecById(id){
             var profile=getPerfil();

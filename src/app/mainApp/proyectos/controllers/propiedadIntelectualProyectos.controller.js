@@ -65,7 +65,7 @@
                 TransferenciaTecnologica:vm.selectedPropiedad
             };
             var promise = null;
-            if(vm.selectedPropiedad.id!=null)
+            if(vm.selectedPropiedad.id==null || vm.selectedPropiedad.id==undefined)
             {
                 promise = Operation.saveOperation(request);
                 promise.then(function (res) {
