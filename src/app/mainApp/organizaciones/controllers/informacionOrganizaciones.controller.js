@@ -649,7 +649,7 @@
 
     function activate() {
       vm.isEditing = false;
-      vm.isCreating = true;
+      vm.isCreating = false;
 
       vm.isCreatingPerson = false;
       vm.isViewingPerson = false;
