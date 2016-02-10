@@ -6,10 +6,10 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('revisarProyectosController', revisarProyectosController);
+        .controller('revisarProyectosAdminController', revisarProyectosAdminController);
 
     /* @ngInject */
-    function revisarProyectosController(registroProyecto) {
+    function revisarProyectosAdminController(Admin) {
         var vm = this;
         vm.solicitudes=[];
         loadProjects();
@@ -147,7 +147,7 @@
         vm.selectedSolicitudes = [];
 
         function loadProjects(){
-            var promise=registroProyecto.getStatusProjectsByProfile();
+            var promise=Admin.getStatusProjects();
             promise.then(function(res){
                 console.log(res);
             });

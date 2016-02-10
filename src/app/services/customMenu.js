@@ -74,7 +74,13 @@
                 name: 'Validar Proyectos',
                 state: 'triangular.admin-default.validarProyectos',
                 type: 'link'
+              },
+              {
+                name: 'Revisar estado de proyectos',
+                state: 'triangular.admin-default.estatusProjectsAll',
+                type: 'link'
               }
+
 
             ]
 
@@ -151,7 +157,8 @@
               }
 
             ]
-          }
+          },
+
 
         ]
       };
