@@ -639,7 +639,19 @@
 
     activate();
 
+    // Métodos para la Organización
+    vm.editOrg = editOrg;
     vm.resetForm = resetForm;
+    vm.submitForm = submitForm;
+
+    // Métodos para las personas de la Organización
+    vm.viewPerson = viewPerson;
+    vm.addPerson = addPerson;
+
+
+    // Abrir el menú contextual de las personas
+    vm.openMenu = openMenu;
+    ////////////
 
     function resetForm() {
       vm.org = {};
@@ -686,8 +698,10 @@
         .customGET()
         .then(function(res) {
           vm.waiting = false;
+
           vm.orgList = res.plain().Organizacion;
 
+          // castear como Date los
           for (var i in vm.orgList) {
             vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
             vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
@@ -695,12 +709,9 @@
 
         });
 
-
-
-
     }
 
-    vm.editOrg = function(org, index) {
+    function editOrg(org, index) {
       vm.waiting = true;
       vm.indexEdited = index;
 
@@ -716,17 +727,25 @@
         }, function(err) {
           $log.err('Error!', err.status);
         })
+    }
+
+    // acciones del botón guardar
+    function submitForm() {
+      var org = angular.copy(vm.org);
+      vm.org.id ? update(org) : create(org);
+    }
+
+    function create(org) {
 
     }
 
-    vm.submitForm = submitForm;
-
-    function submitForm() {
-      var org = angular.copy(vm.org);
-
+    function update(org) {
       delete org.pivot
       delete org.created_at
       delete org.updated_at
+
+      vm.waiting = true;
+      vm.submitInProgress = true;
 
       Restangular.one('Organizacion', vm.org.id)
         .customPUT(org)
@@ -735,21 +754,20 @@
           vm.orgList[vm.indexEdited] = res.plain();
 
           showAlert('success');
+          vm.submitInProgress = false;
         }, function(res) {
+          vm.submitInProgress = false;
           showAlert('error', res.status);
-        })
+        });
     }
 
-    vm.openMenu = function($mdOpenMenu, ev) {
-      // var originatorEv = ev;
+
+
+    function openMenu($mdOpenMenu, ev) {
       $mdOpenMenu(ev);
     }
 
     function showAlert(result, errCode) {
-      // Appending dialog to document.body to cover sidenav in docs app
-      // Modal dialogs should fully cover application
-      // to prevent interaction outside of dialog
-
       var messages = {
         success: {
           title: 'Información guardada correctamente',
@@ -762,25 +780,16 @@
       }
 
       var msg = messages[result];
+
       $mdDialog.show(
         $mdDialog.alert()
         .parent(angular.element(document.querySelector('#popupContainer')))
         .clickOutsideToClose(true)
         .title(msg.title)
         .content(msg.content)
-        .ariaLabel('Alert Dialog Demo')
         .ok('Continuar')
-
-        // .targetEvent(ev)
       );
     }
-
-    vm.viewPerson = function() {
-      // console.log('me quieren ver!');
-    }
-
-    vm.viewPerson = viewPerson;
-    vm.addPerson = addPerson;
 
 
     function viewPerson(person) {
@@ -788,18 +797,16 @@
       vm.isAddingPerson = false;
 
       vm.viewingPerson = person;
-
-
     }
 
     function addPerson(personId) {
       vm.isAddingPerson = true;
       vm.isViewingPerson = false;
-
-
     }
 
-    function removePerson() {}
+    function removePerson(personId){
+
+    }
 
   }
 })();
