@@ -8,28 +8,9 @@
     /* @ngInject */
     function  convocatoriaFondeosController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
-        vm.programasfondeo = [
-            {
-                id: '1',
-                title: 'Programa Fondeo 1'
+        vm.programasfondeo;
 
-            },{
-                id: '1',
-                title: 'Programa Fondeo 2'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 3'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 4'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 5'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 6'
-            }
-        ];
+
 
 
         vm.showmodalidad=false;

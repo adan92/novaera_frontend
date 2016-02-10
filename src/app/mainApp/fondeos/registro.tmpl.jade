@@ -8,9 +8,8 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                     div(flex layout='column')
                          div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
                                 h2(translate='') FONDEOS.WIZARD.TITLE
-                                h2
-                                    |{{vm.completed}}%
-                                    span(translate='') FONDEOS.WIZARD.COMPLETED
+                                h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                                h2 {{triWizard.progress}}%
                          div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
                             h3(translate='') {{vm.steps[triWizard.currentStep]}}
                             h3(translate='') {{vm.FondeoLabel}}
@@ -27,19 +26,19 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                 div(layout='column', flex='')
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TITLE
-                                        input(name='titulo', required='', type='text', ng-model='vm.Fondeo.titulo')
+                                        input(name='titulo', required='', type='text', ng-model='vm.fondeo.Titulo')
                                         div(ng-messages='projectInfo.titulo.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TOTAL
-                                        textarea(name='descripcion', required='', ng-model='vm.Fondeo.fondo_Total', md-maxlength='10')
+                                        textarea(name='descripcion', required='', ng-model='vm.fondeo.FondoTotal', md-maxlength='10')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TARGET
-                                        textarea(name='target', required='', ng-model='vm.Fondeo.target', md-maxlength='500')
+                                        textarea(name='target', required='', ng-model='vm.fondeo.PublicoObjetivo', md-maxlength='500')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
@@ -54,7 +53,7 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                             form(name='fondeoFondeoDesc', tri-wizard-form='')
                                 div(flex='', layout='column', layout-wrap='')
                                     md-input-container
-                                        div(text-angular='', required='', ng-model='vm.Fondeo.fondeoDesc', ta-toolbar="[['bold','italics','ul','ol']]")
+                                        div(text-angular='', required='', ng-model='vm.fondeo.Justificacion', ta-toolbar="[['bold','italics','ul','ol']]")
                                         label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                         md-divider
                             div(layout='column', flex='')
@@ -70,7 +69,7 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                         .wizard.layout-padding
                             form(name='fondeoSupport', tri-wizard-form='')
                                 md-input-container
-                                    div(text-angular='', required='', ng-model='vm.fondeo.support', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    div(text-angular='', required='', ng-model='vm.fondeo.CriteriosElegibilidad', ta-toolbar="[['bold','italics','ul','ol']]")
                                     label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                     md-divider
                             div(layout='column', flex='')
@@ -97,5 +96,5 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 3', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 3', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
-                md-button.md-accent.md-raised(ng-click='triWizard.currentStep = 3', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 3 ', translate='FONDEOS.WIZARD.SEND')
+                md-button.md-accent.md-raised(ng-click='vm.registrarFondeo()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 3 ', translate='FONDEOS.WIZARD.SEND')
     // wizard
