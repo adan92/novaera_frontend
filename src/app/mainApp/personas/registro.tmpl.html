@@ -141,7 +141,7 @@
                                 <label  translate>PERSONAS.WIZARD.COUNTRY</label>
                                 <md-select ng-model="vm.selectedPais" name="pais" md-on-close="vm.getEstados()">
 
-                                    <md-option ng-repeat="pais in vm.paises" value="{{pais.id}}">
+                                    <md-option ng-repeat="pais in vm.paises.Pais" value="{{pais.id}}">
                                         {{pais.Nombre}}
                                     </md-option>
                                 </md-select>

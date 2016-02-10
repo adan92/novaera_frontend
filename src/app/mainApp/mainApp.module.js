@@ -15,7 +15,7 @@
            'app.mainApp.admin',
            'app.mainApp.explotacionInformacion',
            'app.mainApp.descriptor',
-            'app.mainApp.profile'
+           'app.mainApp.profile'
 
         ]).filter('offset', function() {
         return function (input, start) {

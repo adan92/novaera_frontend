@@ -1,8 +1,9 @@
 {
   "MENU": {
     "EXPINFO": {
+      "EXPINFO1": "Manejo de Información",
       "EXPINFO2": "Crea tu Propia consulta",
-      "EXPINFO1": "Manejo de Información"
+      "QUERY_DESCRIPTORS": "Consulta de Descriptores"
     }
   },
   "CONTENT":{

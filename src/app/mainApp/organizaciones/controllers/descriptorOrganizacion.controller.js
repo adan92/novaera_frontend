@@ -118,7 +118,8 @@
          */
         function deleteItem(item){
             console.log('deleting');
-            Restangular.all('Organizacion').one('Descriptor',item.pivot.idOrganizacion).all(item.id).customDELETE().then(function(res){
+            console.log(item);
+            Restangular.all('Organizacion').one('Descriptor',item.pivot.idOrganizacion).all(item.pivot.id).customDELETE().then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Organizacion').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                     vm.descriptorPersonas = res.Descriptor;

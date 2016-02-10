@@ -1,4 +1,6 @@
 .tmp
-bower_components
-node_modules
+.env
+bower_components 
+node_modules 
 .idea/
+dist/  

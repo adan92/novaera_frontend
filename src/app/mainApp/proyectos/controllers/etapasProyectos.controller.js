@@ -9,7 +9,7 @@
         .controller('etapasProyectosController', etapasProyectosController);
 
     /* @ngInject */
-    function etapasProyectosController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function etapasProyectosController(Proyecto,$scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
         vm.activate                 = activate();
@@ -47,10 +47,9 @@
          */
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -66,13 +65,12 @@
         }
 
         function selectedItemChange(){
-            Restangular.all('Proyecto').one('EtapaProyecto',vm.selectedItem.id).customGET().then(function(res){
+            var promise=Proyecto.getEtapasProject(vm.selectedItem.id);
+            promise.then(function(res){
                 vm.data = res.EtapaProyecto;
                 console.log(vm.data);
                 formatEtapas(vm.taskColor);
                 console.log(vm.data);
-
-
             }).catch(function(err){
 
             });
@@ -87,11 +85,16 @@
 
         function updateFrom()
         {
-            vm.newTarea.from = moment(vm.newTarea.newFrom);
+            var a=moment(vm.newTarea.newFrom);//.format('YYYY-MM-DD');
+
+            console.log(toType(a));
+            vm.newTarea.from = a;
         }
         function updateTo()
         {
-            vm.newTarea.to = moment(vm.newTarea.newTo);
+            var b = moment(vm.newTarea.newTo);//.format('YYYY-MM-DD');
+            console.log(b);
+            vm.newTarea.to = b;
         }
 
         /**
@@ -138,14 +141,19 @@
 
         $scope.clickTask = function(taskModel) {
             vm.newTarea = taskModel;
+            /*console.log( toType( moment(new Date(vm.newTarea.to))));
+            vm.newTarea.newTo = moment(vm.newTarea.to).format('DD/MMM/YYYY');
+            vm.newTarea.newFrom =  moment(vm.newTarea.from).format('DD/MMM/YYYY');*/
             vm.newTarea.newTo = vm.newTarea.to.toDate();
-            vm.newTarea.newFrom = vm.newTarea.from.toDate();
+            vm.newTarea.newFrom =   vm.newTarea.from.toDate();
             if(vm.newTarea.color==vm.taskColor)
             {
                 vm.newTarea.color = vm.editedTaskColor;
             }
         };
-
+        function toType(obj) {
+            return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+        }
         $scope.removeTask = function(taskModel) {
             vm.idTask=taskModel.id;
             for(var i=0;i<vm.data.length;i++)
@@ -180,12 +188,15 @@
 
         function saveEtapas()
         {
+            //convertFechas();
             var request = {
                 idProyecto:vm.selectedItem.id,
                 EtapaProyecto:vm.data
             };
+            console.log(request);
             vm.disableRequest =true;
-            Restangular.all('EtapaProyecto').customPOST(request).then(function(res){
+            var promise=Proyecto.saveEtapasProject(request);
+            promise.then(function(res){
                 vm.data = null;
                 vm.data = res.EtapaProyecto;
                 formatEtapas(vm.taskColor);
@@ -197,7 +208,33 @@
             });
 
         }
+        function convertFechas(){
+            angular.forEach(vm.data,function(item,key){
+                var total=item.tasks.length;
+                var tasks=[];
 
+                angular.forEach(item.tasks,function(task,key){
+                    console.log(key);
+
+                    var to=moment(task.to).format('YYYY-MM-DD');
+                    var from=moment(task.from).format('YYYY-MM-DD');
+                    var tarea = {
+                        to:to,
+                        from:from,
+                        name:task.name
+                    };
+                    console.log(JSON.stringify(tarea));
+                    /*var tarea=new Object();
+                    tarea.to=to;
+                    tarea.from=from;
+                    tarea.name=task.name;*/
+                    tasks.push(JSON.stringify(tarea));
+                });
+                item.tasks=tasks;
+
+            });
+            console.log(vm.data);
+        }
 
 
         /**
