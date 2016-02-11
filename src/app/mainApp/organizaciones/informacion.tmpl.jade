@@ -1,0 +1,133 @@
+div(class="dashboard-container overlay-10 padded-content-page layout layout-column ng-scope")
+  div(layout layout-column).informacion-organizaciones
+    div(layout="column" flex)
+      //- tarjeta buscar organizaciones
+      div(layout)
+        div(flex)
+          h1 Organizaciones
+        div(ng-if="!vm.isCreating && !vm.isEditing")
+          md-button.md-primary.md-raised(ng-click="vm.isCreating = true")
+            md-icon(class="material-icons") add
+            span Nueva Organización
+      div(ng-if="!vm.isCreating && !vm.isEditing")
+        md-autocomplete(class="margin-bottom-20" ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre" md-min-length="0" placeholder="Busca una organización...")
+          span(md-highlight-text="vm.searchText" md-highlight-flags="^i") {{item.nombre}}
+
+      h3.md-header(ng-if="vm.isCreating === true") Nueva Organización
+      h3.md-header(ng-if="vm.isEditing === true") Modificar Organización
+
+      //- pre {{vm.form.$invalid| json:2}}
+      form(ng-show="vm.isCreating || vm.isEditing" layout="column" layout-margin name="vm.form")
+        //- tarjeta datos generales
+        .md-whiteframe-z1.md-padding.md-card(flex)
+
+          div(layout layout-sm="column")
+            md-input-container(flex).nombre-organizacion.md-no-float
+              label Nombre de la Organización
+              input(type="text" ng-model="vm.org.Titulo" required name="Titulo")
+
+          div(layout layout-sm="column")
+            md-input-container(flex)
+              label Misión
+              textarea(ng-model="vm.org.Mision" required rows="3" md-maxlength="200")
+
+            md-input-container(flex)
+              label Visión
+              textarea(ng-model="vm.org.Vision" required rows="3" md-maxlength="200")
+
+          div(layout layout-sm="column")
+            md-input-container(flex)
+              label Descripción
+              textarea(ng-model="vm.org.Descripcion" required rows="5" md-maxlength="400")
+
+        .md-whiteframe-z1.md-padding.md-card(flex)
+          h4.md-subheader Información Legal
+          div(layout layout-sm="column")
+            md-input-container(flex)
+              label Razón Social
+              input(type="text" ng-model="vm.org.RazonSocial" required)
+
+            md-input-container(flex)
+              label RFC
+              input(type="text" ng-model="vm.org.RFC" required)
+
+            md-input-container(flex)
+              label Giro de la Empresa
+              input(type="text" ng-model="vm.org.Giro" required)
+
+          div(layout layout-sm="column")
+
+            md-input-container(flex)
+              label Representante Legal
+              input(type="text" ng-model="vm.org.RepresentanteLegal" required)
+
+
+        .md-whiteframe-z1.md-padding.md-card(flex ng-show="vm.isEditing")
+          h4.md-subheader Validaciones
+          div(layout layout-sm="column")
+            div(ng-repeat="validation in vm.validations" flex)
+              div.text-success(ng-if="vm.org[validation.field]" layout="column" layout-align="center-center" flex)
+                md-icon.material-icon.text-success.md-48 check
+                p {{validation.label.success}}
+              div.text-danger(ng-if="!vm.org[validation.field]" layout="column" layout-align="center-center" flex)
+                md-icon.material-icon.text-danger.md-48 error
+                p {{validation.label.error}}
+              md-checkbox.md-primary.validation-check(ng-if="vm.isEditing" ng-model="vm.org[validation.field]") Marcar este campo como válido
+
+        .md-whiteframe-z1.md-padding.md-card(flex)
+          h4.md-subheader Documentación
+          p.caption Para registrar a la organización debe incluirse la siguiente documentación:
+          div(layout layout-sm="column")
+            div(flex layout="column" layout-align="start-center")
+              p.md-subhead Acta Constitutiva
+              input(type="file" ng-model="vm.ActaFile")
+            div(flex layout="column" layout-align="start-center")
+              p.md-subhead Registro Federal de Contribuyentes (RFC)
+              input(type="file" ng-model="vm.RFCFile")
+            div(flex layout="column" layout-align="start-center")
+              p.md-subhead RENIECyT
+              input(type="file" ng-model="vm.RENIECyTFile")
+
+        div(layout flex layout-sm="column")
+          .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="40")
+            h4.md-subheader Personas en la Organización
+            md-list
+              md-list-item.md-3-line.md-long-text( ng-repeat="persona in vm.personas")
+                .md-list-item-text
+                  h3 {{persona.Nombre}} {{persona.ApellidoP}} {{persona.ApellidoM}}
+                  h4 {{persona.pivot.Puesto}} desde {{persona.pivot.FechaInicio | date:'dd/MM/yyyy'}}
+                  p {{persona.Descripcion ? persona.Descripcion : 'Sin Descripción'}}
+                md-menu.md.secondary(md-position-mode="target-right target")
+                  md-button.md-icon-button( ng-click="vm.openMenu($mdOpenMenu, $event)")
+                    md-icon.material-icon more_vert
+                  md-menu-content(width="2")
+                    md-menu-item
+                      md-button(ng-click="vm.viewPerson(persona)" md-menu-align-target)
+                        md-icon.material-icon person
+                        | Ver Persona
+                    //- md-menu-item
+                    //-   md-button(ng-click="vm.editPerson(persona)" md-menu-align-target)
+                    //-     md-icon.material-icon edit
+                    //-     | Editar Persona
+                    md-menu-divider
+                    md-menu-item
+                      md-button(ng-click="vm.removePerson(persona)" md-menu-align-target)
+                        md-icon.material-icon close
+                        | Eliminar Persona
+            div(layout layout-align="end-center")
+              md-button.md-raised.md-primary(ng-click="vm.selectAddPerson()")
+                md-icon.material-icon person_add
+                | Agregar Persona
+
+
+          .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="60" ng-show="vm.isAddingPerson && !vm.isViewingPerson")
+            h4.md-subheader Crear un contacto
+            p Crear un contacto
+
+          .md-whiteframe-z1.md-padding.md-card(flex flex-gt-sm="60" ng-show="!vm.isAddingPerson && vm.isViewingPerson")
+            h4.md-subheader Revisar una persona
+            pre {{vm.viewingPerson | json:2}}
+
+        div.md-padding(layout layout-align="end-center")
+          md-button.md-raised(ng-click="vm.resetForm()") Cancelar
+          md-button.md-primary.md-raised(ng-click="vm.submitForm()" ng-disabled="vm.form.$invalid === true") Guardar

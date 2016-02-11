@@ -25,6 +25,7 @@
         vm.querySearch        = querySearch;
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
+        vm.edit               = edit;
         vm.resetForm          = resetForm;
         vm.activate           = activate();
         vm.deleteItem         = deleteItem;
@@ -35,7 +36,6 @@
         function activate(){
             Restangular.all('ProgramaFondeo').customGET().then(function(res){
                 vm.fondeos = res.ProgramaFondeo;
-                console.log(vm.fondeos);
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
                 }).catch(function(err){
@@ -60,13 +60,9 @@
 
         function selectedItemChange()
         {
-            console.log(vm.selectedItem);
             if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
-                console.log("Pre-Descriptores:");
                 Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
-                    console.log("Descriptoreindesds:");
                     vm.descriptoresFondeo = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -117,8 +113,7 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log(item);
-            Restangular.all('ProgramaFondeo').one('Descriptor',item.pivot.ProgramaFondeo_id).all(item.id).customDELETE().then(function(res){
+            Restangular.all('ProgramaFondeo').one('Descriptor',item.pivot.idProgramaFondeo).all(item.pivot.id).customDELETE().then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptoresFondeo = res.Descriptor;
@@ -130,23 +125,29 @@
             })
         };
 
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.descriptor = item.pivot;
+            }
+        }
+
         /**
          * Create function to add item
          */
 
         $scope.addItem = function()
         {
-            vm.descriptor.ProgramaFondeo_id = vm.selectedItem.id;
+            vm.descriptor.idProgramaFondeo = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
-                console.log('Descriptor Organizacion');
-                console.log(vm.descriptor);
-                Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function(res){
+                Restangular.all('ProgramaFondeo').all('Descriptor').customPOST(vm.descriptor).then(function (res) {
                     //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successStoreText);
+                    toastr.success(vm.successText, vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.descriptor.id           = null;
-                    vm.descriptor.Descriptor_id = null;
-                    vm.descriptor.observaciones= null;
+                    vm.descriptor.id = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.observaciones = null;
                     vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
                     Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
@@ -154,39 +155,32 @@
                     }).catch(function (err) {
 
                     });
-                }).catch(function(err){
-                    toastr.error(vm.failureText,vm.failureStoreText);
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
                 });
 
             }
-            else
-            {
+            else {
                 //Mandamos a grabar el tipo de descriptor
-                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
+                Restangular.one('ProgramaFondeo').one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function (res) {
                     //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successUpdateText);
+                    toastr.success(vm.successText, vm.successUpdateText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.tipoDescriptor.id = null;
-                    vm.tipoDescriptor.Nombre = null;
-                    vm.tipoDescriptor.Aplicable = null;
-                    vm.tipoDescriptor.Activo = null;
+                    vm.descriptor.id = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.observaciones = null;
+                    vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
-                    Restangular.all('TipoDescriptor').customGET().then(function(res){
-                        vm.tiposDescriptor = res.TipoDescriptor;
-                    }).catch(function(err){
+                    Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptoresFondeo = res.Descriptor;
+                    }).catch(function (err) {
 
                     });
-                }).catch(function(err){
-                    toastr.error(vm.failureText,vm.failureStoreText);
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
-
         };
-
-
-
-
-
     }
 
     function matcher()

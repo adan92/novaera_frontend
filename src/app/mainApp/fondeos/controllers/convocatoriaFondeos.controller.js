@@ -8,13 +8,31 @@
     /* @ngInject */
     function  convocatoriaFondeosController($scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
-        $scope.fondeo = {};
-        $scope.fondeos2 = ('Programa de Fondeo 1, Programa de Fondeo 3,Programa de Fondeo 4,Programa de Fondeo 2,'+
-        ' Programa de Fondeo 5').split(',').map(function(fondeo2) {
-                return {abbrev: fondeo2};
-            });
+        vm.programasfondeo = [
+            {
+                id: '1',
+                title: 'Programa Fondeo 1'
+
+            },{
+                id: '1',
+                title: 'Programa Fondeo 2'
+            },{
+                id: '1',
+                title: 'Programa Fondeo 3'
+            },{
+                id: '1',
+                title: 'Programa Fondeo 4'
+            },{
+                id: '1',
+                title: 'Programa Fondeo 5'
+            },{
+                id: '1',
+                title: 'Programa Fondeo 6'
+            }
+        ];
 
 
+        vm.showmodalidad=false;
         vm.todos = [
             {description: 'Modalidad 1',date:'11/01/2016',date2:'11/02/2016' ,priority: 'Persona Fisica', selected: true},
             {description: 'Modalidad 2', date:'11/01/2016',date2:'11/04/2016' ,priority: 'Persona Fisica', selected: false},

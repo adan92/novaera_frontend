@@ -1,0 +1,40 @@
+div(flex-gt-md="75" layout layout-align="center-start" flex="100")
+  div(layout="column" flex-gt-md="75" flex="100")
+
+
+    //- h3.md-header Consulta de Descriptores
+    div.md-whiteframe-z1(flex layout="column" layout-padding)
+      div(layout="row")
+        div(flex)
+          md-input-container
+            label ¿Qué descriptor estás buscando?
+            input(type="text" ng-model="vm.search.term")
+        div(layout="column" layout-align="center" ng-if="!vm.advancedSearch")
+          md-button.md-primary.md-raised Buscar
+
+      div(layout layout-align="end" ng-if="!vm.advancedSearch")
+        h4.md-subheader(style="cursor:pointer")
+          a(ng-click="vm.advancedSearch = !vm.advancedSearch")
+            |  Búsqueda Avanzada
+            span.fa(ng-class="{'fa-chevron-down': vm.advancedSearch, 'fa-chevron-right':!vm.advancedSearch}" style="margin-left:5px")
+      div(ng-if="vm.advancedSearch === true")
+        div(layout layout-sm="column")
+          fieldset.standard
+            legend Categorías aplicables
+            label(ng-repeat="item in vm.categories")
+              md-checkbox.md-primary(ng-checked="vm.exists(item, vm.search.categories)" ng-click="vm.toggle(item, vm.search.categories)" ng-value="{{item}}") {{item}}
+
+          fieldset.standard
+            legend Estatus
+            md-radio-group(ng-model="vm.search.status")
+              md-radio-button.md-primary(value="any") Todos
+              md-radio-button.md-primary(value="active") Sólo activos
+              md-radio-button.md-primary(value="inactive") Sólo inactivos
+
+        div(layout layout-align="end-center")
+          md-button.md-raised(ng-click="vm.advancedSearch = false") Cancelar
+          md-button.md-primary.md-raised Buscar
+
+
+
+

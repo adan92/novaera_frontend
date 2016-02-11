@@ -43,7 +43,6 @@
                 vm.organizaciones = res.Organizacion;
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function(err){
                 });
             }).catch(function(err){
@@ -63,12 +62,9 @@
 
         function selectedItemChange()
         {
-            console.log("El Item cambio a: ");
-            console.log(vm.selectedItem);
             if(vm.selectedItem.id != null) {
                 Restangular.all('Organizacion').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -117,12 +113,10 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log('deleting');
-            Restangular.all('Organizacion').one('Descriptor',item.pivot.idOrganizacion).all(item.id).customDELETE().then(function(res){
+            Restangular.all('Organizacion').one('Descriptor',item.pivot.idOrganizacion).all(item.pivot.id).customDELETE().then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Organizacion').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function(err){
 
                 });
@@ -139,11 +133,7 @@
         {
             vm.descriptor.idOrganizacion = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
-                console.log('Descriptor Organizacion');
-                console.log(vm.descriptor);
                 Restangular.all('Organizacion').all('Descriptor').customPOST(vm.descriptor).then(function(res){
-                    //Mandamos el mensaje de éxito
-                    console.log(res.message);
                     toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
                     vm.descriptor.idDescriptor = null;
@@ -161,23 +151,22 @@
                 }).catch(function(err){
                     toastr.error(vm.failureText,vm.failureStoreText);
                 });
-
             }
             else
             {
-                //Mandamos a grabar el tipo de descriptor
-                Restangular.one('TipoDescriptor',vm.tipoDescriptor.id).customPUT(vm.tipoDescriptor).then(function(res){
-                    //Mandamos el mensaje de éxito
-                    toastr.success(vm.successText,vm.successUpdateText);
+                Restangular.all('Organizacion').one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                    toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
-                    vm.tipoDescriptor.id = null;
-                    vm.tipoDescriptor.Nombre = null;
-                    vm.tipoDescriptor.Aplicable = null;
-                    vm.tipoDescriptor.Activo = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.FechaInicio = null;
+                    vm.descriptor.FechaTermino = null;
+                    vm.descriptor.NumeroRegistro = null;
+                    vm.descriptor.TipoResultado = null;
+                    vm.resetForm();
                     //Pedimos la lista de descriptores de la BD
-                    Restangular.all('TipoDescriptor').customGET().then(function(res){
-                        vm.tiposDescriptor = res.TipoDescriptor;
-                    }).catch(function(err){
+                    Restangular.all('Organizacion').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptorPersonas = res.Descriptor;
+                    }).catch(function (err) {
 
                     });
                 }).catch(function(err){
@@ -188,6 +177,10 @@
 
         function edit(item)
         {
+            if(item!=undefined)
+            {
+                vm.descriptor = item.pivot;
+            }
         }
 
 

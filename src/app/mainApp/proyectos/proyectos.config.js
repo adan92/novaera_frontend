@@ -28,9 +28,9 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
-                    requireLogin: true,
+                    requireLogin: true
                 }
 
             })
@@ -48,7 +48,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true,
                     requireValidation:true,
@@ -70,7 +70,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -90,7 +90,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -110,7 +110,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -130,7 +130,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -150,7 +150,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -170,7 +170,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -190,7 +190,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -210,7 +210,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -229,7 +229,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -249,7 +249,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -268,7 +268,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -287,7 +287,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
@@ -306,7 +306,7 @@
                         toolbarClass: 'none',
                         contentClass: '',
                         sideMenuSize: 'full',
-                        footer: false
+                        footer: true
                     },
                     requireLogin: true
                 }
