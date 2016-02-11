@@ -49,6 +49,7 @@
         {
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
+                console.log(res);
                 vm.proyectos = res;
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
