@@ -43,7 +43,6 @@
                 vm.organizaciones = res.Organizacion;
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function(err){
                 });
             }).catch(function(err){
@@ -63,12 +62,9 @@
 
         function selectedItemChange()
         {
-            console.log("El Item cambio a: ");
-            console.log(vm.selectedItem);
             if(vm.selectedItem.id != null) {
                 Restangular.all('Organizacion').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -117,13 +113,10 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log('deleting');
-            console.log(item);
             Restangular.all('Organizacion').one('Descriptor',item.pivot.idOrganizacion).all(item.pivot.id).customDELETE().then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Organizacion').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function(err){
 
                 });
@@ -140,11 +133,7 @@
         {
             vm.descriptor.idOrganizacion = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
-                console.log('Descriptor Organizacion');
-                console.log(vm.descriptor);
                 Restangular.all('Organizacion').all('Descriptor').customPOST(vm.descriptor).then(function(res){
-                    //Mandamos el mensaje de éxito
-                    console.log(res.message);
                     toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
                     vm.descriptor.idDescriptor = null;
@@ -165,11 +154,7 @@
             }
             else
             {
-                //Mandamos a grabar el tipo de descriptor
-                console.log(vm.descriptor);
                 Restangular.all('Organizacion').one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
-                    //Mandamos el mensaje de éxito
-                    console.log(res.message);
                     toastr.success(vm.successText,vm.successStoreText);
                     //Limpiamos las variables ligadas a formulario
                     vm.descriptor.idDescriptor = null;
@@ -194,7 +179,6 @@
         {
             if(item!=undefined)
             {
-                console.log(item.pivot);
                 vm.descriptor = item.pivot;
             }
         }

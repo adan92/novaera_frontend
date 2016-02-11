@@ -32,7 +32,6 @@
         function activate(){
             Restangular.all('Persona').customGET().then(function(res){
                 vm.personas = res.Personas;
-                console.log(vm.personas);
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
                 }).catch(function(err){
@@ -58,13 +57,10 @@
 
         function selectedItemChange()
         {
-            console.log("El Item cambio a: ");
-            console.log(vm.selectedItem);
             if(vm.selectedItem.id != null) {
 
                 Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -113,17 +109,10 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log("Eliminar Descriptor");
-            console.log(item);
-            //console.log("Persona/Descriptor/"+item.pivot.id+item.pivot.idPersona);
-
             Restangular.all('Persona').one('Descriptor',item.pivot.id).all(item.pivot.idPersona).customDELETE().then(function(res){
-            //Restangular.all('Persona').one('Descriptor',item.pivot.id).customDELETE().then(function(res){
-                    console.log(res.Descriptor);
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -137,7 +126,6 @@
         {
             if(item!=undefined)
             {
-                console.log(item.pivot);
                 vm.descriptor = item.pivot;
             }
         }
@@ -156,7 +144,6 @@
                     vm.resetForm();
                     Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -167,7 +154,6 @@
             else
             {
                 //Mandamos a grabar el tipo de descriptor
-                console.log(vm.persona);
                 Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customPUT(vm.descriptor).then(function(res){
                     //Mandamos el mensaje de éxito
                     toastr.success(vm.successText,vm.successUpdateText);
@@ -180,7 +166,6 @@
                     vm.resetForm();
                     Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
