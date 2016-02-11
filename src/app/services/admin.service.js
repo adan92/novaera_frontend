@@ -18,7 +18,8 @@
                  Restangular.all('Supervisor').all('RegistroProyecto').customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    deferred.reject(false);
+                     console.log(err);
+                     deferred.reject(false);
                 });
 
             return deferred.promise;

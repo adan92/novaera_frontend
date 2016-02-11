@@ -14,7 +14,7 @@
         vm.solicitudes=[];
         loadProjects();
 
-        vm.solicitudes = [
+        /*vm.solicitudes = [
             {
                 id: 1,
                 proyecto: "Proyecto 2",
@@ -139,7 +139,7 @@
             },
 
 
-        ];
+        ];*/
 
 
         vm.selectedItem = null;
@@ -149,7 +149,8 @@
         function loadProjects(){
             var promise=Admin.getStatusProjects();
             promise.then(function(res){
-                console.log(res);
+                console.log(res.RegistroProyectos);
+                vm.solicitudes=res.RegistroProyectos;
             });
         }
     }

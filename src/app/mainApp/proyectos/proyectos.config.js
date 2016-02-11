@@ -314,9 +314,9 @@
             })
             .state('triangular.admin-default.estatusProjectsAll',{
 
-                url: '/fondeos_descriptor',
+                url: '/revisarProyectosAdmin',
                 // set the html template to show on this page
-                templateUrl: 'app/mainApp/proyectos/descriptor_fondeo.tmpl.html',
+                templateUrl: 'app/mainApp/proyectos/revisarProyectosAdmin.tmpl.html',
                 // set the controller to load for this page
                 controller: 'revisarProyectosAdminController',
                 controllerAs: 'vm',
