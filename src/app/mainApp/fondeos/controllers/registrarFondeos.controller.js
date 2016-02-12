@@ -6,7 +6,7 @@
         .controller('registrarFondeosController', registrarFondeosController);
 
     /* @ngInject */
-    function registrarFondeosController($scope, $timeout, $mdToast, $rootScope, $state, Fondeo) {
+    function registrarFondeosController($scope, $timeout, $rootScope, Fondeo, toastr, Restangular, $state, Translate) {
 
         var vm = this;
        //Var form
@@ -18,6 +18,8 @@
             "PublicoObjetivo": null,
             "FondoTotal": null,
             "Justificacion": null,
+            "Descripcion": null,
+            "RubrosDeApoyo": null,
             "CriteriosElegibilidad": null,
             "created_at": null,
             "updated_at": null
@@ -26,7 +28,7 @@
         vm.Fondeos=null;
         //variables visibilidad o para controles
         vm.isDisabled         = false;
-
+        vm.isNewFondeo = true;
             //Pasos wizard
         vm.steps                    = [
             'FONDEOS.WIZARD.FEATURES',
@@ -35,8 +37,59 @@
             'FONDEOS.FEATURES.FONDEO_SELECTED'];
 
         vm.completed=100;
+        vm.selectedFondeo = null;
+        vm.tmp = null;
+        //Funciones del controller
         vm.registrarFondeo = registrarfondeo;
+        vm.eliminarFondeo=eliminarFondeo;
+        vm.getFondeo = getFondeo;
+        vm.getFondeos = getFondeos;
+
         //////////////////
+        //Funcion para buscar todos los Fondeos
+        function getFondeos() {
+            var promise = Fondeo.getAllFondeos();
+            promise.then(function (value) {
+                vm.tmp = value;
+                vm.Fondeos=vm.tmp[0];
+                alert(vm.Fondeos);
+
+            });
+        }
+        //Funcion para buscar Fondeos
+        function getFondeo() {
+
+            var promise = Fondeo.getFondeoById(vm.selectedFondeo);
+            promise.then(function (value) {
+                vm.fondeo = value;
+
+            });
+        }
+
+        //Funcion Para eliminar Fondeos
+        function eliminarFondeo() {
+
+            var promise = Fondeo.deleteFondeo(vm.fondeo);
+            promise.then(function (value) {
+                toastr.success(vm.successDeleteText,vm.successDeleteText);
+                vm.fondeo = {
+                    "id": null,
+                    "Titulo": null,
+                    "PublicoObjetivo": null,
+                    "FondoTotal": null,
+                    "Justificacion": null,
+                    "Descripcion": null,
+                    "RubrosDeApoyo": null,
+                    "CriteriosElegibilidad": null,
+                    "created_at": null,
+                    "updated_at": null
+                };
+
+            });
+        }
+
+
+
 
         // Registro de programa de fondeo
         function registrarfondeo() {
@@ -68,6 +121,7 @@
             promise.then(function (value) {
                 vm.Fondeos = value;
             });
+            //mensajes del toastr
 
             vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
@@ -81,6 +135,7 @@
             vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
         }
+
 
 
 

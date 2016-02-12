@@ -15,8 +15,10 @@
             callAssosciated:callAssosciated,
             crearFondeo:crearFondeo,
             updateFondeo:updateFondeo,
-            deleteFondeo:deleteFondeo
+            deleteFondeo:deleteFondeo,
+            getFondeoById:getFondeoById
         };
+        //obtenemos perfil user
         function getPerfil() {
             var profile;
             if (Profile.isValidated()) {
@@ -32,7 +34,7 @@
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('ProgramaFondeo').one('ProgramaFondeo',fondeo.id).customDELETE(fondeo).then(function (res) {
+                Restangular.one('ProgramaFondeo',fondeo.id).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -41,6 +43,7 @@
             }
             return deferred.promise;
         }
+
         function callAssosciated(fondeo){
             var profile=getPerfil();
             var deferred = $q.defer();
@@ -54,11 +57,12 @@
             }
             return deferred.promise;
         }
+
         function updateFondeo(fondeo){
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('ProgramaFondeo').one('ProgramaFondeo',fondeo.id).customPUT(fondeo).then(function (res) {
+                Restangular.all('ProgramaFondeo').one('Update',fondeo.id).customPOST(fondeo).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -67,6 +71,7 @@
             }
             return deferred.promise;
         }
+
         function crearFondeo(fondeo){
             var profile=getPerfil();
             var deferred = $q.defer();
@@ -80,7 +85,19 @@
             return deferred.promise;
         }
 
+        function getFondeoById(fondeo){
+            var profile=getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.one('ProgramaFondeo',fondeo.id).customGET(fondeo).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                })
 
+            }
+            return deferred.promise;
+        }
 
         function getAllFondeos() {
             var profile=getPerfil();
