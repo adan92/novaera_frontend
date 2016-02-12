@@ -27,11 +27,11 @@
         vm.selectedItemChange = selectedItemChange;
         vm.deleteItem         = deleteItem;
         vm.createDialog       = createDialog;
+        vm.edit               = edit;
 
         function activate(){
             Restangular.all('Persona').customGET().then(function(res){
                 vm.personas = res.Personas;
-                console.log(vm.personas);
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
                 }).catch(function(err){
@@ -57,13 +57,10 @@
 
         function selectedItemChange()
         {
-            console.log("El Item cambio a: ");
-            console.log(vm.selectedItem);
             if(vm.selectedItem.id != null) {
 
                 Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -112,17 +109,10 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log("Eliminar Descriptor");
-            console.log(item);
-            //console.log("Persona/Descriptor/"+item.pivot.id+item.pivot.idPersona);
-
             Restangular.all('Persona').one('Descriptor',item.pivot.id).all(item.pivot.idPersona).customDELETE().then(function(res){
-            //Restangular.all('Persona').one('Descriptor',item.pivot.id).customDELETE().then(function(res){
-                    console.log(res.Descriptor);
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function (err) {
 
                 });
@@ -132,6 +122,13 @@
 
         }
 
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.descriptor = item.pivot;
+            }
+        }
 
         $scope.addItem = function()
         {
@@ -147,7 +144,6 @@
                     vm.resetForm();
                     Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -158,17 +154,18 @@
             else
             {
                 //Mandamos a grabar el tipo de descriptor
-                Restangular.one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                Restangular.all('Persona').one('Descriptor', vm.selectedItem.id).customPUT(vm.descriptor).then(function(res){
                     //Mandamos el mensaje de éxito
                     toastr.success(vm.successText,vm.successUpdateText);
-                    vm.descriptor.id = null;
-                    vm.descriptor.Titulo = null;
-                    vm.descriptor.Descripcion = null;
-                    vm.descriptor.idTipoDescriptor = null;
-                    vm.descriptor.idPersona = null;
+                    vm.descriptor.idDescriptor      = null;
+                    vm.descriptor.FechaInicio       = null;
+                    vm.descriptor.FechaTermino      = null;
+                    vm.descriptor.TipoResultado     = null;
+                    vm.descriptor.NumeroRegistro    = null;
+                    //Pedimos la lista de descriptores de la BD
+                    vm.resetForm();
                     Restangular.all('Persona').one('Descriptor',vm.selectedItem.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });

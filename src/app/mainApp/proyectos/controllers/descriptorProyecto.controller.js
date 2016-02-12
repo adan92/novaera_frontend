@@ -10,173 +10,65 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorProyectoController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorProyectoController($scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
-        $scope.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                        //Descriptor?
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                        //Descriptor?
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                        //Descriptor?
-                    }
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                descriptorProyecto:[],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                descriptorProyecto:[
-                    {
-                        id: 15,
-                        idDescriptor:1,
-                        observaciones:"Descriptor que significa..."
-                    }
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                descriptorProyecto:[],
-                display:"Un proyecto mas"
-            }
-        ];
-        $scope.descriptores = [
-            {
-                id: 1,
-                titulo: "Descriptor 1",
-                descripcion:"Este es el Descriptor 1",
-                catalogo:"Catalogo 1",
-                tipo:{
-                    id: 1,
-                    nombre: "Tipo 1",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            },
-            {
-                id: 2,
-                titulo: "Descriptor 2",
-                descripcion:"Este es el Descriptor 2",
-                catalogo:"Catalogo 5",
-                tipo:{
-                    id: 3,
-                    nombre: "Tipo 3",
-                    aplicable:"S",
-                    activo:true,
-                    creado:"1970-01-01 00:00:01",
-                    actualizado:"1970-01-01 00:00:01"
-                },
-                creado:"1970-01-01 00:00:01",
-                actualizado:"1970-01-01 00:00:01"
-            }
-        ]
-
-        //
-
-        vm.descriptores        = $scope.descriptores;
-        vm.fondeos             = $scope.proyectos;
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-
+        vm.proyectos            = null;
+        vm.descriptores         = null;
+        vm.descriptoresProyecto = null;
+        vm.descriptor           = null;
+        vm.activate             = activate();
+        vm.selectedItem         = null;
+        vm.searchText           = null;
+        vm.querySearch          = querySearch;
+        vm.simulateQuery        = false;
+        vm.isDisabled           = false;
+        vm.createDialog         = createDialog;
+        vm.selectedItemChange   = selectedItemChange;
+        vm.resetForm            = resetForm;
+        vm.edit                 = edit;
+        vm.deleteItem           = deleteItem;
 
         //////////////////
+
+        function activate(){
+            //Ver como diferenciar entre persona y organizacion
+            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
+                vm.proyectos = res.Proyectos;
+                Restangular.all('Descriptor').customGET().then(function(res){
+                    vm.descriptores = res.Descriptor;
+                }).catch(function(err){
+
+                });
+
+            }).catch(function(err){
+
+            });
+            vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+            vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+        }
+
+        function selectedItemChange()
+        {
+            if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
+                Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                    vm.descriptoresProyecto = res.Descriptor;
+                }).catch(function (err) {
+
+                });
+            }
+        }
+
         function querySearch (query) {
-            var results = query ? vm.fondeos.filter( createFilterFor(query) ) : vm.fondeos, deferred;
+            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
             return results;
 
         }
@@ -187,46 +79,95 @@
          */
         function createFilterFor(query) {
 
-            return function filterFn(fondeos) {
-                return (fondeos.titulo.indexOf(query) === 0);
+            return function filterFn(proyectos) {
+                return (proyectos.Titulo.indexOf(query) === 0);
             };
         }
 
-        /**
-         * Create function to delete item
-         */
-        $scope.deleteItem= function(index){
-            vm.selectedItem.descriptorProyecto.splice(index, 1);
-            //console.log($scope.proyectos);
+        function createDialog(ev,item)
+        {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteItem(item);
+            }, function() {
+                console.log("Cancelado");
+            });
         }
 
-        /**
-         * Create function to add item
-         */
+        function resetForm()
+        {
+            vm.descriptor=null;
+            $scope.registrarResultado.$setPristine();
+        }
+
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.descriptor = item.pivot;
+            }
+        }
+
+        function deleteItem(item){
+            Restangular.all('Proyecto').one('Descriptor',item.pivot.idProyecto).all(item.pivot.id).customDELETE().then(function(res){
+                toastr.success(vm.successText,vm.successDeleteText);
+                Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                    vm.descriptoresProyecto = res.Descriptor;
+                }).catch(function (err) {
+
+                });
+            }).catch(function(err){
+                toastr.error(vm.failureText,vm.failureDeleteText);
+            })
+        };
 
         $scope.addItem = function()
         {
-            var descriptor = {
-                id: $scope.id,
-                idDescriptor:$scope.tipo.id,
-                observaciones:$scope.observaciones
-            };
+            vm.descriptor.idProyecto = vm.selectedItem.id;
+            if (vm.descriptor.id == null) {
+                Restangular.all('Proyecto').all('Descriptor').customPOST(vm.descriptor).then(function (res) {
+                    //Mandamos el mensaje de éxito
+                    toastr.success(vm.successText, vm.successStoreText);
+                    //Limpiamos las variables ligadas a formulario
+                    vm.descriptor.id = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.observaciones = null;
+                    vm.resetForm();
+                    //Pedimos la lista de descriptores de la BD
+                    Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptoresProyecto = res.Descriptor;
+                    }).catch(function (err) {
 
+                    });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
 
+            }
+            else {
+                Restangular.one('Proyecto').one('DescriptorU',vm.descriptor.id).customPUT(vm.descriptor).then(function (res) {
+                    toastr.success(vm.successText, vm.successUpdateText);
+                    vm.descriptor.id = null;
+                    vm.descriptor.idDescriptor = null;
+                    vm.descriptor.observaciones = null;
+                    vm.resetForm();
+                    Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
+                        vm.descriptoresProyecto = res.Descriptor;
+                    }).catch(function (err) {
 
-            vm.selectedItem.descriptorProyecto.push(descriptor);
-
-            $scope.id=null;
-            $scope.tipo=null;
-            $scope.observaciones=null;
-            $scope.registrarResultado.$setPristine();
-
-        }
-
-
-
-
-
+                    });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+            }
+        };
     }
 
     function matcher()

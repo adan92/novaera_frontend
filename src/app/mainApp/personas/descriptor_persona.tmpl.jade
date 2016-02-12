@@ -1,0 +1,58 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PERSONAS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2.text-center(translate='') PERSONAS.DESCRIPTOR.WELCOME
+                h3.text-center {{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}
+    // Tarjeta para eliminar descriptores
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.persona!=null')
+        md-card(flex='70', layout='column')
+            md-card-content
+                h2.text-center(translate='') PERSONAS.DESCRIPTOR.CURRENT
+                md-list
+                    md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptorPersonas')
+                        div(layout='row', flex='flex', layout-align='space-around center', layout-sm='column')
+                            .md-list-item-text(flex='40')
+                                // h3>id: {{descriptor.id}}</h3
+                                h3 Titulo: {{descriptor.Titulo}}
+                                h4 Fecha Inicio: {{descriptor.pivot.FechaInicio}}
+                                h4 Fecha Termino: {{descriptor.pivot.FechaTermino}}
+                                h5 Tipo de Resultado: {{descriptor.pivot.TipoResultado}}
+                                h5 Numero de Registro: {{descriptor.pivot.NumeroRegistro}}
+                                h6 Creado el: {{descriptor.created_at}}
+                                h6 Actualzado el: {{descriptor.updated_at}}
+                            div(flex='25')
+                                md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
+                                    span(translate='') PERSONAS.DESCRIPTOR.EDIT
+                                md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                    span(translate='') PERSONAS.DESCRIPTOR.DELETE
+                        md-divider
+        // Tarjeta para agregar descriptores
+        md-card(flex='', layout='column', ng-show='vm.persona!=null')
+            md-card-content
+                h2(translate='') PERSONAS.DESCRIPTOR.ADD
+                form(name='agregarDescriptor', novalidate='')
+                    md-input-container
+                        label(translate='') PERSONAS.DESCRIPTOR.TYPE
+                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}')
+                            {{tipo.Titulo}}
+    span.placeholder(translate='') PERSONAS.DESCRIPTOR.FINIT
+    md-datepicker(ng-model='vm.descriptor.FechaInicio', md-placeholder='Introduce una fecha', required='')
+    br
+    br
+    span.placeholder(translate='') PERSONAS.DESCRIPTOR.FEND
+    md-datepicker(ng-model='vm.descriptor.FechaTermino', md-placeholder='Introduce una fecha', required='')
+    br
+    br
+    md-input-container
+        label(translate='') PERSONAS.DESCRIPTOR.TRESULT
+        input(ng-model='vm.descriptor.TipoResultado', required='', name='resultado')
+    md-input-container
+        label(translate='') PERSONAS.DESCRIPTOR.NREGISTRO
+        input(ng-model='vm.descriptor.NumeroRegistro', required='', name='registro')
+    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+        span(translate='') PERSONAS.DESCRIPTOR.ADD
+    md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
