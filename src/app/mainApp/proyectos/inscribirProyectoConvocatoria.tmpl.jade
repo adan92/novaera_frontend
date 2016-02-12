@@ -7,6 +7,7 @@
                 h3.text-center(translate='') PROJECT.INSCRIPTION.SELECTPROJECT
                 md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Selecciona el Proyecto')
                     span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+
     // TARJETA PARA Mostrar su informacion
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='', layout='column')
@@ -15,13 +16,43 @@
                 md-list
                     .md-list-item-text
                         h3 id: {{vm.selectedItem.id}}
-                        h3 Titulo: {{vm.selectedItem.titulo}}
-                        h4 Descripcion: {{vm.selectedItem.descripcion}}
-                        h4 Antecedentes: {{vm.selectedItem.antecedentes}}
-                        h4 Justificacion: {{vm.selectedItem.justificacion}}
-                        h5 Objetivos: {{vm.selectedItem.objetivos}}
-                        h6 Alcances: {{vm.selectedItem.alcances}}
+                        h3 Titulo: {{vm.selectedItem.Titulo}}
+                        h4 Descripcion: {{vm.selectedItem.Descripcion}}
+                        h4 Antecedentes: {{vm.selectedItem.Antecedentes}}
+                        h4 Justificacion: {{vm.selectedItem.Justificacion}}
+                        h5 Objetivos: {{vm.selectedItem.Objetivos}}
+                        h6 Alcances: {{vm.selectedItem.Alcances}}
                     md-divider
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.showSolicitudes && vm.selectedItem!=null')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') PROJECT.INSCRIPTION.SOLICITUDES
+                div(layout='row', flex='100', ng-show="vm.solicitudes.length==0", layout-align='center center')
+                    span No hay solicitudes
+                md-list-item.md-4-line(ng-repeat='sol in vm.solicitudes')
+                    div(layout='row', flex='100', layout-align='space-around center' ng-show='')
+                        div(flex='100')
+                            md-list
+                                md-list-item.md-list-item-text.md-list-item-text
+                                    div(flex='15', align='center')
+                                        h4 Programa de Fondeo: {{sol.fondo}}
+                                    div(flex='15', align='center')
+                                        h4 Proyecto: {{sol.proyecto}}
+                                    div(flex='15', align='center')
+                                        h4 Convocatoria: {{sol.convocatoria}}
+                                    div(flex='15', align='center')
+                                        h4 Modalidad: {{sol.modalidad}}
+                                    div(flex='10', align='center')
+                                        h4 Monto Solicitado: {{sol.montosolicitado}}
+                                    div(flex='10', align='center')
+                                        h4 TRL Inicial: {{sol.trlInicial}}
+                                    div(flex='10', align='center')
+                                        h5 Fecha de Solicitud: {{sol.fechaRegistro}}
+                                    div(flex='10', align='center')
+                                        md-button.md-raised(ng-click='deleteItem(sol)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                            span(translate='') PROJECT.INSCRIPTION.DELETE
+                                    md-divider
+
     div(layout='column', layout-md='column')
         // Muestra los Programas de Fondeo Activos
         md-card(flex='', ng-show='vm.showFondeos')
@@ -36,22 +67,25 @@
                         tr(md-row='md-row')
                             th(md-column='md-column', md-order-by='id')
                                 span id
-                            th(md-column='md-column', md-order-by='titulo')
+                            th(md-column='md-column', md-order-by='Titulo')
                                 span Titulo
-                            th(md-column='md-column', md-order-by='publicoObjetivo')
+                            th(md-column='md-column', md-order-by='PublicoObjetivo')
                                 span Publico Objetivo
-                            th(md-column='md-column', md-order-by='fondototal')
+                            th(md-column='md-column', md-order-by='FondoTotal')
                                 span Fondo Total
-                            th(md-column='md-column', md-order-by='criterios')
+                            th(md-column='md-column', md-order-by='CriteriosElegibilidad')
                                 span Criterios
+                            th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                                span Rubros de Apoyo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}',   md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order')
                             td(md-cell='md-cell') {{fondo.id}}
-                            td(md-cell='md-cell') {{fondo.titulo}}
-                            td(md-cell='md-cell') {{fondo.publicoObjetivo}}
-                            td(md-cell='md-cell') {{fondo.fondototal}}
-                            td(md-cell='md-cell') {{fondo.criterios}}
+                            td(md-cell='md-cell') {{fondo.Titulo}}
+                            td(md-cell='md-cell') {{fondo.PublicoObjetivo}}
+                            td(md-cell='md-cell') {{fondo.FondoTotal}}
+                            td(md-cell='md-cell') {{fondo.CriteriosElegibilidad}}
+                            td(md-cell='md-cell') {{fondo.RubrosDeApoyo}}
         md-divider
         // Muestra las Convocatorias relacionadas a los programas de fondeo
         md-card(flex='', ng-show='vm.showConvocatoria')
@@ -143,30 +177,3 @@ div
                         md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                             span(translate='') PROJECT.INSCRIPTION.SAVE
 // Tarjeta para eliminar y mostrar Solicitudes
-div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.showSolicitudes')
-    md-card(flex='', layout='column')
-        md-card-content
-            h2.text-center(translate='') PROJECT.INSCRIPTION.SOLICITUDES
-            md-list-item.md-4-line(ng-repeat='sol in vm.solicitudes')
-                div(layout='row', flex='100', layout-align='space-around center')
-                    div(flex='100')
-                        md-list
-                            md-list-item.md-list-item-text.md-list-item-text
-                                div(flex='15', align='center')
-                                    h4 Programa de Fondeo: {{sol.fondo}}
-                                div(flex='15', align='center')
-                                    h4 Proyecto: {{sol.proyecto}}
-                                div(flex='15', align='center')
-                                    h4 Convocatoria: {{sol.convocatoria}}
-                                div(flex='15', align='center')
-                                    h4 Modalidad: {{sol.modalidad}}
-                                div(flex='10', align='center')
-                                    h4 Monto Solicitado: {{sol.montosolicitado}}
-                                div(flex='10', align='center')
-                                    h4 TRL Inicial: {{sol.trlInicial}}
-                                div(flex='10', align='center')
-                                    h5 Fecha de Solicitud: {{sol.fechaRegistro}}
-                                div(flex='10', align='center')
-                                    md-button.md-raised(ng-click='deleteItem(sol)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                        span(translate='') PROJECT.INSCRIPTION.DELETE
-                                md-divider

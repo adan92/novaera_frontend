@@ -39,11 +39,11 @@
             var profile=getPerfil();
             var deferred = $q.defer();
 
-                Restangular.all('ProgramaFondeo').all('Convocatoria').one('ProgramaFondeo',fondeo.id).customGET(fondeo).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.all('ProgramaFondeo').all('Convocatoria').one('ProgramaFondeo',fondeo.id).customGET(fondeo).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -53,11 +53,11 @@
 
             var deferred = $q.defer();
 
-                Restangular.all('ProgramaFondeo').one('Update',fondeo.id).customPOST(fondeo).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.all('ProgramaFondeo').one('Update',fondeo.id).customPOST(fondeo).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -67,24 +67,24 @@
 
             var deferred = $q.defer();
 
-                Restangular.all('ProgramaFondeo').customPOST(fondeo).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(false);
-                });
-            }
-            return deferred.promise;
+            Restangular.all('ProgramaFondeo').customPOST(fondeo).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(false);
+            });
         }
+        return deferred.promise;
+    }
 
-        function getFondeoById(fondeo){
-            var profile=getPerfil();
-            var deferred = $q.defer();
-            if (profile.type === "person") {
-                Restangular.one('ProgramaFondeo',fondeo.id).customGET(fondeo).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+    function getFondeoById(fondeo){
+        var profile=getPerfil();
+        var deferred = $q.defer();
+        if (profile.type === "person") {
+            Restangular.one('ProgramaFondeo',fondeo.id).customGET(fondeo).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -95,12 +95,12 @@
             var deferred = $q.defer();
             console.log(profile);
 
-                Restangular.all('ProgramaFondeo').customGET().then(function (res) {
+            Restangular.all('ProgramaFondeo').customGET().then(function (res) {
 
-                    deferred.resolve(res.ProgramaFondeo);
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                deferred.resolve(res.ProgramaFondeo);
+            }).catch(function (err) {
+                console.log(err);
+            });
 
             return deferred.promise;
         }
