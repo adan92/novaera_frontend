@@ -643,6 +643,7 @@
     vm.editOrg = editOrg;
     vm.resetForm = resetForm;
     vm.submitForm = submitForm;
+    vm.removeOrg = removeOrg;
 
     // Métodos para las personas de la Organización
     vm.viewPerson = viewPerson;
@@ -655,8 +656,11 @@
 
     function resetForm() {
       vm.org = {};
+      vm.me = {};
+
       vm.isEditing = false;
       vm.isCreating = false;
+
     }
 
     function activate() {
@@ -724,8 +728,26 @@
           vm.isEditing = true;
 
           vm.personas = res.plain().Persona;
+
+          vm.me = vm.org.pivot;
+          vm.me.FechaInicio = new Date(vm.me.FechaInicio);
         }, function(err) {
           $log.err('Error!', err.status);
+        })
+    }
+
+    function removeOrg(idOrg, index) {
+      vm.waiting = true;
+      Restangular.one('Organizacion', idOrg)
+        .remove()
+        .then(function(res) {
+          vm.waiting = false;
+
+          vm.orgList.splice(index, 1); //quitamos al elemento de la lista
+
+        }, function(err) {
+          vm.waiting = false;
+          showAlert('error', err.status);
         })
     }
 
@@ -736,7 +758,36 @@
     }
 
     function create(org) {
+      var me = angular.copy(vm.me);
 
+      var postObject = {
+        Organizacion: org,
+        Datos: {
+          Puesto: me.Puesto,
+          FechaInicio: me.FechaInicio
+        }
+      }
+
+      vm.waiting = true;
+      vm.submitInProgress = true;
+
+      Restangular.all('Organizacion')
+        .customPOST(postObject)
+        .then(function(res) {
+          resetForm();
+
+          vm.orgList.push(res.plain());
+
+          vm.submitInProgress = false;
+          vm.waiting = false;
+
+          showAlert('success');
+
+        }, function(err) {
+          vm.submitInProgress = false;
+          vm.waiting = false;
+          showAlert('error', err.status);
+        });
     }
 
     function update(org) {
@@ -755,9 +806,11 @@
 
           showAlert('success');
           vm.submitInProgress = false;
-        }, function(res) {
+          vm.waiting = false;
+        }, function(err) {
           vm.submitInProgress = false;
-          showAlert('error', res.status);
+          vm.waiting = false;
+          showAlert('error', err.status);
         });
     }
 
@@ -804,7 +857,7 @@
       vm.isViewingPerson = false;
     }
 
-    function removePerson(personId){
+    function removePerson(personId) {
 
     }
 
