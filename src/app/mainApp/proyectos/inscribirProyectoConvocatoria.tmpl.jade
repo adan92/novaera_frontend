@@ -1,0 +1,172 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2.text-center(translate='') PROJECT.INSCRIPTION.TITLE
+                h3.text-center(translate='') PROJECT.INSCRIPTION.SELECTPROJECT
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Selecciona el Proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+    // TARJETA PARA Mostrar su informacion
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='', layout='column')
+            md-card-content
+                h2.text-center(translate='') PROJECT.INSCRIPTION.INFOPROJECT
+                md-list
+                    .md-list-item-text
+                        h3 id: {{vm.selectedItem.id}}
+                        h3 Titulo: {{vm.selectedItem.titulo}}
+                        h4 Descripcion: {{vm.selectedItem.descripcion}}
+                        h4 Antecedentes: {{vm.selectedItem.antecedentes}}
+                        h4 Justificacion: {{vm.selectedItem.justificacion}}
+                        h5 Objetivos: {{vm.selectedItem.objetivos}}
+                        h6 Alcances: {{vm.selectedItem.alcances}}
+                    md-divider
+    div(layout='column', layout-md='column')
+        // Muestra los Programas de Fondeo Activos
+        md-card(flex='', ng-show='vm.showFondeos')
+            // Titulo del toolbar
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    span(translate='') PROJECT.INSCRIPTION.FONDEOACTIVE
+            // Cabecera de la md table
+            md-table-container
+                table(md-table='', md-row-select='', ng-model='vm.selectedFondeos')
+                    thead(md-head='', md-order='vm.query.order')
+                        tr(md-row='md-row')
+                            th(md-column='md-column', md-order-by='id')
+                                span id
+                            th(md-column='md-column', md-order-by='titulo')
+                                span Titulo
+                            th(md-column='md-column', md-order-by='publicoObjetivo')
+                                span Publico Objetivo
+                            th(md-column='md-column', md-order-by='fondototal')
+                                span Fondo Total
+                            th(md-column='md-column', md-order-by='criterios')
+                                span Criterios
+                    // Cuerpo de la tabla
+                    tbody(md-body='md-body')
+                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order')
+                            td(md-cell='md-cell') {{fondo.id}}
+                            td(md-cell='md-cell') {{fondo.titulo}}
+                            td(md-cell='md-cell') {{fondo.publicoObjetivo}}
+                            td(md-cell='md-cell') {{fondo.fondototal}}
+                            td(md-cell='md-cell') {{fondo.criterios}}
+        md-divider
+        // Muestra las Convocatorias relacionadas a los programas de fondeo
+        md-card(flex='', ng-show='vm.showConvocatoria')
+            // Titulo del toolbar
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    span(translate='') PROJECT.INSCRIPTION.CALLACTIVES
+            // Cabecera de la md table
+            md-table-container
+                table(md-table='', md-row-select='', ng-model='vm.selectedConvocatorias')
+                    thead(md-head='', md-order='vm.query.order')
+                        tr(md-row='md-row')
+                            th(md-column='md-column', md-order-by='id')
+                                span id
+                            th(md-column='md-column', md-order-by='titulo')
+                                span Titulo
+                            th(md-column='md-column', md-order-by='fechainicio')
+                                span Fecha Inicio
+                            th(md-column='md-column', md-order-by='fechatermino')
+                                span Fecha Termino
+                            th(md-column='md-column', md-order-by='requisitos')
+                                span Requisitos
+                            th(md-column='md-column', md-order-by='monto')
+                                span Monto maximo
+                    // Cuerpo de la tabla
+                    tbody(md-body='md-body')
+                        tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order')
+                            td(md-cell='md-cell') {{convocatoria.id}}
+                            td(md-cell='md-cell') {{convocatoria.titulo}}
+                            td(md-cell='md-cell') {{convocatoria.fechainicio}}
+                            td(md-cell='md-cell') {{convocatoria.fechatermino}}
+                            td(md-cell='md-cell') {{convocatoria.requisitos}}
+                            td(md-cell='md-cell') {{convocatoria.monto}}
+        md-divider
+        // Muestra las Modalidades que pertenecen a la convocatoria
+        md-card(flex='', ng-show='vm.showModalities')
+            md-card-content
+                // Titulo del toolbar
+                md-toolbar.md-table-toolbar.md-default
+                    .md-toolbar-tools
+                        span(translate='') PROJECT.INSCRIPTION.MODALITYSAVALIABLES
+                // Cabecera de la md table
+                md-table-container
+                    table(md-table='', md-row-select='', ng-model='vm.selectedModalidad')
+                        thead(md-head='', md-order='vm.query.order')
+                            tr(md-row='md-row')
+                                th(md-column='md-column', md-order-by='id')
+                                    span id
+                                th(md-column='md-column', md-order-by='nombre')
+                                    span Nombre
+                                th(md-column='md-column', md-order-by='montos')
+                                    span Rango de Montos
+                                th(md-column='md-column', md-order-by='criterios')
+                                    span Criterios
+                                th(md-column='md-column', md-order-by='entregables')
+                                    span Entregables
+                                th(md-column='md-column', md-order-by='figuras')
+                                    span Figuras de Apoyo
+                        // Cuerpo de la tabla
+                        tbody(md-body='md-body')
+                            tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order')
+                                td(md-cell='md-cell') {{modalidad.id}}
+                                td(md-cell='md-cell') {{modalidad.nombre}}
+                                td(md-cell='md-cell') {{modalidad.montos}}
+                                td(md-cell='md-cell') {{modalidad.criterios}}
+                                td(md-cell='md-cell') {{modalidad.entregables}}
+                                td(md-cell='md-cell') {{modalidad.figuras}}
+div
+    md-card(flex='', ng-show='vm.showFields')
+        img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg', alt='Card Image')
+        div(layout='column')
+            div(layout='row', layout-align='center center', layout-sm='column')
+                md-card-content
+                    h2(translate='') PROJECT.INSCRIPTION.FIELDS
+                    form(name='agregarSolicitud', novalidate='')
+                        md-input-container
+                            label(translate='') PROJECT.INSCRIPTION.TECNOPARKS
+                            md-select(ng-model='tecnopark', required='', name='tecnopark')
+                                md-option(ng-repeat='tecnopark in vm.tecnoparks', value='{{tecnopark.id}}')
+                                    | {{tecnopark.Nombre}}
+                        md-input-container
+                            label(translate='') PROJECT.INSCRIPTION.MOUNT
+                            input(ng-model='montosolicitado', required='', name='montosolicitado')
+                        md-input-container
+                            label(translate='') PROJECT.INSCRIPTION.TRLBEGIN
+                            md-select(ng-model='trlInicial', required='', name='trlInicial')
+                                md-option(ng-repeat='trlInicial in vm.trlIniciales', value='{{trlInicial.id}}')
+                                    | {{trlInicial.Nombre}}
+                        md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                            span(translate='') PROJECT.INSCRIPTION.SAVE
+// Tarjeta para eliminar y mostrar Solicitudes
+div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.showSolicitudes')
+    md-card(flex='', layout='column')
+        md-card-content
+            h2.text-center(translate='') PROJECT.INSCRIPTION.SOLICITUDES
+            md-list-item.md-4-line(ng-repeat='sol in vm.solicitudes')
+                div(layout='row', flex='100', layout-align='space-around center')
+                    div(flex='100')
+                        md-list
+                            md-list-item.md-list-item-text.md-list-item-text
+                                div(flex='15', align='center')
+                                    h4 Programa de Fondeo: {{sol.fondo}}
+                                div(flex='15', align='center')
+                                    h4 Proyecto: {{sol.proyecto}}
+                                div(flex='15', align='center')
+                                    h4 Convocatoria: {{sol.convocatoria}}
+                                div(flex='15', align='center')
+                                    h4 Modalidad: {{sol.modalidad}}
+                                div(flex='10', align='center')
+                                    h4 Monto Solicitado: {{sol.montosolicitado}}
+                                div(flex='10', align='center')
+                                    h4 TRL Inicial: {{sol.trlInicial}}
+                                div(flex='10', align='center')
+                                    h5 Fecha de Solicitud: {{sol.fechaRegistro}}
+                                div(flex='10', align='center')
+                                    md-button.md-raised(ng-click='deleteItem(sol)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                        span(translate='') PROJECT.INSCRIPTION.DELETE
+                                md-divider
