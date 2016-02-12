@@ -10,10 +10,10 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function inscribirProyectoConvocatoriaController($scope, $timeout, $mdToast, $rootScope, $state,Proyecto) {
         var vm = this;
-
-        vm.proyectos = [
+        activate();
+        vm.proyectos =null; /*[
             {
                 id: 1,
                 titulo: "Proyecto 1",
@@ -41,7 +41,7 @@
                 objetivos:"objetivo 1, y objetivo 2",
                 alcances:"El cielo es el limite"
             }
-        ];
+        ];*/
         vm.convocatorias=[{
             id:1,
             titulo:"Convocatoria 1",
@@ -219,7 +219,14 @@
         vm.Convocatoria;
         vm.fecha              = new Date();
 
+        function activate(){
+            var promise=Proyecto.getAllProjects();
+            promise.then(function(res){
+                console.log(res);
+                vm.proyectos=res;
+            });
 
+        }
 
         function funcionfondeos(fondo,key){
             if(vm.selectedFondeos.length >1) {

@@ -289,7 +289,8 @@
                         sideMenuSize: 'full',
                         footer: true
                     },
-                    requireLogin: true
+                    requireLogin: true,
+                    requirePrivileges:'User'
                 }
             })
             .state('triangular.admin-default.validarProyectos',{
@@ -311,7 +312,28 @@
                     requireLogin: true
                 }
             })
-        ;
+            .state('triangular.admin-default.estatusProjectsAll',{
+
+                url: '/revisarProyectosAdmin',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/proyectos/revisarProyectosAdmin.tmpl.html',
+                // set the controller to load for this page
+                controller: 'revisarProyectosAdminController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: true
+                    }
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
+            });
         // add menu to triangular
         triMenuProvider.addMenu({
             name: 'MENU.PROJECTS.PROJECTS',

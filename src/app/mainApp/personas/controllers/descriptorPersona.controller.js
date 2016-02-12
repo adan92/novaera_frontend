@@ -26,16 +26,15 @@
         vm.activate           = activate();
         vm.deleteItem         = deleteItem;
         vm.createDialog       = createDialog;
+        vm.edit               = edit;
 
         function activate(){
             Restangular.all('Persona').all('Current').customGET().then(function(res){
                 vm.persona = res.Persona;
-                console.log(vm.persona);
                 Restangular.all('Descriptor').customGET().then(function(res){
                     vm.descriptores = res.Descriptor;
                     Restangular.all('Persona').one('Descriptor',vm.persona.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -101,21 +100,24 @@
          * Create function to delete item
          */
         function deleteItem(item){
-            console.log("Eliminar Descriptor");
-            console.log(item);
-            //Restangular.all('Persona').one('Descriptor',item.pivot.id).all(item.pivot.idPersona).customDELETE().then(function(res){
             Restangular.all('Persona').one('Descriptor',item.pivot.id).customDELETE().then(function(res){
-                console.log(res.Descriptor);
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Persona').one('Descriptor',vm.persona.id).customGET().then(function(res){
                     vm.descriptorPersonas = res.Descriptor;
-                    console.log(res.Descriptor);
                 }).catch(function(err){
 
                 });
             }).catch(function(err){
                 toastr.error(vm.failureText,vm.failureDeleteText);
             })
+        }
+
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.descriptor = item.pivot;
+            }
         }
 
         /**
@@ -136,7 +138,6 @@
                     vm.resetForm();
                     Restangular.all('Persona').one('Descriptor',vm.persona.id).customGET().then(function(res){
                         vm.descriptorPersonas = res.Descriptor;
-                        console.log(res.Descriptor);
                     }).catch(function(err){
 
                     });
@@ -148,15 +149,18 @@
             else
             {
                 //Mandamos a grabar el tipo de descriptor
-                Restangular.one('Descriptor',vm.descriptor.id).customPUT(vm.descriptor).then(function(res){
+                Restangular.all('Persona').one('Descriptor', vm.persona.id).customPUT(vm.descriptor).then(function(res){
                     //Mandamos el mensaje de éxito
                     toastr.success(vm.successText,vm.successUpdateText);
-                    vm.descriptor.id = null;
-                    vm.descriptor.Titulo = null;
-                    vm.descriptor.Descripcion = null;
-                    vm.descriptor.idTipoDescriptor = null;
-                    Restangular.all('Descriptor').customGET().then(function(res){
-                        vm.descriptores = res.Descriptor;
+                    vm.descriptor.idDescriptor      = null;
+                    vm.descriptor.FechaInicio       = null;
+                    vm.descriptor.FechaTermino      = null;
+                    vm.descriptor.TipoResultado     = null;
+                    vm.descriptor.NumeroRegistro    = null;
+                    //Pedimos la lista de descriptores de la BD
+                    vm.resetForm();
+                    Restangular.all('Persona').one('Descriptor',vm.persona.id).customGET().then(function(res){
+                        vm.descriptorPersonas = res.Descriptor;
                     }).catch(function(err){
 
                     });

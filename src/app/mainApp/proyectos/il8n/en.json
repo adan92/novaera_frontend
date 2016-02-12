@@ -203,6 +203,9 @@
       "RESULT": "Resultados",
       "REMOVE_RESULT": "Eliminar Resultado",
       "ADD":"Agregar Descriptor",
+      "CLEAR":"Limpiar Campos",
+      "EDITPRO":"Editar Descriptor",
+      "DELETEPRO":"Remover Descriptor",
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
       "EXPECTED_RESULT": "Resultado Esperado"
