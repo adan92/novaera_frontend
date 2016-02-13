@@ -12,7 +12,7 @@
     .controller('informacionOrganizacionesController', informacionOrganizacionesController);
 
   /* @ngInject */
-  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log, Restangular) {
+  function informacionOrganizacionesController($scope, Upload, $timeout, $mdToast, $rootScope, $state, $log, Restangular, $mdDialog) {
     var vm = this;
 
     //     vm.addItem = addItem;
@@ -639,12 +639,28 @@
 
     activate();
 
+    // Métodos para la Organización
+    vm.editOrg = editOrg;
     vm.resetForm = resetForm;
+    vm.submitForm = submitForm;
+    vm.removeOrg = removeOrg;
+
+    // Métodos para las personas de la Organización
+    vm.viewPerson = viewPerson;
+    vm.addPerson = addPerson;
+
+
+    // Abrir el menú contextual de las personas
+    vm.openMenu = openMenu;
+    ////////////
 
     function resetForm() {
       vm.org = {};
+      vm.me = {};
+
       vm.isEditing = false;
       vm.isCreating = false;
+
     }
 
     function activate() {
@@ -680,42 +696,170 @@
         }
       }];
 
+      vm.waiting = true;
 
+      Restangular.all('Organizacion')
+        .customGET()
+        .then(function(res) {
+          vm.waiting = false;
 
-      vm.openMenu = function($mdOpenMenu, ev) {
-        var originatorEv = ev;
-        $mdOpenMenu(ev);
-      }
+          vm.orgList = res.plain().Organizacion;
 
-      vm.viewPerson = function() {
-        console.log('me quieren ver!');
-      }
+          // castear como Date los
+          for (var i in vm.orgList) {
+            vm.orgList[i].created_at = new Date(vm.orgList[i].created_at);
+            vm.orgList[i].updated_at = new Date(vm.orgList[i].updated_at);
+          }
+
+        });
 
     }
 
+    function editOrg(org, index) {
+      vm.waiting = true;
+      vm.indexEdited = index;
 
-    vm.viewPerson = viewPerson;
-    vm.addPerson = addPerson;
+      Restangular.all('Organizacion')
+        .one('Persona', org.id)
+        .customGET()
+        .then(function(res) {
+          vm.waiting = false;
+          vm.org = angular.copy(org);
+          vm.isEditing = true;
+
+          vm.personas = res.plain().Persona;
+
+          vm.me = vm.org.pivot;
+          vm.me.FechaInicio = new Date(vm.me.FechaInicio);
+        }, function(err) {
+          $log.err('Error!', err.status);
+        })
+    }
+
+    function removeOrg(idOrg, index) {
+      vm.waiting = true;
+      Restangular.one('Organizacion', idOrg)
+        .remove()
+        .then(function(res) {
+          vm.waiting = false;
+
+          vm.orgList.splice(index, 1); //quitamos al elemento de la lista
+
+        }, function(err) {
+          vm.waiting = false;
+          showAlert('error', err.status);
+        })
+    }
+
+    // acciones del botón guardar
+    function submitForm() {
+      var org = angular.copy(vm.org);
+      vm.org.id ? update(org) : create(org);
+    }
+
+    function create(org) {
+      var me = angular.copy(vm.me);
+
+      var postObject = {
+        Organizacion: org,
+        Datos: {
+          Puesto: me.Puesto,
+          FechaInicio: me.FechaInicio
+        }
+      }
+
+      vm.waiting = true;
+      vm.submitInProgress = true;
+
+      Restangular.all('Organizacion')
+        .customPOST(postObject)
+        .then(function(res) {
+          resetForm();
+
+          vm.orgList.push(res.plain());
+
+          vm.submitInProgress = false;
+          vm.waiting = false;
+
+          showAlert('success');
+
+        }, function(err) {
+          vm.submitInProgress = false;
+          vm.waiting = false;
+          showAlert('error', err.status);
+        });
+    }
+
+    function update(org) {
+      delete org.pivot
+      delete org.created_at
+      delete org.updated_at
+
+      vm.waiting = true;
+      vm.submitInProgress = true;
+
+      Restangular.one('Organizacion', vm.org.id)
+        .customPUT(org)
+        .then(function(res) {
+          vm.org = res.plain();
+          vm.orgList[vm.indexEdited] = res.plain();
+
+          showAlert('success');
+          vm.submitInProgress = false;
+          vm.waiting = false;
+        }, function(err) {
+          vm.submitInProgress = false;
+          vm.waiting = false;
+          showAlert('error', err.status);
+        });
+    }
 
 
-    function viewPerson(person){
+
+    function openMenu($mdOpenMenu, ev) {
+      $mdOpenMenu(ev);
+    }
+
+    function showAlert(result, errCode) {
+      var messages = {
+        success: {
+          title: 'Información guardada correctamente',
+          content: 'Los datos han sido guardados correctamente'
+        },
+        error: {
+          title: 'Error al guardar la información',
+          content: 'Hubo un error al guardar la información (' + errCode + ')'
+        }
+      }
+
+      var msg = messages[result];
+
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title(msg.title)
+        .content(msg.content)
+        .ok('Continuar')
+      );
+    }
+
+
+    function viewPerson(person) {
       vm.isViewingPerson = true;
       vm.isAddingPerson = false;
 
       vm.viewingPerson = person;
-
-      console.log(person);
-
     }
 
-    function addPerson(personId){
+    function addPerson(personId) {
       vm.isAddingPerson = true;
       vm.isViewingPerson = false;
-
-
     }
 
-    function removePerson(){}
+    function removePerson(personId) {
+
+    }
 
   }
 })();
