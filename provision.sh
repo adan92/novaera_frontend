@@ -4,9 +4,9 @@ then
   echo "ADD EXTRA ALIAS VIA .bashrc"
   cat /vagrant/bashrc.append.txt >> /home/vagrant/.bashrc
   echo "GENERAL APT-GET UPDATE"
-  #sudo apt-get autoclean
-  #sudo apt-get update
-  #sudo apt-get dist-upgrade
+  sudo apt-get autoclean
+  sudo apt-get update
+  sudo apt-get dist-upgrade
   echo "INSTALL NODEJS"
    sudo apt-get -y  install nodejs
    sudo apt-get install nodejs-legacy
@@ -22,13 +22,15 @@ then
   echo "INSTALL UNZIP"
    sudo apt-get -y  install unzip
 
-
-  cd novaera_frontend
   sudo npm install -g bower
-  sudo npm install gulp
-
+  sudo npm install -g gulp
+  sudo npm install gulp --save-dev
+  cd novaera_frontend
+  npm cache clean
+  npm install --no-bin-links
+  bower install
   echo "Done!"
 else
-  echo "already installed flag set : /home/vagrant/already-installed-flag"
+  echo "already installed flag set : /home/vagrant/novaera_frontend"
 fi
 
