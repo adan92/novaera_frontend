@@ -1,32 +1,36 @@
 #! /bin/bash
-if [ ! -f /home/vagrant/already-installed-flag ]
+if [ ! -f /home/vagrant/novaera_frontend ]
 then
   echo "ADD EXTRA ALIAS VIA .bashrc"
   cat /vagrant/bashrc.append.txt >> /home/vagrant/.bashrc
   echo "GENERAL APT-GET UPDATE"
-  apt-get -qq update
+  sudo apt-get autoclean
+  sudo apt-get update
+  sudo apt-get dist-upgrade
   echo "INSTALL NODEJS"
-  apt-get -qq -y install nodejs 
+   sudo apt-get -y  install nodejs
+   sudo apt-get install nodejs-legacy
+
   echo "INSTALL NPM"
-  apt-get -qq -y install npm
+   sudo apt-get -y  install npm
   echo "INSTALL GIT"
-  apt-get -qq -y install git
+   sudo apt-get -y  install git
   echo "INSTALL VIM"
-  apt-get -qq -y install vim
+   sudo apt-get -y  install vim
   echo "INSTALL TREE"
-  apt-get -qq -y install tree
+   sudo apt-get -y  install tree
   echo "INSTALL UNZIP"
-  apt-get -qq -y install unzip
+   sudo apt-get -y  install unzip
 
-  echo "CLONING GITHUB CODE"
-  cd /home/vagrant
-  git clone https://github.com/angular/angular-phonecat.git
-  cd angular-phonecat
-  git checkout -f step-0
-
-  touch /home/vagrant/already-installed-flag
+  sudo npm install -g bower
+  sudo npm install -g gulp
+  sudo npm install gulp --save-dev
+  cd novaera_frontend
+  npm cache clean
+  npm install --no-bin-links
+  bower install
   echo "Done!"
 else
-  echo "already installed flag set : /home/vagrant/already-installed-flag"
+  echo "already installed flag set : /home/vagrant/novaera_frontend"
 fi
 
