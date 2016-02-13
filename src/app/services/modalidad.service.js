@@ -9,15 +9,14 @@
         .factory('Convocatoria', Convocatoria);
 
     /* @ngInject */
-    function Convocatoria($q, toastr, Restangular, Profile, $state) {
+    function Modalidad($q, toastr, Restangular, Profile, $state) {
         var service = {
-            getAllConvocatorias: getAllConvocatoriass,
-            crearConvocatoria:crearConvocatoria,
-            showModalitiesRelation:showModalitiesRelation,
-            updateConvocatoria:updateConvocatoria,
-            addConvocatoriaModalidad:addConvocatoriaModalidad,
-            deleteConvocatoriaModalidad:deleteConvocatoriaModalidad,
-            deleteConvocatoriaModalidadAll:deleteConvocatoriaModalidadAll
+            getAllModalidades: getAllModalidades,
+            showModalitiesRelationFondeos:showModalitiesRelationFondeos,
+            showConvocatoriasAsociadas:showConvocatoriasAsociadas,
+            crearModalidad:crearModalidad,
+            updateModalidad:updateModalidad,
+            deleteModalidad:deleteModalidad
         };
         function getPerfil() {
             var profile;
@@ -29,13 +28,13 @@
                 toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
             }
         }
-        function getAllConvocatorias() {
+        function getAllModalidades() {
 
             var deferred = $q.defer();
 
-                Restangular.all('Convocatoria').customGET().then(function (res) {
+                Restangular.all('Modalidad').customGET().then(function (res) {
 
-                    deferred.resolve(res.Convocatoria);
+                    deferred.resolve(res.Modalidad);
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -43,11 +42,11 @@
             return deferred.promise;
         }
 
-        function crearConvocatoria(convocatoria){
+        function crearModalidad(modalidad){
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "supervisor") {
-                Restangular.all('Convocatoria').customPOST(convocatoria).then(function (res) {
+                Restangular.all('Modalidad').customPOST(modalidad).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -57,11 +56,11 @@
             return deferred.promise;
         }
 
-        function updateConvocatoria(convocatoria){
+        function updateModalidad(modalidad){
             var profile=getPerfil();
             var deferred = $q.defer();
-            if (profile.type === "person") {
-                Restangular.one('Convocatoria',convocatoria.id).customPUT(convocatoria).then(function (res) {
+            if (profile.type === "supervisor") {
+                Restangular.one('Modalidad',modalidad.id).customPUT(modalidad).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -70,11 +69,11 @@
             }
             return deferred.promise;
         }
-        function showModalitiesRelation(convocatoria){
+        function showModalitiesRelationFondeos(modalidad){
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
+                Restangular.all('ProgramaFondeo').one('Modalidad', progamafondeo.id).GET(convocatoria).then(function (res) {
                     deferred.resolve(res.Modalidad);
                 }).catch(function (err) {
                     deferred.reject(false);
@@ -82,12 +81,24 @@
             }
             return deferred.promise;
         }
+        function showConvocatoriasAsociadas(modalidad){
+            var profile=getPerfil();
+            var deferred = $q.defer();
+                Restangular.all('Modalidad').one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
+                    deferred.resolve(res.Convocatoria);
+                }).catch(function (err) {
+                    deferred.reject(false);
+                });
 
-        function addConvocatoriaModalidad(convocatoria){
+            return deferred.promise;
+        }
+
+
+        function deleteModalidad(modalidad){
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "supervisor") {
-                Restangular.all('Convocatoria').all('Modalidad').customPOST(convocatoria).then(function (res) {
+                Restangular.one('Modalidad',modalidad.id).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -96,33 +107,6 @@
             }
             return deferred.promise;
         }
-        function deleteConvocatoriaModalidad(convocatoria){
-            var profile=getPerfil();
-            var deferred = $q.defer();
-            if (profile.type === "supervisor") {
-                Restangular.one('Convocatoria',convocatoria.id).one('Modalidad', convocatoria.modalidad.id).customDELETE(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
-
-            }
-            return deferred.promise;
-        }
-        function deleteConvocatoriaModalidadAll(convocatoria){
-            var profile=getPerfil();
-            var deferred = $q.defer();
-            if (profile.type === "supervisor") {
-                Restangular.one('Convocatoria',convocatoria.id).all('Modalidad').customDELETE(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
-
-            }
-            return deferred.promise;
-        }
-
 
 
 

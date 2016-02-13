@@ -106,7 +106,7 @@
             if (profile.type === "person") {
                 Restangular.all('ProgramaFondeo').customGET().then(function (res) {
 
-                    deferred.resolve(res.Fondeos);
+                    deferred.resolve(res.ProgramaFondeo);
                 }).catch(function (err) {
                     console.log(err);
                 });
