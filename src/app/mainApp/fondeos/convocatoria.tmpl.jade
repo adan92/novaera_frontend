@@ -1,99 +1,99 @@
 .full-image-background.mb-bg-fb-02.overlay-40(layout='column', layout-align='center center')
-      div(layout='row', layout-align='center center')
+    div(layout='row', layout-align='center center')
         p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') FONDEOS.CALL.INTRO
-      div(flex='', layout='row', layout-align='center center', layout-fill='')
+    div(flex='', layout='row', layout-align='center center', layout-fill='')
         .md-w.hiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
-          md-toolbar.md-primary
-            .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-              h2(translate='') FONDEOS.CALL.TITLE
-              h2
-                | {{triWizard.progress}}%
-                span(translate='') FONDEOS.WIZARD.COMPLETED
-            md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
-          md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
-            md-tab#info
-              md-tab-label
-                span.oxy-step-label 1
-                span(translate='') FONDEOS.CALL.GENERAL
-              md-tab-body
-                .wizard.layout-padding
-                  form(name='projectInfo', tri-wizard-form='', novalidate='')
-                    div(layout='column', flex='')
-                      md-input-container
-                        label(translate='') FONDEOS.CALL.NAME
-                        input(name='titulo', required='', type='text', ng-model='fondeo.titulo')
-                        div(ng-messages='projectInfo.titulo.$error')
-                          div(ng-message='', when='required')
-                            span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                      md-input-container(flex='100', layout='row')
-                        div(flex='50')
-                          label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
-                          md-datepicker(ng-enabled='call_begin==null', ng-model='call_begin')
-                          div(ng-messages='projectInfo.descripcion.$error')
-                            div(ng-message='', when='required')
-                              span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                        div(flex='50')
-                          label(translate='') FONDEOS.CALL.END_DATE_CALL
-                          md-datepicker(ng-enabled='call_begin==null', ng-model='call_end')
-                          div(ng-messages='projectInfo.descripcion.$error')
-                            div(ng-message='', when='required')
-                              span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                      md-input-container
-                        label(translate='') FONDEOS.CALL.MAX_AMOUNT
-                        textarea(name='target', required='', ng-model='fondeo.maxAmount', md-maxlength='15')
-                        div(ng-messages='projectInfo.descripcion.$error')
-                          div(ng-message='', when='required')
-                            span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                      md-input-container
-                        label(translate='') FONDEOS.MODALITY.FONDEOS
-                        md-select(ng-model='fondeo', required='', name='fondeo')
-                          md-option(ng-repeat='fondeo in vm.programasfondeo', value='{{fondeo.id}}')
-                            | {{fondeo.title}}
-                      div(ng-messages='projectInfo.descripcion.$error')
-                        div(ng-message='', when='required')
-                          span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-            md-tab#fondeoT(ng-disabled='projectInfo.$invalid')
-              md-tab-label
-                span.oxy-step-label 2
-                span(translate='') FONDEOS.CALL.REQUERIMENTS
-              md-tab-body
-                .wizard.layout-padding
-                  form(name='fondeoCallRequeriments', tri-wizard-form='')
-                    div(flex='', layout='column', layout-wrap='')
-                      md-input-container
-                        div(text-angular='', required='', ng-model='fondeo.callreq', ta-toolbar="[['bold','italics','ul','ol']]")
-                        label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
-                        md-divider
-            md-tab#aims(ng-disabled='projectInfo.$invalid')
-              md-tab-label
-                span.oxy-step-label 3
-                span(translate='') FONDEOS.CALL.EVALUATION
-              md-tab-body
-                .wizard.layout-padding
-                  form(name='fondeoEvaluation', tri-wizard-form='')
-                    md-input-container
-                      div(text-angular='', required='', ng-model='fondeo.evaluation', ta-toolbar="[['bold','italics','ul','ol']]")
-                      label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
-                      md-divider
-          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
-            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
-            md-button.md-accent.md-raised(ng-click='triWizard.currentStep = 2', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='FONDEOS.WIZARD.SEND')
-      // End wizard
-      .todo-container(flex='', layout='column', layout-align='center center', ng-show='true')
+            md-toolbar.md-primary
+                .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
+                    h2(translate='') FONDEOS.CALL.TITLE
+                    h2
+                        | {{triWizard.progress}}%
+                        span(translate='') FONDEOS.WIZARD.COMPLETED
+                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+            md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
+                md-tab#info
+                    md-tab-label
+                        span.oxy-step-label 1
+                        span(translate='') FONDEOS.CALL.GENERAL
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='projectInfo', tri-wizard-form='', novalidate='')
+                                div(layout='column', flex='')
+                                    md-input-container
+                                        label(translate='') FONDEOS.CALL.NAME
+                                        input(name='titulo', required='', type='text', ng-model='fondeo.titulo')
+                                        div(ng-messages='projectInfo.titulo.$error')
+                                            div(ng-message='', when='required')
+                                                span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                    md-input-container(flex='100', layout='row')
+                                        div(flex='50')
+                                            label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
+                                            md-datepicker(ng-enabled='call_begin==null', ng-model='call_begin')
+                                            div(ng-messages='projectInfo.descripcion.$error')
+                                                div(ng-message='', when='required')
+                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                        div(flex='50')
+                                            label(translate='') FONDEOS.CALL.END_DATE_CALL
+                                            md-datepicker(ng-enabled='call_begin==null', ng-model='call_end')
+                                            div(ng-messages='projectInfo.descripcion.$error')
+                                                div(ng-message='', when='required')
+                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                    md-input-container
+                                        label(translate='') FONDEOS.CALL.MAX_AMOUNT
+                                        textarea(name='target', required='', ng-model='fondeo.maxAmount', md-maxlength='15')
+                                        div(ng-messages='projectInfo.descripcion.$error')
+                                            div(ng-message='', when='required')
+                                                span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                    md-input-container
+                                        label(translate='') FONDEOS.MODALITY.FONDEOS
+                                        md-select(ng-model='fondeo', required='', name='fondeo')
+                                            md-option(ng-repeat='fondeo in vm.programasfondeo', value='{{fondeo.id}}')
+                                                | {{fondeo.title}}
+                                    div(ng-messages='projectInfo.descripcion.$error')
+                                        div(ng-message='', when='required')
+                                            span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                md-tab#fondeoT(ng-disabled='projectInfo.$invalid')
+                    md-tab-label
+                        span.oxy-step-label 2
+                        span(translate='') FONDEOS.CALL.REQUERIMENTS
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='fondeoCallRequeriments', tri-wizard-form='')
+                                div(flex='', layout='column', layout-wrap='')
+                                    md-input-container
+                                        div(text-angular='', required='', ng-model='fondeo.callreq', ta-toolbar="[['bold','italics','ul','ol']]")
+                                        label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
+                                        md-divider
+                md-tab#aims(ng-disabled='projectInfo.$invalid')
+                    md-tab-label
+                        span.oxy-step-label 3
+                        span(translate='') FONDEOS.CALL.EVALUATION
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='fondeoEvaluation', tri-wizard-form='')
+                                md-input-container
+                                    div(text-angular='', required='', ng-model='fondeo.evaluation', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
+                                    md-divider
+            .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+                md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
+                md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
+                md-button.md-accent.md-raised(ng-click='triWizard.currentStep = 2', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='FONDEOS.WIZARD.SEND')
+    // End wizard
+    .todo-container(flex='', layout='column', layout-align='center center', ng-show='true')
         div(layout-fill='', layout='row', layout-align='center center')
-          md-card.margin-top-20.margin-bottom-20(flex='100', flex-sm='100')
-            md-toolbar(md-theme='{{triSkin.elements.content}}')
-              h2.md-toolbar-tools(translate='') MENU.TODO.HEADERS
-            md-card-content.overflow-auto
-              md-list.margin-bottom-10
-                md-list-item.slide(ng-repeat='todo in vm.todos | orderBy:vm.orderTodos', ng-class="{'md-primary': todo.priority === 'high', 'md-accent': todo.priority === 'medium', 'md-warn': todo.priority === 'low'}", md-swipe-right='vm.removeTodo(todo)', md-no-ink='')
-                  md-checkbox(ng-model='todo.selected')
-                  div(flex='', layout='row', layout-align='center center', layout-fill='')
-                    div
-                      h3
-                        | {{::todo.description}}
-                    div
-                      p    {{::todo.date}}    -     {{::todo.date2}}
-                  md-text-float.no-select
-                    | {{::todo.priority}}
+            md-card.margin-top-20.margin-bottom-20(flex='100', flex-sm='100')
+                md-toolbar(md-theme='{{triSkin.elements.content}}')
+                    h2.md-toolbar-tools(translate='') MENU.TODO.HEADERS
+                md-card-content.overflow-auto
+                    md-list.margin-bottom-10
+                        md-list-item.slide(ng-repeat='todo in vm.todos | orderBy:vm.orderTodos', ng-class="{'md-primary': todo.priority === 'high', 'md-accent': todo.priority === 'medium', 'md-warn': todo.priority === 'low'}", md-swipe-right='vm.removeTodo(todo)', md-no-ink='')
+                            md-checkbox(ng-model='todo.selected')
+                            div(flex='', layout='row', layout-align='center center', layout-fill='')
+                                div
+                                    h3
+                                        | {{::todo.description}}
+                                div
+                                    p    {{::todo.date}}    -     {{::todo.date2}}
+                            md-text-float.no-select
+                                | {{::todo.priority}}
