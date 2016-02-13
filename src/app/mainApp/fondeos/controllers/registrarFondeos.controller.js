@@ -51,14 +51,14 @@
             var promise = Fondeo.getAllFondeos();
             promise.then(function (value) {
                 vm.tmp = value;
-                vm.Fondeos=vm.tmp[0];
-                alert(vm.Fondeos);
+                vm.Fondeos=vm.tmp;
+                console.log(vm.Fondeos)
 
             });
         }
         //Funcion para buscar Fondeos
         function getFondeo() {
-
+            alert(vm.selectedFondeo)
             var promise = Fondeo.getFondeoById(vm.selectedFondeo);
             promise.then(function (value) {
                 vm.fondeo = value;
