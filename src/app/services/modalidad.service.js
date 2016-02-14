@@ -18,16 +18,7 @@
             updateModalidad:updateModalidad,
             deleteModalidad:deleteModalidad
         };
-        function getPerfil() {
-            var profile;
-            if (Profile.isValidated()) {
-                profile = Profile.profileInfo();
-                return profile;
-            } else {
-                $state.go('triangular.admin-default.profiles');
-                toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
-            }
-        }
+
         function getAllModalidades() {
 
             var deferred = $q.defer();
@@ -43,46 +34,46 @@
         }
 
         function crearModalidad(modalidad){
-            var profile=getPerfil();
+
             var deferred = $q.defer();
-            if (profile.type === "supervisor") {
+
                 Restangular.all('Modalidad').customPOST(modalidad).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
                 })
 
-            }
+
             return deferred.promise;
         }
 
         function updateModalidad(modalidad){
-            var profile=getPerfil();
+
             var deferred = $q.defer();
-            if (profile.type === "supervisor") {
+
                 Restangular.one('Modalidad',modalidad.id).customPUT(modalidad).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
                 })
 
-            }
+
             return deferred.promise;
         }
         function showModalitiesRelationFondeos(modalidad){
-            var profile=getPerfil();
+
             var deferred = $q.defer();
-            if (profile.type === "person") {
+
                 Restangular.all('ProgramaFondeo').one('Modalidad', progamafondeo.id).GET(convocatoria).then(function (res) {
                     deferred.resolve(res.Modalidad);
                 }).catch(function (err) {
                     deferred.reject(false);
                 });
-            }
+
             return deferred.promise;
         }
         function showConvocatoriasAsociadas(modalidad){
-            var profile=getPerfil();
+
             var deferred = $q.defer();
                 Restangular.all('Modalidad').one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
                     deferred.resolve(res.Convocatoria);
@@ -95,16 +86,16 @@
 
 
         function deleteModalidad(modalidad){
-            var profile=getPerfil();
+
             var deferred = $q.defer();
-            if (profile.type === "supervisor") {
+
                 Restangular.one('Modalidad',modalidad.id).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
                 })
 
-            }
+
             return deferred.promise;
         }
 
