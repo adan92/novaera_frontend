@@ -100,25 +100,25 @@
                         tr(md-row='md-row')
                             th(md-column='md-column', md-order-by='id')
                                 span id
-                            th(md-column='md-column', md-order-by='titulo')
+                            th(md-column='md-column', md-order-by='Nombre')
                                 span Titulo
-                            th(md-column='md-column', md-order-by='fechainicio')
+                            th(md-column='md-column', md-order-by='FechaInicio')
                                 span Fecha Inicio
-                            th(md-column='md-column', md-order-by='fechatermino')
+                            th(md-column='md-column', md-order-by='FechaTermino')
                                 span Fecha Termino
-                            th(md-column='md-column', md-order-by='requisitos')
+                            th(md-column='md-column', md-order-by='Requisitos')
                                 span Requisitos
-                            th(md-column='md-column', md-order-by='monto')
+                            th(md-column='md-column', md-order-by='MontosMaximosTotales')
                                 span Monto maximo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
                         tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order')
                             td(md-cell='md-cell') {{convocatoria.id}}
-                            td(md-cell='md-cell') {{convocatoria.titulo}}
-                            td(md-cell='md-cell') {{convocatoria.fechainicio}}
-                            td(md-cell='md-cell') {{convocatoria.fechatermino}}
-                            td(md-cell='md-cell') {{convocatoria.requisitos}}
-                            td(md-cell='md-cell') {{convocatoria.monto}}
+                            td(md-cell='md-cell') {{convocatoria.Nombre}}
+                            td(md-cell='md-cell') {{convocatoria.FechaInicio}}
+                            td(md-cell='md-cell') {{convocatoria.FechaTermino}}
+                            td(md-cell='md-cell') {{convocatoria.Requisitos}}
+                            td(md-cell='md-cell') {{convocatoria.MontosMaximosTotales}}
         md-divider
         // Muestra las Modalidades que pertenecen a la convocatoria
         md-card(flex='', ng-show='vm.showModalities')

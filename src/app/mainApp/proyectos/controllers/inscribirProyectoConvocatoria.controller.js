@@ -16,30 +16,7 @@
         activate();
         vm.proyectos = null;
         vm.selectedItemChange = selectedItemChange;
-        vm.convocatorias = [{
-            id: 1,
-            titulo: "Convocatoria 1",
-            fechainicio: "12-12-15",
-            fechatermino: "12-03-16",
-            requisitos: "Mandar slicitud antes del 12 de diciembre",
-            monto: "$150,000"
-        }, {
-
-            id: 2,
-            titulo: "Convocatoria 2",
-            fechainicio: "24-12-15",
-            fechatermino: "30-03-16",
-            requisitos: "Mandar slicitud antes del 30 de diciembre",
-            monto: "$250,000",
-        }, {
-            id: 3,
-            titulo: "Convocatoria 3",
-            fechainicio: "12-12-15",
-            fechatermino: "12-03-16",
-            requisitos: "Mandar slicitud antes del 12 de diciembre",
-            monto: "$150,000",
-        }
-        ];
+        vm.convocatorias = null;
         vm.modalidades = [
             {
                 id: 1,
@@ -79,34 +56,6 @@
             },
         ];
         vm.fondeos = null;
-        /* vm.solicitudes=[
-         {id:1,
-         proyecto :"Proyecto 2",
-         fondo:"Programa de fondeo 2",
-         modalidad:"Modalidad 1",
-         tecnopark:"Novaera",
-         convocatoria:"Convocatoria 1",
-         montosolicitado:"50,0000",
-         montoApoyado:"60,0000",
-         trlInicial:"TRL 1",
-         trlFinal:"",
-         fechaRegistro:"20-10-2014",
-         fechaCierre:"",
-         resultado:""
-         },{id:2,
-         proyecto:"Proyecto 2",
-         fondo:"Programa de fondeo 1",
-         modalidad:"Modalidad 1",
-         tecnopark:"Novaera",
-         convocatoria:"Convocatoria 2",
-         montosolicitado:"150,0000",
-         montoApoyado:"100,0000",
-         trlInicial:"TRL 3",
-         trlFinal:"",
-         fechaRegistro:"11-10-2014",
-         fechaCierre:"",
-         resultado:""}];*/
-
         vm.tecnoparks = [
             {
                 id: 1,
@@ -213,6 +162,13 @@
                 $scope.$broadcast('md.table.deselect', vm.selectedFondeos[0], vm.selectedFondeos[0].id);
 
             }
+            console.log(vm.selectedFondeos[0].id);
+            var promise=Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            promise.then(function(value){
+                console.log(value);
+                vm.convocatorias=value.Convocatoria;
+            });
+
             vm.showConvocatoria = true;
 
         }
@@ -224,6 +180,14 @@
             }
 
             vm.showModalities = true;
+            var promise=Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            promise.then(function(value){
+                console.log(value);
+                vm.convocatorias=value.Convocatoria;
+            });
+
+            vm.showConvocatoria = true;
+
 
         }
 
