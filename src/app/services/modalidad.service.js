@@ -6,100 +6,101 @@
 
     angular
         .module('app')
-        .factory('Convocatoria', Convocatoria);
+        .factory('Modalidad', Modalidad);
 
     /* @ngInject */
-    function Modalidad($q, toastr, Restangular, Profile, $state) {
+    function Modalidad($q, Restangular) {
         var service = {
             getAllModalidades: getAllModalidades,
-            showModalitiesRelationFondeos:showModalitiesRelationFondeos,
-            showConvocatoriasAsociadas:showConvocatoriasAsociadas,
-            crearModalidad:crearModalidad,
-            updateModalidad:updateModalidad,
-            deleteModalidad:deleteModalidad
+            showModalitiesRelationFondeos: showModalitiesRelationFondeos,
+            showConvocatoriasAsociadas: showConvocatoriasAsociadas,
+            crearModalidad: crearModalidad,
+            updateModalidad: updateModalidad,
+            deleteModalidad: deleteModalidad
         };
 
         function getAllModalidades() {
 
             var deferred = $q.defer();
 
-                Restangular.all('Modalidad').customGET().then(function (res) {
+            Restangular.all('Modalidad').customGET().then(function (res) {
 
-                    deferred.resolve(res.Modalidad);
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                deferred.resolve(res.Modalidad);
+            }).catch(function (err) {
+                console.log(err);
+            });
 
             return deferred.promise;
         }
 
-        function crearModalidad(modalidad){
+        function crearModalidad(modalidad) {
 
             var deferred = $q.defer();
 
-                Restangular.all('Modalidad').customPOST(modalidad).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.all('Modalidad').customPOST(modalidad).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
         }
 
-        function updateModalidad(modalidad){
+        function updateModalidad(modalidad) {
 
             var deferred = $q.defer();
 
-                Restangular.one('Modalidad',modalidad.id).customPUT(modalidad).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.one('Modalidad', modalidad.id).customPUT(modalidad).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
         }
-        function showModalitiesRelationFondeos(modalidad){
+
+        function showModalitiesRelationFondeos(progamafondeo) {
 
             var deferred = $q.defer();
 
-                Restangular.all('ProgramaFondeo').one('Modalidad', progamafondeo.id).GET(convocatoria).then(function (res) {
-                    deferred.resolve(res.Modalidad);
-                }).catch(function (err) {
-                    deferred.reject(false);
-                });
+            Restangular.all('ProgramaFondeo').one('Modalidad', progamafondeo.id).customGET().then(function (res) {
+                deferred.resolve(res.Modalidad);
+            }).catch(function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
 
             return deferred.promise;
         }
-        function showConvocatoriasAsociadas(modalidad){
+
+        function showConvocatoriasAsociadas(modalidad) {
 
             var deferred = $q.defer();
-                Restangular.all('Modalidad').one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
-                    deferred.resolve(res.Convocatoria);
-                }).catch(function (err) {
-                    deferred.reject(false);
-                });
+            Restangular.all('Modalidad').one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
+                deferred.resolve(res.Convocatoria);
+            }).catch(function (err) {
+                deferred.reject(false);
+            });
 
             return deferred.promise;
         }
 
 
-        function deleteModalidad(modalidad){
+        function deleteModalidad(modalidad) {
 
             var deferred = $q.defer();
 
-                Restangular.one('Modalidad',modalidad.id).customDELETE().then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.one('Modalidad', modalidad.id).customDELETE().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
         }
-
-
 
 
         return service;

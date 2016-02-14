@@ -10,51 +10,14 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController(Operation, $scope, Fondeo, $timeout, $mdToast, $rootScope, $state, Proyecto) {
+    function inscribirProyectoConvocatoriaController(Modalidad,Operation, $scope, Fondeo, $timeout, $mdToast, $rootScope, $state, Proyecto) {
         var vm = this;
         Operation.setTypeOperation("RegistroProyecto");
         activate();
         vm.proyectos = null;
         vm.selectedItemChange = selectedItemChange;
         vm.convocatorias = null;
-        vm.modalidades = [
-            {
-                id: 1,
-                nombre: "Modalidad 1",
-                montos: "50,000-100,000",
-                criterios: "Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables: "Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
-                figuras: "figura 1, figura 2, figura 3"
-            }, {
-                id: 2,
-                nombre: "Modalidad 2",
-                montos: "20,000",
-                criterios: "Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables: "Una vez entregado el apoyo debera entregar el documento 1",
-                figuras: "figura 1, figura 2, figura 3"
-            }, {
-                id: 3,
-                nombre: "Modalidad 3",
-                montos: "100,000-150,000",
-                criterios: "Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables: "Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
-                figuras: "figura 1, figura 2, figura 3"
-            }, {
-                id: 4,
-                nombre: "Modalidad 4",
-                montos: "150,000-200,000",
-                criterios: "Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables: "Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
-                figuras: "figura 1, figura 2, figura 3"
-            }, {
-                id: 5,
-                nombre: "Modalidad 5",
-                montos: "350,000",
-                criterios: "Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables: "Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
-                figuras: "figura 1, figura 2, figura 3"
-            },
-        ];
+        vm.modalidades =null;
         vm.fondeos = null;
         vm.tecnoparks = [
             {
@@ -180,10 +143,11 @@
             }
 
             vm.showModalities = true;
-            var promise=Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            console.log(vm.selectedFondeos);
+            var promise=Modalidad.showModalitiesRelationFondeos(vm.selectedFondeos[0]);
             promise.then(function(value){
                 console.log(value);
-                vm.convocatorias=value.Convocatoria;
+                //vm.convocatorias=value.Convocatoria;
             });
 
             vm.showConvocatoria = true;

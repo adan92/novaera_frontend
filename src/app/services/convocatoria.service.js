@@ -9,9 +9,9 @@
         .factory('Convocatoria', Convocatoria);
 
     /* @ngInject */
-    function Convocatoria($q, toastr, Restangular, Profile, $state) {
+    function Convocatoria($q, Restangula) {
         var service = {
-            getAllConvocatorias: getAllConvocatoriass,
+            getAllConvocatorias: getAllConvocatorias,
             crearConvocatoria:crearConvocatoria,
             showModalitiesRelation:showModalitiesRelation,
             updateConvocatoria:updateConvocatoria,
@@ -108,7 +108,7 @@
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
-                })
+                });
 
 
             return deferred.promise;
