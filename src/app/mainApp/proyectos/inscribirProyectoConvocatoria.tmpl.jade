@@ -30,29 +30,18 @@
                 div(layout='row', flex='100', ng-show="vm.solicitudes.length==0", layout-align='center center')
                     span No hay solicitudes
                 md-list-item.md-4-line(ng-repeat='sol in vm.solicitudes')
-                    div(layout='row', flex='100', layout-align='space-around center' ng-show='')
+                    div(layout='row', flex='100', layout-align='space-around center')
                         div(flex='100')
                             md-list
                                 md-list-item.md-list-item-text.md-list-item-text
                                     div(flex='15', align='center')
-                                        h4 Programa de Fondeo: {{sol.fondo}}
+                                        h4 Proyecto: {{sol.Titulo}}
                                     div(flex='15', align='center')
-                                        h4 Proyecto: {{sol.proyecto}}
-                                    div(flex='15', align='center')
-                                        h4 Convocatoria: {{sol.convocatoria}}
-                                    div(flex='15', align='center')
-                                        h4 Modalidad: {{sol.modalidad}}
-                                    div(flex='10', align='center')
-                                        h4 Monto Solicitado: {{sol.montosolicitado}}
-                                    div(flex='10', align='center')
-                                        h4 TRL Inicial: {{sol.trlInicial}}
-                                    div(flex='10', align='center')
-                                        h5 Fecha de Solicitud: {{sol.fechaRegistro}}
+                                        h4 Proyecto: {{sol.Titulo}}
                                     div(flex='10', align='center')
                                         md-button.md-raised(ng-click='deleteItem(sol)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
                                             span(translate='') PROJECT.INSCRIPTION.DELETE
                                     md-divider
-
     div(layout='column', layout-md='column')
         // Muestra los Programas de Fondeo Activos
         md-card(flex='', ng-show='vm.showFondeos')
@@ -148,11 +137,11 @@
                         tbody(md-body='md-body')
                             tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order')
                                 td(md-cell='md-cell') {{modalidad.id}}
-                                td(md-cell='md-cell') {{modalidad.nombre}}
-                                td(md-cell='md-cell') {{modalidad.montos}}
-                                td(md-cell='md-cell') {{modalidad.criterios}}
-                                td(md-cell='md-cell') {{modalidad.entregables}}
-                                td(md-cell='md-cell') {{modalidad.figuras}}
+                                td(md-cell='md-cell') {{modalidad.Nombre}}
+                                td(md-cell='md-cell') {{modalidad.Montos}}
+                                td(md-cell='md-cell') {{modalidad.CriteriosEvaluacion}}
+                                td(md-cell='md-cell') {{modalidad.Entregables}}
+                                td(md-cell='md-cell') {{modalidad.FigurasApoyo}}
 div
     md-card(flex='', ng-show='vm.showFields')
         img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg', alt='Card Image')
@@ -163,17 +152,23 @@ div
                     form(name='agregarSolicitud', novalidate='')
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.TECNOPARKS
-                            md-select(ng-model='tecnopark', required='', name='tecnopark')
+                            md-select(ng-model='vm.tecnopark', required='', name='tecnopark')
                                 md-option(ng-repeat='tecnopark in vm.tecnoparks', value='{{tecnopark.id}}')
                                     | {{tecnopark.Nombre}}
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.MOUNT
-                            input(ng-model='montosolicitado', required='', name='montosolicitado')
+                            input(ng-model='vm.montosolicitado', required='', name='montosolicitado')
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.TRLBEGIN
-                            md-select(ng-model='trlInicial', required='', name='trlInicial')
+                            md-select(ng-model='vm.trlInicial', required='', name='trlInicial')
                                 md-option(ng-repeat='trlInicial in vm.trlIniciales', value='{{trlInicial.id}}')
-                                    | {{trlInicial.Nombre}}
-                        md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                                    | {{trlInicial.Descripcion}}
+                        md-input-container
+                            label(translate='') PROJECT.INSCRIPTION.TRLENDING
+                            md-select(ng-model='vm.trlFinal', required='', name='trlFinal')
+                                md-option(ng-repeat='trlFinal in vm.trlFinales', value='{{trlFinal.id}}')
+                                    | {{trlFinal.Descripcion}}
+                        md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                             span(translate='') PROJECT.INSCRIPTION.SAVE
 // Tarjeta para eliminar y mostrar Solicitudes
+-->

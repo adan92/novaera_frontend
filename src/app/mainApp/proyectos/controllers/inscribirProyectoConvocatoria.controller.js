@@ -10,87 +10,43 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController(Modalidad,Operation, $scope, Fondeo, $timeout, $mdToast, $rootScope, $state, Proyecto) {
+    function inscribirProyectoConvocatoriaController($timeout,toastr,parqueTecnologico, TRL, Convocatoria, Operation,
+                                                     registroProyecto,$scope, Fondeo,Proyecto) {
         var vm = this;
         Operation.setTypeOperation("RegistroProyecto");
         activate();
         vm.proyectos = null;
-        vm.selectedItemChange = selectedItemChange;
         vm.convocatorias = null;
-        vm.modalidades =null;
+        vm.modalidades = null;
         vm.fondeos = null;
-        vm.tecnoparks = [
-            {
-                id: 1,
-                Nombre: "Parque Tecnologico 1"
-            },
-            {
-                id: 2,
-                Nombre: "Parque Tecnologico 2"
-            },
-            {
-                id: 3,
-                Nombre: "Parque Tecnologico 3"
-            },
-            {
-                id: 4,
-                Nombre: "Parque Tecnologico 4"
-            }
-        ];
-        vm.trlIniciales = [
-            {
-                id: 1,
-                Nombre: "TRL 1"
-            },
-            {
-                id: 2,
-                Nombre: "TRL 2"
-            },
-            {
-                id: 3,
-                Nombre: "TRL 3"
-            },
-            {
-                id: 4,
-                Nombre: "TRL 4"
-            },
-            {
-                id: 5,
-                Nombre: "TRL 5"
-            },
-            {
-                id: 6,
-                Nombre: "TRL 6"
-            },
-            {
-                id: 7,
-                Nombre: "TRL 7"
-            },
-        ];
-
-
+        vm.tecnoparks = null;
+        vm.trlIniciales = null;
+        vm.trlFinales=null;
         vm.selectedItem = null;
         vm.searchText = null;
-        vm.querySearch = querySearch;
-        vm.querySearchFondeos = querySearchFondeos;
         vm.simulateQuery = false;
         vm.isDisabled = false;
         vm.showSolicitudes = false;
         vm.showFondeos = false;
         vm.showConvocatoria = false;
         vm.showModalities = false;
-        vm.showSolicitud = true;
         vm.showFields = false;
-        vm.funcionfondeos = funcionfondeos;
-        vm.funcionConvocatoria = funcionConvocatoria;
-        vm.funcionModalidad = funcionModalidad;
         vm.selectedFondeos = [];
         vm.selectedConvocatorias = [];
         vm.selectedModalidad = [];
-        vm.Fondo;
-        vm.Modalidad;
-        vm.Convocatoria;
+        vm.selectedSolicitudes=[];
         vm.fecha = new Date();
+        vm.trlInicial=null;
+        vm.trlFinal=null;
+        vm.tecnopark=null;
+        vm.montosolicitado=null;
+        vm.addItem = addItem;
+        vm.selectedItemChange = selectedItemChange;
+        vm.querySearch = querySearch;
+        vm.querySearchFondeos = querySearchFondeos;
+        vm.funcionfondeos = funcionfondeos;
+        vm.funcionConvocatoria = funcionConvocatoria;
+        vm.funcionModalidad = funcionModalidad;
 
         function activate() {
             var promise = Proyecto.getAllProjects();
@@ -126,10 +82,10 @@
 
             }
             console.log(vm.selectedFondeos[0].id);
-            var promise=Fondeo.callAssosciated(vm.selectedFondeos[0]);
-            promise.then(function(value){
+            var promise = Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            promise.then(function (value) {
                 console.log(value);
-                vm.convocatorias=value.Convocatoria;
+                vm.convocatorias = value.Convocatoria;
             });
 
             vm.showConvocatoria = true;
@@ -143,11 +99,11 @@
             }
 
             vm.showModalities = true;
-            console.log(vm.selectedFondeos);
-            var promise=Modalidad.showModalitiesRelationFondeos(vm.selectedFondeos[0]);
-            promise.then(function(value){
+            console.log(vm.selectedConvocatorias);
+            var promise = Convocatoria.showModalitiesRelation(vm.selectedConvocatorias[0]);
+            promise.then(function (value) {
                 console.log(value);
-                //vm.convocatorias=value.Convocatoria;
+                vm.modalidades = value;
             });
 
             vm.showConvocatoria = true;
@@ -156,23 +112,43 @@
         }
 
         function funcionModalidad(modalidad, key) {
+            var promise;
             if (vm.selectedModalidad.length >= 2) {
                 $scope.$broadcast('md.table.deselect', vm.selectedModalidad[0], vm.selectedModalidad[0].id);
 
             }
             vm.showFields = true;
+            promise = parqueTecnologico.getAllParqueTecnologico();
+            promise.then(function (value) {
 
+                vm.tecnoparks = value;
+            });
+            promise = TRL.getAllTLR();
+            promise.then(function (value) {
+                vm.trlIniciales=value;
+                vm.trlFinales = value;
+            });
+            /*promise = TRL.getTRLByProject(vm.selectedItem.id);
+            promise.then(function (value) {
+                vm.trlInicial = value;
+            });*/
         }
 
         function selectedItemChange(item) {
             var example = Fondeo.getAllFondeos();
             example.then(function (res) {
+                console.log(res);
                 vm.fondeos = res;
                 vm.showFondeos = true;
             });
+            /*$scope.promise = $timeout(function () {
+                // code
+            }, 6000);*/
             var solicitudes = Operation.getOperation(item.id);
             solicitudes.then(function (res) {
-                vm.solicitudes = res.RegistroProyecto;
+                console.log(res);
+               // vm.solicitudes = res.RegistroProyecto;
+
             });
             vm.showSolicitudes = true;
         }
@@ -218,31 +194,23 @@
          * Create function to add item
          */
 
-        $scope.addItem = function () {
-            vm.Fondo = vm.selectedFondeos[0];
-            vm.Modalidad = vm.selectedModalidad[0];
-            vm.Convocatoria = vm.selectedConvocatorias[0];
-            //vm.Date= String(fecha.getDate() + "-" + (fecha.getMonth() +1) + "-" + fecha.getFullYear());
+        function addItem() {
+
 
             var solicitud = {
-                fondo: vm.Fondo.titulo,
-                proyecto: vm.selectedItem.titulo,
-                modalidad: vm.Modalidad.nombre,
-                convocatoria: vm.Convocatoria.titulo,
-                montosolicitado: $scope.montosolicitado,
-                trlInicial: $scope.trlInicial,
-                tecnopark: $scope.tecnopark,
-                fechaRegistro: vm.fecha
+                idProyecto: vm.selectedItem.id,
+                idTRLInicial: vm.trlInicial,
+                idTRLFinal: vm.trlFinal,
+                idParque: vm.tecnopark,
+                idConvocatoriaModalidad: vm.selectedModalidad[0].pivot.id,
+                MontoSolicitado: vm.montosolicitado
             };
-
-
-            vm.solicitudes.push(solicitud);
-            vm.showSolicitudes = true;
-            $scope.etapa = null;
-            $scope.etapaPrecedente = null;
-            $scope.tarea = null;
-            $scope.entregable = null;
-            $scope.registrarResultado.$setPristine();
+            var promise=registroProyecto.registerProject(solicitud);
+            promise.then(function(val){
+                toastr.success(vm.successText, vm.successStoreText);
+            }).catch(function(err){
+                toastr.error(vm.failureText, vm.failureStoreText);
+            });
 
         }
 

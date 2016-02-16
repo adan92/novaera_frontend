@@ -9,7 +9,7 @@
         .factory('Convocatoria', Convocatoria);
 
     /* @ngInject */
-    function Convocatoria($q, Restangula) {
+    function Convocatoria($q, Restangular) {
         var service = {
             getAllConvocatorias: getAllConvocatorias,
             crearConvocatoria:crearConvocatoria,
@@ -24,12 +24,12 @@
 
             var deferred = $q.defer();
 
-                Restangular.all('Convocatoria').customGET().then(function (res) {
+            Restangular.all('Convocatoria').customGET().then(function (res) {
 
-                    deferred.resolve(res.Convocatoria);
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                deferred.resolve(res.Convocatoria);
+            }).catch(function (err) {
+                console.log(err);
+            });
 
             return deferred.promise;
         }
@@ -38,11 +38,11 @@
 
             var deferred = $q.defer();
 
-                Restangular.all('Convocatoria').customPOST(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.all('Convocatoria').customPOST(convocatoria).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -52,24 +52,23 @@
 
             var deferred = $q.defer();
 
-                Restangular.one('Convocatoria',convocatoria.id).customPUT(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.one('Convocatoria',convocatoria.id).customPUT(convocatoria).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
         }
         function showModalitiesRelation(convocatoria){
-            var profile=getPerfil();
             var deferred = $q.defer();
 
-                Restangular.one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
-                    deferred.resolve(res.Modalidad);
-                }).catch(function (err) {
-                    deferred.reject(false);
-                });
+            Restangular.one('Convocatoria', convocatoria.id).customGET().then(function (res) {
+                deferred.resolve(res.Modalidad);
+            }).catch(function (err) {
+                deferred.reject(false);
+            });
 
             return deferred.promise;
         }
@@ -78,11 +77,11 @@
 
             var deferred = $q.defer();
 
-                Restangular.all('Convocatoria').all('Modalidad').customPOST(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.all('Convocatoria').all('Modalidad').customPOST(convocatoria).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -91,11 +90,11 @@
 
             var deferred = $q.defer();
 
-                Restangular.one('Convocatoria',convocatoria.id).one('Modalidad', convocatoria.modalidad.id).customDELETE(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                })
+            Restangular.one('Convocatoria',convocatoria.id).one('Modalidad', convocatoria.modalidad.id).customDELETE(convocatoria).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
 
             return deferred.promise;
@@ -104,11 +103,11 @@
             var profile=getPerfil();
             var deferred = $q.defer();
 
-                Restangular.one('Convocatoria',convocatoria.id).all('Modalidad').customDELETE(convocatoria).then(function (res) {
-                    deferred.resolve(res);
-                }).catch(function (err) {
-                    deferred.reject(err);
-                });
+            Restangular.one('Convocatoria',convocatoria.id).all('Modalidad').customDELETE(convocatoria).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
 
 
             return deferred.promise;
