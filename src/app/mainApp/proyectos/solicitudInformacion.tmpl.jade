@@ -1,0 +1,62 @@
+md-dialog(aria-label='Información detallada de solicitud', ng-cloak='')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h2 Información detallada de solicitud
+                span(flex='')
+                md-button.md-icon-button(ng-click='cancel()')
+                    md-icon( aria-label='Close dialog')
+        md-dialog-content
+            .md-dialog-content
+                 table
+                     tr
+                        td
+                         h4 Fecha de registro:
+                        td
+                         p  &nbsp {{vm.solicitud.FechaRegistro}}
+                     tr
+                         td
+                             h4 Titulo:
+                         td
+                             p  &nbsp {{vm.solicitud.Titulo}}
+                     tr
+                         td
+                             h4 Programa de Fondeo:
+                         td
+                             p  &nbsp {{vm.solicitud.ProgramaFondeo}}
+                     tr
+                         td
+                             h4 Convocatoria:
+                         td
+                             p  &nbsp {{vm.solicitud.Convocatoria}}
+                     tr
+                         td
+                             h4 Modalidad:
+                         td
+                             p  &nbsp {{vm.solicitud.Modalidad}}
+                     tr
+                         td
+                             h4 TRL Inicial:
+                         td
+                             p  &nbsp {{vm.solicitud.TRLInicial}}
+                     tr
+                         td
+                             h4 TRL Final:
+                         td
+                             p  &nbsp {{vm.solicitud.TRLFinal}}
+                     tr
+                         td
+                             h4 Monto solicitado:
+                         td
+                             p  &nbsp {{vm.solicitud.MontoSolicitado}}
+                     tr
+                         td
+                             h4 Parque tecnológico:
+                         td
+                             p  &nbsp {{vm.solicitud.Parque}}
+        md-dialog-actions(layout='row')
+            span(flex='')
+            md-button(ng-click="vm.answer(0)")
+                | Cancelar
+            md-button(ng-click="vm.answer(1)", style='margin-right:20px;')
+                | Eliminar

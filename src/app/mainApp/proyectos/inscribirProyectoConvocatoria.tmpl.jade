@@ -24,24 +24,39 @@
                         h6 Alcances: {{vm.selectedItem.Alcances}}
                     md-divider
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.showSolicitudes && vm.selectedItem!=null')
+        // Muestra los Programas de Fondeo Activos
         md-card(flex='', layout='column')
-            md-card-content
-                h2.text-center(translate='') PROJECT.INSCRIPTION.SOLICITUDES
-                div(layout='row', flex='100', ng-show="vm.solicitudes.length==0", layout-align='center center')
-                    span No hay solicitudes
-                md-list-item.md-4-line(ng-repeat='sol in vm.solicitudes')
-                    div(layout='row', flex='100', layout-align='space-around center')
-                        div(flex='100')
-                            md-list
-                                md-list-item.md-list-item-text.md-list-item-text
-                                    div(flex='15', align='center')
-                                        h4 Proyecto: {{sol.Titulo}}
-                                    div(flex='15', align='center')
-                                        h4 Proyecto: {{sol.Titulo}}
-                                    div(flex='10', align='center')
-                                        md-button.md-raised(ng-click='deleteItem(sol)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                            span(translate='') PROJECT.INSCRIPTION.DELETE
-                                    md-divider
+            // Titulo del toolbar
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    span(translate='') PROJECT.INSCRIPTION.SOLICITUDES
+            // Cabecera de la md table
+            md-table-container
+                table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+                    thead(md-head='', md-order='vm.query.order')
+                        tr(md-row='md-row')
+                            th(md-column='md-column', md-order-by='id')
+                                span Programa de Fondeo
+                            th(md-column='md-column', md-order-by='PublicoObjetivo')
+                                span Convocatoria
+                            th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                                span Monto Solicitado
+                            th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                                span Fecha de Solicitud
+                            th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                                span
+                    // Cuerpo de la tabla
+                    tbody(md-body='md-body')
+                        tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+                            td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+                            td(md-cell='md-cell') {{sol.Convocatoria}}
+                            td(md-cell='md-cell') {{sol.MontoSolicitado}}
+                            td(md-cell='md-cell') {{sol.FechaRegistro}}
+                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
+                                div
+                                md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
+                                    md-icon(md-font-icon="fa fa-bars")
+        md-divider
     div(layout='column', layout-md='column')
         // Muestra los Programas de Fondeo Activos
         md-card(flex='', ng-show='vm.showFondeos')
@@ -68,13 +83,14 @@
                                 span Rubros de Apoyo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}',   md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}',   md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order | limitTo: myLimit: (myPage - 1) * myLimit', md-on-deselect='vm.funcionConvDesc')
                             td(md-cell='md-cell') {{fondo.id}}
                             td(md-cell='md-cell') {{fondo.Titulo}}
                             td(md-cell='md-cell') {{fondo.PublicoObjetivo}}
                             td(md-cell='md-cell') {{fondo.FondoTotal}}
                             td(md-cell='md-cell') {{fondo.CriteriosElegibilidad}}
                             td(md-cell='md-cell') {{fondo.RubrosDeApoyo}}
+            md-table-pagination(md-limit='myLimit', md-page='myPage', md-total="{{vm.fondeos.length}}",  md-on-paginate='onPaginate', md-page-select)
         md-divider
         // Muestra las Convocatorias relacionadas a los programas de fondeo
         md-card(flex='', ng-show='vm.showConvocatoria')
@@ -101,7 +117,7 @@
                                 span Monto maximo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order', md-on-deselect='vm.funcionModaDesc' )
                             td(md-cell='md-cell') {{convocatoria.id}}
                             td(md-cell='md-cell') {{convocatoria.Nombre}}
                             td(md-cell='md-cell') {{convocatoria.FechaInicio}}
@@ -135,7 +151,7 @@
                                     span Figuras de Apoyo
                         // Cuerpo de la tabla
                         tbody(md-body='md-body')
-                            tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order')
+                            tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order', md-on-deselect='vm.funcionFormsDesc')
                                 td(md-cell='md-cell') {{modalidad.id}}
                                 td(md-cell='md-cell') {{modalidad.Nombre}}
                                 td(md-cell='md-cell') {{modalidad.Montos}}
@@ -157,7 +173,10 @@ div
                                     | {{tecnopark.Nombre}}
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.MOUNT
-                            input(ng-model='vm.montosolicitado', required='', name='montosolicitado')
+                            input(ng-model='vm.montosolicitado',type="number", required='', name='montosolicitado',ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/")
+                            div(ng-messages="agregarSolicitud.montosolicitado.$valid")
+                                div(ng-if="agregarSolicitud.montosolicitado.$valid!=true")
+                                    span Ingresa un monto válido
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.TRLBEGIN
                             md-select(ng-model='vm.trlInicial', required='', name='trlInicial')
@@ -170,4 +189,4 @@ div
                                     | {{trlFinal.Descripcion}}
                         md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                             span(translate='') PROJECT.INSCRIPTION.SAVE
-// Tarjeta para eliminar y mostrar Solicitudes
+
