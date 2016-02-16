@@ -47,6 +47,7 @@
         vm.funcionfondeos = funcionfondeos;
         vm.funcionConvocatoria = funcionConvocatoria;
         vm.funcionModalidad = funcionModalidad;
+        vm.showSolicitudInfo=showSolicitudInfo;
 
         function activate() {
             var promise = Proyecto.getAllProjects();
@@ -147,7 +148,7 @@
             var solicitudes = Operation.getOperation(item.id);
             solicitudes.then(function (res) {
                 console.log(res);
-               // vm.solicitudes = res.RegistroProyecto;
+                vm.solicitudes = res.RegistroProyecto;
 
             });
             vm.showSolicitudes = true;
@@ -216,7 +217,9 @@
 
 
     }
-
+    function showSolicitudInfo(item){
+        console.log(item);
+    }
     function matcher() {
         return function (arr1, arr2) {
             if (arr2 == null)
