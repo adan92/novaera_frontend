@@ -54,7 +54,7 @@
                             td(md-cell='md-cell') {{sol.FechaRegistro}}
                             td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                                 div
-                                md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol)')
+                                md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
                                     md-icon(md-font-icon="fa fa-bars")
         md-divider
     div(layout='column', layout-md='column')
@@ -83,13 +83,14 @@
                                 span Rubros de Apoyo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}',   md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select='fondo', md-select-id='{{fondo.id}}',   md-on-select='vm.funcionfondeos', ng-repeat='fondo in vm.fondeos | orderBy:vm.query.order | limitTo: myLimit: (myPage - 1) * myLimit', md-on-deselect='vm.funcionConvDesc')
                             td(md-cell='md-cell') {{fondo.id}}
                             td(md-cell='md-cell') {{fondo.Titulo}}
                             td(md-cell='md-cell') {{fondo.PublicoObjetivo}}
                             td(md-cell='md-cell') {{fondo.FondoTotal}}
                             td(md-cell='md-cell') {{fondo.CriteriosElegibilidad}}
                             td(md-cell='md-cell') {{fondo.RubrosDeApoyo}}
+            md-table-pagination(md-limit='myLimit', md-page='myPage', md-total="{{vm.fondeos.length}}",  md-on-paginate='onPaginate', md-page-select)
         md-divider
         // Muestra las Convocatorias relacionadas a los programas de fondeo
         md-card(flex='', ng-show='vm.showConvocatoria')
@@ -116,7 +117,7 @@
                                 span Monto maximo
                     // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select='convocatoria', md-select-id='{{convocatoria.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionConvocatoria', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order', md-on-deselect='vm.funcionModaDesc' )
                             td(md-cell='md-cell') {{convocatoria.id}}
                             td(md-cell='md-cell') {{convocatoria.Nombre}}
                             td(md-cell='md-cell') {{convocatoria.FechaInicio}}
@@ -150,7 +151,7 @@
                                     span Figuras de Apoyo
                         // Cuerpo de la tabla
                         tbody(md-body='md-body')
-                            tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order')
+                            tr(md-row='md-row', md-select='modalidad', md-select-id='{{modalidad.id}}', md-auto-select='md-auto-select', md-on-select='vm.funcionModalidad', ng-repeat='modalidad in vm.modalidades | orderBy:vm.query.order', md-on-deselect='vm.funcionFormsDesc')
                                 td(md-cell='md-cell') {{modalidad.id}}
                                 td(md-cell='md-cell') {{modalidad.Nombre}}
                                 td(md-cell='md-cell') {{modalidad.Montos}}
@@ -172,7 +173,10 @@ div
                                     | {{tecnopark.Nombre}}
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.MOUNT
-                            input(ng-model='vm.montosolicitado', required='', name='montosolicitado')
+                            input(ng-model='vm.montosolicitado',type="number", required='', name='montosolicitado',ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/")
+                            div(ng-messages="agregarSolicitud.montosolicitado.$valid")
+                                div(ng-if="agregarSolicitud.montosolicitado.$valid!=true")
+                                    span Ingresa un monto válido
                         md-input-container
                             label(translate='') PROJECT.INSCRIPTION.TRLBEGIN
                             md-select(ng-model='vm.trlInicial', required='', name='trlInicial')

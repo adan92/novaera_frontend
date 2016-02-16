@@ -10,8 +10,9 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController($timeout,toastr,parqueTecnologico, TRL, Convocatoria, Operation,
-                                                     registroProyecto,$scope, Fondeo,Proyecto) {
+    function inscribirProyectoConvocatoriaController($mdDialog, $mdMedia, toastr, parqueTecnologico, TRL, Convocatoria, Operation,
+                                                     registroProyecto, $scope, Fondeo, Proyecto) {
+        //<editor-fold desc="Declaración de variables y metodos">
         var vm = this;
         Operation.setTypeOperation("RegistroProyecto");
         activate();
@@ -21,7 +22,7 @@
         vm.fondeos = null;
         vm.tecnoparks = null;
         vm.trlIniciales = null;
-        vm.trlFinales=null;
+        vm.trlFinales = null;
         vm.selectedItem = null;
         vm.searchText = null;
         vm.simulateQuery = false;
@@ -34,12 +35,12 @@
         vm.selectedFondeos = [];
         vm.selectedConvocatorias = [];
         vm.selectedModalidad = [];
-        vm.selectedSolicitudes=[];
+        vm.selectedSolicitudes = [];
         vm.fecha = new Date();
-        vm.trlInicial=null;
-        vm.trlFinal=null;
-        vm.tecnopark=null;
-        vm.montosolicitado=null;
+        vm.trlInicial = null;
+        vm.trlFinal = null;
+        vm.tecnopark = null;
+        vm.montosolicitado = null;
         vm.addItem = addItem;
         vm.selectedItemChange = selectedItemChange;
         vm.querySearch = querySearch;
@@ -47,17 +48,19 @@
         vm.funcionfondeos = funcionfondeos;
         vm.funcionConvocatoria = funcionConvocatoria;
         vm.funcionModalidad = funcionModalidad;
-        vm.showSolicitudInfo=showSolicitudInfo;
+        vm.showSolicitudInfo = showSolicitudInfo;
+        vm.funcionConvDesc=funcionConvDesc;
+        vm.funcionModaDesc=funcionModaDesc;
+        vm.funcionFormsDesc=funcionFormsDesc;
+        //</editor-fold >
 
         function activate() {
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
-                console.log(res);
                 vm.proyectos = (res);
             });
-
-
         }
+        //<editor-fold desc="Método de ayuda">
 
         function clean(proyectos) {
             console.log("d");
@@ -74,51 +77,115 @@
         function toType(obj) {
             return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
         }
-
-        function funcionfondeos(fondo, key) {
-            console.log("dd");
-            console.log(vm.selectedFondeos[0]);
-            if (vm.selectedFondeos.length > 1) {
-                $scope.$broadcast('md.table.deselect', vm.selectedFondeos[0], vm.selectedFondeos[0].id);
-
+        function cleanConvocatoria(){
+            vm.showConvocatoria = false;
+            vm.convocatorias=null;
+        }
+        function cleanModalidad(){
+            vm.showModalities = false;
+            vm.modalidades=null;
+        }
+        function cleanFormulario(){
+            vm.showFields = false;
+            vm.tecnoparks=null;
+            vm.trlIniciales = null;
+            vm.trlFinales = null;
+        }
+        //</editor-fold >
+        //<editor-fold desc="Métodos que se ejecutan al deseleccionar en cada tabla">
+        //Método se encarga de mostrar o ocultar las convocatorias
+        //cuando se haya deseleccionado varios items
+        function funcionConvDesc(){
+            if (vm.selectedFondeos.length ==0) {
+                cleanConvocatoria();
+                cleanModalidad();
+                cleanFormulario();
+            }else if(vm.selectedFondeos.length==1){
+                enableConvocatoria();
             }
-            console.log(vm.selectedFondeos[0].id);
-            var promise = Fondeo.callAssosciated(vm.selectedFondeos[0]);
-            promise.then(function (value) {
-                console.log(value);
-                vm.convocatorias = value.Convocatoria;
-            });
+        }
+        /*
+        * Método se encarga de mostrar o ocultar las modalidades
+        * cuando se hay deseleccionado varios items
+        * */
+        function funcionModaDesc(){
+            if (vm.selectedConvocatorias.length ==0) {
+                //cleanScreen();
+                cleanModalidad();
+                cleanFormulario();
+            }else if(vm.selectedConvocatorias.length==1){
+                enableModalidad();
+            }
+        }
 
-            vm.showConvocatoria = true;
-
+        /*
+         * Método se encarga de mostrar u ocultar formulario
+         * cuando se hay deseleccionado varios items
+         * */
+        function funcionFormsDesc(){
+            if (vm.selectedModalidad.length ==0) {
+                //cleanScreen();
+                cleanFormulario()
+            }else if(vm.selectedModalidad.length==1){
+                enableFormulario();
+            }
+        }
+        //</editor-fold>
+        //<editor-fold desc="Métodos que se ejecutan al seleccionar en cada tabla">
+        function funcionfondeos(fondo, key) {
+            if (vm.selectedFondeos.length > 1) {
+               $scope.$broadcast('md.table.deselect', vm.selectedFondeos[0], vm.selectedFondeos[0].id);
+                cleanConvocatoria();
+                cleanModalidad();
+                cleanFormulario();
+            }else {
+                enableConvocatoria();
+            }
         }
 
         function funcionConvocatoria(convocatoria, key) {
             if (vm.selectedConvocatorias.length > 1) {
                 $scope.$broadcast('md.table.deselect', vm.selectedConvocatorias[0], vm.selectedConvocatorias[0].id);
-
+                cleanModalidad();
+                cleanFormulario();
+            }else {
+                enableModalidad();
             }
-
-            vm.showModalities = true;
-            console.log(vm.selectedConvocatorias);
-            var promise = Convocatoria.showModalitiesRelation(vm.selectedConvocatorias[0]);
-            promise.then(function (value) {
-                console.log(value);
-                vm.modalidades = value;
-            });
-
-            vm.showConvocatoria = true;
-
-
         }
-
         function funcionModalidad(modalidad, key) {
             var promise;
             if (vm.selectedModalidad.length >= 2) {
                 $scope.$broadcast('md.table.deselect', vm.selectedModalidad[0], vm.selectedModalidad[0].id);
+                cleanFormulario();
 
+
+            }else {
+                enableFormulario();
             }
+            /*promise = TRL.getTRLByProject(vm.selectedItem.id);
+             promise.then(function (value) {
+             vm.trlInicial = value;
+             });*/
+        }
+        //</editor-fold >
+        //<editor-fold desc="Métodos que se encargan de habilitar cada tabla">
+        function enableModalidad(){
+            vm.showModalities = true;
+            var promise = Convocatoria.showModalitiesRelation(vm.selectedConvocatorias[0]);
+            promise.then(function (value) {
+                vm.modalidades = value;
+            });
+        }
+        function enableConvocatoria(){
+            var promise = Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            promise.then(function (value) {
+                vm.convocatorias = value.Convocatoria;
+            });
+            vm.showConvocatoria = true;
+        }
+        function enableFormulario(){
             vm.showFields = true;
+            var promise;
             promise = parqueTecnologico.getAllParqueTecnologico();
             promise.then(function (value) {
 
@@ -126,28 +193,23 @@
             });
             promise = TRL.getAllTLR();
             promise.then(function (value) {
-                vm.trlIniciales=value;
+                vm.trlIniciales = value;
                 vm.trlFinales = value;
             });
-            /*promise = TRL.getTRLByProject(vm.selectedItem.id);
-            promise.then(function (value) {
-                vm.trlInicial = value;
-            });*/
         }
+        //</editor-fold>
 
         function selectedItemChange(item) {
             var example = Fondeo.getAllFondeos();
             example.then(function (res) {
-                console.log(res);
                 vm.fondeos = res;
                 vm.showFondeos = true;
             });
             /*$scope.promise = $timeout(function () {
-                // code
-            }, 6000);*/
+             // code
+             }, 6000);*/
             var solicitudes = Operation.getOperation(item.id);
             solicitudes.then(function (res) {
-                console.log(res);
                 vm.solicitudes = res.RegistroProyecto;
 
             });
@@ -183,13 +245,6 @@
             };
         }
 
-        /**
-         * Create function to delete item
-         */
-        $scope.deleteItem = function (index) {
-            vm.solicitudes.splice(index, 1);
-            //console.log($scope.proyectos);
-        }
 
         /**
          * Create function to add item
@@ -206,20 +261,46 @@
                 idConvocatoriaModalidad: vm.selectedModalidad[0].pivot.id,
                 MontoSolicitado: vm.montosolicitado
             };
-            var promise=registroProyecto.registerProject(solicitud);
-            promise.then(function(val){
+            var promise = registroProyecto.registerProject(solicitud);
+            promise.then(function (val) {
                 toastr.success(vm.successText, vm.successStoreText);
-            }).catch(function(err){
+            }).catch(function (err) {
                 toastr.error(vm.failureText, vm.failureStoreText);
             });
 
         }
 
+        function showSolicitudInfo(item, ev) {
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
 
+            $mdDialog.show({
+                    controller: 'informacionSolicitudController',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/mainApp/proyectos/solicitudInformacion.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen,
+                    resolve: {
+                        solicitud: function () {
+                            return item;
+                        }
+                    }
+                })
+                .then(function (answer) {
+                    if(answer==1){
+                        //Delete
+                    }
+                }, function () {
+                });
+            $scope.$watch(function () {
+                return $mdMedia('xs') || $mdMedia('sm');
+            }, function (wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+            });
+        }
     }
-    function showSolicitudInfo(item){
-        console.log(item);
-    }
+
     function matcher() {
         return function (arr1, arr2) {
             if (arr2 == null)
