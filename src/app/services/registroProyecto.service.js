@@ -15,7 +15,8 @@
              getProjectTransTecById:getProjectTransTecById,
              getEtapasProject:getEtapasProject,
              saveEtapasProject:saveEtapasProject,*/
-            getStatusProjectsByProfile: getStatusProjectsByProfile
+            getStatusProjectsByProfile: getStatusProjectsByProfile,
+            registerProject:registerProject
         };
 
         function getPerfil() {
@@ -28,7 +29,25 @@
                 toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
             }
         }
-
+        function registerProject(request){
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('RegistroProyecto').customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(false);
+                });
+            } else {
+                Restangular.all('RegistroProyecto').one('Organizacion', profile.id).customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(false);
+                });
+            }
+            return deferred.promise;
+        }
         function getStatusProjectsByProfile() {
             var profile = getPerfil();
             var deferred = $q.defer();

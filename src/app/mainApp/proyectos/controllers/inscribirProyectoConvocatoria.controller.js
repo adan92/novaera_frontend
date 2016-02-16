@@ -1,271 +1,171 @@
 /**
  * Created by darkxavier on 12/27/15.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.mainApp.proyectos')
         .controller('inscribirProyectoConvocatoriaController', inscribirProyectoConvocatoriaController)
-        .filter('matcher',matcher);
+        .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController($scope, $timeout, $mdToast, $rootScope, $state,Proyecto) {
+    function inscribirProyectoConvocatoriaController($timeout,toastr,parqueTecnologico, TRL, Convocatoria, Operation,
+                                                     registroProyecto,$scope, Fondeo,Proyecto) {
         var vm = this;
+        Operation.setTypeOperation("RegistroProyecto");
         activate();
-        vm.proyectos =null; /*[
-            {
-                id: 1,
-                titulo: "Proyecto 1",
-                descripcion:"Es un proyecto genial que sirve para algo",
-                antecedentes:"alguno",
-                justificacion:"Ammm este ... esta muy genial",
-                objetivos:"objetivo 1, y objetivo 2",
-                alcances:"El cielo es el limite"
-
-            },{
-                id: 2,
-                titulo: "Proyecto 2",
-                descripcion:"Es un proyecto genial que sirve para algo",
-                antecedentes:"alguno",
-                justificacion:"Ammm este ... esta muy genial",
-                objetivos:"objetivo 1, y objetivo 2",
-                alcances:"El cielo es el limite"
-            },
-            {
-                id: 3,
-                titulo: "Proyecto 3",
-                descripcion:"Es un proyecto genial que sirve para algo",
-                antecedentes:"alguno",
-                justificacion:"Ammm este ... esta muy genial",
-                objetivos:"objetivo 1, y objetivo 2",
-                alcances:"El cielo es el limite"
-            }
-        ];*/
-        vm.convocatorias=[{
-            id:1,
-            titulo:"Convocatoria 1",
-            fechainicio:"12-12-15",
-            fechatermino:"12-03-16",
-            requisitos:"Mandar slicitud antes del 12 de diciembre",
-            monto:"$150,000"
-        },{
-
-            id:2,
-            titulo:"Convocatoria 2",
-            fechainicio:"24-12-15",
-            fechatermino:"30-03-16",
-            requisitos:"Mandar slicitud antes del 30 de diciembre",
-            monto:"$250,000",
-        },{
-            id: 3,
-            titulo: "Convocatoria 3",
-            fechainicio: "12-12-15",
-            fechatermino: "12-03-16",
-            requisitos: "Mandar slicitud antes del 12 de diciembre",
-            monto: "$150,000",
-        }
-        ];
-        vm.modalidades=[
-            {
-                id: 1,
-                nombre: "Modalidad 1",
-                montos:"50,000-100,000",
-                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
-                figuras:"figura 1, figura 2, figura 3"
-            },{
-                id: 2,
-                nombre: "Modalidad 2",
-                montos:"20,000",
-                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables:"Una vez entregado el apoyo debera entregar el documento 1",
-                figuras:"figura 1, figura 2, figura 3"
-            },{
-                id: 3,
-                nombre: "Modalidad 3",
-                montos:"100,000-150,000",
-                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
-                figuras:"figura 1, figura 2, figura 3"
-            },{
-                id: 4,
-                nombre: "Modalidad 4",
-                montos:"150,000-200,000",
-                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2 y 3",
-                figuras:"figura 1, figura 2, figura 3"
-            },{
-                id: 5,
-                nombre: "Modalidad 5",
-                montos:"350,000",
-                criterios:"Debe ser del sector tecnologico y debe contar con sustento tecnico",
-                entregables:"Una vez entregado el apoyo debera entregar el documento 1 , 2, 3,4,5 ",
-                figuras:"figura 1, figura 2, figura 3"
-            },
-        ];
-        vm.fondeos = [
-            {
-                id: 1,
-                titulo: "Programa de fondeo 1",
-                publicoObjetivo:"Nuevos Emprendedores",
-                fondototal:"$2,000,000",
-                criterios:"Debe ser nuevo emprendedor y contar con un proyecto factible, tecnica como economicamente"
-
-            },
-            {
-            id: 2,
-            titulo: "Programa de fondeo 2",
-            publicoObjetivo:"Emprendedores Expertos",
-            fondototal:"$3,000,000",
-            criterios:"Debe ser nuevo emprendedor y contar con un proyecto factible, tecnica como economicamente"
-            },
-            {
-                id: 3,
-                titulo: "Programa de fondeo 3",
-                publicoObjetivo:"Emprendedores mas  Expertos",
-                fondototal:"$6,000,000",
-                criterios:"Debe ser un gran emprendedor y contar con un proyecto factible, tecnica como economicamente"
-            }
-        ];
-        vm.solicitudes=[
-            {id:1,
-             proyecto :"Proyecto 2",
-             fondo:"Programa de fondeo 2",
-             modalidad:"Modalidad 1",
-             tecnopark:"Novaera",
-             convocatoria:"Convocatoria 1",
-             montosolicitado:"50,0000",
-             montoApoyado:"60,0000",
-             trlInicial:"TRL 1",
-             trlFinal:"",
-             fechaRegistro:"20-10-2014",
-             fechaCierre:"",
-             resultado:""
-            },{id:2,
-                proyecto:"Proyecto 2",
-                fondo:"Programa de fondeo 1",
-                modalidad:"Modalidad 1",
-                tecnopark:"Novaera",
-                convocatoria:"Convocatoria 2",
-                montosolicitado:"150,0000",
-                montoApoyado:"100,0000",
-                trlInicial:"TRL 3",
-                trlFinal:"",
-                fechaRegistro:"11-10-2014",
-                fechaCierre:"",
-                resultado:""}];
-
-        vm.tecnoparks=[
-            {   id:1,
-                Nombre:"Parque Tecnologico 1"
-            },
-            {   id:2,
-                Nombre:"Parque Tecnologico 2"
-            },
-            {   id:3,
-                Nombre:"Parque Tecnologico 3"
-            },
-            {   id:4,
-                Nombre:"Parque Tecnologico 4"
-            }
-        ];
-        vm.trlIniciales=[
-            {   id:1,
-                Nombre:"TRL 1"
-            },
-            {   id:2,
-                Nombre:"TRL 2"
-            },
-            {   id:3,
-                Nombre:"TRL 3"
-            },
-            {   id:4,
-                Nombre:"TRL 4"
-            },
-            {   id:5,
-                Nombre:"TRL 5"
-            },
-            {   id:6,
-                Nombre:"TRL 6"
-            },
-            {   id:7,
-                Nombre:"TRL 7"
-            },
-        ];
-
-
-
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
+        vm.proyectos = null;
+        vm.convocatorias = null;
+        vm.modalidades = null;
+        vm.fondeos = null;
+        vm.tecnoparks = null;
+        vm.trlIniciales = null;
+        vm.trlFinales=null;
+        vm.selectedItem = null;
+        vm.searchText = null;
+        vm.simulateQuery = false;
+        vm.isDisabled = false;
+        vm.showSolicitudes = false;
+        vm.showFondeos = false;
+        vm.showConvocatoria = false;
+        vm.showModalities = false;
+        vm.showFields = false;
+        vm.selectedFondeos = [];
+        vm.selectedConvocatorias = [];
+        vm.selectedModalidad = [];
+        vm.selectedSolicitudes=[];
+        vm.fecha = new Date();
+        vm.trlInicial=null;
+        vm.trlFinal=null;
+        vm.tecnopark=null;
+        vm.montosolicitado=null;
+        vm.addItem = addItem;
+        vm.selectedItemChange = selectedItemChange;
+        vm.querySearch = querySearch;
         vm.querySearchFondeos = querySearchFondeos;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-        vm.showSolicitudes    =false;
-        vm.showFondeos        = true;
-        vm.showConvocatoria   = false;
-        vm.showModalities     = false;
-        vm.showSolicitud      = true;
-        vm.showFields         =false;
-        vm.funcionfondeos     =funcionfondeos;
-        vm.funcionConvocatoria =funcionConvocatoria;
-        vm.funcionModalidad =funcionModalidad;
-        vm.selectedFondeos     =[];
-        vm.selectedConvocatorias   =[];
-        vm.selectedModalidad  =[];
-        vm.Fondo;
-        vm.Modalidad;
-        vm.Convocatoria;
-        vm.fecha              = new Date();
+        vm.funcionfondeos = funcionfondeos;
+        vm.funcionConvocatoria = funcionConvocatoria;
+        vm.funcionModalidad = funcionModalidad;
 
-        function activate(){
-            var promise=Proyecto.getAllProjects();
-            promise.then(function(res){
+        function activate() {
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
                 console.log(res);
-                vm.proyectos=res;
+                vm.proyectos = (res);
             });
 
+
         }
 
-        function funcionfondeos(fondo,key){
-            if(vm.selectedFondeos.length >1) {
+        function clean(proyectos) {
+            console.log("d");
+            var proyecto = [];
+            proyectos.forEach(function (value) {
+                var copyPro = angular.copy(value);
+                var alcance = (value.Alcances);
+                console.log(alcance.replace(new RegExp("<p>", "gi"), ""));
+                /*copyPro.Alcances=value.Alcances.replace(new RegExp( "<p>", "</p>" ), "");
+                 console.log(copyPro);*/
+            });
+        }
+
+        function toType(obj) {
+            return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+        }
+
+        function funcionfondeos(fondo, key) {
+            console.log("dd");
+            console.log(vm.selectedFondeos[0]);
+            if (vm.selectedFondeos.length > 1) {
                 $scope.$broadcast('md.table.deselect', vm.selectedFondeos[0], vm.selectedFondeos[0].id);
 
             }
-            vm.showConvocatoria   = true;
+            console.log(vm.selectedFondeos[0].id);
+            var promise = Fondeo.callAssosciated(vm.selectedFondeos[0]);
+            promise.then(function (value) {
+                console.log(value);
+                vm.convocatorias = value.Convocatoria;
+            });
+
+            vm.showConvocatoria = true;
 
         }
-        function funcionConvocatoria(convocatoria,key){
-            if(vm.selectedConvocatorias.length > 1) {
+
+        function funcionConvocatoria(convocatoria, key) {
+            if (vm.selectedConvocatorias.length > 1) {
                 $scope.$broadcast('md.table.deselect', vm.selectedConvocatorias[0], vm.selectedConvocatorias[0].id);
 
             }
 
-            vm.showModalities   = true;
+            vm.showModalities = true;
+            console.log(vm.selectedConvocatorias);
+            var promise = Convocatoria.showModalitiesRelation(vm.selectedConvocatorias[0]);
+            promise.then(function (value) {
+                console.log(value);
+                vm.modalidades = value;
+            });
+
+            vm.showConvocatoria = true;
+
 
         }
-        function funcionModalidad(modalidad,key){
-            if(vm.selectedModalidad.length >= 2) {
+
+        function funcionModalidad(modalidad, key) {
+            var promise;
+            if (vm.selectedModalidad.length >= 2) {
                 $scope.$broadcast('md.table.deselect', vm.selectedModalidad[0], vm.selectedModalidad[0].id);
 
             }
-            vm.showFields   = true;
+            vm.showFields = true;
+            promise = parqueTecnologico.getAllParqueTecnologico();
+            promise.then(function (value) {
 
+                vm.tecnoparks = value;
+            });
+            promise = TRL.getAllTLR();
+            promise.then(function (value) {
+                vm.trlIniciales=value;
+                vm.trlFinales = value;
+            });
+            /*promise = TRL.getTRLByProject(vm.selectedItem.id);
+            promise.then(function (value) {
+                vm.trlInicial = value;
+            });*/
         }
+
+        function selectedItemChange(item) {
+            var example = Fondeo.getAllFondeos();
+            example.then(function (res) {
+                console.log(res);
+                vm.fondeos = res;
+                vm.showFondeos = true;
+            });
+            /*$scope.promise = $timeout(function () {
+                // code
+            }, 6000);*/
+            var solicitudes = Operation.getOperation(item.id);
+            solicitudes.then(function (res) {
+                console.log(res);
+               // vm.solicitudes = res.RegistroProyecto;
+
+            });
+            vm.showSolicitudes = true;
+        }
+
         //////////////////
         //Busqueda de proyectos
-        function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+        function querySearch(query) {
+            var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
             return results;
 
         }
+
         //Busqueda Fondeos
-        function querySearchFondeos (query) {
-            var results2 = query ? vm.fondeos.filter( createFilterForFondeos(query) ) : vm.fondeos, deferred;
+        function querySearchFondeos(query) {
+            var results2 = query ? vm.fondeos.filter(createFilterForFondeos(query)) : vm.fondeos, deferred;
             return results2;
         }
-
 
 
         function createFilterFor(query) {
@@ -274,6 +174,7 @@
                 return (proyecto.titulo.indexOf(query) === 0);
             };
         }
+
         function createFilterForFondeos(query) {
 
             return function filterFn(fondeo) {
@@ -284,7 +185,7 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
+        $scope.deleteItem = function (index) {
             vm.solicitudes.splice(index, 1);
             //console.log($scope.proyectos);
         }
@@ -293,57 +194,43 @@
          * Create function to add item
          */
 
-        $scope.addItem = function()
-        {
-            vm.Fondo=vm.selectedFondeos[0];
-            vm.Modalidad=vm.selectedModalidad[0];
-            vm.Convocatoria=vm.selectedConvocatorias[0];
-            //vm.Date= String(fecha.getDate() + "-" + (fecha.getMonth() +1) + "-" + fecha.getFullYear());
+        function addItem() {
+
 
             var solicitud = {
-                fondo:vm.Fondo.titulo,
-                proyecto:vm.selectedItem.titulo,
-                modalidad:vm.Modalidad.nombre,
-                convocatoria:vm.Convocatoria.titulo,
-                montosolicitado: $scope.montosolicitado,
-                trlInicial: $scope.trlInicial,
-                tecnopark: $scope.tecnopark,
-                fechaRegistro:vm.fecha
+                idProyecto: vm.selectedItem.id,
+                idTRLInicial: vm.trlInicial,
+                idTRLFinal: vm.trlFinal,
+                idParque: vm.tecnopark,
+                idConvocatoriaModalidad: vm.selectedModalidad[0].pivot.id,
+                MontoSolicitado: vm.montosolicitado
             };
-
-
-
-            vm.solicitudes.push(solicitud);
-            vm.showSolicitudes=true;
-            $scope.etapa=null;
-            $scope.etapaPrecedente=null;
-            $scope.tarea=null;
-            $scope.entregable =null;
-            $scope.registrarResultado.$setPristine();
+            var promise=registroProyecto.registerProject(solicitud);
+            promise.then(function(val){
+                toastr.success(vm.successText, vm.successStoreText);
+            }).catch(function(err){
+                toastr.error(vm.failureText, vm.failureStoreText);
+            });
 
         }
 
 
-
-
-
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2==null)
+    function matcher() {
+        return function (arr1, arr2) {
+            if (arr2 == null)
                 return true;
 
-            return arr1.filter(function(val){
+            return arr1.filter(function (val) {
 
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
+                var returnable = null;
+                angular.forEach(arr2, function (item) {
+                    if (item.id == val.id)
                         returnable = false;
-                },val);
+                }, val);
 
-                if(returnable==null)
+                if (returnable == null)
                     return true;
                 else return false;
             })
