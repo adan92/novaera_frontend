@@ -6,9 +6,6 @@ describe('Proyecto',function(){
     describe('Testing Index',function(){
         var IndexController, $scope, $httpBackend, Restangular,$mdThemingProvider;
 
-
-
-
         beforeEach(function(){
             module('app');
         });
@@ -37,6 +34,30 @@ describe('Proyecto',function(){
 
     });
 
+
+    describe('Testing Service',function(){
+        var httpBackend, Restangular, TestUtils, q, scope;
+
+        beforeEach(function(){
+            module('app');
+        });
+
+        beforeEach(inject(function( _Restangular_, _$httpBackend_, _TestUtils_, $q, $rootScope) {
+            httpBackend = _$httpBackend_;
+            Restangular = _Restangular_;
+            TestUtils = _TestUtils_;
+            q = $q;
+            scope = $rootScope.$new();
+        }));
+
+        spyOn(Restangular, 'one').andCallThrough();
+        var mockToReturn = {
+            someProp: 'someValue',
+            someOtherProp: 'someOtherValue'
+        };
+
+
+    });
 
 
 
