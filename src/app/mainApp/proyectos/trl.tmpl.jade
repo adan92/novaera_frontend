@@ -6,7 +6,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
       md-card(flex='')
          md-card-content
             h2.text-center(translate='') PROJECT.TRL.CHART
-            canvas#doughnut.chart.chart-doughnut(chart-data='estadisticas.data', chart-labels='estadisticas.labels', chart-legend='true')
+            canvas#doughnut.chart.chart-doughnut(chart-data='vm.estadisticas.data', chart-labels='vm.estadisticas.labels', chart-legend='true')
       // Tarjeta con la información de TRL
       md-card(flex='')
          md-card-content
@@ -69,7 +69,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         th(md-column md-order-by='Fecha')
                            span Fecha
                   tbody(md-body)
-                     tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select='vm.funcion' ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
+                     tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
                         td(md-cell) {{item.idTRL}}
                         td(md-cell) {{item.Descripcion}}
                         td(md-cell) {{item.Fecha}}
