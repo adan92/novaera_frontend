@@ -13,6 +13,8 @@ Este proyecto fue desarrollando utilizando tecnologías como:
 * [node.js] - evented I/O for the backend
 * [Gulp] - es un sistema de construcción que ayuda a minificar y detectar cambios en código 
 * [Bower] - es un manejador de paquetes web.
+* [Karma] - gestor de pruebas agnóstico al framework hecho por Google
+* [Jasmine] - framework de pruebas unitarias
 
 And of course Dillinger itself is open source with a [public repository][dill]
  on GitHub.
@@ -65,13 +67,25 @@ Para poder acceder al proyecto se accede mediante el navegador en la siguiente l
 ```http
 http://11.12.13.14:3000/
 ```
+### Testing
+
+Para empezar a probar, se deben de generar los archivos en /test/spec y luego los siguientes comandos
+
+```sh
+$ gulp karma
+$ karma start karma.conf.js
+```
+
+El primero anexará todos los archivos necesarios para correr el proyecto y el segundo iniciará las pruebas indicadas en
+los archivos de testing
+
 
 ###Colaboradores:
--Daniel Zuriel Franco Rodríguez
--Francisco Javier Cerda Martinez
--Jorge Erik Montiel Arguijo
--Amezcua Aguilar Christian Adan Israel
--Santiago Sinisterra
+-Daniel Zuriel Franco Rodríguez (https://github.com/LockonF)
+-Francisco Javier Cerda Martinez (https://github.com/DarkXavier)
+-Jorge Erik Montiel Arguijo (https://github.com/JRGRK)
+-Amezcua Aguilar Christian Adan Israel (https://github.com/carson314)
+-Santiago Sinisterra (https://github.com/sinisterra)
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -84,5 +98,6 @@ http://11.12.13.14:3000/
    [ssh]:<http://support.suso.com/supki/SSH_Tutorial_for_Linux>
    [openssh]:<https://sourceforge.net/projects/sshwindows/>
    [virtualbox]:<https://www.virtualbox.org/>
-
+   [Karma]: <https://karma-runner.github.io/>
+   [Jasmine]: <http://jasmine.github.io/>
 
