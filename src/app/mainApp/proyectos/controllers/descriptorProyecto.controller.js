@@ -28,6 +28,8 @@
         vm.edit                 = edit;
         vm.deleteItem           = deleteItem;
 
+
+        vm.tipoDescriptor = [{id:1,Titulo:"Tipo de Descriptor"}];
         //////////////////
 
         function activate(){
