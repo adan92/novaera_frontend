@@ -69,15 +69,14 @@
                 Restangular.all('Proyecto').one('TRL',id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    deferred.reject(false);
+                    deferred.reject(err);
                 });
             }else{
                 Restangular.all('Proyecto').one('TRL',id).one('Organizacion',profile.id).customGET().then(function (res) {
                     console.log(res);
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
-                    deferred.reject(false);
+                    deferred.reject(err);
                 });
             }
             return deferred.promise;
