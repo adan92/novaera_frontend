@@ -16,7 +16,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                label(translate='') PROJECT.TRL.LEVEL
                md-select(ng-model='vm.infoTRL')
                   md-option(ng-repeat='level in vm.TRLItems', value='{{level.Descripcion}}')
-                     | TRL {{level.id}}
+                     | TRL {{level.Nivel}}
             h4.text-center {{vm.infoTRL}}
    // TARJETA PARA BUSCAR PROYECTOS y Agregar TRL
    div(layout='row', layout-margin='', layout-sm='column')
@@ -40,7 +40,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                   label(translate='') PROJECT.TRL.SELECT
                   md-select(ng-model='vm.TRL.idTRL')
                      md-option(ng-repeat='level in vm.TRLItems', value='{{level.id}}')
-                        | TRL {{level.id}}
+                        | TRL {{level.Nivel}}
 
                md-input-container
                   label(translate='') PROJECT.TRL.DESCRIPTION
@@ -62,15 +62,15 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                table(md-table='', md-row-select='', ng-model='vm.selectedRegisters')
                   thead(md-head='', md-order='vm.query.order')
                      tr(md-row)
-                        th(md-column md-order-by='idTRL')
-                           span id
+                        th(md-column md-order-by='TRL.Nivel')
+                           span Nivel
                         th(md-column md-order-by='Descripcion')
                            span Descripcion
                         th(md-column md-order-by='Fecha')
                            span Fecha
                   tbody(md-body)
                      tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
-                        td(md-cell) {{item.idTRL}}
+                        td(md-cell) {{item.TRL.Nivel}}
                         td(md-cell) {{item.Descripcion}}
                         td(md-cell) {{item.Fecha}}
             div(layout="row" layout-sm="column" layout-align="end center")
