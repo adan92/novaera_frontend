@@ -148,6 +148,7 @@
                 toastr.success('Los datos se han guardado exitosamente', 'Éxito');
                 var proms=TRL.getTRLByProject(vm.selectedItem.id);
                 proms.then(function (res) {
+                    console.log(res.TRL);
                     vm.selectedItem.TRL = res.TRL;
                 }).catch(function (err) {
 
@@ -165,14 +166,13 @@
             var request = {};
             request.idProyecto = vm.selectedItem.id;
             request.ProyectoTRL = vm.selectedRegisters;
-            console.log(request);
-           /* var promise=TRL.deleteTRLFromProject(request);
+            var promise=TRL.deleteTRLFromProject(request);
             promise.then(function (res) {
                 toastr.success('Éxito', 'Registros eliminados exitosamente');
                 vm.selectedItem.TRL = res.TRL;
             }).catch(function (err) {
                 toastr.error('Error', 'Error al eliminar registros');
-            });*/
+            });
         }
     }
 })
