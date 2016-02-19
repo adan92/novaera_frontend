@@ -9,10 +9,11 @@
         .controller('resultadosProyectosController', resultadosProyectosController);
 
     /* @ngInject */
-    function resultadosProyectosController($scope,Restangular,Translate,toastr) {
+    function resultadosProyectosController(Proyecto,TRL,Pais,$scope,Translate,toastr) {
         var vm = this;
         vm.activate = activate();
         vm.paisesProteccion = [];
+        vm.proyectosTRL=[];
         vm.resultado = {
             id: null,
             idProyectoTRL: null,
@@ -74,17 +75,14 @@
 
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
             });
-            Restangular.all('Pais').customGET().then(function(res){
-                vm.paises = res.Pais;
-            }).catch(function(err){
-
+            var proms = Pais.getAllPais();
+            proms.then(function (res) {
+                vm.paises = res;
             });
-
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
             vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
@@ -104,7 +102,7 @@
         function changeResult(item)
         {
             vm.resultado = item;
-            if(vm.resultado.PaisesProteccion==null)
+            if(vm.resultado.PaisesProteccion==null && vm.resultado.Tipo!='Patente')
             {
                 vm.resultado.PaisesProteccion = [];
             }
@@ -208,20 +206,24 @@
 
         function selectedItemChange()
         {
-            vm.resultadosPromise = Restangular.all('Proyecto').one('Resultados',vm.selectedItem.id).all('Todos').customGET();
-            vm.resultadosPromise.then(function(res){
+            var promise=null;
+            promise = Proyecto.getResultado(vm.selectedItem.id,'Todos');
+            promise.then(function (res) {
                vm.resultados = res.Resultado;
                vm.tableModel = vm.resultados;
             }).catch(function(err){
 
             });
-            vm.patentesPromise = Restangular.all('Proyecto').one('Resultados',vm.selectedItem.id).all('Patente').customGET();
-            vm.patentesPromise.then(function(res){
+            promise = Proyecto.getResultado(vm.selectedItem.id,'Patente');
+            promise.then(function (res) {
                 vm.patentes = res.Resultado;
             }).catch(function(err){
-
             });
-
+            promise=TRL.getTRLByProject(vm.selectedItem.id);
+            promise.then(function (res) {
+                vm.proyectosTRL = res.TRL;
+            }).catch(function(err){
+            });
         }
 
 
@@ -232,16 +234,21 @@
         function addResult(type)
         {
             vm.resultado.idProyecto = vm.selectedItem.id;
+            vm.resultado.Fecha=moment(vm.resultado.Fecha).format('YYYY-MM-DD');
             if(type=="Patente")
             {
                 vm.resultado.Tipo = type;
                 vm.resultado.PaisesProteccion = angular.toJson(vm.resultado.PaisesProteccion,0);
             }
-
+            var request={
+                idProyecto:vm.selectedItem.id,
+                Resultado:vm.resultado
+            };
+            var promise;
             if(vm.resultado.id !=null)
             {
-                console.log(vm.resultado);
-                Restangular.all('Proyecto').all('Resultados').customPUT(vm.resultado).then(function(res){
+                promise=Proyecto.updateResultado(request);
+                promise.then(function(res){
                    vm.resultado = res;
                    toastr.success(vm.successText,vm.successUpdateText);
                 }).catch(function(err)
@@ -251,7 +258,9 @@
             }
             else
             {
-                Restangular.all('Proyecto').all('Resultados').customPOST(vm.resultado).then(function(res){
+                console.log(request);
+                promise=Proyecto.saveResultado(request);
+                promise.then(function(res){
                     vm.resultado = res;
                     toastr.success(vm.successText,vm.successUpdateText);
                 }).catch(function(err)
@@ -262,7 +271,7 @@
             }
 
             $scope.agregarResultado.$setPristine();
-        };
+        }
 
 
 

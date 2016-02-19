@@ -1,0 +1,47 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    // TARJETA PARA BUSCAR PROYECTOS
+    div(layout='row', layout-md='column')
+        md-card(flex='', layout-padding='')
+            md-card-content
+                h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
+                h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONSRESULT
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.display', md-min-length='0', placeholder='Busca tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.display}}
+    // Tarjeta para eliminar Resultados
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='40', layout='column')
+            md-card-content
+                h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_RESULTS
+                md-list
+                    md-subheader.md-no-sticky(translate='') PROJECT.DESCRIPTOR.RESULTS
+                    md-list-item.md-4-line(ng-repeat='etapa in vm.selectedItem.etapas')
+                        .md-list-item-text
+                            h3 ID: {{etapa.id}}
+                            h5 Descriptor: {{etapa.idDescriptor}}
+                            h5 Fecha de Inicio: {{etapa.fechaInicio}}
+                            h5 Fecha de Aprobado: {{etapa.fechaAprobado}}
+                            h5 PCT: {{etapa.pct}}
+                        md-button.md-raised(ng-click='deleteItem(etapa)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                            span(translate='') PROJECT.DESCRIPTOR.REMOVE_RESULT
+                        md-divider
+        // Tarjeta para agregar Resultados
+        md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
+            md-card-content
+                h2(translate='') PROJECT.DESCRIPTOR.ADD_RESULT
+                form(name='registrarResultado', novalidate='')
+                    div(layout='row')
+                        label(translate='') PROJECT.DESCRIPTOR.INITIAL_DATE
+                        md-datepicker(ng-model='fInit', name='fInit')
+                    div(layout='row')
+                        label(translate='') PROJECT.DESCRIPTOR.APROV_DATE
+                        md-datepicker(ng-model='fFin', name='fFin')
+                    md-input-container
+                        label(translate='') PROJECT.DESCRIPTOR.PCT
+                        textarea(type='text', ng-model='clvPct', name='clvPct', required='')
+                    md-input-container
+                        label(translate='') PROJECT.DESCRIPTOR.RESULT
+                        md-select(ng-model='resultadoDescriptor', ng-required='vm.selectedItem.etapas==null')
+                            md-option(ng-repeat='descriptor in descriptor', name='idDescriptor', value='{{descriptor.titulo}}')
+                                | {{descriptor.titulo}}
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.DESCRIPTOR.ADDRESULT
