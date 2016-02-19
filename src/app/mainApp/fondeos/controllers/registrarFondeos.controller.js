@@ -23,11 +23,15 @@
             "CriteriosElegibilidad": null,
             "created_at": null,
             "updated_at": null
+          //  "Archivos":{
+           //     "DescripcionFile":null,
+            //    "RubrosDeApoyoFile":null
+           // }
         };
         //arreglo de objetos Fondeo
         vm.Fondeos=null;
         //variables visibilidad o para controles
-        vm.isDisabled         = false;
+        vm.isDisabled = false;
         vm.isNewFondeo = true;
             //Pasos wizard
         vm.steps                    = [
@@ -44,6 +48,7 @@
         vm.eliminarFondeo=eliminarFondeo;
         vm.getFondeo = getFondeo;
         vm.getFondeos = getFondeos;
+        vm.cancel =cancel;
 
         //////////////////
         //Funcion para buscar todos los Fondeos
@@ -52,17 +57,30 @@
             promise.then(function (value) {
                 vm.tmp = value;
                 vm.Fondeos=vm.tmp;
+
                 console.log(vm.Fondeos)
 
             });
         }
+        function cancel() {
+
+            vm.selectedFondeo=null;
+            vm.fondeo = null;
+            vm.isNewFondeo=true;
+            $scope.fondeoInfo.setPristine();
+            $scope.fondeoFondeoDesc.setPristine();
+            $scope.fondeoFondeoDesc.setPristine();
+            $scope.fondeoSupport.setPristine();
+
+        }
         //Funcion para buscar Fondeos
         function getFondeo() {
-            alert(vm.selectedFondeo)
+            console.log("Ya seleccione");
+            console.log(vm.selectedFondeo);
             var promise = Fondeo.getFondeoById(vm.selectedFondeo);
             promise.then(function (value) {
                 vm.fondeo = value;
-
+                vm.isNewFondeo=false;
             });
         }
 

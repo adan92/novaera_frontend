@@ -9,7 +9,8 @@
         .factory('Fondeo', Fondeo);
 
     /* @ngInject */
-    function Fondeo($q, toastr, Restangular, Profile, $state) {
+    function Fondeo($q, toastr, Restangular,
+                    $state) {
         var service = {
             getAllFondeos: getAllFondeos,
             callAssosciated: callAssosciated,
@@ -23,14 +24,14 @@
 
         function deleteFondeo(fondeo) {
             var deferred = $q.defer();
-            if (profile.type === "person") {
+
                 Restangular.one('ProgramaFondeo', fondeo.id).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
                 });
 
-            }
+
             return deferred.promise;
         }
 
