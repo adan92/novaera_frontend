@@ -10,7 +10,7 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorProyectoController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function descriptorProyectoController(Catalogo,Proyecto,$scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
         vm.proyectos            = null;
         vm.descriptores         = null;
@@ -34,16 +34,15 @@
 
         function activate(){
             //Ver como diferenciar entre persona y organizacion
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-                Restangular.all('Descriptor').customGET().then(function(res){
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
+                var proms=Catalogo.getAllCatalogo('Descriptor');
+                proms.then(function(res){
                     vm.descriptores = res.Descriptor;
                 }).catch(function(err){
 
                 });
-
-            }).catch(function(err){
-
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');

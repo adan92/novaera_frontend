@@ -3,16 +3,16 @@
 
     angular
         .module('app')
-        .factory('Pais', Pais);
+        .factory('Catalogo', Catalogo);
 
     /* @ngInject */
-    function Pais($q,  Restangular) {
+    function Catalogo($q,  Restangular) {
         var service = {
-            getAllPais: getAllPais
+            getAllCatalogo: getAllCatalogo
         };
-        function  getAllPais(){
+        function  getAllCatalogo(catalogo){
             var deferred = $q.defer();
-            Restangular.all('Pais').customGET().then(function (res) {
+            Restangular.all(catalogo).customGET().then(function (res) {
                 deferred.resolve(res.Pais);
             }).catch(function (err) {
                 deferred.reject(err);
