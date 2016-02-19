@@ -390,7 +390,7 @@
                 },
 
                 {
-                    name: 'Descriptor Proyectos',
+                    name: 'Clasificar Proyecto',
                     state: 'triangular.admin-default.descriptor_proyecto',
                     type: 'link'
                 },
@@ -400,7 +400,7 @@
                     type: 'link'
                 },
                 {
-                    name: 'Descriptor Resultados',
+                    name: 'Clasificar Resultados',
                     state: 'triangular.admin-default.descriptor_resultado',
                     type: 'link'
                 },

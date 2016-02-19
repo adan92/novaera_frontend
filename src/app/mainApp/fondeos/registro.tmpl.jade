@@ -14,13 +14,12 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                             md-icon(md-font-icon='fa fa-pencil')
 
                         md-select(md-on-close='vm.getFondeo()', ng-model='vm.selectedProject', name='select', ng-show='{{vm.Fondeos}}!= null')
-                            md-option(ng-repeat='fondo in vm.Fondeos', value='{{fondo.id}}')
-                                 {{fondo.Titulo}}
+                            md-option(ng-repeat='fondo in vm.Fondeos', value='{{fondo.id}}') {{fondo.Titulo}}
 
                     div(flex layout='column')
                          div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
 
-                                h2(translate='') FONDEOS.WIZARD.TITLE66668
+                                h2(translate='') FONDEOS.WIZARD.TITLE
                                 h3(translate='') {{vm.steps[triWizard.currentStep]}}
                                 //h2 {{triWizard.progress}}%
                          div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )

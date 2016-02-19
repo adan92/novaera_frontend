@@ -46,6 +46,7 @@
         function getProyecto() {
             var promise = Proyecto.getProjectById(vm.selectedProject);
             promise.then(function (value) {
+                console.log(value);
                 vm.proyecto = value;
                 vm.proyectoLabel = vm.proyecto.Titulo;
             });

@@ -14,3 +14,4 @@ require('require-dir')('./gulp');
 gulp.task('build', ['clean'], function () {
     gulp.start('buildapp');
 });
+

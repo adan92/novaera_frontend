@@ -5,7 +5,7 @@
         .module('app.mainApp.profile')
         .controller('indexProfileController', indexProfileController);
     /* @ngInject */
-    function indexProfileController($filter,  Restangular, triBreadcrumbsService, SweetAlert, Profile) {
+    function indexProfileController($filter,  Restangular, triBreadcrumbsService, SweetAlert, Profile,$state) {
         var vm = this;
         vm.perfiles = [];
 
@@ -14,16 +14,32 @@
 
 
         function activate() {
+
             triBreadcrumbsService.reset();
             triBreadcrumbsService.addCrumb("Profile");
-            var promese = Restangular.all("Organizacion").customGET();
-            promese.then(function (response) {
+            var promise = Restangular.all('User').customGET();
+
+            promise.then(function(response){
                 vm.perfiles=[{
-                    id: 0,
-                    type: "person",
-                    "nombre": "Persona",
+                    id: response.persona.id,
+                    type:"person",
+                    nombre: response.persona.Nombre+" "+response.persona.ApellidoP+" "+response.persona.ApellidoM,
+                    isValidated: response.persona.isValidated,
                     "imagen": "assets/images/avatars/persona.png"
-                }];
+
+                }]
+            }).catch(function (e) {
+                SweetAlert.swal("Ops...", "No pudimos encontrar una persona, por favor regístrate", "error");
+                $state.go('triangular.admin-default.personas_registro');
+                throw e;
+            });
+
+            var promise = Restangular.all("Organizacion").customGET();
+
+
+
+            promise.then(function (response) {
+
 
                 angular.forEach(response.Organizacion, function (value, key) {
 
@@ -31,8 +47,9 @@
                     {
                         id: value.id,
                         type: "org",
-                        "nombre": value.Titulo,
-                        "imagen": "assets/images/avatars/persona.png"
+                        nombre: value.Titulo,
+                        imagen: "assets/images/avatars/persona.png",
+                        isValidated: value.isValidated
                     });
                 });
                 if (Profile.isValidated()) {

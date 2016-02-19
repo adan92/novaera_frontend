@@ -126,11 +126,11 @@
             var profile=getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').one('Persona', id).customGET().then(function (res) {
+                Restangular.all('Proyecto').all('One').one('Persona', id).customGET().then(function (res) {
                     deferred.resolve(res);
                 });
             } else {
-                Restangular.all('Proyecto').one('Organizacion', id).customGET(profile.id).then(function (res) {
+                Restangular.all('Proyecto').all('One').one('Organizacion', id).customGET(profile.id).then(function (res) {
                     deferred.resolve(res);
                 });
             }
