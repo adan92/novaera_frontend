@@ -64,7 +64,7 @@
                 Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
                     vm.descriptoresProyecto = res.Descriptor;
                 }).catch(function (err) {
-
+                    console.log(err);
                 });
             }
         }

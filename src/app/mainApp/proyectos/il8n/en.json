@@ -146,7 +146,8 @@
         "PROTECTED_COUNTRIES":"Paises Protegidos",
         "PROGRESS": "Avance",
         "STATUS": "Status",
-        "OPERATIONAL_PLAN": "Plan de Explotación"
+        "OPERATIONAL_PLAN": "Plan de Explotación",
+        "TRL": "TRL"
       }
     },
     "IMPACT":
