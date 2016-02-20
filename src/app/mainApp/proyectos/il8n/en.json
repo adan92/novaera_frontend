@@ -31,7 +31,7 @@
       "REACH": "Alcances",
       "REQUIRED-FIELD":"Éste campo es requerido",
       "FILE_UPLOAD":"Selecciona el archivo a subir",
-      "UPDATE_TEXT": "Actualizar texto",
+      "UPDATE_TEXT": "Guardar",
       "COMPLETED": "COMPLETADO",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
@@ -146,7 +146,8 @@
         "PROTECTED_COUNTRIES":"Paises Protegidos",
         "PROGRESS": "Avance",
         "STATUS": "Status",
-        "OPERATIONAL_PLAN": "Plan de Explotación"
+        "OPERATIONAL_PLAN": "Plan de Explotación",
+        "TRL": "TRL"
       }
     },
     "IMPACT":
@@ -202,6 +203,7 @@
       "PCT": "PCT",
       "RESULT": "Resultados",
       "REMOVE_RESULT": "Eliminar Resultado",
+      "ADDRESULT": "Agregar Resultado",
       "ADD":"Agregar Descriptor",
       "CLEAR":"Limpiar Campos",
       "EDITPRO":"Editar Descriptor",

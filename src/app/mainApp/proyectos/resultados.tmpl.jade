@@ -18,8 +18,6 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 placeholder='Busca tu proyecto')
                     span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
 
-
-
         // Panel de Control
         md-card(flex='50', layout-align='center center')
             md-card-content
@@ -119,6 +117,14 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         div(ng-messages='agregarResultado.plan_explotacion.$error')
                             div(ng-message='required')
                                 span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.TRL
+                        md-select(ng-model='vm.resultado.idProyectoTRL', name='trl', required='')
+                            md-option(ng-repeat='trl in vm.proyectosTRL', value='{{trl.id}}')
+                                | {{trl.Descripcion}}
+                        div(ng-messages='agregarResultado.trl.$error')
+                            div(ng-message='required')
+
                     md-button.md-raised(ng-disabled='agregarResultado.$invalid', ng-click='vm.addResult("Resultado")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') PROJECT.RESULTS.ADD_RESULT
         md-card(flex='', ng-show='!vm.showTable')
@@ -172,5 +178,12 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         div(ng-messages='agregarPatente.plan_explotacion.$error')
                             div(ng-message='required')
                                 span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                    md-input-container
+                        label(translate='') PROJECT.RESULTS.FORM.TRL
+                        md-select(ng-model='vm.resultado.idProyectoTRL', name='trl', required='')
+                            md-option(ng-repeat='trl in vm.proyectosTRL', value='{{trl.id}}')
+                                | {{trl.Descripcion}}
+                        div(ng-messages='agregarResultado.trl.$error')
+                            div(ng-message='required')
                     md-button.md-raised(type='button' ng-disabled='agregarPatente.$invalid', ng-click='vm.addResult("Patente")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') PROJECT.RESULTS.ADD_PATENT

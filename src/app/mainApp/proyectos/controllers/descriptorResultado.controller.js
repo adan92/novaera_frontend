@@ -10,10 +10,9 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorResultadoController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorResultadoController(Proyecto,Translate,$scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
-
-
+        activate();
         //Datos
         $scope.descriptor=[
             {
@@ -158,7 +157,19 @@
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
 
+        function activate(){
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                //vm.proyectos = res;
+            });
 
+            vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
+            vm.failTitle = Translate.translate('DIALOGS.FAILURE');
+            vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
+
+        }
         //////////////////
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;

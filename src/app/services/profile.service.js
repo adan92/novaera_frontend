@@ -22,10 +22,12 @@
         function isValidated()
         {
             var user = profileInfo();
-            if(user===null) {
+
+            if(user===undefined || user==null)
                 return false;
-            }
-            if(user.isValidated===0) {
+
+
+            if(user.isValidated!=1) {
                 return false;
             }
             return true;

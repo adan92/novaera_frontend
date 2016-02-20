@@ -17,6 +17,11 @@
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.TYPE
                         md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.tipoDescriptor', value='{{tipo.id}}')
+                                | {{tipo.Titulo}}
+                    md-input-container
+                        label(translate='') PROJECT.DESCRIPTOR.TYPE
+                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
                             md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}')
                                 | {{tipo.Titulo}}
                     md-input-container

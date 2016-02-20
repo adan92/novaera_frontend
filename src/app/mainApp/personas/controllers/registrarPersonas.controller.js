@@ -110,9 +110,9 @@
         function activate(){
 
             getPaises();
-            Restangular.all('Persona').customGET().then(function(res)
+            Restangular.all('Persona').all('Current').customGET().then(function(res)
             {
-                vm.Persona = res;
+                vm.Persona = res.Persona;
                 if(vm.Persona.id!=undefined)
                 {
                     vm.showContacto=true;
