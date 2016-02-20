@@ -91,7 +91,8 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('DescripcionFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
-                                span {{vm.fondeo.Archivos.DescripcionFile}}
+                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.DescripcionFile}}')
+                                    span {{vm.fondeo.Archivos.DescripcionFile | routeFilter}}
                 md-tab#aims(ng-disabled='projectInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 3
@@ -104,10 +105,12 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                     md-divider
                             div(layout='column', flex='')
-                                form(name='supportfile', tri-wizard-form='')
-                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SupportFile')")
+                                form(name='RubrosDeApoyoFile', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RubrosDeApoyoFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
+                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.RubrosDeApoyoFile}}')
+                                    span {{vm.fondeo.Archivos.RubrosDeApoyoFile | routeFilter}}
                 md-tab#reach(ng-disabled='projectInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 4
@@ -120,15 +123,18 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                     md-divider
                             div(layout='column', flex='')
-                                form(name='Requerimientos', tri-wizard-form='')
-                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Requerimientos')")
+                                form(name='CriteriosDeElegibilidadFile', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('CriteriosDeElegibilidadFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
+                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.CriteriosDeElegibilidadFile}}')
+                                    span {{vm.fondeo.Archivos.CriteriosDeElegibilidadFile | routeFilter}}
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 3', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 3', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
                 md-button.md-accent.md-raised(ng-click='vm.registrarFondeo()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 3 ', translate='FONDEOS.WIZARD.SEND')
                 md-button.md-warn.md-raised(ng-click='vm.eliminarFondeo()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
+                md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id==null', translate='FONDEOS.WIZARD.CLEAR_FIELDS')
     // wizard
 

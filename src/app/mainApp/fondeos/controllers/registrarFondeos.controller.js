@@ -10,6 +10,8 @@
 
         var vm = this;
 
+        vm.fileRoute = ROUTES.FILE_ROUTE+'files/';
+
         vm.activate = activate();
        //Var form
 
@@ -96,6 +98,7 @@
         //Funcion para buscar Fondeos
         function getFondeo() {
             vm.fondeo = vm.selectedFondeo;
+            console.log(vm.fondeo);
         }
 
         //Funcion Para eliminar Fondeos
@@ -116,6 +119,7 @@
                     "created_at": null,
                     "updated_at": null
                 };
+                getFondeos();
 
             });
         }
@@ -155,6 +159,7 @@
 
         function uploadFile(filetype)
         {
+            console.log('Uploading file');
             if(vm.file!=null)
             {
                 var route = null;
@@ -174,10 +179,9 @@
                     data:fileData,
                     disableProgress: false
                 }).then(function(res){
-
                     toastr.success(vm.successTitle,vm.successUpdate);
-
-
+                    vm.fondeo = res.data;
+                    console.log(vm.fondeo);
                 }).catch( function (resp) {
                     console.log(resp);
                     toastr.error(vm.failTitle,vm.failMessage);
@@ -192,6 +196,12 @@
             if(filetype=='DescripcionFile')
             {
                 return {DescripcionFile:vm.file};
+            }if(filetype=='RubrosDeApoyoFile')
+            {
+                return {RubrosDeApoyoFile:vm.file};
+            }if(filetype=='CriteriosDeElegibilidadFile')
+            {
+                return {CriteriosDeElegibilidadFile:vm.file};
             }
         }
 

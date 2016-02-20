@@ -5,8 +5,8 @@
     .module('app')
     .constant('ROUTES', {
 
-      FILE_ROUTE: 'http://104.197.70.163/',
-      API_ROUTE: 'http://104.197.70.163/api/'
+     // FILE_ROUTE: 'http://104.197.70.163/',
+     // API_ROUTE: 'http://104.197.70.163/api/'
 
       //FILE_ROUTE:'http://127.0.0.1:8888/novaera_laravel/public/',
       //API_ROUTE: 'http://127.0.0.1:8888/novaera_laravel/public/api/'
@@ -19,7 +19,7 @@
       //FILE_ROUTE:'http://homestead.app/',
       //API_ROUTE: 'http://homestead.app/api/'
       //Homestead windows
-      //   FILE_ROUTE: 'http://192.168.10.10/',
-      // API_ROUTE: 'http://192.168.10.10/api/'
+         FILE_ROUTE: 'http://192.168.10.10/',
+         API_ROUTE: 'http://192.168.10.10/api/'
     }); 
 })(); 

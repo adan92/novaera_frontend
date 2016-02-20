@@ -17,7 +17,8 @@
             saveEtapasProject: saveEtapasProject,
             saveResultado: saveResultado,
             getResultado: getResultado,
-            updateResultado:updateResultado
+            updateResultado:updateResultado,
+            getDescriptoresProject:getDescriptoresProject
         };
 
         function getPerfil() {
@@ -29,6 +30,10 @@
                 $state.go('triangular.admin-default.profiles');
                 toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
             }
+        }
+
+        function  getDescriptoresProject(idProyecto){
+
         }
 
         function saveEtapasProject(request) {

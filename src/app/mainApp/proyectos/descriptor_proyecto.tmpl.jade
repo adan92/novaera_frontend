@@ -16,18 +16,18 @@
                 form(name='registrarResultado', novalidate='')
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.TYPE
-                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
+                        md-select(ng-model='vm.descriptor.idP',md-on-close='vm.showDescriptor()' ,required='', name='tipo')
                             md-option(ng-repeat='tipo in vm.tipoDescriptor', value='{{tipo.id}}')
-                                | {{tipo.Titulo}}
+                                | {{tipo.Nombre}}
                     md-input-container
-                        label(translate='') PROJECT.DESCRIPTOR.TYPE
-                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
-                            md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}')
-                                | {{tipo.Titulo}}
+                        label(translate='') PROJECT.DESCRIPTOR.DESCRIPTOR
+                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='descriptor')
+                            md-option(ng-repeat='descriptor in vm.descriptores', value='{{descriptor.id}}')
+                                | {{descriptor.Titulo}}
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.NOTES
                         input(ng-model='vm.descriptor.observaciones', required='', name='observaciones')
-                    md-button.md-raised(ng-disabled='registrarDescriptor.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                    md-button.md-raised(ng-disabled='registrarDescriptor.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') PROJECT.DESCRIPTOR.ADD
                     md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
                         span(translate='') PROJECT.DESCRIPTOR.CLEAR

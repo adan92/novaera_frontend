@@ -10,12 +10,13 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function descriptorProyectoController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function descriptorProyectoController(Descriptor,Proyecto,$scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
+
         vm.proyectos            = null;
         vm.descriptores         = null;
         vm.descriptoresProyecto = null;
-        vm.descriptor           = null;
+        vm.descriptor = null;
         vm.activate             = activate();
         vm.selectedItem         = null;
         vm.searchText           = null;
@@ -27,22 +28,22 @@
         vm.resetForm            = resetForm;
         vm.edit                 = edit;
         vm.deleteItem           = deleteItem;
+        vm.showDescriptor=showDescriptor;
+        vm.addItem              = addItem;
 
 
-        vm.tipoDescriptor = [{id:1,Titulo:"Tipo de Descriptor"}];
-        //////////////////
+        ////////////'Proyecto'//////
 
         function activate(){
             //Ver como diferenciar entre persona y organizacion
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-                Restangular.all('Descriptor').customGET().then(function(res){
-                    vm.descriptores = res.Descriptor;
-                }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
+                var proms=null;
+                proms=Descriptor.getTipoDescriptorByClasificacion('Proyecto');
+                proms.then(function(res){
+                    vm.tipoDescriptor=res;
                 });
-
-            }).catch(function(err){
 
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
@@ -57,18 +58,30 @@
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
         }
+        function showDescriptor(){
+            if(vm.descriptor.idP != undefined  && vm.descriptor.idP != null) {
+                var promise = Descriptor.callAssosciated(vm.descriptor.idP);
+                promise.then(function (res) {
+                    vm.descriptores = res.Descriptor;
 
-        function selectedItemChange()
-        {
-            if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
-                Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
-                    vm.descriptoresProyecto = res.Descriptor;
-                }).catch(function (err) {
-                    console.log(err);
                 });
             }
         }
 
+        function selectedItemChange()
+        {
+            if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
+                showDescriptoresProject();
+            }
+        }
+        function showDescriptoresProject( ){
+            var promise=Descriptor.getDescriptorByProject(vm.selectedItem.id);
+            promise.then(function (res) {
+                vm.descriptoresProyecto = res.Descriptor;
+            }).catch(function (err) {
+
+            });
+        }
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
             return results;
@@ -114,57 +127,48 @@
             if(item!=undefined)
             {
                 vm.descriptor = item.pivot;
+                vm.descriptor.idP=item.idTipoDescriptor;
+                var promise = Descriptor.callAssosciated(vm.descriptor.idP);
+                promise.then(function (res) {
+                    vm.descriptores = res.Descriptor;
+                });
+
             }
         }
 
         function deleteItem(item){
-            Restangular.all('Proyecto').one('Descriptor',item.pivot.idProyecto).all(item.pivot.id).customDELETE().then(function(res){
+            var promise=Descriptor.deleteDescriptor(item.pivot.idProyecto,item.pivot.id);
+            promise.then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
-                Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
-                    vm.descriptoresProyecto = res.Descriptor;
-                }).catch(function (err) {
-
-                });
+                showDescriptoresProject();
             }).catch(function(err){
                 toastr.error(vm.failureText,vm.failureDeleteText);
             })
-        };
+        }
 
-        $scope.addItem = function()
+        function addItem()
         {
+            var promise;
             vm.descriptor.idProyecto = vm.selectedItem.id;
+            delete vm.descriptor.idP;
+                console.log(vm.descriptor);
             if (vm.descriptor.id == null) {
-                Restangular.all('Proyecto').all('Descriptor').customPOST(vm.descriptor).then(function (res) {
-                    //Mandamos el mensaje de éxito
+                promise=Descriptor.saveDescriptor(vm.descriptor);
+                promise.then(function (res) {
                     toastr.success(vm.successText, vm.successStoreText);
-                    //Limpiamos las variables ligadas a formulario
-                    vm.descriptor.id = null;
-                    vm.descriptor.idDescriptor = null;
-                    vm.descriptor.observaciones = null;
                     vm.resetForm();
-                    //Pedimos la lista de descriptores de la BD
-                    Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
-                        vm.descriptoresProyecto = res.Descriptor;
-                    }).catch(function (err) {
-
-                    });
+                    showDescriptoresProject();
                 }).catch(function (err) {
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
-
             }
             else {
-                Restangular.one('Proyecto').one('DescriptorU',vm.descriptor.id).customPUT(vm.descriptor).then(function (res) {
-                    toastr.success(vm.successText, vm.successUpdateText);
-                    vm.descriptor.id = null;
-                    vm.descriptor.idDescriptor = null;
-                    vm.descriptor.observaciones = null;
-                    vm.resetForm();
-                    Restangular.all('Proyecto').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
-                        vm.descriptoresProyecto = res.Descriptor;
-                    }).catch(function (err) {
 
-                    });
+                promise=Descriptor.updateDescriptor(vm.descriptor.id,vm.descriptor);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successUpdateText);
+                    vm.resetForm();
+                    showDescriptoresProject();
                 }).catch(function (err) {
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });

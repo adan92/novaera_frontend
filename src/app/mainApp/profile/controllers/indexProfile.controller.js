@@ -48,7 +48,7 @@
                         id: value.id,
                         type: "org",
                         nombre: value.Titulo,
-                        imagen: "assets/images/avatars/persona.png",
+                        imagen: "assets/images/avatars/tower.png",
                         isValidated: value.isValidated
                     });
                 });
