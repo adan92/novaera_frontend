@@ -10,7 +10,7 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController($mdDialog, $mdMedia, toastr, parqueTecnologico, TRL, Convocatoria, Operation,
+    function inscribirProyectoConvocatoriaController(Catalogo,$mdDialog, $mdMedia, toastr, parqueTecnologico, TRL, Convocatoria, Operation,
                                                      registroProyecto, $scope, Fondeo, Proyecto) {
         //<editor-fold desc="Declaración de variables y metodos">
         var vm = this;
@@ -186,10 +186,10 @@
         function enableFormulario(){
             vm.showFields = true;
             var promise;
-            promise = parqueTecnologico.getAllParqueTecnologico();
+            promise = Catalogo.getAllCatalogo('ParqueTecnologico');
             promise.then(function (value) {
 
-                vm.tecnoparks = value;
+                vm.tecnoparks = value.ParqueTecnologico;
             });
             promise = TRL.getAllTLR();
             promise.then(function (value) {

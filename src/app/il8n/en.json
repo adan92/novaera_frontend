@@ -21,8 +21,8 @@
     "ADMIN": {
         "TOOLBAR": {
             "SETTINGS": "Settings",
-            "PROFILE": "Profile",
-            "LOGOUT": "Logout",
+            "PROFILE": "Perfil",
+            "LOGOUT": "Salir",
             "SIDEBAR_TOGGLE": "Toggle Menu"
         },
         "NOTIFICATIONS": {

@@ -9,7 +9,7 @@
         .controller('resultadosProyectosController', resultadosProyectosController);
 
     /* @ngInject */
-    function resultadosProyectosController(Proyecto,TRL,Pais,$scope,Translate,toastr) {
+    function resultadosProyectosController(Catalogo,Proyecto,TRL,$scope,Translate,toastr) {
         var vm = this;
         vm.activate = activate();
         vm.paisesProteccion = [];
@@ -79,9 +79,9 @@
             promise.then(function (res) {
                 vm.proyectos = res;
             });
-            var proms = Pais.getAllPais();
+            var proms = Catalogo.getAllCatalogo('Pais');
             proms.then(function (res) {
-                vm.paises = res;
+                vm.paises = res.Pais;
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
