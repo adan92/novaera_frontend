@@ -37,7 +37,7 @@
             },
         ]
 
-        $scope.proyectos=[
+       /* $scope.proyectos=[
             {
                 titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
                 descripcion: "Esta plataforma",
@@ -143,14 +143,14 @@
                 ],
                 display:"Un proyecto mas"
             }
-        ];
+        ];*/
         $scope.my_projects_labels= ['Electricidad','Agronomía','Calzado'];
         $scope.my_projects_data= ['3','5','6'];
 
 
         //
 
-        vm.proyectos             = $scope.proyectos;
+        vm.proyectos             = [];
         vm.selectedItem       = null;
         vm.searchText         = null;
         vm.querySearch        = querySearch;
@@ -160,7 +160,7 @@
         function activate(){
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
-                //vm.proyectos = res;
+                vm.proyectos = res;
             });
 
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
