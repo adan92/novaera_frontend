@@ -58,7 +58,7 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.FEATURES.FONDEO_TOTAL
-                                        textarea(name='descripcion', required='', ng-model='vm.fondeo.FondoTotal', md-maxlength='10')
+                                        input(type='number' name='descripcion', required='', ng-model='vm.fondeo.FondoTotal', min='0', max='10000000000')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
@@ -83,10 +83,11 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                         label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                         md-divider
                             div(layout='column', flex='')
-                                form(name='DescFile', tri-wizard-form='')
-                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('DescFile')")
+                                form(name='DescripcionFile', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('DescripcionFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
+                                span {{vm.fondeo.Archivos.DescripcionFile}}
                 md-tab#aims(ng-disabled='projectInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 3

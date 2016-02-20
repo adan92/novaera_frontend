@@ -6,7 +6,7 @@
         .controller('registrarFondeosController', registrarFondeosController);
 
     /* @ngInject */
-    function registrarFondeosController($scope, $timeout, $rootScope, Fondeo, toastr, Restangular, $state, Translate) {
+    function registrarFondeosController($scope, Upload,Fondeo, toastr, Translate,ROUTES) {
 
         var vm = this;
 
@@ -51,10 +51,24 @@
         vm.getFondeo = getFondeo;
         vm.getFondeos = getFondeos;
         vm.cancel =cancel;
+        vm.uploadFile =  uploadFile;
+
 
 
         function activate()
         {
+            //mensajes del toastr
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
             getFondeos();
 
         }
@@ -136,21 +150,50 @@
             promise.then(function (value) {
                 vm.Fondeos = value;
             });
-            //mensajes del toastr
 
-            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
-            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
-            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
-            vm.dialogText = Translate.translate('DIALOGS.WARNING');
-            vm.successText = Translate.translate('DIALOGS.SUCCESS');
-            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
-            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
-            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
-            vm.failureText = Translate.translate('DIALOGS.FAILURE');
-            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
-            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
         }
 
+        function uploadFile(filetype)
+        {
+            if(vm.file!=null)
+            {
+                var route = null;
+                var fileData = whichFile(filetype);
+                if(vm.fondeo.id==null)
+                {
+                    route = 'ProgramaFondeo';
+                }
+                else
+                {
+                    route = 'ProgramaFondeo/Update/'+vm.fondeo.id;
+                }
+
+
+                Upload.upload({
+                    url: ROUTES.API_ROUTE+route,
+                    data:fileData,
+                    disableProgress: false
+                }).then(function(res){
+
+                    toastr.success(vm.successTitle,vm.successUpdate);
+
+
+                }).catch( function (resp) {
+                    console.log(resp);
+                    toastr.error(vm.failTitle,vm.failMessage);
+                });
+
+
+            }
+        }
+
+        function whichFile(filetype)
+        {
+            if(filetype=='DescripcionFile')
+            {
+                return {DescripcionFile:vm.file};
+            }
+        }
 
 
 
