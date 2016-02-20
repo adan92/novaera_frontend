@@ -7,45 +7,188 @@
 
     /* @ngInject */
 
-    function  modalidadFondeosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function  modalidadFondeosController($scope, $timeout ,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
         var vm = this;
+        vm.activate = activate();
+        //Inicializacion objetos
+        //Programas de Fondeo
+        vm.fondeo = {
+            "id": null,
+            "Titulo": null,
+            "PublicoObjetivo": null,
+            "FondoTotal": null,
+            "Justificacion": null,
+            "Descripcion": null,
+            "RubrosDeApoyo": null,
+            "CriteriosElegibilidad": null,
+            "created_at": null,
+            "updated_at": null
+        };
+        //arreglo de objetos Fondeo
+        vm.Fondeos=null;
+        //Objeto de Modalidad.
+        vm.Modalidad ={
+            "id": null,
+            "idProgramaFondeo":null,
+            "Nombre":null,
+            "Montos":null,
+            "FigurasApoyo":null,
+            "CriteriosEvaluacion":null,
+            "Entregables":null,
+            "created_at":null,
+            "updated_at":null
+        }
+        //arreglo de modalidades
+        vm.Modalidades=null;
+        //variables
+        vm.selectedFondeo = null;
+        vm.tmp = null;
+        vm.selectedModalidad =null;
+
+        //controles GUIS
+        vm.isDisabled = false;
+        vm.isNewModalidad = true;
+
+        //Declaracion de Funciones
+        vm.registrarModalidad = registrarModalidad;
+        vm.eliminarModalidad=eliminarModalidad;
+        vm.getModalidad = getModalidad;
+        vm.getModalidades = getModalidades;
+
+        vm.getFondeos = getFondeos;
+        vm.cancel =cancel;
+
+        function activate()
+        {
+            //mensajes del toastr
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
+            getFondeos();
+            getModalidades();
+
+        }
 
 
-        $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-        'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-        'WY').split(' ').map(function(state) {
-                return {abbrev: state};
+        //Funcionalidades
+
+        //Obtener todos los fondeos
+        function getFondeos() {
+            var promise = Fondeo.getAllFondeos();
+            promise.then(function (value) {
+                vm.Fondeos = value;
+                console.log(vm.Fondeos)
 
             });
+        }
 
-        vm.programasfondeo = [
-            {
-                id: '1',
-                title: 'Programa Fondeo 1'
+        //Obtener todos las Modalidades
+        function getModalidades() {
+            var promise = Modalidad.getAllModalidades();
+            promise.then(function (value) {
+                vm.tmp = value;
+                vm.Modalidades=vm.tmp;
 
-            },{
-                id: '1',
-                title: 'Programa Fondeo 2'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 3'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 4'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 5'
-            },{
-                id: '1',
-                title: 'Programa Fondeo 6'
+                console.log(vm.Modalidades)
+
+            });
+        }
+        //Funcion para Seleccionar 1 Modalidad
+        function getModalidad() {
+            console.log("Ya seleccione");
+            console.log(vm.selectedModalidad);
+          vm.Modalidad=vm.selectedModalidad
+        }
+        function cancel() {
+
+            vm.selectedFondeo=null;
+            vm.fondeo = null;
+            vm.isNewFondeo=true;
+            vm.Modalidad=null;
+            vm.selectedModalidad=null;
+            vm.isNewModalidad=null;
+
+
+        }
+
+        //Funcion Para eliminar Modalidades
+        function eliminarModalidad() {
+
+            var promise = Modalidad.deleteModalidad(vm.Modalidad);
+            promise.then(function (value) {
+                toastr.success(vm.successDeleteText,vm.successDeleteText);
+                vm.Modalidad = {
+                    "id": null,
+                    "idProgramaFondeo":null,
+                    "Nombre":null,
+                    "Montos":null,
+                    "CriteriosEvaluacion":null,
+                    "Entregables":null,
+                    "FigurasApoyo":null,
+                    "created_at":null,
+                    "updated_at":null
+                };
+                getModalidades();
+            });
+
+        }
+
+
+
+
+        // Registro de Modalidad
+        function registrarModalidad() {
+            vm.Modalidad.idProgramaFondeo=vm.selectedFondeo.id;
+            console.log("Entrando a la funcion");
+            console.log(vm.Modalidad)
+            if (vm.Modalidad.id == null) {
+                console.log("Creando Modalidad");
+                var promise = Modalidad.crearModalidad(vm.Modalidad);
+                promise.then(function(res){
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.Modalidad = res;
+                    vm.ModalidadLabel = vm.Modalidad.Nombre;
+                }).catch(function(err){
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(err);
+                });
             }
-        ];
+            else {
+                console.log("Estoy editando");
+                var promise = Modalidad.updateModalidad(vm.Modalidad);
+                promise.then(function(res){
+                    toastr.success(vm.successText, vm.successUpdateText);
+                    vm.ModalidadLabel = vm.Modalidad.Nombre;
+                }).catch(function(err){
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(err);
+                });
+            }
+
+            console.log("Estoy Actualizando Lista de Modalidades");
+            var promise = Modalidad.getAllModalidades();
+            promise.then(function (value) {
+                vm.Modalidades = value;
+            });
 
 
-        $scope.rubros = ('Rubro1 Rubro2 Rubro3 Rubro4 Rubro5'+
-        ' Rubro6').split(' ').map(function(rubro) {
-                return {abbrev: rubro};})
-    }
 
 
-})();
+
+
+
+
+
+
+        }
+
+
+    }})();
