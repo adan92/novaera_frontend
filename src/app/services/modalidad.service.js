@@ -33,19 +33,19 @@
             return deferred.promise;
         }
 
-        function crearModalidad(modalidad) {
+        function crearModalidad(Modalidad) {
 
             var deferred = $q.defer();
 
-            Restangular.all('Modalidad').customPOST(modalidad).then(function (res) {
+            Restangular.all('Modalidad').customPOST(Modalidad).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(err);
-            })
-
+                deferred.reject(false);
+            });
 
             return deferred.promise;
         }
+
 
         function updateModalidad(modalidad) {
 

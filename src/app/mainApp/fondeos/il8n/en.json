@@ -94,7 +94,7 @@
       "AMOUNT":"Monto",
       "EVALUATION":"Criterios de Evaluación",
       "FILES":"Entregables",
-      "SUPPORT":"Rubros de apoyo",
+      "SUPPORT":"Figuras de apoyo",
       "RUBRO_REGISTER":"Registro Rubros de Evaluación",
       "RUBRO_REGISTER_INSTRUCTIONS":"Busca la modalidad para administrar los rubros a solicitar",
       "STABLISHEDRUBROS":"Rubros Establecidos",
@@ -104,7 +104,8 @@
       "NAME_RUBRO":"Nombre del rubro:",
       "DESC_RUBRO":"Descripción del rubro",
       "CHECKLIST":"Entregables",
-      "FONDEOS":"Programa de Fondeo"
+      "FONDEOS":"Programa de Fondeo",
+      "CHOOSE":"Selecciona la Modalidad que desees editar"
 
     },
     "CALL":
