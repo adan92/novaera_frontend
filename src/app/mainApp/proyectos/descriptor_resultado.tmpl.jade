@@ -5,8 +5,8 @@
             md-card-content
                 h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
                 h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONSRESULT
-                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.display', md-min-length='0', placeholder='Busca tu proyecto')
-                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.display}}
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Busca tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
     // Tarjeta para eliminar Resultados
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='40', layout='column')

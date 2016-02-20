@@ -10,7 +10,7 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function inscribirProyectoConvocatoriaController(Catalogo,$mdDialog, $mdMedia, toastr, parqueTecnologico, TRL, Convocatoria, Operation,
+    function inscribirProyectoConvocatoriaController(Catalogo,$mdDialog, $mdMedia, toastr, TRL, Convocatoria, Operation,
                                                      registroProyecto, $scope, Fondeo, Proyecto) {
         //<editor-fold desc="Declaración de variables y metodos">
         var vm = this;
