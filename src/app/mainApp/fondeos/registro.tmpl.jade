@@ -13,8 +13,12 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                 div.md-toolbar-tools(flex layout='column')
                     h2(translate='') FONDEOS.WIZARD.TITLE
             div.wizard(flex layout='row')
-                md-button.md-fab(ng-click='vm.getFondeo()', ng-class='[vm.buttonClass, vm.buttonHue]', aria-label='fab button')
+                md-button.md-fab(ng-click='vm.getFondeo()', ng-class='editar', aria-label='fab button')
                     md-icon(md-font-icon='fa fa-pencil')
+
+                md-button.md-fab.md-warn.md-raised(ng-click='vm.cancel()', ng-class='cancelar', aria-label='fab button', ng-show='vm.fondeo.id!=null')
+                    md-icon(md-font-icon='fa fa-pencil')
+
                 md-input-container
                     label(translate) FONDEOS.WIZARD.CHOOSE
                     md-select(ng-model='vm.selectedFondeo', name='select', ng-show='vm.Fondeos!= null')
