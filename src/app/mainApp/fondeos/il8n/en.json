@@ -33,7 +33,7 @@
       "SEND": "Enviar",
       "DELETE":"Eliminar",
       "NEW":"Nuevo programa de Fondeo",
-      "EDIT":"Editar Programa Existente"
+      "EDIT":"Seleccionar Programa Existente"
     },
     "FEATURES":{
       "FONDEO_TITLE": "Titulo del Programa de Fondeo: ",
