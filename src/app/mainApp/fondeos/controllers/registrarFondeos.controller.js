@@ -9,6 +9,8 @@
     function registrarFondeosController($scope, $timeout, $rootScope, Fondeo, toastr, Restangular, $state, Translate) {
 
         var vm = this;
+
+        vm.activate = activate();
        //Var form
 
        //Var objeto
@@ -50,16 +52,20 @@
         vm.getFondeos = getFondeos;
         vm.cancel =cancel;
 
+
+        function activate()
+        {
+            getFondeos();
+
+        }
+
+
         //////////////////
         //Funcion para buscar todos los Fondeos
         function getFondeos() {
             var promise = Fondeo.getAllFondeos();
             promise.then(function (value) {
-                vm.tmp = value;
-                vm.Fondeos=vm.tmp;
-
-                console.log(vm.Fondeos)
-
+                vm.Fondeos=value;
             });
         }
         function cancel() {
@@ -75,13 +81,7 @@
         }
         //Funcion para buscar Fondeos
         function getFondeo() {
-            console.log("Ya seleccione");
-            console.log(vm.selectedFondeo);
-            var promise = Fondeo.getFondeoById(vm.selectedFondeo);
-            promise.then(function (value) {
-                vm.fondeo = value;
-                vm.isNewFondeo=false;
-            });
+            vm.fondeo = vm.selectedFondeo;
         }
 
         //Funcion Para eliminar Fondeos
@@ -111,8 +111,6 @@
 
         // Registro de programa de fondeo
         function registrarfondeo() {
-            console.log("Entrando a la funcion");
-            console.log(vm.fondeo)
             if (vm.fondeo.id == null) {
                 console.log("Ya entre");
                 var promise = Fondeo.crearFondeo(vm.fondeo);
@@ -120,12 +118,12 @@
                     toastr.success(vm.successText, vm.successStoreText);
                     vm.fondeo = res;
                     vm.fondeoLabel = vm.fondeo.Titulo;
+                    getFondeos();
                 }).catch(function(err){
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
             else {
-                console.log("Estoy editando");
                 var promise = Fondeo.updateFondeo(vm.fondeo);
                 promise.then(function(res){
                     toastr.success(vm.successText, vm.successUpdateText);
@@ -134,7 +132,6 @@
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
-            console.log("Estoy Mostrando");
             var promise = Fondeo.getAllFondeos();
             promise.then(function (value) {
                 vm.Fondeos = value;

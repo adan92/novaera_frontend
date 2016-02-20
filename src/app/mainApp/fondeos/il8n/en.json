@@ -12,6 +12,8 @@
     "INTRO": "Sigue los pasos para registrar un Nuevo Programa de Fondeo",
     "INTRO_TERMINOS": "Sigue los pasos para registrar los terminos de un Programa de Fondeo",
     "WIZARD":{
+      "STOP_EDIT":"Dejar de editar",
+      "CHOOSE": "Escoge un Programa de Fondeo para editar",
       "TITLE": "Registro de Programa de Fondeo",
       "TITLE2": "Caracteristicas",
       "TITLE3": "Registro  de Modalidad",
