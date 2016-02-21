@@ -16,7 +16,7 @@
 
         function getOrganizacionWitoutValidate() {
             var deferred = $q.defer();
-            Restangular.all('Organizacion').all('General').customGET().then(function (res) {
+            Restangular.all('Supervisor').all('Organizacion').customGET().then(function (res) {
                 deferred.resolve(res.Organizacion);
             }).catch(function (err) {
                 deferred.reject(err);
