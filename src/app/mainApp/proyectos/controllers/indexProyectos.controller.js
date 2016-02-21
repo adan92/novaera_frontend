@@ -6,7 +6,7 @@
         .controller('indexProyectosController', indexProyectosController);
 
     /* @ngInject */
-    function indexProyectosController($scope,Restangular) {
+    function indexProyectosController($scope,Restangular,Proyecto,TRL) {
         var vm = this;
         vm.clickedProjects = null;
         vm.clear= clear;
@@ -38,7 +38,7 @@
         }
 
         //Datos
-        vm.proyectos            = null
+        vm.proyectos            = null;
         vm.my_projects_labels   = ['Electricidad','Agronomía','Calzado'];
         vm.my_projects_data     = ['3','5','6'];
 
@@ -70,10 +70,10 @@
 
         function getProyectos()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                    vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                console.log(res);
+                vm.proyectos = res;
             });
         }
 
@@ -81,9 +81,13 @@
         {
             if(item!=null)
             {
-                Restangular.all('Proyecto').one('TRL',item.id).customGET().then(function(res){
-                    vm.selectedItem.TRL =res.TRL;
-                })
+                var proms=TRL.getTRLByProject(item.id);
+                proms.then(function (res) {
+                    console.log(res.TRL);
+                    vm.selectedItem.TRL = res.TRL;
+                }).catch(function (err) {
+
+                });
             }
 
         }

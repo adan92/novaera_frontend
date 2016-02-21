@@ -1,0 +1,55 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+        md-card(flex='', layout='column')
+            h2.text-center(translate='') PROJECT.INFO.MY_PROJECTS
+            md-card-content(layout-align='center center')
+                canvas#doughnut.chart.chart-doughnut(chart-click='onClick', chart-data='vm.my_projects_data', chart-labels='vm.my_projects_labels', chart-legend='true')
+        md-card(flex='', layout='column')
+            md-card-content
+                md-list
+                    md-subheader.md-no-sticky Proyectos Recientes
+                    md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos')
+                        .md-list-item-text
+                            h3 {{::proyecto.Titulo}}
+                            p {{::proyecto.Descripcion}}
+                        md-divider
+    .layout.layout-row.layout-margin.layout-md-column(ng-show='vm.clickedProjects!=null')
+        md-card(flex='')
+            md-list
+                md-subheader.md-no-sticky Proyectos Seleccionados
+                md-list-item.md-2-line(ng-repeat='item in vm.clickedProjects')
+                    .md-list-item-text
+                        h3 {{item.Titulo}}
+                        div(ng-bind-html='item.Descripcion')
+                    md-divider
+            md-button.md-raised.md-primary(ng-click='vm.clear()') Limpiar Resultados
+    .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+        md-card(flex='')
+            md-card-content(layout='column')
+                h2 Búsqueda por proyecto
+                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Introduce tu proyecto')
+                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+                md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='vm.selectedItem!=null')
+                    md-tab#general
+                        md-tab-label
+                            span(translate='') PROJECT.INFO.TABS.GENERAL
+                        .wizard
+                            h3(translate='') PROJECT.FORM.PROJECT_TITLE
+                            | {{vm.selectedItem.Titulo}}
+                            h3(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
+                            | {{vm.selectedItem.Descripcion}}
+                            h3(translate='') PROJECT.FORM.PROJECT_AIM
+                            .show-info(ng-bind-html='vm.selectedItem.Objetivos')
+                    md-tab#historico
+                        md-tab-label
+                            span(translate='') PROJECT.INFO.TABS.HISTORICAL_TRL
+                        .wizard(layout='column')
+                            h3 TRL
+                            div(ng-repeat='trl in vm.selectedItem.TRL')
+                                div(layout='row')
+                                    span(translate='') PROJECT.INFO.TRL_DESCRIPTION
+                                    span : {{trl.Descripcion}}
+                                div(layout='row')
+                                    span(translate='') PROJECT.INFO.TRL_DATE
+                                    span : {{trl.Fecha}}
+                                md-divider
