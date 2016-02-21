@@ -32,12 +32,22 @@
             md-card-content
                 h2(translate='') PROJECT.DESCRIPTOR.ADD_RESULT
                 form(name='registrarResultado', novalidate='')
+                    md-input-container
+                        label(translate='') PROJECT.DESCRIPTOR.TYPE
+                        md-select(ng-model='vm.resultadosDescriptor.idTipoDescriptor',md-on-close='vm.showDescriptor()' ,required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.tipoDescriptor', value='{{tipo.id}}')
+                                | {{tipo.Nombre}}
+                    md-input-container
+                        label(translate='') PROJECT.DESCRIPTOR.DESCRIPTOR
+                        md-select(ng-model='vm.resultadosDescriptor.idDescriptor', required='', name='descriptor')
+                            md-option(ng-repeat='descriptor in vm.descriptores', value='{{descriptor.id}}')
+                                | {{descriptor.Titulo}}
                     div(layout='row')
                         label(translate='') PROJECT.DESCRIPTOR.INITIAL_DATE
-                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaRegistro', name='fInit',md-placeholder="Fecha de registro")
+                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaRegistro', name='fInit',required='')
                     div(layout='row')
                         label(translate='') PROJECT.DESCRIPTOR.APROV_DATE
-                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaAprobacion', name='fFin',md-placeholder="Fecha de aprobación")
+                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaAprobacion', name='fFin')
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.PCT
                         textarea(type='text', ng-model='vm.resultadosDescriptor.PCT', name='clvPct', required='')
@@ -46,5 +56,5 @@
                         md-select(ng-model='vm.resultadosDescriptor.idResultado', ng-required='vm.selectedItem.etapas==null')
                             md-option(ng-repeat='descriptor in vm.resultadosDescriptores', name='idDescriptor', value='{{descriptor.id}}')
                                 | {{descriptor.Nombre}}
-                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') PROJECT.DESCRIPTOR.ADDRESULT

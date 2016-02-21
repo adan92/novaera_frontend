@@ -82,6 +82,7 @@
             var proms = Catalogo.getAllCatalogo('Pais');
             proms.then(function (res) {
                 vm.paises = res.Pais;
+                console.log(vm.paises);
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');

@@ -13,7 +13,7 @@
         function  getAllCatalogo(catalogo){
             var deferred = $q.defer();
             Restangular.all(catalogo).customGET().then(function (res) {
-                deferred.resolve(res.Pais);
+                deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
             });

@@ -318,13 +318,13 @@
             var profile = getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).customPUT(request).then(function (res) {
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor.id).customPUT(idDescriptor).then(function (res) {
                     deferred.resolve(res.ResultadoRescriptor);
                 }).catch(function (err) {
                     deferred.reject(err);
                 });
             }else{
-                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).one('Organizacion', profile.id).customPUT(request).then(function (res) {
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor.id).one('Organizacion', profile.id).customPUT(idDescriptor).then(function (res) {
                     deferred.resolve(res.ResultadoRescriptor);
                 }).catch(function (err) {
                     console.log(err);

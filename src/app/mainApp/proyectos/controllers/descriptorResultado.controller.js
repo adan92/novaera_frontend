@@ -10,24 +10,27 @@
         .filter('matcher', matcher);
 
     /* @ngInject */
-    function descriptorResultadoController(toastr, $mdDialog, Proyecto, Translate, $scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorResultadoController(Descriptor,toastr, $mdDialog, Proyecto, Translate, $scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
         activate();
-        vm.resultados = [{
-            "id": 1,
-            "idResultado": 3,
-            "FechaRegistro": "2015-01-01",
-            "FechaAprobacion": "2015-01-01",
-            "PCT": "80"
-        }, {
-            "id": 2,
-            "idResultado": 5,
-            "FechaRegistro": "2015-01-01",
-            "FechaAprobacion": "2015-01-01",
-            "PCT": "80"
-        }];
+        vm.resultados = [];
+        /*[{
+         "id": 1,
+         "idResultado": 3,
+         "FechaRegistro": "2015-01-01",
+         "FechaAprobacion": "2015-01-01",
+         "PCT": "80"
+         }, {
+         "id": 2,
+         "idResultado": 5,
+         "FechaRegistro": "2015-01-01",
+         "FechaAprobacion": "2015-01-01",
+         "PCT": "80"
+         }];*/
         vm.selectedItemChange = selectedItemChange;
         vm.proyectos = [];
+        vm.tipoDescriptor=[];
+        vm.descriptores=[];
         vm.selectedItem = null;
         vm.searchText = null;
         vm.querySearch = querySearch;
@@ -36,16 +39,21 @@
         vm.deleteItem = deleteItem;
         vm.createDialog = createDialog;
         vm.addItem = addItem;
-        vm.edit=edit;
+        vm.edit = edit;
         vm.resultadosDescriptor = null;
         vm.resultadosDescriptores = [];
+        vm.showDescriptor       =showDescriptor;
+        vm.resetForm            = resetForm;
 
         function activate() {
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
+                var proms=Descriptor.getTipoDescriptorByClasificacion('Proyecto');
+                proms.then(function(res){
+                    vm.tipoDescriptor=res;
+                });
             });
-            ;
 
             vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
@@ -83,10 +91,10 @@
          * Create function to delete item
          */
         function deleteItem(item) {
-            var promise = Proyecto.deleteDescriptorResultados(item.idDescriptor);
+            var promise = Proyecto.deleteDescriptorResultados(item.id);
             promise.then(function (res) {
                 toastr.success(vm.successText, vm.successDeleteText);
-                //showDescriptoresResultado();
+                showDescriptoresResultado();
             }).catch(function (err) {
                 toastr.error(vm.failureText, vm.failureDeleteText);
             })
@@ -114,7 +122,19 @@
 
         function addItem() {
             var promise;
-            if(vm.resultadosDescriptor.id==null) {
+            console.log("entreee");
+            vm.resultadosDescriptor.FechaRegistro=moment(vm.resultadosDescriptor.FechaRegistro).format('YYYY-MM-DD');
+            vm.resultadosDescriptor.FechaAprobacion=moment(vm.resultadosDescriptor.FechaAprobacion).format('YYYY-MM-DD');
+            if (vm.resultadosDescriptor.id !=null) {
+                promise = Proyecto.updateDescriptorResultados(vm.resultadosDescriptor);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.resetForm();
+                    //showDescriptoresResultado();
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+            } else {
                 promise = Proyecto.saveDescriptorResultados(vm.resultadosDescriptor);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successStoreText);
@@ -123,31 +143,41 @@
                 }).catch(function (err) {
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
-            }else{
-                promise = Proyecto.updateDescriptorResultados(vm.resultadosDescriptor.id);
-                promise.then(function (res) {
-                    toastr.success(vm.successText, vm.successStoreText);
-                    vm.resetForm();
-                    //showDescriptoresResultado();
-                }).catch(function (err) {
-                    toastr.error(vm.failureText, vm.failureStoreText);
-                });
+
             }
-            vm.resultadosDescriptores=null;
-            $scope.registrarResultado.$setPristine();
+
 
         }
-        function edit(item)
+        function resetForm()
         {
-            if(item!=undefined)
-            {
+            vm.resultadosDescriptor = null;
+            $scope.registrarResultado.$setPristine();
+        }
+        function edit(item) {
+            if (item != undefined) {
                 vm.resultadosDescriptor = item;
+                vm.resultadosDescriptor.idTipoDescriptor=item.idTipoDescriptor;
+                var promise = Descriptor.callAssosciated(vm.resultadosDescriptor.idTipoDescriptor);
+                promise.then(function (res) {
+                    vm.descriptores = res.Descriptor;
+                });
 
+            }
+        }
+
+        function showDescriptor(){
+            console.log("eee");
+            if(vm.resultadosDescriptor.idTipoDescriptor != undefined  && vm.resultadosDescriptor.idTipoDescriptor != null) {
+                var promise = Descriptor.callAssosciated(vm.resultadosDescriptor.idTipoDescriptor);
+                promise.then(function (res) {
+                    vm.descriptores = res.Descriptor;
+
+                });
             }
         }
         function selectedItemChange(item) {
             if (vm.selectedItem.id != undefined && vm.selectedItem != null) {
-                //showDescriptoresResultado();
+                showDescriptoresResultado();
                 showDescriptoresResultadoObj();
                 console.log("#");
             }
@@ -178,10 +208,15 @@
                     });
 
                 });
-                /*var promis=Proyecto.getDescriptoresResultados(ids);
-                 promis.then(function(resultArray){
-                 console.log(resultArray);
-                 });*/
+                var promis = Proyecto.getDescriptoresResultados(ids);
+                promis.then(function (resultArray) {
+                    console.log(resultArray);
+                    resultArray.forEach(function (data) {
+                        data.forEach(function (datas) {
+                            vm.resultados.push(datas);
+                        });
+                    });
+                });
             });
         }
     }

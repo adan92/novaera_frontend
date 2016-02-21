@@ -15,27 +15,27 @@
 
         vm.tipos = [
             {
-                "tipo" : "H",
+                "tipo" : "Persona",
                 "descripcion":"Persona"
             },
             {
-                "tipo" : "O",
-                "descripcion":"Organizacion"
+                "tipo" : "Organizacion",
+                "descripcion":"Organización"
             },
             {
-                "tipo" : "P",
+                "tipo" : "Proyecto",
                 "descripcion":"Proyecto"
             },
             {
-                "tipo" : "R",
+                "tipo" : "Resultado",
                 "descripcion":"Resultado"
             },
             {
-                "tipo" : "F",
+                "tipo" : "ProgramaFondeo",
                 "descripcion":"Programa de Fondeo"
             },
             {
-                "tipo" : "A",
+                "tipo" : "Todos",
                 "descripcion":"Todos"
             }
         ];
@@ -141,6 +141,7 @@
                 //IF Ternario
                 vm.tipoDescriptor = item;
                 item.Activo==1 ? vm.tipoDescriptor.Activo = true : vm.tipoDescriptor.Activo = false;
+
             }
         }
 
