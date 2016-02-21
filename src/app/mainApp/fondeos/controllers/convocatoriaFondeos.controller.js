@@ -6,25 +6,253 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function  convocatoriaFondeosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function  convocatoriaFondeosController($scope, $timeout ,$rootScope,Modalidad, Fondeo , Convocatoria, toastr, Restangular, $state, Translate) {
         var vm = this;
-        vm.programasfondeo;
+        vm.activate = activate();
+        //Inicializacion objetos
+        //Programas de Fondeo
+        vm.fondeo = {
+            "id": null,
+            "Titulo": null,
+            "PublicoObjetivo": null,
+            "FondoTotal": null,
+            "Justificacion": null,
+            "Descripcion": null,
+            "RubrosDeApoyo": null,
+            "CriteriosElegibilidad": null,
+            "created_at": null,
+            "updated_at": null
+        };
+        //arreglo de objetos Fondeo
+        vm.Fondeos=null;
+        //Objeto de Modalidad.
+        vm.Modalidad ={
+            "id": null,
+            "idProgramaFondeo":null,
+            "Nombre":null,
+            "Montos":null,
+            "FigurasApoyo":null,
+            "CriteriosEvaluacion":null,
+            "Entregables":null,
+            "created_at":null,
+            "updated_at":null
+        }
+        //arreglo de modalidades
+        //Todas las Modalidades
+        vm.Modalidades=null;
+        //modalidades asociadas a la convocatoria
+        vm.ModalidadesAsociadas=null;
+
+        //Objeto Convocatoria
+        vm.Convocatoria={
+            "id": null,
+            "Nombre":null,
+            "FechaInicio":null,
+            "FechaTermino":null,
+            "Requisitos":null,
+            "MontosMaximosTotales":null,
+            "Activo":null,
+            "ProgramaAsociado":null,
+            "created_at":null,
+            "updated_at":null,
+            "modalidad":null
+
+        }
+        //Arreglo Convocatorias
+        vm.Convocatorias=null;
+
+        //Objeto Requisito
+        vm.requisito={
+            "Nombre":null,
+            "Descripcion":null
+        }
+        //Arreglo requisitos
+        vm.Requisitos=null;
+        //Objeto de tabla Pivote:
+        vm.pivot={
+            "idConvocatoria":null,
+            "idModalidad":null,
+            "created_at":null,
+            "updated_at":null
+        }
+        //objeto para agregarconvocatoria
+        vm.agrega={
+            "idConvocatoria" : null,
+            "Modalidad": null
+        }
+        //variables
 
 
+        vm.tmp = null;
+        vm.selectedConvocatoria =null;
+        vm.selectedModalidad = null;
+        vm.selectedFondeo = null;
+        vm.selectedRequisito = null;
+        //controles GUIS
+        vm.isDisabled = false;
+        vm.isNewConvocatoria = true;
+        vm.isNewRequisito=true;
 
-
-        vm.showmodalidad=false;
-        vm.todos = [
-            {description: 'Modalidad 1',date:'11/01/2016',date2:'11/02/2016' ,priority: 'Persona Fisica', selected: true},
-            {description: 'Modalidad 2', date:'11/01/2016',date2:'11/04/2016' ,priority: 'Persona Fisica', selected: false},
-            {description: 'Modalidad 3',date:'11/03/2016',date2:'11/04/2016'  ,priority: 'Persona Moral', selected: true},
-            {description: 'Modalidad 4',date:'11/05/2016',date2:'11/06/2016'  ,priority: 'Persona Moral', selected: false},
-
-        ];
+        //DeclaracionFunciones
+        //funciones para el To-Do
         vm.orderTodos = orderTodos;
         vm.removeTodo = removeTodo;
+        //funcionalidad
 
-        //////////////////////////
+        vm.getModalidades = getModalidades;//listo
+        vm.getFondeos = getFondeos;//listo
+        vm.cancel =cancel;//listo
+        vm.getConvocatorias= getAllConvocatorias;//listo
+        vm.getConvocatoria= getConvocatoria;//listo
+        vm.registrarConvocatoria=registrarConvocatoria;//listo
+        vm.showModalitiesRelation=showModalitiesRelation;//Listo
+        vm.addConvocatoriaModalidad=addConvocatoriaModalidad;//Listo
+        vm.quitarModalidadConvocatoria=QuitarModalidadConvocatoria;//Listo
+        vm.quitarTodasModalidadConvocatoria=QuitarTodasModalidadConvocatoria;
+        vm.crearRequisito=crearRequisito;
+        vm.quitarRequisito=quitarRequisito;
+        vm.consultarRequisito=consultarRequisito;
+        vm.consultarAllRequisitos=consultarAllRequisitos;
+        //Funcionalidades
+        function activate()
+        {
+            //mensajes del toastr
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
+            getFondeos();
+            getModalidades();
+            getConvocatorias();
+
+        }
+
+        //Obtener todos los fondeos
+        function getFondeos() {
+            var promise = Fondeo.getAllFondeos();
+            promise.then(function (value) {
+                vm.Fondeos = value;
+                console.log(vm.Fondeos)
+
+            });
+        }
+        //Obtener Modalidades  relacionadas a Programas de Fondeo
+        function getModalidades() {
+            vm.Modalidad.ProgramaAsociado=vm.selectedFondeo.id
+            var promise = Modalidad.showModalitiesRelationFondeos(SelectedFondeo);
+            promise.then(function (value) {
+                vm.Modalidades = value;
+                console.log(vm.Modalidades)
+
+            });
+        }
+        //Funcion Obtener todas las Convocatorias
+        function getConvocatorias() {
+            var promise = Convocatoria.getAllConvocatorias();
+            promise.then(function (value) {
+
+                    vm.Convocatorias=value;
+
+                console.log(vm.Convocatorias)
+
+            });
+        }
+        //Funcion para Seleccionar 1 Convocatoria
+        function getConvocatoria() {
+            console.log("Ya seleccione");
+            console.log(vm.selectedConvocatoria);
+            vm.Convocatoria=vm.selectedConvocatorias;
+        }
+        //Funcion Cancelar
+        function cancel() {
+
+            vm.selectedFondeo=null;
+            vm.fondeo = null;
+            vm.isNewFondeo=true;
+            vm.Modalidad=null;
+            vm.selectedModalidad=null;
+            vm.isNewModalidad=null;
+            vm.Requisito=null;
+            vm.selectedRequisito=null;
+            vm.isNewRequisito=null;
+        }
+        //Registrar Convocatoria
+        function registrarConvocatoria() {
+            vm.Convocatoria.ProgramaAsociado=vm.selectedFondeo.id;
+            console.log("Entrando a la funcion");
+            console.log(vm.Convocatoria)
+            if (vm.Convocatoria.id == null) {
+                console.log("Creando Convocatoria");
+                var promise = Convocatoria.crearConvocatoria(vm.Convocatoria);
+                promise.then(function(res){
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.Convocatoria = res;
+                    vm.ConvocatoriaLabel = vm.Convocatoria.Nombre;
+                }).catch(function(err){
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(err);
+                });
+            }
+            else {
+                console.log("Estoy editando");
+                var promise = Convocatoria.updateConvocatoria(vm.Convocatoria);
+                promise.then(function(res){
+                    toastr.success(vm.successText, vm.successUpdateText);
+                    vm.ConvocatoriaLabel = vm.Convocatoria.Nombre;
+                }).catch(function(err){
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(err);
+                });
+            }
+
+            console.log("Estoy Actualizando Lista de Convocatorias");
+            var promise = Convocatoria.getAllConvocatorias(vm.Convocatoria);
+            promise.then(function (value) {
+                vm.Convocatorias = value;
+            });
+        }
+        //funcion para mostrar Modalidades asociadas a la convocatoria
+        function showModalitiesRelation() {
+            var promise = Convocatoria.showModalitiesRelation(vm.Convocatoria);
+            promise.then(function (value) {
+
+                vm.ModalidadesAsociadas=value;
+
+                console.log(vm.ModalidadesAsociadas)
+
+            });
+        }
+        //funcion para inscribir una modalidad a la convocatoria
+        function addConvocatoriaModalidad() {
+            vm.agrega.idConvocatoria=vm.Convocatoria.id;
+            vm.agrega.Modalidad.push(vm.Convocatoria.id);
+            vm.agrega.Modalidad.push(vm.Modalidad.id);
+            var promise = Convocatoria.showModalitiesRelation(vm.agrega);
+            promise.then(function (value) {
+
+                vm.ModalidadesAsociadas=value;
+
+                console.log(vm.ModalidadesAsociadas)
+                vm.agrega={
+                    "idConvocatoria" : null,
+                    "Modalidad": null
+                }
+
+            });
+        }
+
+
+
+
+
+
 
         function orderTodos(task) {
             switch(task.priority){

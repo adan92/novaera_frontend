@@ -38,6 +38,8 @@
             "created_at":null,
             "updated_at":null
         }
+
+
         //arreglo de modalidades
         vm.Modalidades=null;
         //variables
@@ -178,17 +180,7 @@
             promise.then(function (value) {
                 vm.Modalidades = value;
             });
-
-
-
-
-
-
-
-
-
-
-        }
+       }
 
 
     }})();
