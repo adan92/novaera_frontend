@@ -14,15 +14,18 @@
                 h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_RESULTS
                 md-list
                     md-subheader.md-no-sticky(translate='') PROJECT.DESCRIPTOR.RESULTS
-                    md-list-item.md-4-line(ng-repeat='etapa in vm.selectedItem.etapas')
-                        .md-list-item-text
+                    md-list-item.md-4-line(ng-repeat='etapa in vm.resultados')
+                        .md-list-item-text(flex='50')
                             h3 ID: {{etapa.id}}
                             h5 Descriptor: {{etapa.idDescriptor}}
-                            h5 Fecha de Inicio: {{etapa.fechaInicio}}
-                            h5 Fecha de Aprobado: {{etapa.fechaAprobado}}
-                            h5 PCT: {{etapa.pct}}
-                        md-button.md-raised(ng-click='deleteItem(etapa)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                            span(translate='') PROJECT.DESCRIPTOR.REMOVE_RESULT
+                            h5 Fecha de Inicio: {{etapa.FechaRegistro}}
+                            h5 Fecha de Aprobado: {{etapa.FechaAprobacion}}
+                            h5 PCT: {{etapa.PCT}}
+                        div(flex='25')
+                            md-button.md-raised(ng-click='vm.createDialog($event,etapa)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                span(translate='') PROJECT.DESCRIPTOR.REMOVE_RESULT
+                            md-button.md-raised.md-primary(ng-click='vm.edit(etapa)')
+                                span(translate='') PROJECT.DESCRIPTOR.EDITPRO
                         md-divider
         // Tarjeta para agregar Resultados
         md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
@@ -31,17 +34,17 @@
                 form(name='registrarResultado', novalidate='')
                     div(layout='row')
                         label(translate='') PROJECT.DESCRIPTOR.INITIAL_DATE
-                        md-datepicker(ng-model='fInit', name='fInit')
+                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaRegistro', name='fInit',md-placeholder="Fecha de registro")
                     div(layout='row')
                         label(translate='') PROJECT.DESCRIPTOR.APROV_DATE
-                        md-datepicker(ng-model='fFin', name='fFin')
+                        md-datepicker(ng-model='vm.resultadosDescriptor.FechaAprobacion', name='fFin',md-placeholder="Fecha de aprobación")
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.PCT
-                        textarea(type='text', ng-model='clvPct', name='clvPct', required='')
+                        textarea(type='text', ng-model='vm.resultadosDescriptor.PCT', name='clvPct', required='')
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.RESULT
-                        md-select(ng-model='resultadoDescriptor', ng-required='vm.selectedItem.etapas==null')
-                            md-option(ng-repeat='descriptor in descriptor', name='idDescriptor', value='{{descriptor.titulo}}')
-                                | {{descriptor.titulo}}
+                        md-select(ng-model='vm.resultadosDescriptor.idResultado', ng-required='vm.selectedItem.etapas==null')
+                            md-option(ng-repeat='descriptor in vm.resultadosDescriptores', name='idDescriptor', value='{{descriptor.id}}')
+                                | {{descriptor.Nombre}}
                     md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') PROJECT.DESCRIPTOR.ADDRESULT

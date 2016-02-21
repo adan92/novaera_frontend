@@ -1,178 +1,69 @@
 /**
  * Created by lockonDaniel on 10/15/15.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.mainApp.proyectos')
         .controller('descriptorResultadoController', descriptorResultadoController)
-        .filter('matcher',matcher);
+        .filter('matcher', matcher);
 
     /* @ngInject */
-    function descriptorResultadoController(Proyecto,Translate,$scope, $timeout, $mdToast, $rootScope, $state) {
+    function descriptorResultadoController(toastr, $mdDialog, Proyecto, Translate, $scope, $timeout, $mdToast, $rootScope, $state) {
         var vm = this;
         activate();
-        //Datos
-        $scope.descriptor=[
-            {
-                id:0,
-                titulo:"Nulo"
-            },
-            {
-                id:1,
-                titulo:"Bajo"
-            },
-            {
-                id:2,
-                titulo:"Medio"
-            },
-            {
-                id:3,
-                titulo:"Alto"
-            },
-            {
-                id:4,
-                titulo:"Completo"
-            },
-        ]
+        vm.resultados = [{
+            "id": 1,
+            "idResultado": 3,
+            "FechaRegistro": "2015-01-01",
+            "FechaAprobacion": "2015-01-01",
+            "PCT": "80"
+        }, {
+            "id": 2,
+            "idResultado": 5,
+            "FechaRegistro": "2015-01-01",
+            "FechaAprobacion": "2015-01-01",
+            "PCT": "80"
+        }];
+        vm.selectedItemChange = selectedItemChange;
+        vm.proyectos = [];
+        vm.selectedItem = null;
+        vm.searchText = null;
+        vm.querySearch = querySearch;
+        vm.simulateQuery = false;
+        vm.isDisabled = false;
+        vm.deleteItem = deleteItem;
+        vm.createDialog = createDialog;
+        vm.addItem = addItem;
+        vm.edit=edit;
+        vm.resultadosDescriptor = null;
+        vm.resultadosDescriptores = [];
 
-       /* $scope.proyectos=[
-            {
-                titulo:"Sistema de Registro de Emprendimiento en Guanajuato",
-                descripcion: "Esta plataforma",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                        //Descriptor?
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                        //Descriptor?
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                        //Descriptor?
-                    }
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Sistema de Registro"
-
-            },
-            {
-                titulo:"Otro proyecto",
-                descripcion: "El proyecto a realizar",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Otro proyecto"
-            },
-            {
-                titulo:"Un proyecto mas",
-                descripcion: "Es nuevo proyecto",
-                objetivos: "<ul><li>Objetivo 1</li><li>Objetivo 2</li></ul>",
-                etapas: [
-                    {
-                        id: 1,
-                        "fechaInicio": "05/01/2012",
-                        "fechaAprobado": "10/01/2012",
-                        "pct": "10",
-                        "idDescriptor": "50125"
-                    },
-                    {
-                        id: 2,
-                        "fechaInicio": "15/01/2012",
-                        "fechaAprobado": "20/01/2012",
-                        "pct": "25",
-                        "idDescriptor": "50130"
-                    },
-                    {
-                        id: 3,
-                        "fechaInicio": "30/01/2012",
-                        "fechaAprobado": "05/02/2012",
-                        "pct": "30",
-                        "idDescriptor": "50132"
-                    }
-
-                ],
-                trl:[
-                    {descripcion:"Empezando", fecha:"10-10-2015"},
-                    {descripcion:"En Proceso", fecha:"11-10-2015"}
-                ],
-                display:"Un proyecto mas"
-            }
-        ];*/
-        $scope.my_projects_labels= ['Electricidad','Agronomía','Calzado'];
-        $scope.my_projects_data= ['3','5','6'];
-
-
-        //
-
-        vm.proyectos             = [];
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-
-        function activate(){
+        function activate() {
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
             });
+            ;
 
-            vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
-            vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
-            vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
-            vm.failTitle = Translate.translate('DIALOGS.FAILURE');
-            vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
 
         }
+
         //////////////////
-        function querySearch (query) {
-            var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+        function querySearch(query) {
+            var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
             return results;
 
         }
@@ -191,61 +82,124 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(index){
-            vm.selectedItem.etapas.splice(index, 1);
-            //console.log($scope.proyectos);
+        function deleteItem(item) {
+            var promise = Proyecto.deleteDescriptorResultados(item.idDescriptor);
+            promise.then(function (res) {
+                toastr.success(vm.successText, vm.successDeleteText);
+                //showDescriptoresResultado();
+            }).catch(function (err) {
+                toastr.error(vm.failureText, vm.failureDeleteText);
+            })
+        }
+
+        function createDialog(ev, item) {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function () {
+                vm.deleteItem(item);
+            }, function () {
+                console.log("Cancelado");
+            });
         }
 
         /**
          * Create function to add item
          */
 
-        $scope.addItem = function()
-        {
-            var etapa = {
-
-                id: $scope.id,
-                "fechaInicio": $scope.fInicio,
-                "fechaAprobado": $scope.fFin,
-                "pct": $scope.clvPct,
-                "idDescriptor": $scope.idDescriptor
-
-            };
-
-
-
-            vm.selectedItem.etapas.push(etapa);
-
-            $scope.id=null;
-            $scope.fInicio=null;
-            $scope.fFin=null;
-            $scope.clvPct=null;
-            $scope.idDescriptor=null;
+        function addItem() {
+            var promise;
+            if(vm.resultadosDescriptor.id==null) {
+                promise = Proyecto.saveDescriptorResultados(vm.resultadosDescriptor);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.resetForm();
+                    //showDescriptoresResultado();
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+            }else{
+                promise = Proyecto.updateDescriptorResultados(vm.resultadosDescriptor.id);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.resetForm();
+                    //showDescriptoresResultado();
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+            }
+            vm.resultadosDescriptores=null;
             $scope.registrarResultado.$setPristine();
 
         }
+        function edit(item)
+        {
+            if(item!=undefined)
+            {
+                vm.resultadosDescriptor = item;
 
+            }
+        }
+        function selectedItemChange(item) {
+            if (vm.selectedItem.id != undefined && vm.selectedItem != null) {
+                //showDescriptoresResultado();
+                showDescriptoresResultadoObj();
+                console.log("#");
+            }
+        }
 
+        function showDescriptoresResultadoObj() {
+            var promise = Proyecto.getResultados(vm.selectedItem.id);
+            promise.then(function (resultArray) {
 
+                resultArray.forEach(function (data) {
+                    //vm.ids.push(data.id);
+                    data.Resultado.forEach(function (data) {
+                        vm.resultadosDescriptores.push(data);
+                    });
 
+                });
+            });
+        }
 
+        function showDescriptoresResultado() {
+            var promise = Proyecto.getResultados(vm.selectedItem.id);
+            promise.then(function (resultArray) {
+                var ids = [];
+                resultArray.forEach(function (data) {
+                    //vm.ids.push(data.id);
+                    data.Resultado.forEach(function (data) {
+                        ids.push(data.id);
+                    });
+
+                });
+                /*var promis=Proyecto.getDescriptoresResultados(ids);
+                 promis.then(function(resultArray){
+                 console.log(resultArray);
+                 });*/
+            });
+        }
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2==null)
+    function matcher() {
+        return function (arr1, arr2) {
+            if (arr2 == null)
                 return true;
 
-            return arr1.filter(function(val){
+            return arr1.filter(function (val) {
 
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
+                var returnable = null;
+                angular.forEach(arr2, function (item) {
+                    if (item.id == val.id)
                         returnable = false;
-                },val);
+                }, val);
 
-                if(returnable==null)
+                if (returnable == null)
                     return true;
                 else return false;
             })

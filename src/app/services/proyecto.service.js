@@ -17,8 +17,14 @@
             saveEtapasProject: saveEtapasProject,
             saveResultado: saveResultado,
             getResultado: getResultado,
-            updateResultado:updateResultado,
-            getDescriptoresProject:getDescriptoresProject
+            updateResultado: updateResultado,
+            getDescriptoresProject: getDescriptoresProject,
+            getResultados: getResultados,
+            getDescriptorResultado: getDescriptorResultado,
+            getDescriptoresResultados: getDescriptoresResultados,
+            deleteDescriptorResultados:deleteDescriptorResultados,
+            saveDescriptorResultados:saveDescriptorResultados,
+            updateDescriptorResultados:updateDescriptorResultados
         };
 
         function getPerfil() {
@@ -32,7 +38,7 @@
             }
         }
 
-        function  getDescriptoresProject(idProyecto){
+        function getDescriptoresProject(idProyecto) {
 
         }
 
@@ -176,7 +182,7 @@
             var profile = getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').all('Resultados').customPUT(request).then(function(res){
+                Restangular.all('Proyecto').all('Resultados').customPUT(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(false);
@@ -191,11 +197,12 @@
             }
             return deferred.promise;
         }
+
         function saveResultado(request) {
             var profile = getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').all('Resultados').customPOST(request).then(function(res){
+                Restangular.all('Proyecto').all('Resultados').customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     console.log(err);
@@ -221,8 +228,8 @@
                 }).catch(function (err) {
                     deferred.reject(err);
                 });
-            }else{
-                Restangular.all('Proyecto').one('Resultados', idProyecto).one(tipo,'Organizacion').all(profile.id).customGET().then(function (res) {
+            } else {
+                Restangular.all('Proyecto').one('Resultados', idProyecto).one(tipo, 'Organizacion').all(profile.id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -231,6 +238,101 @@
             return deferred.promise;
         }
 
+        function getResultados(idProyecto) {
+            var tipos = ['Todos', 'Patente'];
+            var promises = [];
+            angular.forEach(tipos, function (data) {
+                promises.push(getResultado(idProyecto, data));
+            });
+            return $q.all(promises);
+        }
+
+        function getDescriptorResultado(idResultado) {
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idResultado).customGET().then(function (res) {
+                    deferred.resolve(res.ResultadoRescriptor);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }else{
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idResultado).one('Organizacion', profile.id).customGET().then(function (res) {
+                    deferred.resolve(res.ResultadoRescriptor);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
+
+        function getDescriptoresResultados(ids) {
+            var promises = [];
+            angular.forEach(ids, function (data) {
+                console.log(data);
+                promises.push(getDescriptorResultado(data));
+            });
+            return $q.all(promises);
+
+        }
+        function deleteDescriptorResultados(idDescriptor){
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }else{
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).one('Organizacion', profile.id).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
+        function saveDescriptorResultados(request){
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('Resultados').all('Descriptor').customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }else{
+                Restangular.all('Proyecto').all('Resultados').all('Descriptor').one('Organizacion', profile.id).customPOST(request).then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
+        function updateDescriptorResultados(idDescriptor){
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).customPUT(request).then(function (res) {
+                    deferred.resolve(res.ResultadoRescriptor);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }else{
+                Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).one('Organizacion', profile.id).customPUT(request).then(function (res) {
+                    deferred.resolve(res.ResultadoRescriptor);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
         return service;
     }
 
