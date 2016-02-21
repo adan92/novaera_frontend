@@ -1,5 +1,10 @@
 {
-
+  "MENU": {
+    "ORG": {
+      "ORGANIZACION": "Organización",
+      "VALIDATION":"Validación de organizaciones"
+    }
+  },
 
   "ORGANIZATION":
   {
@@ -10,6 +15,7 @@
     "FUNDS_GIVEN": "Apoyo en Fondos",
     "INSTRUCTIONS": "Busca una organización para ver su información general",
     "LEGAL_REPRESENTATIVE":"Representante Legal",
+    "VALIDATE_ORG":"Validar Organización",
     "INFO":{
       "INSTRUCTIONS": "Busca una organización para editar. Deja en blanco para agregar una organización nueva",
       "REGISTER":"Registrar nueva organización",
