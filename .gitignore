@@ -7,3 +7,4 @@ node_modules
 dist/  
 .vagrant/
 src/app/config.constants.js
+_DS_Store

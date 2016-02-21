@@ -130,6 +130,18 @@
 
             }]
           }, {
+            name: 'MENU.ORG.ORGANIZACION',
+            type: 'dropdown',
+            icon: 'fa fa-institution',
+            priority: 2.1,
+            children: [{
+              name: 'Validar Organización',
+              state: 'triangular.admin-default.validar_organizacion',
+              icon: 'fa fa-users',
+              type: 'link'
+
+            }]
+          }, {
             name: 'MENU.FONDEOS.FONDEOS',
             type: 'dropdown',
             icon: 'zmdi zmdi-money-box',
