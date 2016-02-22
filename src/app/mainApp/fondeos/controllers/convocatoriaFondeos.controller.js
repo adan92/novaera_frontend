@@ -42,7 +42,13 @@
         vm.Modalidades=null;
         //modalidades asociadas a la convocatoria
         vm.ModalidadesAsociadas=null;
-
+        vm.Validator = [{
+            title: 'Activo',
+            value: true
+        },{
+            title: 'Inactivo',
+            value: false
+        }];
         //Objeto Convocatoria
         vm.Convocatoria={
             "id": null,
@@ -67,7 +73,7 @@
             "Descripcion":null
         }
         //Arreglo requisitos
-        vm.Requisitos=null;
+        vm.Requisitos=[];
         //Objeto de tabla Pivote:
         vm.pivot={
             "idConvocatoria":null,
@@ -101,18 +107,17 @@
 
         vm.getModalidades = getModalidades;//listo
         vm.getFondeos = getFondeos;//listo
+        vm.getFondeo=getFondeo;//Listo
         vm.cancel =cancel;//listo
-        vm.getConvocatorias= getAllConvocatorias;//listo
+        vm.getAllConvocatorias= getAllConvocatorias;//listo
         vm.getConvocatoria= getConvocatoria;//listo
         vm.registrarConvocatoria=registrarConvocatoria;//listo
         vm.showModalitiesRelation=showModalitiesRelation;//Listo
         vm.addConvocatoriaModalidad=addConvocatoriaModalidad;//Listo
-        vm.quitarModalidadConvocatoria=QuitarModalidadConvocatoria;//Listo
-        vm.quitarTodasModalidadConvocatoria=QuitarTodasModalidadConvocatoria;
+        vm.quitarModalidadConvocatoria=quitarModalidadConvocatoria;//Listo
+        vm.quitarTodasModalidadConvocatoria=QuitarTodasModalidadConvocatoria;//listo
         vm.crearRequisito=crearRequisito;
-        vm.quitarRequisito=quitarRequisito;
-        vm.consultarRequisito=consultarRequisito;
-        vm.consultarAllRequisitos=consultarAllRequisitos;
+
         //Funcionalidades
         function activate()
         {
@@ -129,11 +134,16 @@
             vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
             getFondeos();
-            getModalidades();
-            getConvocatorias();
+
+            getAllConvocatorias();
 
         }
-
+        function getFondeo() {
+            var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
+            promise.then(function (value) {
+                vm.selectedFondeo=value;
+            });
+        }
         //Obtener todos los fondeos
         function getFondeos() {
             var promise = Fondeo.getAllFondeos();
@@ -145,7 +155,7 @@
         }
         //Obtener Modalidades  relacionadas a Programas de Fondeo
         function getModalidades() {
-            vm.Modalidad.ProgramaAsociado=vm.selectedFondeo.id
+            vm.Convocatoria.ProgramaAsociado=vm.selectedFondeo;
             var promise = Modalidad.showModalitiesRelationFondeos(SelectedFondeo);
             promise.then(function (value) {
                 vm.Modalidades = value;
@@ -154,7 +164,7 @@
             });
         }
         //Funcion Obtener todas las Convocatorias
-        function getConvocatorias() {
+        function getAllConvocatorias() {
             var promise = Convocatoria.getAllConvocatorias();
             promise.then(function (value) {
 
@@ -168,7 +178,9 @@
         function getConvocatoria() {
             console.log("Ya seleccione");
             console.log(vm.selectedConvocatoria);
-            vm.Convocatoria=vm.selectedConvocatorias;
+            vm.Convocatoria=vm.selectedConvocatoria;
+            vm.Requisitos=vm.Convocatoria.Requisitos;
+
         }
         //Funcion Cancelar
         function cancel() {
@@ -179,13 +191,14 @@
             vm.Modalidad=null;
             vm.selectedModalidad=null;
             vm.isNewModalidad=null;
-            vm.Requisito=null;
+            vm.requisito=null;
             vm.selectedRequisito=null;
             vm.isNewRequisito=null;
         }
         //Registrar Convocatoria
         function registrarConvocatoria() {
             vm.Convocatoria.ProgramaAsociado=vm.selectedFondeo.id;
+            vm.Convocatoria.Requisitos=vm.Requisitos;
             console.log("Entrando a la funcion");
             console.log(vm.Convocatoria)
             if (vm.Convocatoria.id == null) {
@@ -214,6 +227,7 @@
 
             console.log("Estoy Actualizando Lista de Convocatorias");
             var promise = Convocatoria.getAllConvocatorias(vm.Convocatoria);
+            getAllConvocatorias();
             promise.then(function (value) {
                 vm.Convocatorias = value;
             });
@@ -248,6 +262,39 @@
             });
         }
 
+        //funcion para quitar modalidades de la convocatoria
+        function quitarModalidadConvocatoria() {
+
+            var promise = Convocatoria.deleteConvocatoriaModalidad(vm.Convocatoria);
+            promise.then(function (value) {
+
+                vm.ModalidadesAsociadas=value;
+
+                console.log(vm.ModalidadesAsociadas)
+
+            });
+        }
+        //funcion eliminar todas las modalidades
+        function QuitarTodasModalidadConvocatoria(){
+            var promise = Convocatoria.deleteConvocatoriaModalidadAll(vm.Convocatoria);
+            promise.then(function (value) {
+
+                vm.ModalidadesAsociadas=value;
+
+                console.log(vm.ModalidadesAsociadas)
+
+            });
+        }
+        // Crear requisito
+
+        function crearRequisito(){
+            vm.Requisitos.push(vm.requisito)
+            vm.requisito={
+                "Nombre":null,
+                "Descripcion":null
+            }
+            console.log(vm.Requisitos)
+        }
 
 
 
@@ -288,6 +335,8 @@
                     vm.todos.push(answer);
                 });
         });
+
+
     }
 
 })();
