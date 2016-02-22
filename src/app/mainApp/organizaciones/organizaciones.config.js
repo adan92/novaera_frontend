@@ -81,6 +81,24 @@
                 requirePrivileges:'Supervisor',
                 redirect:'auth.login'
             }
+        }).state('triangular.admin-default.validar_doc_org',{
+            url:'/validar_docu_org',
+            templateUrl:'app/mainApp/organizaciones/validar_docu_org.tmpl.html',
+            controller: 'validacionDocuOrganizacionController',
+            controllerAs: 'vm',
+            data:{
+                layout:{
+                    toolbarSize: 'default',
+                    toolbarShrink: true,
+                    toolbarClass: 'none',
+                    contentClass: '',
+                    sideMenuSize: 'full',
+                    footer: true
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
+            }
         })
 
         ;

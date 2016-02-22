@@ -2,7 +2,8 @@
   "MENU": {
     "ORG": {
       "ORGANIZACION": "Organización",
-      "VALIDATION":"Validación de organizaciones"
+      "VALIDATION":"Validación de organizaciones",
+      "VALIDATION_DOC":"Validación de Documentos"
     }
   },
 
@@ -33,6 +34,9 @@
       "MISSION":"Misión",
       "EXPERIENCE": "Experiencias",
       "CONSTITUTIVE_ACT": "Acta Constitutiva (Arrastra archivo aquí)"
+    },
+    "DOCUMENTOS":{
+      "VALIDATE":"Validar Documento"
     },
     "DESCRIPTOR":{
       "INSTRUCTIONS":"Busca una organización para ver sus descriptores",

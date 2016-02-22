@@ -140,6 +140,12 @@
               icon: 'fa fa-users',
               type: 'link'
 
+            },{
+              name: 'Validar Documentos',
+              state: 'triangular.admin-default.validar_doc_org',
+              icon: 'fa fa-file-text',
+              type: 'link'
+
             }]
           }, {
             name: 'MENU.FONDEOS.FONDEOS',
