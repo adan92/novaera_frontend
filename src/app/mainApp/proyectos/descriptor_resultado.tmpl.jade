@@ -9,7 +9,7 @@
                     span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
     // Tarjeta para eliminar Resultados
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
-        md-card(flex='40', layout='column')
+        md-card(flex, layout='column')
             md-card-content
                 h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_RESULTS
                 md-list

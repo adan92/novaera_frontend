@@ -6,7 +6,7 @@
         .factory('TRL', TRL);
 
     /* @ngInject */
-    function TRL($q, Restangular,Profile,Translate) {
+    function TRL($q, Restangular,Profile,Translate,toastr) {
         var service = {
             getAllTLR: getAllTLR,
             getTRLByProject:getTRLByProject,
@@ -33,14 +33,12 @@
                 Restangular.all('Proyecto').all('TRL').customPOST(information).then(function (res) {
                     deferred.resolve(true);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }else{
                 Restangular.all('Proyecto').all('TRL').one('Organizacion',profile.id).customPOST(information).then(function (res) {
                     deferred.resolve(true);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -88,7 +86,6 @@
             var deferred = $q.defer();
 
             Restangular.all('TRL').customGET().then(function (res) {
-                console.log(res);
                 deferred.resolve(res.TRL);
             }).catch(function (err) {
                 deferred.reject(err);

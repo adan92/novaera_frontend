@@ -18,6 +18,8 @@
         vm.proyectos = null;
         vm.TRLItems = null;
         vm.infoTRL = null;
+        vm.waiting = false;
+        vm.isCreating = false;
         vm.selectedTRL = null;
         vm.selectedItem = null;
         vm.searchText = null;
@@ -59,7 +61,7 @@
             $mdDialog.show(confirm).then(function () {
                 vm.deleteTRL();
             }, function () {
-                console.log("Cancelado");
+                toastr.warning(vm.cancelDelete, vm.cancelTitle);
             });
 
         }
@@ -72,13 +74,12 @@
                 vm.proyectos = res;
                 var prom = TRL.getAllTLR();
                 prom.then(function (res) {
-                    console.log(res);
                     vm.TRLItems = res;
                 }).catch(function (err) {
-
+                    toastr.error(vm.failureText, vm.failureLoad);
                 });
             }).catch(function (err) {
-
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
@@ -91,6 +92,9 @@
             vm.failureText = Translate.translate('DIALOGS.FAILURE');
             vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
+            vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
+            vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
 
         }
 
@@ -104,12 +108,9 @@
 
         function selectedItemChange(item) {
             if (vm.selectedItem !== null) {
-                var proms=TRL.getTRLByProject(item.id);
-                proms.then(function (res) {
-                    vm.selectedItem.TRL = res.TRL;
-                }).catch(function (err) {
-
-                });
+                vm.waiting = true;
+                vm.isCreating=true;
+                getTRLByProject();
             }
 
         }
@@ -145,16 +146,10 @@
             vm.TRL.Info.Fecha = fecha;
             var promise=TRL.saveTRLProject(vm.TRL);
             promise.then(function (res) {
-                toastr.success('Los datos se han guardado exitosamente', 'Éxito');
-                var proms=TRL.getTRLByProject(vm.selectedItem.id);
-                proms.then(function (res) {
-                    console.log(res.TRL);
-                    vm.selectedItem.TRL = res.TRL;
-                }).catch(function (err) {
-
-                });
+                toastr.success(vm.successStoreText,vm.successText);
+                getTRLByProject();
             }).catch(function (err) {
-                toastr.error('Error al guardar los datos', 'Error');
+                toastr.error(vm.failureStoreText, vm.failureText);
             });
         }
 
@@ -168,10 +163,26 @@
             request.ProyectoTRL = vm.selectedRegisters;
             var promise=TRL.deleteTRLFromProject(request);
             promise.then(function (res) {
-                toastr.success('Éxito', 'Registros eliminados exitosamente');
+                toastr.success(vm.successDeleteText,vm.successText);
                 vm.selectedItem.TRL = res.TRL;
             }).catch(function (err) {
-                toastr.error('Error', 'Error al eliminar registros');
+                toastr.error(vm.failureDeleteText, vm.failureText);
+            });
+        }
+
+        function getTRLByProject(){
+            vm.waiting = true;
+            vm.isCreating=true;
+            var proms=TRL.getTRLByProject(vm.selectedItem.id);
+            proms.then(function (res) {
+
+                vm.selectedItem.TRL = res.TRL;
+                vm.waiting = false;
+                vm.isCreating=false;
+            }).catch(function (err) {
+                vm.isCreating=false;
+                vm.waiting = false;
+                toastr.error(vm.failureLoad, vm.failureText);
             });
         }
     }

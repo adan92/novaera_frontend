@@ -1,14 +1,14 @@
 //
    Created by lockonDaniel on 12/19/15.
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
-   div(layout='row', layout-margin='', layout-sm='column')
+   div(layout='row', layout-sm='column', layout-md='column')
       // Tarjeta con la gráfica
-      md-card(flex='')
+      md-card(flex='',layout='column')
          md-card-content
             h2.text-center(translate='') PROJECT.TRL.CHART
             canvas#doughnut.chart.chart-doughnut(chart-data='vm.estadisticas.data', chart-labels='vm.estadisticas.labels', chart-legend='true')
       // Tarjeta con la información de TRL
-      md-card(flex='')
+      md-card(flex='',layout='column')
          md-card-content
             h2.text-center(translate='') PROJECT.TRL.ABOUT
             h3.text-center(translate='') PROJECT.TRL.INTRO
@@ -32,7 +32,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
             md-items='item in vm.querySearch(vm.searchText)',
             md-item-text='item.Titulo',
             md-min-length='0',
-            placeholder='Busca tu proyecto')
+            placeholder="{{ 'PROJECT.TRL.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
                span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
          div(ng-show='vm.selectedItem!=null')
             form(name='registrarTRL')
@@ -50,29 +50,34 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                md-button.md-raised(ng-disabled='vm.TRL.idTRL==null || vm.selectedDate==null', ng-click='vm.registerTRL()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                   span(translate='') PROJECT.TRL.NEW_TRL
       // Tarjeta con la tabla dinámica
+
       md-card(flex='')
+
          md-card-content
+            div(layout="column" layout-align="center-center")
+               md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
+            div(ng-hide="vm.isCreating")
+               //tri-table.elements-image-table-example(ng-show='vm.selectedItem!=null', columns='vm.columns', contents='vm.selectedItem.TRL', page-size='5')
+               md-toolbar.md-table-toolbar.md-default
+                  .md-toolbar-tools
+                     span TRL
 
-            //tri-table.elements-image-table-example(ng-show='vm.selectedItem!=null', columns='vm.columns', contents='vm.selectedItem.TRL', page-size='5')
-            md-toolbar.md-table-toolbar.md-default
-               .md-toolbar-tools
-                  span TRL
-            md-table-container
-
-               table(md-table='', md-row-select='', ng-model='vm.selectedRegisters')
-                  thead(md-head='', md-order='vm.query.order')
-                     tr(md-row)
-                        th(md-column md-order-by='TRL.Nivel')
-                           span Nivel
-                        th(md-column md-order-by='Descripcion')
-                           span Descripcion
-                        th(md-column md-order-by='Fecha')
-                           span Fecha
-                  tbody(md-body)
-                     tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
-                        td(md-cell) {{item.TRL.Nivel}}
-                        td(md-cell) {{item.Descripcion}}
-                        td(md-cell) {{item.Fecha}}
-            div(layout="row" layout-sm="column" layout-align="end center")
-               md-button.md-raised.md-warn(ng-click="vm.createDialog($event)" ng-disabled="vm.selectedRegisters.length==0")
-                  span(translate) PROJECT.TRL.DELETE_TRL
+               md-table-container
+                  table(md-table='', md-row-select='', ng-model='vm.selectedRegisters')
+                     thead(md-head='', md-order='vm.query.order')
+                        tr(md-row)
+                           th(md-column md-order-by='TRL.Nivel')
+                              span(translate='') PROJECT.TRL.TABLE.COL_NIVEL
+                           th(md-column md-order-by='Descripcion')
+                              span(translate='') PROJECT.TRL.TABLE.COL_DESC
+                           th(md-column md-order-by='Fecha')
+                              span(translate='') PROJECT.TRL.TABLE.COL_DATE
+                     tbody(md-body)
+                        tr(md-row  md-select='item' md-select-id='{{item.idTRL}}' md-auto-select md-on-select ng-repeat='item in vm.selectedItem.TRL | orderBy:vm.query.order' )
+                           td(md-cell) {{item.TRL.Nivel}}
+                           td(md-cell) {{item.Descripcion}}
+                           td(md-cell) {{item.Fecha}}
+               md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.selectedItem.TRL.length}}')
+               div(layout="row" layout-sm="column" layout-align="end center")
+                  md-button.md-raised.md-warn(ng-click="vm.createDialog($event)" ng-disabled="vm.selectedRegisters.length==0")
+                     span(translate) PROJECT.TRL.DELETE_TRL

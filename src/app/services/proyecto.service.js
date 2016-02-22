@@ -58,7 +58,6 @@
                 Restangular.all('Proyecto').all('EtapaProyecto').one('Organizacion', profile.id).customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(false);
                 });
             }
@@ -72,14 +71,12 @@
                 Restangular.all('Proyecto').one('EtapaProyecto', id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             } else {
                 Restangular.all('Proyecto').one('EtapaProyecto', id).one('Organizacion', profile.id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -93,14 +90,12 @@
                 Restangular.all('Proyecto').one('TransferenciaTecnologica', id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             } else {
                 Restangular.all('Proyecto').one('TransferenciaTecnologica', id).one('Organizacion', profile.id).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -118,7 +113,6 @@
                 })
             } else {
                 Restangular.all('Proyecto').one('Organizacion', proyecto.id).all(profile.id).customPUT(proyecto).then(function (res) {
-                    console.log(res);
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -164,16 +158,12 @@
         function getAllProjects() {
             var profile = getPerfil();
             var deferred = $q.defer();
-            console.log(profile);
             if (profile.type === "person") {
                 Restangular.all('Proyecto').all('Persona').customGET().then(function (res) {
-
                     deferred.resolve(res.Proyectos);
                 }).catch(function (err) {
-                    console.log(err);
                 });
             } else {
-                console.log("organizacion");
                 Restangular.all('Proyecto').all('Organizacion').customGET(profile.id).then(function (res) {
                     deferred.resolve(res.Proyectos);
                 });
@@ -194,7 +184,6 @@
                 Restangular.all('Proyecto').all('Resultados').one('Organizacion', profile.id).customPUT(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(false);
                 });
             }
@@ -208,14 +197,12 @@
                 Restangular.all('Proyecto').all('Resultados').customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(false);
                 });
             } else {
                 Restangular.all('Proyecto').all('Resultados').one('Organizacion', profile.id).customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(false);
                 });
             }
@@ -263,7 +250,6 @@
                 Restangular.all('Proyecto').all('Resultados').one('Descriptor', idResultado).one('Organizacion', profile.id).customGET().then(function (res) {
                     deferred.resolve(res.ResultadoRescriptor);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -273,7 +259,6 @@
         function getDescriptoresResultados(ids) {
             var promises = [];
             angular.forEach(ids, function (data) {
-                console.log(data);
                 promises.push(getDescriptorResultado(data));
             });
             return $q.all(promises);
@@ -292,7 +277,6 @@
                 Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor).one('Organizacion', profile.id).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -311,7 +295,6 @@
                 Restangular.all('Proyecto').all('Resultados').all('Descriptor').one('Organizacion', profile.id).customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
@@ -330,7 +313,6 @@
                 Restangular.all('Proyecto').all('Resultados').one('Descriptor', idDescriptor.id).one('Organizacion', profile.id).customPUT(idDescriptor).then(function (res) {
                     deferred.resolve(res.ResultadoRescriptor);
                 }).catch(function (err) {
-                    console.log(err);
                     deferred.reject(err);
                 });
             }
