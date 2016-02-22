@@ -15,7 +15,9 @@
         "SUCCESS_DELETE": "Éxito al eliminar los datos",
         "FAIL_STORE": "Error al guardar los datos",
         "FAIL_DELETE": "Error al eliminar los datos",
-        "FAIL_LOGIN":"Error al iniciar sesión. Usuario o contraseña incorrectos"
+        "FAIL_LOGIN":"Error al iniciar sesión. Usuario o contraseña incorrectos",
+        "FAIL_PERFIL":"Se debe seleccionar el perfil para poder acceder"
+
     },
     "GENERAL": {
         "CANCEL": "Cancel",

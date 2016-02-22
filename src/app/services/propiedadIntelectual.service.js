@@ -6,7 +6,7 @@
         .factory('propiedadIntelectual', propiedadIntelectual);
 
     /* @ngInject */
-    function propiedadIntelectual($q, toastr, Restangular, Profile, $state,localStorageService) {
+    function propiedadIntelectual($q, toastr, Restangular, Profile, $state,Translate) {
         var service = {
             deletePropiedadIntelectual:deletePropiedadIntelectual,
             getOperation: getOperation,
@@ -16,13 +16,16 @@
             saveOperation:saveOperation
         };
         function getPerfil() {
+            var failPerfil = Translate.translate('DIALOGS.FAIL_PERFIL');
+            var failureText = Translate.translate('DIALOGS.FAILURE');
+
             var profile;
             if (Profile.isValidated()) {
                 profile = Profile.profileInfo();
                 return profile;
             } else {
                 $state.go('triangular.admin-default.profiles');
-                toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
+                toastr.error(failPerfil, failureText);
             }
         }
          function deletePropiedadIntelectual(id){

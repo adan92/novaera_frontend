@@ -1,7 +1,8 @@
 {
     "PROJECT":{
       "TITLE":"Tipo de perfil",
-      "INSTRUCCIONES":"Seleccione el pérfil:",
-      "ADD":"Guardar selección"
+      "INSTRUCCIONES":"Seleccione el perfil:",
+      "ADD":"Guardar selección",
+      "SAVE":"Se guardó con éxito el perfil"
     }
 }

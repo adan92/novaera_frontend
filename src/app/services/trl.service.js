@@ -6,7 +6,7 @@
         .factory('TRL', TRL);
 
     /* @ngInject */
-    function TRL($q, Restangular,Profile) {
+    function TRL($q, Restangular,Profile,Translate) {
         var service = {
             getAllTLR: getAllTLR,
             getTRLByProject:getTRLByProject,
@@ -14,13 +14,16 @@
             saveTRLProject:saveTRLProject
         };
         function getPerfil() {
+            var failPerfil = Translate.translate('DIALOGS.FAIL_PERFIL');
+            var failureText = Translate.translate('DIALOGS.FAILURE');
+
             var profile;
             if (Profile.isValidated()) {
                 profile = Profile.profileInfo();
                 return profile;
             } else {
                 $state.go('triangular.admin-default.profiles');
-                toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
+                toastr.error(failPerfil, failureText);
             }
         }
         function saveTRLProject(information){

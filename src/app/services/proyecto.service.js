@@ -6,7 +6,7 @@
         .factory('Proyecto', Proyecto);
 
     /* @ngInject */
-    function Proyecto($q, toastr, Restangular, Profile, $state) {
+    function Proyecto($q, toastr, Restangular, Profile, $state,Translate) {
         var service = {
             getAllProjects: getAllProjects,
             getProjectById: getProjectById,
@@ -28,13 +28,16 @@
         };
 
         function getPerfil() {
+            var failPerfil = Translate.translate('DIALOGS.FAIL_PERFIL');
+            var failureText = Translate.translate('DIALOGS.FAILURE');
+
             var profile;
             if (Profile.isValidated()) {
                 profile = Profile.profileInfo();
                 return profile;
             } else {
                 $state.go('triangular.admin-default.profiles');
-                toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
+                toastr.error(failPerfil, failureText);
             }
         }
 
