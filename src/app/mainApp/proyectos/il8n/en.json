@@ -227,6 +227,8 @@
       "KEY_ALLIES":"Aliados Clave"
     },
     "INSCRIPTION":{
+      "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
+      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
       "INFOPROJECT":"Informacion del Proyecto",
       "INFOPROGRAM":"Informacion del Programa De Fondeo",
       "TITLE":"Bienvenido a la seccion para aplicar a un Programa de Fondeo",
