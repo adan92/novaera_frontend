@@ -83,7 +83,7 @@
             var deferred = $q.defer();
             var profile = getPerfil();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').one('Descriptor', idProject).all(idDescriptor).all('Persona').customDELETE().then(function (res) {
+                Restangular.all('Proyecto').one('Descriptor', idProject).all(idDescriptor).customDELETE().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -105,7 +105,7 @@
             var deferred = $q.defer();
             var profile = getPerfil();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').one('Descriptor', idDescriptor).all('Persona').customPUT(descriptor).then(function (res) {
+                Restangular.all('Proyecto').one('Descriptor', idDescriptor).customPUT(descriptor).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);
@@ -129,10 +129,10 @@
             var deferred = $q.defer();
             var profile = getPerfil();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').one('Descriptor', 'Persona').customPOST(request).then(function (res) {
+                Restangular.all('Proyecto').all('Descriptor').customPOST(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
-                    deferred.reject(false);
+                    deferred.reject(err);
                 });
             } else {
                 Restangular.all('Proyecto').all('Descriptor').one('Organizacion', profile.id).customPOST(request).then(function (res) {
@@ -164,7 +164,7 @@
             var deferred = $q.defer();
             var profile = getPerfil();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').one('Descriptor', idProyecto).all('Persona').customGET().then(function (res) {
+                Restangular.all('Proyecto').one('Descriptor', idProyecto).customGET().then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);

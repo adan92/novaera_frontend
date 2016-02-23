@@ -150,6 +150,8 @@
         "PROCESS_REFERENCE": "Aquí se encuentran los procesos de Transferencia",
         "VALUE": "Valuacion",
         "VALUE_REFERENCE": "Aquí se encuentran los proceos de Valuación de Tecnología"
+      },"PLACEHOLDER": {
+        "SEARCH_PROJECT": "Busca tu proyecto"
       }
     },
     "RESULTS": {
@@ -238,7 +240,16 @@
       "DELETEPRO": "Remover Descriptor",
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
-      "EXPECTED_RESULT": "Resultado Esperado"
+      "EXPECTED_RESULT": "Resultado Esperado",
+      "TABLE":{
+        "COL_TIT":"Titulo:",
+        "COL_DESC":"Descripción:",
+        "COL_OBS":"Observaciones:",
+        "COL_DATE":"Fecha Creación:"
+      },"PLACEHOLDER": {
+        "SEARCH_PROJECT": "Busca tu proyecto",
+        "SEARCH_DESCRIPTOR": "Busca tu descriptor"
+      }
     },
     "BUSINESS_MODEL": {
       "PROJECT_SELECT": "Selección de Proyecto",

@@ -6,6 +6,7 @@
         "CANCEL_DELETE":"Operación Cancelada",
         "CANCEL_TITLE":"Cancelación",
         "WARNING":"Eliminarás todos los registros seleccionados",
+        "WARNING_ONE":"Eliminarás este registro",
         "WARNING_VALIDATE":"Validarás a todos los usuarios seleccioandos",
         "WARNING_VALIDATE_ORGANIZACION":"Validarás todas las organizaciones seleccionadas",
         "SUCCESS_VALIDATE": "Se validaron con éxito las organizaciones",

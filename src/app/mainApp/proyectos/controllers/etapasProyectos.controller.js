@@ -60,6 +60,8 @@
                 vm.waiting = false;
                 vm.isCreating = false;
             }).catch(function (err) {
+                vm.waiting = false;
+                vm.isCreating = false;
                 toastr.error(vm.failureText, vm.failureLoad);
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');

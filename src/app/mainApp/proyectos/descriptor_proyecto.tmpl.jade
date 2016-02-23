@@ -3,16 +3,19 @@
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
-                h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONS_PROJECT
-                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Busca tu Proyecto')
-                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
-    // Tarjeta para Eliminar Descriptores de Programas de Fondeo
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
+                div(ng-hide="vm.isCreating")
+                    h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
+                    h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONS_PROJECT
+                    md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder="{{ 'PROJECT.DESCRIPTOR.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
+                        span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+        // Tarjeta para Eliminar Descriptores de Programas de Fondeo
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         // Tarjeta para Agregar Descriptores de Programas de Fondeo
-        md-card(flex='30', layout='column', ng-show='vm.selectedItem!=null')
+        md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
             md-card-content
-                h2(translate='') PROJECT.DESCRIPTOR.ADD
+                h2.text-center(translate='') PROJECT.DESCRIPTOR.ADD
                 form(name='registrarResultado', novalidate='')
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.TYPE
@@ -28,21 +31,40 @@
                         label(translate='') PROJECT.DESCRIPTOR.NOTES
                         input(ng-model='vm.descriptor.observaciones', required='', name='observaciones')
                     md-button.md-raised(ng-disabled='registrarDescriptor.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-                        span(translate='') PROJECT.DESCRIPTOR.ADD
+                        span(translate='') {{(vm.descriptor.id==null ? 'PROJECT.DESCRIPTOR.ADD': 'PROJECT.DESCRIPTOR.EDITPRO')| translate}}
                     md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
                         span(translate='') PROJECT.DESCRIPTOR.CLEAR
         md-card(flex='', layout='column')
             md-card-content
                 h2.text-center(translate='') PROJECT.DESCRIPTOR.CURRENT
-                md-list
-                    md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptoresProyecto')
-                        .md-list-item-text(flex='40')
-                            h3 ID: {{descriptor.pivot.id}}
-                            h5 Descriptor: {{descriptor.Titulo}}
-                            h5 Observaciones: {{descriptor.pivot.observaciones}}
-                        div(flex='25')
-                            md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
-                                span(translate='') PROJECT.DESCRIPTOR.EDITPRO
-                            md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                span(translate='') PROJECT.DESCRIPTOR.DELETEPRO
-                        md-divider
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waitingList")
+                div(ng-hide="vm.isCreatingList")
+                    md-autocomplete.margin-bottom-20(
+                    ng-disabled='vm.isDisabledDescriptor',
+                    md-no-cache='vm.noCache',
+                    md-selected-item='vm.selectedItemDescriptor',
+                    md-search-text-change='vm.searchTextChange(vm.searchTextDescriptor)',
+                    md-search-text='vm.searchTextDescriptor',
+                    md-selected-item-change='vm.selectedItemChangeDescriptor(item)',
+                    md-items='item in vm.querySearchDescriptor(vm.searchTextDescriptor)',
+                    md-item-text='item.Titulo', md-min-length='0',
+                    placeholder="{{ 'PROJECT.DESCRIPTOR.PLACEHOLDER.SEARCH_DESCRIPTOR' | translate }}")
+                        span(md-highlight-text='vm.searchTextDescriptor', md-highlight-flags='^i') {{item.Titulo}}- {{item.Descripcion}}
+                div(layout="column" ng-show="vm.selectedItemDescriptor!=null")
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_TIT' | translate)}} &nbsp
+                        label {{ vm.selectedItemDescriptor.Titulo}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_DESC' | translate)}} &nbsp
+                        label {{vm.selectedItemDescriptor.Descripcion}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_OBS' | translate)}} &nbsp
+                        label {{vm.selectedItemDescriptor.pivot.observaciones}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_DATE' | translate)}} &nbsp
+                        label(ng-bind="vm.formatDate(vm.selectedItemDescriptor.created_at) |  date:'MM/dd/yyyy'")
+                        br
+                    md-button.md-raised.md-primary(ng-click='vm.edit(vm.selectedItemDescriptor)')
+                        span(translate='') PROJECT.DESCRIPTOR.EDITPRO
+                    md-button.md-raised(ng-click='vm.createDialog($event,vm.selectedItemDescriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.DESCRIPTOR.DELETEPRO
