@@ -70,12 +70,41 @@
       "MY_PROJECTS": "Proyectos Registrados",
       "INSTRUCTIONS": "Busca tu proyecto para administrar las etapas",
       "REGISTERED_STAGES": "Etapas Registradas",
+      "TITLE_GANTT":"Gráfico de Gantt",
+      "TITLE_EDIT":"Editar tarea",
+      "TITLE_CREATE_TASK":"Crear nueva etapa:",
+      "TITLE_EDIT_TASK":"Editar etapa:",
+
       "NEW_STAGE": "Nueva etapa",
       "REMOVE_STAGE": "Eliminar etapa",
       "PREVIOUS_STAGE": "Etapa Precedente",
       "STAGES": "Etapas",
       "CHECKLIST": "Entregables",
-      "TASK": "Tarea"
+      "TASK": "Tarea",
+      "PLACEHOLDER": {
+        "SEARCH_PROJECT": "Busca tu proyecto"
+      },
+      "FORM":{
+        "NAME":"Nombre",
+        "DESCRIPTION":"Descripción",
+        "BUTTON":{
+          "ADD":"Agregar Etapa",
+          "LEAVE_EDIT":"Dejar de editar",
+          "LEAVE_EDIT_TASK":"Dejar de editar",
+          "DELETE":"Eliminar Etapa",
+          "SAVE":"Enviar Datos"
+        },
+        "SELECT_STAGE_LBL":"Seleccionar una etapa para editar:",
+        "SELECT_STAGE":"Seleccionar Etapa",
+        "SELECT_DATE_FROM_LBL":"Mostrar desde:",
+        "SELECT_DATE_TO_LBL":"Mostrar hasta:",
+        "NAME_LBL":"Nombre de la Tarea",
+        "FROM_LBL":"De:",
+        "TO_LBL":"Hasta:",
+        "DESCRIPTION_LBL":"Descripción de la Tarea"
+
+
+      }
     },
     "TRL": {
       "MY_PROJECTS": "Proyectos Registrados",

@@ -9,12 +9,14 @@
         .controller('etapasProyectosController', etapasProyectosController);
 
     /* @ngInject */
-    function etapasProyectosController(Proyecto,$scope,Restangular,Translate,toastr,$mdDialog) {
+    function etapasProyectosController(Proyecto,$scope,Translate,toastr) {
         var vm = this;
 
         vm.activate                 = activate();
         //Variables
         vm.proyectos                = null;
+        vm.waiting = true;
+        vm.isCreating = true;
         vm.data                     = [];
         vm.newEtapa                 = null;
         vm.newTarea                 = null;
@@ -41,6 +43,11 @@
         //Otras funciones
         vm.deleteEtapa              = deleteEtapa;
         vm.selectedItemChange       = selectedItemChange;
+        vm.selectedItem       = null;
+        vm.searchText         = null;
+        vm.querySearch        = querySearch;
+        vm.simulateQuery      = false;
+        vm.isDisabled         = false;
 
         /**
          *Función que se ejecuta al inicio
@@ -49,8 +56,11 @@
         {
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
-                console.log(res);
                 vm.proyectos = res;
+                vm.waiting = false;
+                vm.isCreating = false;
+            }).catch(function (err) {
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -63,17 +73,17 @@
             vm.failureText          = Translate.translate('DIALOGS.FAILURE');
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+            vm.failureLoad          = Translate.translate('DIALOGS.FAIL_LOAD');
+
         }
 
         function selectedItemChange(){
             var promise=Proyecto.getEtapasProject(vm.selectedItem.id);
             promise.then(function(res){
                 vm.data = res.EtapaProyecto;
-                console.log(vm.data);
                 formatEtapas(vm.taskColor);
-                console.log(vm.data);
             }).catch(function(err){
-
+                toastr.error(vm.failureText, vm.failureLoad);
             });
         }
 
@@ -86,16 +96,11 @@
 
         function updateFrom()
         {
-            var a=moment(vm.newTarea.newFrom);//.format('YYYY-MM-DD');
-
-            console.log(toType(a));
-            vm.newTarea.from = a;
+            vm.newTarea.from = moment(vm.newTarea.newFrom);
         }
         function updateTo()
         {
-            var b = moment(vm.newTarea.newTo);//.format('YYYY-MM-DD');
-            console.log(b);
-            vm.newTarea.to = b;
+            vm.newTarea.to = moment(vm.newTarea.newTo);
         }
 
         /**
@@ -142,9 +147,6 @@
 
         $scope.clickTask = function(taskModel) {
             vm.newTarea = taskModel;
-            /*console.log( toType( moment(new Date(vm.newTarea.to))));
-            vm.newTarea.newTo = moment(vm.newTarea.to).format('DD/MMM/YYYY');
-            vm.newTarea.newFrom =  moment(vm.newTarea.from).format('DD/MMM/YYYY');*/
             vm.newTarea.newTo = vm.newTarea.to.toDate();
             vm.newTarea.newFrom =   vm.newTarea.from.toDate();
             if(vm.newTarea.color==vm.taskColor)
@@ -152,9 +154,6 @@
                 vm.newTarea.color = vm.editedTaskColor;
             }
         };
-        function toType(obj) {
-            return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-        }
         $scope.removeTask = function(taskModel) {
             vm.idTask=taskModel.id;
             for(var i=0;i<vm.data.length;i++)
@@ -167,10 +166,8 @@
                     vm.data[i].tasks.splice(index,1);
                     break;
                 }
-
             }
             vm.idTask = null;
-
         };
 
 
@@ -189,12 +186,10 @@
 
         function saveEtapas()
         {
-            //convertFechas();
             var request = {
                 idProyecto:vm.selectedItem.id,
                 EtapaProyecto:vm.data
             };
-            console.log(request);
             vm.disableRequest =true;
             var promise=Proyecto.saveEtapasProject(request);
             promise.then(function(res){
@@ -207,34 +202,6 @@
                 vm.disableRequest=false;
                 toastr.error(vm.failureText,vm.failureStoreText);
             });
-
-        }
-        function convertFechas(){
-            angular.forEach(vm.data,function(item,key){
-                var total=item.tasks.length;
-                var tasks=[];
-
-                angular.forEach(item.tasks,function(task,key){
-                    console.log(key);
-
-                    var to=moment(task.to).format('YYYY-MM-DD');
-                    var from=moment(task.from).format('YYYY-MM-DD');
-                    var tarea = {
-                        to:to,
-                        from:from,
-                        name:task.name
-                    };
-                    console.log(JSON.stringify(tarea));
-                    /*var tarea=new Object();
-                    tarea.to=to;
-                    tarea.from=from;
-                    tarea.name=task.name;*/
-                    tasks.push(JSON.stringify(tarea));
-                });
-                item.tasks=tasks;
-
-            });
-            console.log(vm.data);
         }
 
 
@@ -253,18 +220,6 @@
             });
         }
 
-
-
-        //
-
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-
-
-        //////////////////
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
             return results;
@@ -281,6 +236,7 @@
                 return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
+
 
     }
 

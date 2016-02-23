@@ -45,14 +45,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.Canales', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='Requerimientos', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Canales')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.canalesFile!=null', layout='row', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -68,14 +68,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.VentajaCompetitiva', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='VentajaCompetitiva', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('VentajaCompetitiva')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.ventajaCFile!=null', layout='row', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -91,14 +91,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.Problematica', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                            h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                         div(layout='row', layout-sm='column', layout-align='center center')
                            form(name='Problematica', tri-wizard-form='')
                               .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Problematica')")
-                                 md-button.md-fab.md-primary
+                                 md-button.md-fab.md-primary(aria-label='md-button')
                                     ng-md-icon(icon='attach_file')
                         div(ng-show='vm.problematicaFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                            h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -114,7 +114,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.Costos', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                         span(translate) PROJECT.WIZARD.UPDATE_TEXT
                         div(layout='row', layout-sm='column', layout-align='space-around center')
@@ -122,7 +122,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         div(layout='row', layout-sm='column', layout-align='center center')
                            form(name='Costos', tri-wizard-form='')
                               .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Costos')")
-                                 md-button.md-fab.md-primary
+                                 md-button.md-fab.md-primary(aria-label='md-button')
                                     ng-md-icon(icon='attach_file')
                         div(ng-show='vm.costosFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                            h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -138,14 +138,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.Ingresos', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='Ingresos', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Ingresos')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.ingresosFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -161,14 +161,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.ActividadesClave', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='ActividadesClave', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ActividadesClave')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.actividadesCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -184,14 +184,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.RelacionesCliente', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RelacionesCliente', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RelacionesCliente')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.relacionesCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -207,14 +207,14 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.RecursosClave', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RecursosClave', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RecursosClave')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.recursosCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
@@ -230,19 +230,19 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            div(text-angular ng-model='vm.ModeloNegocio.AliadosClave', ta-toolbar="[['bold','italics','ul','ol']]")
                            label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                            md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()')
+                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
                         h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='AliadosClave', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('AliadosClave')")
-                              md-button.md-fab.md-primary
+                              md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.aliadosCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
                         h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.aliadosCFile.Ruta}}')
                            h3 {{vm.aliadosCFile.Nombre}}
          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
-            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 10', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()',aria-label='md-button', ng-hide='triWizard.currentStep > 10', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()',aria-label='md-button', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')

@@ -3,46 +3,50 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(flex layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                div(ng-show='vm.proyectos!=null')
-                    h2.text-center(translate='') PROJECT.STAGES.MY_PROJECTS
-                    h3.text-center(translate='') PROJECT.STAGES.INSTRUCTIONS
-                    md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled',
-                    md-no-cache='vm.noCache',
-                    md-selected-item='vm.selectedItem',
-                    md-search-text-change='vm.searchTextChange(vm.searchText)',
-                    md-search-text='vm.searchText',
-                    md-selected-item-change='vm.selectedItemChange()',
-                    md-items='item in vm.querySearch(vm.searchText)',
-                    md-item-text='item.Titulo',
-                    md-min-length='0',
-                    placeholder='Busca tu proyecto')
-                        span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
-        // TARJETA CON GANTT
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
+                div(ng-hide="vm.isCreating")
+
+                            div(ng-show='vm.proyectos!=null')
+                                h2.text-center(translate='') PROJECT.STAGES.MY_PROJECTS
+                                h3.text-center(translate='') PROJECT.STAGES.INSTRUCTIONS
+                                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled',
+                                md-no-cache='vm.noCache',
+                                md-selected-item='vm.selectedItem',
+                                md-search-text-change='vm.searchTextChange(vm.searchText)',
+                                md-search-text='vm.searchText',
+                                md-selected-item-change='vm.selectedItemChange()',
+                                md-items='item in vm.querySearch(vm.searchText)',
+                                md-item-text='item.Titulo',
+                                md-min-length='0',
+                                placeholder="{{ 'PROJECT.STAGES.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
+                                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+                // TARJETA CON GANTT
     div(flex layout='column' ng-show='vm.selectedItem!=null')
         md-card(flex)
            md-card-content
-               h2.text-center Gráfico de Gantt
+               h2.text-center(translate='') PROJECT.STAGES.TITLE_GANTT
                div(flex layout='row' layout-sm='column' layout-align='space-around center')
-                   h3.text-center {{vm.newEtapa.id==null ? 'Crear nueva etapa:' : 'Editar etapa'}}
+                   h3.text-center {{(vm.newEtapa.id==null ? 'PROJECT.STAGES.TITLE_CREATE_TASK': 'PROJECT.STAGES.TITLE_CREATE_TASK')| translate}}
                    form(name='createEtapa' layout='row' layout-sm='column')
                        md-input-container
-                           label Nombre
+                           label(translate='') PROJECT.STAGES.FORM.NAME
                            input(type='text' ng-model='vm.newEtapa.name' required)
                        md-input-container
-                           label Descripción
+                           label(translate='') PROJECT.STAGES.FORM.DESCRIPTION
                            input(type='text' ng-model='vm.newEtapa.description' required)
                    md-button.md-raised.md-primary(ng-show='vm.newEtapa.id==null' ng-click="vm.createEtapa()" ng-disabled='createEtapa.$invalid')
-                       span Agregar etapa
+                       span(translate='') PROJECT.STAGES.FORM.BUTTON.ADD
                    md-button.md-raised.md-primary(ng-show='vm.newEtapa.id!=null' ng-click="vm.newEtapa=null" ng-disabled='vm.newEtapa.id==null')
-                       span Dejar de editar
+                       span(translate='') PROJECT.STAGES.FORM.BUTTON.LEAVE_EDIT
                div(flex layout='row' layout-sm='column' layout-align='space-around center' ng-show='vm.data.length>0')
-                   h3.text-center Seleccionar una etapa para editar:
+                   h3.text-center(translate='') PROJECT.STAGES.FORM.SELECT_STAGE_LBL
                    md-input-container
-                       label Seleccionar Etapa
+                       label(translate='') PROJECT.STAGES.FORM.SELECT_STAGE_LBL
                        md-select(ng-model='vm.newEtapa')
                            md-option(ng-repeat='etapa in vm.data' ng-value='etapa') {{etapa.name}}
                    md-button.md-raised.md-warn(ng-click="vm.deleteEtapa()" ng-disabled='vm.newEtapa.id==null')
-                       span Eliminar etapa
+                       span(translate='') PROJECT.STAGES.FORM.BUTTON.DELETE
                md-divider
                div(flex gantt data='vm.data' from-date='vm.fromDate' to-date='vm.toDate' headers='vm.headers')
                    gantt-tree
@@ -56,26 +60,26 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                    gantt-resize-sensor
                md-divider
            div(flex layout='row' layout-sm='column' layout-align='center center')
-               span Mostrar desde:
+               span(translate='') PROJECT.STAGES.FORM.SELECT_DATE_FROM_LBL
                md-datepicker(ng-model='vm.fromDate')
-               span Mostrar hasta:
+               span(translate='') PROJECT.STAGES.FORM.SELECT_DATE_TO_LBL
                md-datepicker(ng-model='vm.toDate')
                md-button.md-raised.md-primary(ng-click="vm.saveEtapas()" ng-hide='vm.disableRequest' ng-disabled='vm.disableRequest')
-                   span Enviar Datos
+                   span(translate='') PROJECT.STAGES.FORM.BUTTON.SAVE
            md-divider
            div(ng-show='vm.newTarea.id!=null' flex layout='row' layout-sm='column' layout-align='center center')
-               h3.text-center Editar tarea
+               h3.text-center(translate='') PROJECT.STAGES.TITLE_EDIT
            div(ng-show='vm.newTarea.id!=null' flex layout='row' layout-sm='column' layout-align='center center')
                md-input-container
-                   label Nombre de la Tarea
+                   label(translate='') PROJECT.STAGES.FORM.NAME_LBL
                    input(ng-disabled='vm.newTarea.id==null' type='text' ng-model='vm.newTarea.name')
-               span De:
+               span(translate='') PROJECT.STAGES.FORM.FROM_LBL
                md-datepicker(ng-disabled='vm.newTarea.id==null' ng-change='vm.updateFrom()' ng-model='vm.newTarea.newFrom')
-               span Hasta:
+               span(translate='') PROJECT.STAGES.FORM.TO_LBL
                md-datepicker(ng-disabled='vm.newTarea.id==null' ng-change='vm.updateTo()' ng-model='vm.newTarea.newTo')
            div(ng-show='vm.newTarea.id!=null' flex layout='row' layout-sm='column' layout-align='center center')
                md-input-container
-                   label Descripción de la Tarea
+                   label(translate='') PROJECT.STAGES.FORM.DESCRIPTION_LBL
                    input(ng-disabled='vm.newTarea.id==null' type='text' ng-model='vm.newTarea.description')
                md-button.md-raised.md-primary(ng-click="vm.newTarea=null")
-                   span Dejar de editar
+                   span(translate='') PROJECT.STAGES.FORM.BUTTON.LEAVE_EDIT_TASK

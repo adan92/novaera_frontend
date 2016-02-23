@@ -29,7 +29,7 @@
             RecursosFinancierosP: null,
             RecursosTecnologicosP: null,
             RecursosMaterialesP: null
-        }
+        };
         vm.file                     =  null;
         vm.fileList                 =  null;
         vm.steps                    = [
@@ -84,6 +84,8 @@
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
+            }).catch(function (err) {
+                toastr.error(vm.failureText, vm.failureLoad);
             });
 
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
@@ -91,6 +93,8 @@
             vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
             vm.failTitle = Translate.translate('DIALOGS.FAILURE');
             vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.failureLoadFile=Translate.translate('DIALOGS.FAIL_LOAD_FILE');
 
         }
 
@@ -124,10 +128,8 @@
 
                 }).catch(function(err){
                     vm.completed            = checkFinished();
-
+                    toastr.error(vm.failureText, vm.failureLoadFile);
                 });
-
-
             }).catch(function(err){
                 vm.Ejecucion                =  {
                     id:null,
@@ -142,10 +144,11 @@
                     RecursosFinancierosP: null,
                     RecursosTecnologicosP: null,
                     RecursosMaterialesP: null
-                }
+                };
+                toastr.error(vm.failureText, vm.failureLoad);
+
+                //console.log(err.status);
                 vm.completed            = checkFinished();
-
-
             });
 
         }
