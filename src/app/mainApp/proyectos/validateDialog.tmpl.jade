@@ -34,7 +34,10 @@ md-dialog(flex-gt-md='100' aria-label='Información de Solicitud')
                                     span {{vm.solicitud.ProgramaFondeo}}
                                 h2.md-subhead
                                     span Monto Solicitado:&nbsp;
-                                    span {{vm.solicitud.MontoSolicitado | number:2}}
+                                    span ${{vm.solicitud.MontoSolicitado | number:2}}
+                                h2.md-subhead
+                                    span Monto Apoyado:&nbsp;
+                                    span ${{vm.solicitud.MontoApoyado | number:2}}
                                 h2.md-subhead
                                     span Convocatoria:&nbsp;
                                     span {{vm.solicitud.Convocatoria}}
@@ -243,7 +246,7 @@ md-dialog(flex-gt-md='100' aria-label='Información de Solicitud')
                                         span.md-title Avances:&nbsp;
                                         span.subhead {{vm.selectedPatente.Avance}}
             md-dialog-actions(layout='row' layout-align='end center')
-                md-button.md-primary(ng-click="vm.answer('true')", style='margin-right:20px;')
-                    | Editar
-                md-button.md-primary(ng-click="vm.cancel()")
+                md-button.md-raised.md-primary(ng-click="vm.answer()", style='margin-right:20px;')
+                    | Validar
+                md-button.md-raided.md-primary(ng-click="vm.cancel()")
                     | Cerrar

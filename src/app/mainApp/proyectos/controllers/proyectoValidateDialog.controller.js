@@ -33,13 +33,14 @@
         vm.selectedResultado            = null;
         vm.selectedPatente              = null;
 
+
         function cancel()
         {
-            $mdDialog.cancel();
+            $mdDialog.hide(false);
         }
         function answer(response)
         {
-            $mdDialog.hide(response);
+            $mdDialog.hide(true);
         }
         function activate()
         {   vm.style = vm.style+'min-width:800px; max-height:800px;';

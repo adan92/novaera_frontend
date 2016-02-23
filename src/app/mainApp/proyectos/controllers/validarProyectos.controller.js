@@ -9,7 +9,7 @@
         .controller('validarProyectosController', validarProyectosController);
 
     /* @ngInject */
-    function validarProyectosController(Fondeo,Convocatoria,$mdDialog) {
+    function validarProyectosController(Fondeo,Convocatoria,Admin,$mdDialog,Translate,toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -23,6 +23,8 @@
         vm.selectedConvocatoria         =   null;
         vm.solicitudes                  =   null;
         vm.loadingSolicitudes           =   false;
+        vm.validacion                   =   null;
+        vm.selectedSolicitud            =   null;
 
         // Para el Autocomplete
         vm.selectedItem                 =   null;
@@ -33,6 +35,7 @@
         vm.getSolicitudes               =  getSolicitudes;
         vm.querySearch                  =  querySearch;
         vm.openDialog                   =  openDialog;
+        vm.validarSolicitud             =  validarSolicitud;
 
         vm.estados = [
             {
@@ -63,11 +66,20 @@
             }).catch(function(err){
 
             });
+            vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
+            vm.failTitle = Translate.translate('DIALOGS.FAILURE');
+            vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
+
         }
 
         function selectedItemChange()
         {
             vm.selectedConvocatoria = null;
+            vm.selectedSolicitud = null;
+            vm.showValidate = false;
+            vm.solicitudes = null;
             if(vm.selectedItem!=null)
             {
                 var promiseConvocatorias = Fondeo.callAssosciated(vm.selectedItem);
@@ -101,7 +113,10 @@
 
         function getSolicitudes()
         {
+            vm.solicitudes = null;
+            vm.selectedSolicitud = null;
             vm.loadingSolicitudes = true;
+            vm.showValidate = false;
             vm.solicitudesPromise = Convocatoria.getRegistrosByConvocatoria(vm.selectedConvocatoria);
             vm.solicitudesPromise.then(function(res){
                vm.solicitudes = res;
@@ -109,6 +124,22 @@
             }).catch(function(err){
             });
         }
+
+        function validarSolicitud()
+        {
+            var promiseValidate = Admin.validateSolicitud(vm.validacion,vm.selectedSolicitud.id);
+            promiseValidate.then(function(res){
+                toastr.success(vm.successTitle,vm.successUpdate);
+                getSolicitudes();
+
+            }).catch(function(err){
+                toastr.error(vm.failTitle,vm.failMessage);
+            });
+
+
+
+        }
+
 
         function openDialog(event,solicitud)
         {
@@ -124,6 +155,17 @@
             };
 
             $mdDialog.show(config).then(function(reply){
+                vm.showValidate = reply;
+                if(reply)
+                {
+                    vm.selectedSolicitud = solicitud;
+                    vm.validacion.MontoApoyado = vm.selectedSolicitud.MontoApoyado;
+                    vm.validacion.Validado = vm.selectedSolicitud.Validado;
+                }
+                else
+                {
+                    vm.selectedSolicitud=null;
+                }
 
             },function()
             {

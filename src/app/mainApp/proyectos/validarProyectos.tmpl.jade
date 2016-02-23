@@ -80,8 +80,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     span Modalidad
                                 th(md-column='md-column', md-order-by='Parque')
                                     span Parque
-                                th(md-column='md-column', md-order-by='FechaRegistro')
-                                    span Fecha
+                                th(md-column='md-column', md-order-by='Validado')
+                                    span Estado
                                 th(md-column='md-column')
                                     span Información
 
@@ -93,7 +93,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 td(md-cell='md-cell') {{solicitud.Convocatoria}}
                                 td(md-cell='md-cell') {{solicitud.Modalidad}}
                                 td(md-cell='md-cell') {{solicitud.Parque}}
-                                td(md-cell='md-cell') {{solicitud.FechaRegistro}}
+                                td(md-cell='md-cell') {{solicitud.Validado}}
                                 td(md-cell='md-cell')
                                             md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,solicitud)' aria-label='informationButton')
                                                 ng-md-icon(icon='menu' size='22')
@@ -108,47 +108,13 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             form(name='agregarSolicitud', novalidate='')
                                 md-input-container
                                     label(translate='') PROJECT.INSCRIPTION.STATUS
-                                    md-select(ng-model='estados', required='', name='estados')
+                                    md-select(ng-model='vm.validacion.Validado', required='', name='estados')
                                         md-option(ng-repeat='status in vm.estados', value='{{status.value}}')
                                             | {{status.value}}
                                 md-input-container
                                     label(translate='') PROJECT.INSCRIPTION.MOUNTBRING
-                                    input(ng-model='montoApoyado', required='', name='montoApoyado')
-                                md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='validarSolicitud()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                                    input(type='number' ng-model='vm.validacion.MontoApoyado', required='', name='montoApoyado')
+                                md-button.md-raised(ng-disabled='registrarSolicitud.$invalid', ng-click='vm.validarSolicitud()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                                     span(translate='') PROJECT.INSCRIPTION.VALIDATE
-    // TARJETA PARA Mostrar la ultima columna editada
-    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.showRow')
-        md-card(flex='', layout='column')
-            md-card-content
-                h3.text-center(translate='') PROJECT.VALIDA.LASTEDITION
-                md-list
-                    .md-list-item-text
-                        h3 Id:
-                        h4 {{vm.solicitudEncontrada.id}}
-                        h3 Proyecto:
-                        h4 {{vm.solicitudEncontrada.proyecto}}
-                        h3 Fondo:
-                        h4 {{vm.solicitudEncontrada.fondo}}
-                        h3 Convocatoria:
-                        h4 {{vm.solicitudEncontrada.convocatoria}}
-                        h3 Modalidad:
-                        h4 {{vm.solicitudEncontrada.modalidad}}
-                        h3 Parque Tecnologico:
-                        h4 {{vm.solicitudEncontrada.tecnopark}}
-                        h3 Monto Solicitado:
-                        h4 {{vm.solicitudEncontrada.montosolicitado}}
-                        h3 Monto Apoyado:
-                        h4 {{vm.solicitudEncontrada.montoApoyado}}
-                        h3 TRL Inicial:
-                        h4 {{vm.solicitudEncontrada.trlInicial}}
-                        h3 TRL Final:
-                        h4 {{vm.solicitudEncontrada.trlFinal}}
-                        h3 Fecha Registro:
-                        h4 {{vm.solicitudEncontrada.fechaRegistro}}
-                        h3 Fecha Cierre:
-                        h4 {{vm.solicitudEncontrada.fechaCierre}}
-                        h3 Resultado:
-                        h4 {{vm.solicitudEncontrada.resultado}}
-                        h3 Estado de la Solicitud:
-                        h4 {{vm.solicitudEncontrada.validado}}
+
 
