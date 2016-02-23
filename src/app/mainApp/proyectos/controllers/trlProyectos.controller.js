@@ -61,7 +61,7 @@
             $mdDialog.show(confirm).then(function () {
                 vm.deleteTRL();
             }, function () {
-                toastr.warning(vm.cancelDelete, vm.cancelTitle);
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
             });
 
         }

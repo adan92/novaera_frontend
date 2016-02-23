@@ -116,7 +116,7 @@
             $mdDialog.show(confirm).then(function () {
                 vm.deleteRegister();
             }, function () {
-                toastr.warning(vm.cancelDelete, vm.cancelTitle);
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
             });
 
 

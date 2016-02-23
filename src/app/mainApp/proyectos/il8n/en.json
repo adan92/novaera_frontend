@@ -245,7 +245,15 @@
         "COL_TIT":"Titulo:",
         "COL_DESC":"Descripción:",
         "COL_OBS":"Observaciones:",
-        "COL_DATE":"Fecha Creación:"
+        "COL_DATE":"Fecha Creación:",
+
+        "COL_DESCR":"Descriptor:",
+        "COL_RES":"Resultado:",
+        "COL_FECH_REG":"Fecha de Registro:",
+        "COL_FECH_APR":"Fecha de Aprobación:",
+        "COL_PCT":"PCT:",
+        "COL_TIPO":"Tipo Descriptor:"
+
       },"PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto",
         "SEARCH_DESCRIPTOR": "Busca tu descriptor"

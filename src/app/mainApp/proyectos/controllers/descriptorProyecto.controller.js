@@ -93,7 +93,9 @@
                 promise.then(function (res) {
                     vm.descriptores = res.Descriptor;
 
-                });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureLoad);
+                })
             }
         }
         function selectedItemChangeDescriptor()
@@ -115,7 +117,6 @@
             var promise=Descriptor.getDescriptorByProject(vm.selectedItem.id);
             promise.then(function (res) {
                 vm.descriptoresProyecto = res.Descriptor;
-                console.log(vm.descriptoresProyecto);
                 vm.waitingList=false;
                 vm.isCreatingList=false;
             }).catch(function (err) {
@@ -159,7 +160,7 @@
             $mdDialog.show(confirm).then(function() {
                 vm.deleteItem(item);
             }, function() {
-                toastr.warning(vm.cancelDelete, vm.cancelTitle);
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
             });
         }
 
@@ -183,7 +184,9 @@
                 var promise = Descriptor.callAssosciated(vm.descriptor.idP);
                 promise.then(function (res) {
                     vm.descriptores = res.Descriptor;
-                });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureLoad);
+                })
 
             }
         }
@@ -203,7 +206,6 @@
             var promise;
             vm.descriptor.idProyecto = vm.selectedItem.id;
             delete vm.descriptor.idP;
-                console.log(vm.descriptor);
             if (vm.descriptor.id == null) {
                 promise=Descriptor.saveDescriptor(vm.descriptor);
                 promise.then(function (res) {
@@ -211,19 +213,16 @@
                     vm.resetForm();
                     showDescriptoresProject();
                 }).catch(function (err) {
-                    console.log(err);
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
             else {
-                console.log("update");
                 promise=Descriptor.updateDescriptor(vm.descriptor.id,vm.descriptor);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successUpdateText);
                     vm.resetForm();
                     showDescriptoresProject();
                 }).catch(function (err) {
-                    console.log(err);
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }

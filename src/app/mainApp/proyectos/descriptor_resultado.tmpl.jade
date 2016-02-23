@@ -3,34 +3,60 @@
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
-                h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONSRESULT
-                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Busca tu proyecto')
-                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
+                div(ng-hide="vm.isCreating")
+                    h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_PROJECT
+                    h3.text-center(translate='') PROJECT.DESCRIPTOR.INSTRUCTIONSRESULT
+                    md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder="{{ 'PROJECT.DESCRIPTOR.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
+                        span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
     // Tarjeta para eliminar Resultados
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex, layout='column')
             md-card-content
                 h2.text-center(translate='') PROJECT.DESCRIPTOR.MY_RESULTS
-                md-list
-                    md-subheader.md-no-sticky(translate='') PROJECT.DESCRIPTOR.RESULTS
-                    md-list-item.md-4-line(ng-repeat='etapa in vm.resultados')
-                        .md-list-item-text(flex='50')
-                            h3 ID: {{etapa.id}}
-                            h5 Descriptor: {{etapa.idDescriptor}}
-                            h5 Fecha de Inicio: {{etapa.FechaRegistro}}
-                            h5 Fecha de Aprobado: {{etapa.FechaAprobacion}}
-                            h5 PCT: {{etapa.PCT}}
-                        div(flex='25')
-                            md-button.md-raised(ng-click='vm.createDialog($event,etapa)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                span(translate='') PROJECT.DESCRIPTOR.REMOVE_RESULT
-                            md-button.md-raised.md-primary(ng-click='vm.edit(etapa)')
-                                span(translate='') PROJECT.DESCRIPTOR.EDITPRO
-                        md-divider
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waitingList")
+                div(ng-hide="vm.isCreatingList")
+                    md-autocomplete.margin-bottom-20(
+                    ng-disabled='vm.isDisabledResultado',
+                    md-no-cache='vm.noCache',
+                    md-selected-item='vm.selectedItemResultado',
+                    md-search-text-change='vm.searchTextChange(vm.searchTextResultado)',
+                    md-search-text='vm.searchTextResultado',
+                    md-selected-item-change='vm.selectedItemChangeResultado(item)',
+                    md-items='item in vm.querySearchResultado(vm.searchTextResultado)',
+                    md-item-text='item.TipoDescriptor', md-min-length='0',
+                    placeholder="{{ 'PROJECT.DESCRIPTOR.PLACEHOLDER.SEARCH_DESCRIPTOR' | translate }}")
+                        span(md-highlight-text='vm.searchTextResultado', md-highlight-flags='^i') {{item.TipoDescriptor}}-{{item.DescriptorTitulo}}
+                div(layout="column" ng-show="vm.selectedItemResultado!=null")
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_TIPO' | translate)}} &nbsp
+                        label {{ vm.selectedItemResultado.TipoDescriptor}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_DESCR' | translate)}} &nbsp
+                        label {{vm.selectedItemResultado.DescriptorTitulo}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_RES' | translate)}} &nbsp
+                        label {{vm.selectedItemResultado.TipoResultado}}
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_FECH_REG' | translate)}} &nbsp
+                        label(ng-bind="vm.formatDate(vm.selectedItemResultado.FechaAprobacion) |  date:'MM/dd/yyyy'")
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_FECH_APR' | translate)}} &nbsp
+                        label(ng-bind="vm.formatDate(vm.selectedItemResultado.FechaRegistro) |  date:'MM/dd/yyyy'")
+                        br
+                    h4 {{('PROJECT.DESCRIPTOR.TABLE.COL_PCT' | translate)}} &nbsp
+                        label {{vm.selectedItemResultado.PCT}}
+                        br
+                    md-button.md-raised.md-primary(ng-click='vm.edit(vm.selectedItemResultado)')
+                        span(translate='') PROJECT.DESCRIPTOR.EDITPRO
+                    md-button.md-raised(ng-click='vm.createDialog($event,vm.selectedItemResultado)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                        span(translate='') PROJECT.DESCRIPTOR.DELETEPRO
+
         // Tarjeta para agregar Resultados
         md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
             md-card-content
-                h2(translate='') PROJECT.DESCRIPTOR.ADD_RESULT
+                h2.text-center(translate='') PROJECT.DESCRIPTOR.ADD_RESULT
                 form(name='registrarResultado', novalidate='')
                     md-input-container
                         label(translate='') PROJECT.DESCRIPTOR.TYPE
@@ -57,4 +83,4 @@
                             md-option(ng-repeat='descriptor in vm.resultadosDescriptores', name='idDescriptor', value='{{descriptor.id}}')
                                 | {{descriptor.Nombre}}
                     md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-                        span(translate='') PROJECT.DESCRIPTOR.ADDRESULT
+                        span(translate='') {{(vm.resultadosDescriptor.id==null ? 'PROJECT.DESCRIPTOR.ADD': 'PROJECT.DESCRIPTOR.EDITPRO')| translate}}
