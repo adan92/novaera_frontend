@@ -156,20 +156,17 @@
 
             $mdDialog.show(config).then(function(reply){
                 vm.showValidate = reply;
-                if(reply)
-                {
-                    vm.selectedSolicitud = solicitud;
-                    vm.validacion.MontoApoyado = vm.selectedSolicitud.MontoApoyado;
-                    vm.validacion.Validado = vm.selectedSolicitud.Validado;
-                }
-                else
-                {
-                    vm.selectedSolicitud=null;
-                }
+                vm.selectedSolicitud = solicitud;
+                vm.validacion.MontoApoyado = vm.selectedSolicitud.MontoApoyado;
+                vm.validacion.Validado = vm.selectedSolicitud.Validado;
+
+
+
 
             },function()
             {
-
+                vm.showValidate=false;
+                vm.selectedSolicitud=null;
             });
 
 

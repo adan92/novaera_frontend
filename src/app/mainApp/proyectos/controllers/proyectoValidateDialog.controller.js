@@ -36,7 +36,7 @@
 
         function cancel()
         {
-            $mdDialog.hide(false);
+            $mdDialog.cancel(false);
         }
         function answer(response)
         {
