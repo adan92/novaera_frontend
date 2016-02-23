@@ -28,6 +28,10 @@
         vm.propiedadIntelectual         = null;
         vm.propiedadIntelectualFiles    = null;
         vm.selectedPropiedad            = null;
+        vm.resultados                   = null;
+        vm.patentes                     = null;
+        vm.selectedResultado            = null;
+        vm.selectedPatente              = null;
 
         function cancel()
         {
@@ -41,8 +45,14 @@
         {   vm.style = vm.style+'min-width:800px; max-height:800px;';
 
 
-
             var ejecucionPromise = Admin.wizardOperation('Ejecucion',selectedSolicitud.idProyecto);
+            var modeloNegocioPromise = Admin.wizardOperation('ModeloNegocio',selectedSolicitud.idProyecto);
+            var impactoPromise = Admin.wizardOperation('Impacto',selectedSolicitud.idProyecto);
+            var propiedadIntelectualPromise = Admin.wizardOperation('TransferenciaTecnologica',selectedSolicitud.idProyecto);
+            var resultadosPromise = Admin.getResults('Todos',selectedSolicitud.idProyecto);
+            var patentesPromise = Admin.getResults('Patente',selectedSolicitud.idProyecto);
+
+
             ejecucionPromise.then(function(res){
                 vm.ejecucion = res;
                 Admin.wizardFiles('Ejecucion',selectedSolicitud.idProyecto).then(function(res){
@@ -54,7 +64,6 @@
             }).catch(function(err){
 
             });
-            var impactoPromise = Admin.wizardOperation('Impacto',selectedSolicitud.idProyecto);
             impactoPromise.then(function(res){
                 vm.impacto = res;
                 Admin.wizardFiles('Impacto',selectedSolicitud.idProyecto).then(function(res){
@@ -66,7 +75,6 @@
             }).catch(function(err){
 
             });
-            var modeloNegocioPromise = Admin.wizardOperation('ModeloNegocio',selectedSolicitud.idProyecto);
             modeloNegocioPromise.then(function(res){
                 vm.modeloNegocio = res;
                 Admin.wizardFiles('ModeloNegocio',selectedSolicitud.idProyecto).then(function(res){
@@ -78,10 +86,8 @@
             }).catch(function(err){
 
             });
-            var propiedadIntelectualPromise = Admin.wizardOperation('TransferenciaTecnologica',selectedSolicitud.idProyecto);
             propiedadIntelectualPromise.then(function(res){
                 vm.propiedadIntelectual = res.TransferenciaTecnologica;
-                console.log(res);
                 Admin.wizardFiles('TransferenciaTecnologica',selectedSolicitud.idProyecto).then(function(res){
                    vm.propiedadIntelectualFiles = res;
                 }).catch(function(err){
@@ -92,6 +98,19 @@
 
             });
 
+            resultadosPromise.then(function(res){
+               vm.resultados = res;
+               console.log(res);
+            }).catch(function(err){
+
+            });
+
+            patentesPromise.then(function(res){
+                vm.patentes = res;
+                console.log(res);
+            }).catch(function(err){
+
+            });
 
 
         }

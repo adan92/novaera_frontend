@@ -22,7 +22,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     | Publico Objetivo:
                                     strong {{item.PublicoObjetivo}}
                         span.item-metastat
-                                    |Fondo Total: $
+                                    | Fondo Total: $
                                     strong {{item.FondoTotal | number:2}}
 
 
@@ -30,15 +30,15 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
         md-card(flex='', layout='row' layout-sm='column' layout-md='column')
             md-card-content(flex layout='row' layout-sm='column' layout-md='column')
                 div(flex, layout='column' layout-align='center center')
-                    h2.text-center(translate='') PROJECT.INSCRIPTION.INFOPROGRAM
-                    h4 Publico Objetivo: {{vm.selectedItem.PublicoObjetivo}}
-                    h4 Fondo Total: ${{vm.selectedItem.FondoTotal | number:2}}
-                    div(flex layout='column' layout-md='column' layout-sm='column')
-                        h4 Criterios de Elegibilidad:
-                            h4(ng-bind-html='vm.selectedItem.CriteriosElegibilidad')
+                    h2.md-headline(translate='') PROJECT.INSCRIPTION.INFOPROGRAM
+                    h2.md-title Publico Objetivo:
+                    h2.subhead {{vm.selectedItem.PublicoObjetivo}}
+                    h2.md-title Fondo Total:
+                    h2.subhead ${{vm.selectedItem.FondoTotal | number:2}}
+                    h2.md-title Criterios de Elegibilidad:
+                    h2.subhead(ng-bind-html='vm.selectedItem.CriteriosElegibilidad')
                 div(flex, layout='column' layout-align='start center')
-                    h2.text-center(translate) PROJECT.INSCRIPTION.ASSOCIATED_ANNOUNCEMENTS
-
+                    h2.md-headline(translate) PROJECT.INSCRIPTION.ASSOCIATED_ANNOUNCEMENTS
 
                     div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.convocatorias==null')
                         md-progress-circular(md-mode='indeterminate')
@@ -49,9 +49,11 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             md-select(ng-model='vm.selectedConvocatoria' md-on-close='vm.getSolicitudes()')
                                 md-option(ng-repeat='convocatoria in vm.convocatorias' ng-value='convocatoria') {{convocatoria.Nombre}}
                     div(ng-show='vm.selectedConvocatoria!=null' layout-align='space-around-center center' layout='column' layout-sm='column' layout-md='column')
-                            h4 Fecha de Inicio: {{vm.selectedConvocatoria.FechaInicio}}
-                            h4 Fecha de Término: {{vm.selectedConvocatoria.FechaTermino}}
-                            h4 Requisitos:
+                            h2.subhead Fecha de Inicio:
+                            span {{vm.selectedConvocatoria.FechaInicio}}
+                            h2.subhead Fecha de Término:
+                            span {{vm.selectedConvocatoria.FechaTermino}}
+                            h2.subhead Requisitos:
                             div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
                                 ul
                                     li.li-disc {{requisito.Nombre}}: {{requisito.Descripcion}}

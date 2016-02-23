@@ -10,7 +10,8 @@
         var service = {
             getStatusProjects: getStatusProjects,
             wizardOperation: wizardOperation,
-            wizardFiles:wizardFiles
+            wizardFiles:wizardFiles,
+            getResults:getResults
         };
 
 
@@ -47,6 +48,18 @@
                 deferred.reject(false);
             });
 
+            return deferred.promise;
+        }
+
+        function getResults(type,id)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('Resultados').one(type,id).customGET().then(function (res) {
+                deferred.resolve(res.Resultado);
+            }).catch(function (err) {
+                console.log(err);
+                deferred.reject(false);
+            });
             return deferred.promise;
         }
 
