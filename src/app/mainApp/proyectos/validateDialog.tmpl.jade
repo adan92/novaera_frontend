@@ -189,7 +189,7 @@ md-dialog(flex-gt-md='100' aria-label='Información de Solicitud')
                     md-content.md-padding(flex)
                         div(flex layout='column' layout-align='center-center' ng-show='vm.resultados==null || vm.patentes==null')
                             md-progress-circular(md-mode='indeterminate')
-                        div(flex layout='row' ng-show='vm.resultados!=null || vm.patentes!=null')
+                        div(flex layout='row' layout-sm='column' layout-md='column' ng-show='vm.resultados!=null || vm.patentes!=null')
                             div(flex layout='column' ng-show='vm.resultados!=null')
                                 h2.md-headline.text-center Productos, Procesos y Servicios
                                 form(name='selectResultado')
