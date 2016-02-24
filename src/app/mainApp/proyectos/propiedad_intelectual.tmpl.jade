@@ -91,7 +91,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     div(text-angular='', required='', ng-model='vm.selectedPropiedad.ValuacionTecnologica', ta-toolbar="[['bold','italics','ul','ol']]" aria-label="valuacion-tecnologica")
                                     label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                                     md-divider
-            .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+            div.wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV' aria-label="previous-button")
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT' aria-label="next-button")
                 md-button.md-accent.md-raised(ng-click='vm.addRegister()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='PROJECT.WIZARD.SEND' aria-label="send-button")
