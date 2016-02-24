@@ -39,7 +39,7 @@
         }
         //arreglo de modalidades
         //Todas las Modalidades
-        vm.Modalidades=null;
+        vm.Modalidades=[];
         //modalidades asociadas a la convocatoria
         vm.ModalidadesAsociadas=null;
         vm.Validator = [{
@@ -101,8 +101,7 @@
 
         //DeclaracionFunciones
         //funciones para el To-Do
-        vm.orderTodos = orderTodos;
-        vm.removeTodo = removeTodo;
+
         //funcionalidad
 
         vm.getModalidades = getModalidades;//listo
@@ -112,11 +111,13 @@
         vm.getAllConvocatorias= getAllConvocatorias;//listo
         vm.getConvocatoria= getConvocatoria;//listo
         vm.registrarConvocatoria=registrarConvocatoria;//listo
+        vm.eliminarConvocatoria=eliminarConvocatoria;
         vm.showModalitiesRelation=showModalitiesRelation;//Listo
         vm.addConvocatoriaModalidad=addConvocatoriaModalidad;//Listo
         vm.quitarModalidadConvocatoria=quitarModalidadConvocatoria;//Listo
         vm.quitarTodasModalidadConvocatoria=QuitarTodasModalidadConvocatoria;//listo
         vm.crearRequisito=crearRequisito;
+
 
         //Funcionalidades
         function activate()
@@ -139,9 +140,13 @@
 
         }
         function getFondeo() {
+            console.log("El programa Asociado a Buscar es:");
+            console.log(vm.Convocatoria.ProgramaAsociado);
             var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
             promise.then(function (value) {
                 vm.selectedFondeo=value;
+                console.log("PateaLalata");
+                console.log(vm.selectedFondeo);
             });
         }
         //Obtener todos los fondeos
@@ -153,13 +158,26 @@
 
             });
         }
+
         //Obtener Modalidades  relacionadas a Programas de Fondeo
         function getModalidades() {
-            vm.Convocatoria.ProgramaAsociado=vm.selectedFondeo;
-            var promise = Modalidad.showModalitiesRelationFondeos(SelectedFondeo);
+            //obtengo el programa de fondeo
+            var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
             promise.then(function (value) {
-                vm.Modalidades = value;
-                console.log(vm.Modalidades)
+                vm.selectedFondeo=value;
+                //console.log(vm.selectedFondeo);
+            });
+            console.log(vm.selectedFondeo);
+            //console.log("Consultando Modalidades");
+            var promise = Modalidad.showModalitiesRelationFondeos(vm.selectedFondeo);
+            promise.then(function (value) {
+                vm.tmp = value;
+               console.log("Tmp");
+                console.log(vm.tmp)
+                vm.Modalidades=vm.tmp;
+               console.log("Modalidades");
+                console.log(vm.Modalidades);
+                //hello
 
             });
         }
@@ -179,7 +197,8 @@
             console.log("Ya seleccione");
             console.log(vm.selectedConvocatoria);
             vm.Convocatoria=vm.selectedConvocatoria;
-            vm.Requisitos=vm.Convocatoria.Requisitos;
+            vm.Requisitos=JSON.parse(vm.Convocatoria.Requisitos);
+            getModalidades();
 
         }
         //Funcion Cancelar
@@ -194,6 +213,11 @@
             vm.requisito=null;
             vm.selectedRequisito=null;
             vm.isNewRequisito=null;
+            vm.Convocatoria=null;
+            vm.isNewConvocatoria=null;
+            vm.Requisitos=null;
+
+
         }
         //Registrar Convocatoria
         function registrarConvocatoria() {
@@ -230,6 +254,11 @@
             getAllConvocatorias();
             promise.then(function (value) {
                 vm.Convocatorias = value;
+                console.log("Consultare Modalidades del Programa");
+                getModalidades();
+                console.log("Consultare modalidades Relacionadas");
+                showModalitiesRelation();
+                console.log("Ya debi mostrar Tabla");
             });
         }
         //funcion para mostrar Modalidades asociadas a la convocatoria
@@ -288,12 +317,39 @@
         // Crear requisito
 
         function crearRequisito(){
-            vm.Requisitos.push(vm.requisito)
+            vm.Requisitos.push(vm.requisito);
+
             vm.requisito={
                 "Nombre":null,
                 "Descripcion":null
             }
-            console.log(vm.Requisitos)
+            console.log("Los requisitos son:");
+            console.log(vm.Requisitos);
+        }
+
+        function eliminarConvocatoria() {
+
+            var promise = Convocatoria.deleteConvocatoria(vm.Convocatoria);
+            promise.then(function (value) {
+                toastr.success(vm.successDeleteText,vm.successDeleteText);
+                vm.Convocatoria={
+                    "id": null,
+                    "Nombre":null,
+                    "FechaInicio":null,
+                    "FechaTermino":null,
+                    "Requisitos":null,
+                    "MontosMaximosTotales":null,
+                    "Activo":null,
+                    "ProgramaAsociado":null,
+                    "created_at":null,
+                    "updated_at":null,
+                    "modalidad":null
+
+                };
+                getAllConvocatorias();
+                cancel();
+            });
+
         }
 
 
@@ -301,40 +357,6 @@
 
 
 
-        function orderTodos(task) {
-            switch(task.priority){
-                case 'Persona Fisica':
-                    return 1;
-                case 'Persona Moral':
-                    return 2;
-                case 'Todos':
-                    return 3;
-                default: // no priority set
-                    return 4;
-            }
-        }
-
-        function removeTodo(todo){
-            for(var i = vm.todos.length - 1; i >= 0; i--) {
-                if(vm.todos[i] === todo) {
-                    vm.todos.splice(i, 1);
-                }
-            }
-        }
-
-        // watches
-
-        $scope.$on('addTodo', function( ev ){
-            $mdDialog.show({
-                templateUrl: 'app/examples/todo/add-todo-dialog.tmpl.html',
-                targetEvent: ev,
-                controller: 'DialogController',
-                controllerAs: 'vm'
-            })
-                .then(function(answer) {
-                    vm.todos.push(answer);
-                });
-        });
 
 
     }

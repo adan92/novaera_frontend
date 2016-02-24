@@ -42,6 +42,7 @@
 
         //arreglo de modalidades
         vm.Modalidades=null;
+        vm.ModalidadesFondeo=null;
         //variables
         vm.selectedFondeo = null;
         vm.tmp = null;
@@ -117,6 +118,7 @@
             vm.Modalidad=null;
             vm.selectedModalidad=null;
             vm.isNewModalidad=null;
+
 
 
         }

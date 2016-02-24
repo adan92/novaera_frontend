@@ -57,7 +57,7 @@
                                             span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.MODALITY.AMOUNT
-                                        textarea(name='monto_modalidad', required='', ng-model='vm.Modalidad.Montos', md-maxlength='500')
+                                        input(name='monto_modalidad', required='', ng-model='vm.Modalidad.Montos',type="number", min='0', max='10000000000')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD

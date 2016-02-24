@@ -16,6 +16,7 @@
             showModalitiesRelation:showModalitiesRelation,
             updateConvocatoria:updateConvocatoria,
             addConvocatoriaModalidad:addConvocatoriaModalidad,
+            deleteConvocatoria:deleteConvocatoria,
             deleteConvocatoriaModalidad:deleteConvocatoriaModalidad,
             deleteConvocatoriaModalidadAll:deleteConvocatoriaModalidadAll
         };
@@ -57,6 +58,20 @@
             }).catch(function (err) {
                 deferred.reject(err);
             })
+
+
+            return deferred.promise;
+        }
+
+        function deleteConvocatoria(convocatoria) {
+
+            var deferred = $q.defer();
+
+            Restangular.one('Convocatoria', convocatoria.id).customDELETE().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
 
 
             return deferred.promise;
