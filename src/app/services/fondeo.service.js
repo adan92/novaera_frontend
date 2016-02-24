@@ -9,7 +9,7 @@
         .factory('Fondeo', Fondeo);
 
     /* @ngInject */
-    function Fondeo($q, Restangular ) {
+    function Fondeo($q, Restangular) {
         var service = {
             getAllFondeos: getAllFondeos,
             callAssosciated: callAssosciated,

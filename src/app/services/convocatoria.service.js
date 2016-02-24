@@ -10,7 +10,11 @@
 
     /* @ngInject */
     function Convocatoria($q, Restangular) {
+        /**
+         * @type {{getRegistrosByConvocatoria: getRegistrosByConvocatoria, getAllConvocatorias: getAllConvocatorias, crearConvocatoria: crearConvocatoria, showModalitiesRelation: showModalitiesRelation, updateConvocatoria: updateConvocatoria, addConvocatoriaModalidad: addConvocatoriaModalidad, deleteConvocatoriaModalidad: deleteConvocatoriaModalidad, deleteConvocatoriaModalidadAll: deleteConvocatoriaModalidadAll}}
+         */
         var service = {
+            getRegistrosByConvocatoria:getRegistrosByConvocatoria ,
             getAllConvocatorias: getAllConvocatorias,
             crearConvocatoria:crearConvocatoria,
             showModalitiesRelation:showModalitiesRelation,
@@ -19,6 +23,17 @@
             deleteConvocatoriaModalidad:deleteConvocatoriaModalidad,
             deleteConvocatoriaModalidadAll:deleteConvocatoriaModalidadAll
         };
+
+        function getRegistrosByConvocatoria(convocatoria)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('RegistroProyecto').one('Convocatoria',convocatoria.id).customGET().then(function (res) {
+                deferred.resolve(res.RegistroProyectos);
+            }).catch(function (err) {
+                console.log(err);
+            });
+            return deferred.promise;
+        }
 
         function getAllConvocatorias() {
 

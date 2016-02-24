@@ -1,0 +1,252 @@
+md-dialog(flex-gt-md='100' aria-label='Información de Solicitud')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h1.md-display-2 Información de la Solicitud
+                span(flex='')
+                md-button.md-icon-button(ng-click='vm.cancel()')
+                    ng-md-icon(icon='close', aria-label='Close dialog')
+        md-dialog-content(flex layout='column')
+            md-tabs(md-dynamic-height='', md-border-bottom='', md-stretch-tabs='always')
+                md-tab(flex label='General')
+                    md-content.md-padding(flex)
+                        div(flex layout='row' layout-sm='column' layout-md='column')
+                            div(flex layout='column')
+                                h2.md-headline.text-center Información del Proyecto
+
+                                h2.md-title
+                                    span Título:&nbsp;
+                                    span {{vm.solicitud.Titulo}}
+                                h2.md-subhead
+                                    span Descripción:&nbsp;
+                                    span {{vm.solicitud.Descripcion}}
+                                h2.md-subhead
+                                    span Antecedentes:&nbsp;
+                                    span {{vm.solicitud.Antecedentes}}
+                                h2.md-subhead
+                                    span Justificación:&nbsp;
+                                    span {{vm.solicitud.Justificacion}}
+
+                            div(flex layout='column')
+                                h2.md-headline-1.text-center Información de la Solicitud
+                                h2.md-title
+                                    span Programa de Fondeo:&nbsp;
+                                    span {{vm.solicitud.ProgramaFondeo}}
+                                h2.md-subhead
+                                    span Monto Solicitado:&nbsp;
+                                    span ${{vm.solicitud.MontoSolicitado | number:2}}
+                                h2.md-subhead
+                                    span Monto Apoyado:&nbsp;
+                                    span ${{vm.solicitud.MontoApoyado | number:2}}
+                                h2.md-subhead
+                                    span Convocatoria:&nbsp;
+                                    span {{vm.solicitud.Convocatoria}}
+                                h2.md-subhead
+                                    span Modalidad:&nbsp;
+                                    span {{vm.solicitud.Modalidad}}
+                                h2.md-subhead
+                                    span TRL Inicial:&nbsp;
+                                    span {{vm.solicitud.TRLInicial}}
+                                h2.md-subhead
+                                    span TRL Final:&nbsp;
+                                    span {{vm.solicitud.TRLFinal}}
+                md-tab(flex label='Ejecucion')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.ejecucion==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='column' ng-show='vm.ejecucion!=null')
+                            h2.md-headline.text-center Ejecución del Proyecto
+                            span
+                                span.md-title Requisitos:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.Requisitos')
+                            span
+                                span.md-title Analisis de Entorno:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.AnalisisEntornoP')
+                            span
+                                span.md-title Factibilidad Técnica:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadTecnicaP')
+                            span
+                                span.md-title Factibilidad Económica:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadEconomicaP')
+                            span
+                                span.md-title Benchmark Comercial:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadComercialP')
+                            span
+                                span.md-title Benchmark Tecnológico:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.BenchmarkTecnologicoP')
+                            span
+                                span.md-title Recursos Humanos:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.RecursosHumanosP')
+                            h2.md-headline.text-center Archivos de Ejecución
+                                ul(ng-repeat='file in vm.ejecucionFiles')
+                                    li
+                                        a(target='_blank' href='{{vm.fileRoute+file.Ruta}}')
+                                            h3.md-subhead {{file.Tipo}} : {{file.Ruta | routeFilter}}
+                md-tab(flex label='Impacto')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.impacto==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='column' ng-show='vm.impacto!=null')
+                            h2.md-headline.text-center Impacto del Proyecto
+                            span
+                                span.md-title Impacto Ambiental:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.ImpactoAmbiental')
+                            span
+                                span.md-title Impacto Científico:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.ImpactoCientifico')
+                            span
+                                span.md-title Impacto Tecnológico:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.ImpactoTecnologico')
+                            span
+                                span.md-title Impacto Social:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.ImpactoSocial')
+                            span
+                                span.md-title Impacto Económico:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.ImpactoEconomico')
+                            span
+                                span.md-title Propuesta de Valor:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.PropuestaDeValor')
+                            span
+                                span.md-title Segmentos de Clientes:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.SegmentosDeClientes')
+                            span
+                                span.md-title Solución Propuesta:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.SolucionPropuesta')
+                            span
+                                span.md-title Métricas:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.Metricas')
+                            span
+                                span.md-title Solución actual:&nbsp;
+                                span.subhead(ng-bind-html='vm.impacto.SolucionActual')
+
+                            h2.md-headline.text-center Archivos de Impacto
+                                ul(ng-repeat='file in vm.impactoFiles')
+                                    li
+                                        a(target='_blank' href='{{vm.fileRoute+file.Ruta}}')
+                                            h3.md-subhead {{file.Tipo}} : {{file.Ruta | routeFilter}}
+                md-tab(flex label='Modelo de Negocio')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.modeloNegocio==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='column' ng-show='vm.modeloNegocio!=null')
+                            h2.md-headline.text-center Modelo de Negocio del Proyecto
+                            span
+                                span.md-title Canales:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.Canales')
+                            span
+                                span.md-title Ventaja Competitiva:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.VentajaCompetitiva')
+                            span
+                                span.md-title Problemática:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.Problematica')
+                            span
+                                span.md-title Costos:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.Costos')
+                            span
+                                span.md-title Ingresos:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.Ingresos')
+                            span
+                                span.md-title Actividades Clave:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.ActividadesClave')
+                            span
+                                span.md-title Relaciones con Clientes:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.RelacionesCliente')
+                            span
+                                span.md-title Recursos Clave:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.RecursosClave')
+                            span
+                                span.md-title Aliados Clave:&nbsp;
+                                span.subhead(ng-bind-html='vm.modeloNegocio.AliadosClave')
+
+                            h2.md-headline.text-center Archivos de Modelo de Negocio
+                                ul(ng-repeat='file in vm.modeloNegocioFiles')
+                                    li
+                                        a(target='_blank' href='{{vm.fileRoute+file.Ruta}}')
+                                            h3.md-subhead {{file.Tipo}} : {{file.Ruta | routeFilter}}
+                md-tab(flex label='Propiedad Intelectual')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.propiedadIntelectual==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='column' ng-show='vm.propiedadIntelectual!=null')
+                            h2.md-headline.text-center Propiedad Intelectual del Proyecto
+                            form(name='registroPropiedadIntelectual')
+                                md-input-container
+                                    label Selecciona un registro
+                                    md-select(ng-model='vm.selectedPropiedad')
+                                        md-option(ng-repeat='propiedad in vm.propiedadIntelectual' ng-value='propiedad')
+                                            | Registro {{$index}}
+                            div(ng-show='vm.selectedPropiedad!=null')
+                                span
+                                    span.md-title Productos de Propiedad:&nbsp;
+                                    span.subhead(ng-bind-html='vm.selectedPropiedad.ProductosDePropiedad')
+                                span
+                                    span.md-title Procesos de Transferencia:&nbsp;
+                                    span.subhead(ng-bind-html='vm.selectedPropiedad.ProcesosDeTransferencia')
+                                span
+                                    span.md-title Valuación Tecnológica:&nbsp;
+                                    span.subhead(ng-bind-html='vm.selectedPropiedad.ValuacionTecnologica')
+                md-tab(flex label='Resultados')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.resultados==null || vm.patentes==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='row' layout-sm='column' layout-md='column' ng-show='vm.resultados!=null || vm.patentes!=null')
+                            div(flex layout='column' ng-show='vm.resultados!=null')
+                                h2.md-headline.text-center Productos, Procesos y Servicios
+                                form(name='selectResultado')
+                                    md-input-container
+                                        label Selecciona un resultado
+                                        md-select(ng-model='vm.selectedResultado')
+                                            md-option(ng-repeat='resultado in vm.resultados' ng-value='resultado') {{resultado.Nombre}}
+                                div(layout='column' ng-show='vm.selectedResultado!=null')
+                                    span
+                                        span.md-title Tipo:&nbsp;
+                                        span.subhead {{vm.selectedResultado.Tipo}}
+                                    span
+                                        span.md-title Resumen:&nbsp;
+                                        span.subhead {{vm.selectedResultado.Resumen}}
+                                    span
+                                        span.md-title Status:&nbsp;
+                                        span.subhead {{vm.selectedResultado.Status}}
+                                    span
+                                        span.md-title Area de Aplicación:&nbsp;
+                                        span.subhead {{vm.selectedResultado.AreaDeAplicacion}}
+                                    span
+                                        span.md-title Plan de Explotación:&nbsp;
+                                        span.subhead {{vm.selectedResultado.PlanDeExplotacion}}
+                                    span
+                                        span.md-title Avances:&nbsp;
+                                        span.subhead {{vm.selectedResultado.Avance}}
+
+
+                            div(flex layout='column' ng-show='vm.patentes!=null')
+                                h2.md-headline.text-center Patentes
+                                form(name='selectPatente')
+                                    md-input-container
+                                        label Selecciona una Patente
+                                        md-select(ng-model='vm.selectedPatente')
+                                            md-option(ng-repeat='patente in vm.patentes' ng-value='patente') {{patente.Nombre}}
+                                div(layout='column' ng-show='vm.selectedPatente!=null')
+                                    span
+                                        span.md-title Tipo:&nbsp;
+                                        span.subhead {{vm.selectedPatente.Tipo}}
+                                    span
+                                        span.md-title Resumen:&nbsp;
+                                        span.subhead {{vm.selectedPatente.Resumen}}
+                                    span
+                                        span.md-title Status:&nbsp;
+                                        span.subhead {{vm.selectedPatente.Status}}
+                                    span
+                                        span.md-title Países de Proteccion:&nbsp;
+                                        div(ng-repeat='pais in vm.selectedPatente.PaisesProteccion')
+                                            span.subhead {{pais.Nombre}}&nbsp;
+                                    span
+                                        span.md-title Plan de Explotación:&nbsp;
+                                        span.subhead {{vm.selectedPatente.PlanDeExplotacion}}
+                                    span
+                                        span.md-title Avances:&nbsp;
+                                        span.subhead {{vm.selectedPatente.Avance}}
+            md-dialog-actions(layout='row' layout-align='end center')
+                md-button.md-raised.md-primary(ng-click="vm.answer()", style='margin-right:20px;')
+                    | Validar
+                md-button.md-raided.md-primary(ng-click="vm.cancel()")
+                    | Cerrar
