@@ -6,12 +6,10 @@
         .factory('Admin', Admin);
 
     /* @ngInject */
-    function Admin($q, toastr, Restangular) {
+    function Admin($q,  Restangular) {
         var service = {
             getStatusProjects: getStatusProjects
         };
-
-
 
         function getStatusProjects() {
             var deferred = $q.defer();

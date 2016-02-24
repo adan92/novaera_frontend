@@ -96,7 +96,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             div(ng-message='required')
                                 span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
                     label.placeholder(translate='') PROJECT.RESULTS.FORM.DATE
-                    md-datepicker(ng-model='vm.resultado.Fecha', md-placeholder='Introduce una fecha', required='')
+                    md-datepicker(ng-model='vm.resultado.Fecha', required='')
                     md-input-container
                         label(translate='') PROJECT.RESULTS.FORM.PROGRESS
                         input(type='text', name='avance', ng-model='vm.resultado.Avance', required='')
@@ -144,7 +144,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             div(ng-message='required')
                                 span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
                     span.placeholder(translate='') PROJECT.RESULTS.FORM.REGISTER_DATE
-                    md-datepicker(ng-model='vm.resultado.Fecha', md-placeholder='Introduce una fecha', required='')
+                    md-datepicker(ng-model='vm.resultado.Fecha', required='')
                     br
                     br
                     span.placeholder(translate='') PROJECT.RESULTS.FORM.APPROVAL_DATE

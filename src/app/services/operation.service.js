@@ -6,7 +6,8 @@
         .factory('Operation', Operation);
 
     /* @ngInject */
-    function Operation($q, toastr, Restangular, Profile, $state,localStorageService) {
+    function Operation($q, toastr, Restangular, Profile, $state,localStorageService,Translate) {
+
         var service = {
             isValidated:isValidated,
             clearTypeOperation:clearTypeOperation,
@@ -19,13 +20,16 @@
             saveOperation:saveOperation
         };
         function getPerfil() {
+            var failPerfil = Translate.translate('DIALOGS.FAIL_PERFIL');
+            var failureText = Translate.translate('DIALOGS.FAILURE');
+
             var profile;
             if (Profile.isValidated()) {
                 profile = Profile.profileInfo();
                 return profile;
             } else {
                 $state.go('triangular.admin-default.profiles');
-                toastr.error('Se debe seleccionar el perfil para acceder a este módulo', 'Error');
+                toastr.error(failPerfil, failureText);
             }
         }
         function isValidated()

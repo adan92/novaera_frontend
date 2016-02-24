@@ -76,6 +76,8 @@
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
+            }).catch(function (err) {
+                toastr.error(vm.failureText, vm.failureLoad);
             });
 
             vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
@@ -83,8 +85,10 @@
             vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
             vm.failTitle = Translate.translate('DIALOGS.FAILURE');
             vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
-
-
+            vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
+            vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
+            vm.failureLoadFile=Translate.translate('DIALOGS.FAIL_LOAD_FILE');
             /*
              */
         }
@@ -116,6 +120,8 @@
                     vm.completed = checkFinished();
                 }).catch(function (rejection) {
                     vm.completed = checkFinished();
+                    toastr.error(vm.failureText, vm.failureLoadFile);
+
                 });
             }).catch(function (rejection) {
                 vm.Impacto = {
@@ -132,6 +138,7 @@
                     SolucionActual: null
                 };
                 vm.completed = checkFinished();
+                toastr.error(vm.failureText, vm.failureLoad);
             });
 
 
@@ -213,7 +220,6 @@
                     vm.metricasFile = file;
                     break;
                 case 'SolucionActual':
-                    console.log("solucion actual");
                     vm.solucionAFile = file;
                     break;
             }
@@ -243,16 +249,15 @@
                 completed += 1;
             completed = (completed / 10) * 100;
             completed = completed.toFixed(0);
-            console.log("Progreso=>"+completed);
             return completed;
         }
 
-        function saveProject(){
-            console.log(Translate.translate('PROJECT.IMPACT.MESSAGES.SUCESS_FINISH'));
+        function saveProject() {
             vm.successTitle = Translate.translate('PROJECT.IMPACT.MESSAGES.SUCESS_FINISH');
             vm.successUpdate = Translate.translate('PROJECT.IMPACT.MESSAGES.TITLE_SUCESS_FINISH');
             toastr.success(vm.successTitle, vm.successUpdate);
         }
+
         /**
          * Función general para subir archivos, la BD hace el cambio tan pronto se suba el archivo dado
          * el objeto vm.Impacto dado
@@ -279,20 +284,16 @@
                     disableProgress: false
                 }).then(function (res) {
                     updateFileName(fileType, parseArchivo(res.data.Archivo));
-                    console.log(res.data);
                     vm.Impacto = res.data.Impacto;
                     vm.completed = checkFinished();
-                    console.log(vm.completed+"----");
                     toastr.success(vm.successTitle, vm.successUpdate);
-
-
                 }).catch(function (res) {
-                    console.log( res);
                     toastr.error(vm.failTitle, vm.failMessage);
-                });/*, function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                };*/
+                });
+                /*, function (evt) {
+                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                 console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                 };*/
 
 
             }
@@ -304,10 +305,7 @@
          */
 
         function updateText() {
-            console.log(vm.selectedProject.id);
-            console.log(vm.Impacto);
             var request = {idProyecto: vm.selectedProject.id, Impacto: vm.Impacto};
-            console.log(request);
             var promise = null;
             if (vm.Impacto.id == null) {
                 promise = Operation.saveOperation(request);
@@ -330,7 +328,5 @@
             }
             vm.completed = checkFinished();
         }
-
-
     }
 })();

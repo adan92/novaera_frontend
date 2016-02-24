@@ -19,12 +19,22 @@
         vm.descriptor = null;
         vm.activate             = activate();
         vm.selectedItem         = null;
+        vm.selectedItemDescriptor         = null;
         vm.searchText           = null;
+        vm.searchTextDescriptor           = null;
         vm.querySearch          = querySearch;
+        vm.querySearchDescriptor          = querySearchDescriptor;
         vm.simulateQuery        = false;
         vm.isDisabled           = false;
+        vm.isDisabledDescriptor           = false;
+        vm.waiting = true;
+        vm.waitingList=false;
+        vm.isCreatingList=false;
+        vm.isCreating = true;
+        vm.formatDate=formatDate;
         vm.createDialog         = createDialog;
         vm.selectedItemChange   = selectedItemChange;
+        vm.selectedItemChangeDescriptor   = selectedItemChangeDescriptor;
         vm.resetForm            = resetForm;
         vm.edit                 = edit;
         vm.deleteItem           = deleteItem;
@@ -39,12 +49,23 @@
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
+
                 var proms=null;
                 proms=Descriptor.getTipoDescriptorByClasificacion('Proyecto');
                 proms.then(function(res){
                     vm.tipoDescriptor=res;
+                    vm.waiting = false;
+                    vm.isCreating = false;
+                }).catch(function (err) {
+                    vm.waiting = false;
+                    vm.isCreating = false;
+                    toastr.error(vm.failureText, vm.failureLoad);
                 });
 
+            }).catch(function (err) {
+                vm.waiting = false;
+                vm.isCreating = false;
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -57,6 +78,14 @@
             vm.failureText          = Translate.translate('DIALOGS.FAILURE');
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+            vm.failureLoad          = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
+            vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
+            vm.dialogTextOne        = Translate.translate('DIALOGS.WARNING_ONE');
+        }
+        function formatDate(date){
+            var dateOut = new Date(date);
+            return dateOut;
         }
         function showDescriptor(){
             if(vm.descriptor.idP != undefined  && vm.descriptor.idP != null) {
@@ -64,10 +93,17 @@
                 promise.then(function (res) {
                     vm.descriptores = res.Descriptor;
 
-                });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureLoad);
+                })
             }
         }
-
+        function selectedItemChangeDescriptor()
+        {
+            if(vm.selectedItemDescriptor.id != undefined  && vm.selectedItemDescriptor != null) {
+                //showDescriptoresProject();
+            }
+        }
         function selectedItemChange()
         {
             if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
@@ -75,15 +111,27 @@
             }
         }
         function showDescriptoresProject( ){
+            resetResult();
+            vm.waitingList=true;
+            vm.isCreatingList=true;
             var promise=Descriptor.getDescriptorByProject(vm.selectedItem.id);
             promise.then(function (res) {
                 vm.descriptoresProyecto = res.Descriptor;
+                vm.waitingList=false;
+                vm.isCreatingList=false;
             }).catch(function (err) {
-
-            });
+                toastr.error(vm.failureLoad, vm.failureText);
+                vm.waitingList=false;
+                vm.isCreatingList=false;
+            })
         }
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            return results;
+
+        }
+        function querySearchDescriptor (query) {
+            var results = query ? vm.descriptoresProyecto.filter( createFilterFor(query) ) : vm.descriptoresProyecto, deferred;
             return results;
 
         }
@@ -104,7 +152,7 @@
             vm.ev = ev;
             var confirm = $mdDialog.confirm()
                 .title(vm.sureText)
-                .content(vm.dialogText)
+                .content(vm.dialogTextOne)
                 .ariaLabel(vm.sureText)
                 .targetEvent(ev)
                 .ok(vm.acceptText)
@@ -112,7 +160,7 @@
             $mdDialog.show(confirm).then(function() {
                 vm.deleteItem(item);
             }, function() {
-                console.log("Cancelado");
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
             });
         }
 
@@ -120,6 +168,11 @@
         {
             vm.descriptor=null;
             $scope.registrarResultado.$setPristine();
+        }
+        function resetResult()
+        {
+            vm.selectedItemDescriptor=null;
+            vm.searchTextDescriptor=null;
         }
 
         function edit(item)
@@ -131,7 +184,9 @@
                 var promise = Descriptor.callAssosciated(vm.descriptor.idP);
                 promise.then(function (res) {
                     vm.descriptores = res.Descriptor;
-                });
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureLoad);
+                })
 
             }
         }
@@ -151,7 +206,6 @@
             var promise;
             vm.descriptor.idProyecto = vm.selectedItem.id;
             delete vm.descriptor.idP;
-                console.log(vm.descriptor);
             if (vm.descriptor.id == null) {
                 promise=Descriptor.saveDescriptor(vm.descriptor);
                 promise.then(function (res) {
@@ -163,7 +217,6 @@
                 });
             }
             else {
-
                 promise=Descriptor.updateDescriptor(vm.descriptor.id,vm.descriptor);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successUpdateText);
@@ -173,7 +226,7 @@
                     toastr.error(vm.failureText, vm.failureStoreText);
                 });
             }
-        };
+        }
     }
 
     function matcher()

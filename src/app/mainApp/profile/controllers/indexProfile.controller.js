@@ -5,20 +5,21 @@
         .module('app.mainApp.profile')
         .controller('indexProfileController', indexProfileController);
     /* @ngInject */
-    function indexProfileController($filter,  Restangular, triBreadcrumbsService, SweetAlert, Profile,$state) {
+    function indexProfileController(Catalogo,$filter,Translate,toastr, triBreadcrumbsService, SweetAlert, Profile,$state) {
         var vm = this;
         vm.perfiles = [];
-
+        vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+        vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+        vm.saveText             = Translate.translate('PROJECT.SAVE');
+        vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
         vm.addItem=addItem;
         activate();
 
-
         function activate() {
-
             triBreadcrumbsService.reset();
             triBreadcrumbsService.addCrumb("Profile");
-            var promise = Restangular.all('User').customGET();
-
+            var promise;
+            promise=Catalogo.getAllCatalogo('User');
             promise.then(function(response){
                 vm.perfiles=[{
                     id: response.persona.id,
@@ -26,23 +27,16 @@
                     nombre: response.persona.Nombre+" "+response.persona.ApellidoP+" "+response.persona.ApellidoM,
                     isValidated: response.persona.isValidated,
                     "imagen": "assets/images/avatars/persona.png"
-
                 }]
             }).catch(function (e) {
-                SweetAlert.swal("Ops...", "No pudimos encontrar una persona, por favor regístrate", "error");
+                toastr.error(vm.failureText,vm.failureDeleteText);
                 $state.go('triangular.admin-default.personas_registro');
                 throw e;
             });
 
-            var promise = Restangular.all("Organizacion").customGET();
-
-
-
+            promise=Catalogo.getAllCatalogo('Organizacion');
             promise.then(function (response) {
-
-
-                angular.forEach(response.Organizacion, function (value, key) {
-
+                response.Organizacion.forEach(function (value) {
                     vm.perfiles.push(
                     {
                         id: value.id,
@@ -58,7 +52,7 @@
                 }
 
             }).catch(function (e) {
-                SweetAlert.swal("Ops...", "Sucedió un error al consultar el servidor", "error");
+                toastr.error(vm.failureText,vm.failureDeleteText);
                 throw e;
             });
         }
@@ -79,23 +73,18 @@
                     function (isConfirm) {
                         if (isConfirm) {
                             Profile.setProfile(vm.perfiles[0]);
-                            SweetAlert.swal("Hecho!!", "¡Se ha guardado el tipo de perfil!!", "success");
-
+                            toastr.success(vm.saveText,vm.successUpdateText);
                         }
                     }
                 );
-
-
             } else {
                 var perfil = JSON.parse(avatar);
                 var single_object = $filter('filter')(vm.perfiles, function (d) {
                     return d.id === perfil;
                 })[0];
-                console.log(single_object);
                 Profile.setProfile(single_object);
-                SweetAlert.swal("Hecho!!", "¡Se ha guardado el tipo de perfil!!", "success");
+                toastr.success(vm.saveText,vm.successUpdateText);
             }
-
         }
         function isUndefinedOrNull (val) {
             return angular.isUndefined(val) || val === null
