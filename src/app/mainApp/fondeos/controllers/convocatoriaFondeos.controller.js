@@ -41,13 +41,14 @@
         //Todas las Modalidades
         vm.Modalidades=[];
         //modalidades asociadas a la convocatoria
+        vm.ModalidadSeleccionada=null;
         vm.ModalidadesAsociadas=null;
         vm.Validator = [{
             title: 'Activo',
-            value: true
+            value: 1
         },{
             title: 'Inactivo',
-            value: false
+            value: 0
         }];
         //Objeto Convocatoria
         vm.Convocatoria={
@@ -63,6 +64,10 @@
             "updated_at":null,
             "modalidad":null
 
+        }
+        vm.ModalidadAgregada={
+            "idConvocatoria":null,
+            "Modalidad":[]
         }
         //Arreglo Convocatorias
         vm.Convocatorias=null;
@@ -103,7 +108,7 @@
         //funciones para el To-Do
 
         //funcionalidad
-
+        vm.error=null;
         vm.getModalidades = getModalidades;//listo
         vm.getFondeos = getFondeos;//listo
         vm.getFondeo=getFondeo;//Listo
@@ -165,21 +170,19 @@
             var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
             promise.then(function (value) {
                 vm.selectedFondeo=value;
+                var promise = Modalidad.showModalitiesRelationFondeos(vm.selectedFondeo);
+                promise.then(function (value) {
+                    vm.Modalidades = value;
+                    console.log("Modalidades");
+                    console.log(vm.Modalidades);
+                    //hello
+
+                });
                 //console.log(vm.selectedFondeo);
             });
             console.log(vm.selectedFondeo);
             //console.log("Consultando Modalidades");
-            var promise = Modalidad.showModalitiesRelationFondeos(vm.selectedFondeo);
-            promise.then(function (value) {
-                vm.tmp = value;
-               console.log("Tmp");
-                console.log(vm.tmp)
-                vm.Modalidades=vm.tmp;
-               console.log("Modalidades");
-                console.log(vm.Modalidades);
-                //hello
 
-            });
         }
         //Funcion Obtener todas las Convocatorias
         function getAllConvocatorias() {
@@ -199,6 +202,7 @@
             vm.Convocatoria=vm.selectedConvocatoria;
             vm.Requisitos=JSON.parse(vm.Convocatoria.Requisitos);
             getModalidades();
+            showModalitiesRelation();
 
         }
         //Funcion Cancelar
@@ -216,6 +220,8 @@
             vm.Convocatoria=null;
             vm.isNewConvocatoria=null;
             vm.Requisitos=null;
+            vm.Modalidades=null;
+
 
 
         }
@@ -261,35 +267,54 @@
                 console.log("Ya debi mostrar Tabla");
             });
         }
+
         //funcion para mostrar Modalidades asociadas a la convocatoria
         function showModalitiesRelation() {
             var promise = Convocatoria.showModalitiesRelation(vm.Convocatoria);
             promise.then(function (value) {
 
                 vm.ModalidadesAsociadas=value;
-
+                console.log("Modalidades Asociadas:")
                 console.log(vm.ModalidadesAsociadas)
 
             });
         }
+
         //funcion para inscribir una modalidad a la convocatoria
-        function addConvocatoriaModalidad() {
-            vm.agrega.idConvocatoria=vm.Convocatoria.id;
-            vm.agrega.Modalidad.push(vm.Convocatoria.id);
-            vm.agrega.Modalidad.push(vm.Modalidad.id);
-            var promise = Convocatoria.showModalitiesRelation(vm.agrega);
+        function addConvocatoriaModalidad(modal) {
+
+            //vm.agrega.idConvocatoria=vm.Convocatoria.id;
+            //vm.agrega.Modalidad=modal.id;
+            console.log("Modal es igual:")
+            console.log(modal);
+            console.log("id:"+vm.Convocatoria.id)
+            vm.ModalidadAgregada.idConvocatoria=vm.Convocatoria.id;
+            vm.ModalidadAgregada.Modalidad.push(modal.id);
+            console.log("Modalidad:"+modal.id)
+            console.log("El objeto a Enviar quedo:")
+            console.log(vm.ModalidadAgregada);
+            if (modal!=null){
+                console.log("Voy a hacer el promise:")
+                //Prueba Manual
+
+                console.log(vm.ModalidadAgregada);
+
+            var promise = Convocatoria.addConvocatoriaModalidad(vm.ModalidadAgregada);
             promise.then(function (value) {
-
-                vm.ModalidadesAsociadas=value;
-
-                console.log(vm.ModalidadesAsociadas)
-                vm.agrega={
-                    "idConvocatoria" : null,
-                    "Modalidad": null
-                }
-
+                toastr.success(vm.successText, vm.successStoreText);
+                console.log("Ya hice el promise")
+                vm.Convocatoria=value;
+                console.log("La respuesta del server Fue:");
+                console.log(vm.Convocatoria)
             });
+
+            }
+            console.log(vm.ModalidadesAsociadas)
+
+
+            showModalitiesRelation();
         }
+
 
         //funcion para quitar modalidades de la convocatoria
         function quitarModalidadConvocatoria() {
@@ -303,6 +328,7 @@
 
             });
         }
+
         //funcion eliminar todas las modalidades
         function QuitarTodasModalidadConvocatoria(){
             var promise = Convocatoria.deleteConvocatoriaModalidadAll(vm.Convocatoria);
@@ -317,6 +343,7 @@
         // Crear requisito
 
         function crearRequisito(){
+            if(vm.requisito!=null){
             vm.Requisitos.push(vm.requisito);
 
             vm.requisito={
@@ -325,6 +352,7 @@
             }
             console.log("Los requisitos son:");
             console.log(vm.Requisitos);
+            }
         }
 
         function eliminarConvocatoria() {
