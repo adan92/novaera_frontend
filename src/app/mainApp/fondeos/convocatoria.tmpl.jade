@@ -44,22 +44,24 @@
                                         div(ng-messages='convocatoriaInfo.Nombre.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                    md-input-container(flex='100', layout='row')
-                                        div(flex='50')
-                                            label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
-                                            md-datepicker(ng-enabled='call_begin==null', ng-model='vm.Convocatoria.FechaInicio')
-                                            div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                div(ng-message='', when='required')
-                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                        div(flex='50')
-                                            label(translate='') FONDEOS.CALL.END_DATE_CALL
-                                            md-datepicker(ng-enabled='call_begin==null', ng-model='vm.Convocatoria.FechaTermino')
-                                            div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                div(ng-message='', when='required')
-                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                        div(flex='100', align='row')
+                                             div(flex='50')
+                                                 label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
+                                                 md-datepicker(ng-enabled='vm.Convocatoria.FechaInicio!=null', ng-model='vm.Convocatoria.FechaInicio')
+                                                 div(ng-messages='convocatoriaInfo.descripcion.$error')
+                                                     div(ng-message='', when='required')
+                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+
+
+                                             div(flex='50')
+                                                label(translate='') FONDEOS.CALL.END_DATE_CALL
+                                                md-datepicker(ng-enabled='vm.Convocatoria.FechaInicio!=null', ng-model='vm.Convocatoria.FechaTermino')
+                                                div(ng-messages='convocatoriaInfo.descripcion.$error')
+                                                    div(ng-message='', when='required')
+                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.CALL.MAX_AMOUNT
-                                        input(name='money', required='', ng-model='vm.Convocatoria.MontosMaximosTotales',type="number", min='0', max='10000000000')
+                                        input(name='money', required='', type='number', ng-model='vm.Convocatoria.MontosMaximosTotales', min='0', max='10000000000')
                                         div(ng-messages='convocatoriaInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
@@ -80,60 +82,56 @@
                                         div(ng-message='', when='required')
                                             span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                md-tab#call(ng-disabled='projectInfo.$invalid')
+                md-tab#call(ng-disabled='convocatoriaInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 2
                         span(translate='') FONDEOS.CALL.REQUERIMENTS
                     md-tab-body
                         .wizard.layout-padding
                             form(name='fondeoRequeriments', tri-wizard-form='')
-                              div(layout='column', flex='')
-                                 md-card(flex layout='row')
-                                    div(flex='')
-                                        md-input-container
-                                            label(translate='') FONDEOS.CALL.REQUERIMENTNAME
-                                            input(name='reqname', required='', ng-model='vm.requisito.Nombre', md-maxlength='15')
-                                            div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                div(ng-message='', when='required')
-                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                        md-input-container
-                                            label(translate='') FONDEOS.CALL.REQUERIMENTDESC
-                                            textarea(name='reqDesc', required='', ng-model='vm.requisito.Descripcion', md-maxlength='250')
-                                            div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                div(ng-message='', when='required')
-                                                    span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                    md-button.md-fab.md-primary.md-raised(ng-click='vm.crearRequisito()', ng-class='guarda', aria-label='fab button')
+                                div(layout='column', flex='')
+                                    md-card(flex layout='row')
+                                        div(flex='')
+                                            md-input-container
+                                                label(translate='') FONDEOS.CALL.REQUERIMENTNAME
+                                                input(name='reqname', ng-model='vm.requisito.Nombre', md-maxlength='15')
+
+
+                                            md-input-container
+                                                label(translate='') FONDEOS.CALL.REQUERIMENTDESC
+                                                textarea(name='reqDesc',  ng-model='vm.requisito.Descripcion', md-maxlength='250')
+                                                div(ng-messages='convocatoriaInfo.descripcion.$error')
+                                                    div(ng-message='', when='required')
+                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                        md-button.md-fab.md-primary.md-raised(ng-click='vm.crearRequisito()', ng-class='guardar', aria-label='fab button')
                                             md-icon(md-font-icon='fa fa-save')
-                                    md-button.md-fab(ng-click='vm.getConvocatoria()', ng-class='editar', aria-label='fab button',ng-show='vm.requisito.nombre!=null')
+                                        md-button.md-fab(ng-click='vm.getConvocatoria()', ng-class='editar', aria-label='fab button',ng-show='vm.requisito.nombre!=null')
                                             md-icon(md-font-icon='fa fa-pencil')
-                                    md-button.md-fab.md-warn.md-raised(ng-click='vm.cancel()', ng-class='cancelar', aria-label='fab button', ng-show='vm.requisito.nombre!=null')
+                                        md-button.md-fab.md-warn.md-raised(ng-click='vm.cancel()', ng-class='cancelar', aria-label='fab button', ng-show='vm.requisito.nombre!=null')
                                             md-icon(md-font-icon='zmdi zmdi-close-circle-o')
 
-                                 md-card
-                                    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.Requisitos!=null')
+                                    md-card
+                                        div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.Requisitos!=null')
 
-                                        md-table-container
-                                            table(md-table='', md-row-select='', ng-model='vm.requisito')
-                                                thead(md-head='', md-order='vm.query.order')
-                                                    tr(md-row='md-row')
-                                                       th(md-column='md-column', md-order-by='Nombre')
-                                                            span(translate='') FONDEOS.TABLE.NAME
-                                                       th(md-column='md-column', md-order-by='Descripcion')
-                                                            span(translate='') FONDEOS.TABLE.DESCRIPTION
-                                                        // Cuerpo de la tabla
-                                                tbody(md-body='md-body')
-                                                    tr(md-row='md-row', md-select='requisito', md-select-id='{{requisito.Nombre}}', md-auto-select='md-auto-select', md-on-select='vm.editando()', ng-repeat='requisito in vm.Requisitos | orderBy:vm.query.order')
-                                                       td(md-cell='md-cell') {{requisito.Nombre}}
-                                                       td(md-cell='md-cell') {{requisito.Descripcion}}
-                                                       //td(md-cell='md-cell')div md-button.md-accent.md-raised(ng-click='vm.eliminarRegistro', translate='FONDEOS.WIZARD.DELETE')
-
-
-
-
-
+                                            md-table-container
+                                                table(md-table='', md-row-select='', ng-model='vm.requisito')
+                                                    thead(md-head='', md-order='vm.query.order')
+                                                        tr(md-row='md-row')
+                                                            th(md-column='md-column', md-order-by='Nombre')
+                                                                span(translate='') FONDEOS.TABLE.NAME
+                                                            th(md-column='md-column', md-order-by='Descripcion')
+                                                                span(translate='') FONDEOS.TABLE.DESCRIPTION
+                                                                // Cuerpo de la tabla
+                                                    tbody(md-body='md-body')
+                                                        tr(md-row='md-row', md-select='requisito', md-select-id='{{requisito.Nombre}}', md-auto-select='md-auto-select', md-on-select='vm.editando()', ng-repeat='requisito in vm.Requisitos | orderBy:vm.query.order')
+                                                            td(md-cell='md-cell') {{requisito.Nombre}}
+                                                            td(md-cell='md-cell') {{requisito.Descripcion}}
+                                                            td(md-cell='md-cell')
+                                                                md-button.md-fab.md-warn.md-mini(ng-click='vm.eliminarRegistro')
+                                                                    md-icon(md-font-icon='fa fa-times-circle')
 
                             label(translate='') FONDEOS.FEATURES.CLICK_TO_EDIT
-                                    md-divider
+                                md-divider
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 1', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
@@ -144,38 +142,72 @@
 
 
 md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
-   md-tab(label='Modalidades Disponibles')
-       md-content.md-padding
-           h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
-           md-table-container
-               table(md-table='', md-row-select='', ng-model='vm.requisito')
-                   thead(md-head='', md-order='vm.query.order')
-                       tr(md-row='md-row')
-                           th(md-column='md-column', md-order-by='Nombre')
-                               span(translate='') FONDEOS.TABLE.NAME
-                           th(md-column='md-column', md-order-by='MONTOS')
-                               span(translate='') FONDEOS.TABLE.AMOUNT
-                           th(md-column='md-column', md-order-by='CriteriosEvaluacion')
-                               span(translate='') FONDEOS.TABLE.EVALUATION
-                           th(md-column='md-column', md-order-by='Entregables')
-                               span(translate='') FONDEOS.TABLE.FILES
-                           th(md-column='md-column', md-order-by='FigurasApoyo')
-                               span(translate='') FONDEOS.TABLE.SUPPORT
+    md-tab(label='Modalidades Disponibles')
+        md-content.md-padding
+            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
+            md-table-container
+                table(md-table='', md-row-select='', ng-model='vm.ModalidadSeleccionada')
+                    thead(md-head='', md-order='vm.query.order')
+                        tr(md-row='md-row')
+                            th(md-column='md-column', md-order-by='Nombre')
+                                span(translate='') FONDEOS.TABLE.NAME
+                            th(md-column='md-column', md-order-by='Montos')
+                                span(translate='') FONDEOS.TABLE.AMOUNT
+                            th(md-column='md-column', md-order-by='CriteriosEvaluacion')
+                                span(translate='') FONDEOS.TABLE.EVALUATION
+                            th(md-column='md-column', md-order-by='Entregables')
+                                span(translate='') FONDEOS.TABLE.FILES
+                            th(md-column='md-column', md-order-by='FigurasApoyo')
+                                span(translate='') FONDEOS.TABLE.SUPPORT
+                            th(md-column='md-column')
+                                span(translate='') FONDEOS.TABLE.ADD
 
-                               // Cuerpo de la tabla
-                   tbody(md-body='md-body')
-                       tr(md-row='md-row', md-select='modal', md-select-id='{{modal.id}}', md-auto-select='md-auto-select', md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
-                           td(md-cell='md-cell') {{modal.Nombre}}
-                           td(md-cell='md-cell') {{modal.Montos}}
-                           td(md-cell='md-cell') {{modal.CriteriosEvaluacion}}
-                           td(md-cell='md-cell') {{modal.Entregables}}
-                           td(md-cell='md-cell') {{modal.FigurasApoyo}}
-                           //td(md-cell='md-cell')div md-button.md-accent.md-raised(ng-click='vm.eliminarRegistro', translate='FONDEOS.WIZARD.DELETE')
+                                // Cuerpo de la tabla
+                    tbody(md-body='md-body')
+                        tr(md-row='md-row', md-select-id='{{modal.id}}', md-auto-select='md-auto-select', md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
+                            td(md-cell='md-cell')
+                                span {{modal.Nombre}}
+                            td(md-cell='md-cell')
+                                span {{modal.Montos}}
+                            td(md-cell='md-cell') {{modal.CriteriosEvaluacion}}
+                            td(md-cell='md-cell') {{modal.Entregables}}
+                            td(md-cell='md-cell') {{modal.FigurasApoyo}}
+                            td(md-cell='md-cell')
+                                md-button.md-fab.md-primary.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
+                                    md-icon(md-font-icon='zmdi zmdi-plus-circle')
 
+    md-tab(label='Modalidades Asociadas')
+        md-content.md-padding
+            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
+            md-table-container
+               table(md-table='', md-row-select='', ng-model='vm.Modalidad')
+                  thead(md-head='', md-order='vm.query.order')
+                     tr(md-row='md-row')
+                        th(md-column='md-column', md-order-by='Nombre')
+                           span(translate='') FONDEOS.TABLE.NAME
+                        th(md-column='md-column', md-order-by='Montos')
+                           span(translate='') FONDEOS.TABLE.AMOUNT
+                        th(md-column='md-column', md-order-by='CriteriosEvaluacion')
+                           span(translate='') FONDEOS.TABLE.EVALUATION
+                        th(md-column='md-column', md-order-by='Entregables')
+                           span(translate='') FONDEOS.TABLE.FILES
+                        th(md-column='md-column', md-order-by='FigurasApoyo')
+                           span(translate='') FONDEOS.TABLE.SUPPORT
+                        th(md-column='md-column')
+                           span(translate='') FONDEOS.TABLE.ADD
 
-
-       md-tab(label='Modalidades Asociadas')
-       md-content.md-padding
-           h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
+                                // Cuerpo de la tabla
+                  tbody(md-body='md-body')
+                     tr(md-row='md-row', md-select-id='{{modality.id}}', md-auto-select='md-auto-select', md-on-select='vm.quitarModalidadConvocatoria()', ng-repeat='modality in vm.ModalidadesAsociadas | orderBy:vm.query.order')
+                        td(md-cell='md-cell')
+                           span {{modality.Nombre}}
+                        td(md-cell='md-cell')
+                           span {{modality.Montos}}
+                        td(md-cell='md-cell') {{modality.CriteriosEvaluacion}}
+                        td(md-cell='md-cell') {{modality.Entregables}}
+                        td(md-cell='md-cell') {{modality.FigurasApoyo}}
+                        td(md-cell='md-cell')
+                            md-button.md-fab.md-warn.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
+                                md-icon(md-font-icon='fa fa-times-circle-o')
 
 
