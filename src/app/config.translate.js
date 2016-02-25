@@ -44,7 +44,7 @@
             'es_MX': 'es',
             'es_ES': 'es'
         })
-        .use('en');
+        .use('es');
 
         // store the users language preference in a cookie
         $translateProvider.useLocalStorage();

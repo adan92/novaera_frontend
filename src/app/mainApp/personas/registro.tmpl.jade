@@ -1,0 +1,155 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    .layout.layout-column.layout-margin.layout-sm.layout-sm-column
+        div(flex='', layout='column', layout-sm='column', layout-md='column')
+            md-card(flex='')
+                div(layout='column')
+                    div(layout='row', layout-align='center center', layout-sm='column')
+                        md-card-content
+                            h2(translate='') PERSONAS.WIZARD.TITLE
+                            form(name='DatosP', novalidate='')
+                                md-input-container.md-icon-float.md-block
+                                    // Use floating label instead of placeholder
+                                    label Nombre
+                                    ng-md-icon(icon='person')
+                                    input(name='Nombre', ng-model='vm.Persona.Nombre', type='text', ng-required='true')
+                                    div(ng-messages='DatosP.Nombre.$error', multiple='', md-auto-hide='true')
+                                        div(ng-message='required') Este Campo es Requerido
+                                md-input-container.md-icon-float.md-block
+                                    // Use floating label instead of placeholder
+                                    label Apellido Paterno
+                                    ng-md-icon(icon='person')
+                                    input(name='ApellidoP', ng-model='vm.Persona.ApellidoP', type='text', ng-required='true')
+                                    div(ng-messages='DatosP.ApellidoP.$error', multiple='', md-auto-hide='true')
+                                        div(ng-message='required') Este Campo es Requerido
+                                md-input-container.md-icon-float.md-block
+                                    // Use floating label instead of placeholder
+                                    label Apellido Materno
+                                    ng-md-icon(icon='person')
+                                    input(name='ApellidoM', ng-model='vm.Persona.ApellidoM', type='text', ng-required='true')
+                                    div(ng-messages='DatosP.ApellidoM.$error', multiple='', md-auto-hide='true')
+                                        div(ng-message='required') Este Campo es Requerido
+                    .button-toolbar(layout='row', layout-align='end center')
+                        md-button.md-raised.md-primary(ng-show='vm.Persona.id==null', ng-disabled='!DatosP.$valid', ng-click='vm.registrarPersona()')
+                            span(translate='') PERSONAS.WIZARD.SAVE
+                        md-button.md-raised.md-primary(ng-show='vm.Persona.id!=null', ng-disabled='!DatosP.$valid', ng-click='vm.registrarPersona()')
+                            span(translate='') PERSONAS.WIZARD.UPDATE
+            md-card(flex='', ng-show='vm.showContacto')
+                div(layout='column')
+                    div(layout='row', layout-align='center center', layout-sm='column')
+                        md-card-content
+                            h2(translate='') PERSONAS.WIZARD.TITLE3
+                            form(name='Contacto', novalidate='')
+                                md-input-container.md-icon-float.md-block
+                                    label(for='email', translate='') PERSONAS.WIZARD.MAIL
+                                    ng-md-icon(icon='email')
+                                    input#email(label='email', name='email', type='EMAIL', ng-model='vm.Contacto.CorreoElectronico', required='')
+                                    div(ng-messages='Contacto.email.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                        div(ng-message='email')
+                                            | Introduce una direccion de Correo Valida.
+                                md-input-container.md-icon-float.md-block
+                                    label(for='WORKPHONE', translate='') PERSONAS.WIZARD.WORKPHONE
+                                    md-icon(md-font-icon='zmdi zmdi-phone')
+                                    input#WORKPHONE(label='WORKPHONE', name='WORKPHONE', type='text', ng-model='vm.Contacto.TelefonoOficina', required='')
+                                    div(ng-messages='Contacto.WORKPHONE.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                md-input-container.md-icon-float.md-block
+                                    label(for='LOCALPHONE', translate='') PERSONAS.WIZARD.LOCALPHONE
+                                    md-icon(md-font-icon='zmdi zmdi-account-box-phone')
+                                    input#LOCALPHONE(label='LOCALPHONE', name='LOCALPHONE', type='text', ng-model='vm.Contacto.TelefonoLocal', required='')
+                                    div(ng-messages='Contacto.LOCALPHONE.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                md-input-container.md-icon-float.md-block
+                                    label(for='MOBILEPHONE', translate='') PERSONAS.WIZARD.MOBILEPHONE
+                                    md-icon(md-font-icon='zmdi zmdi-smartphone-android')
+                                    input#MOBILEPHONE(flex='40', label='MOBILEPHONE', name='MOBILEPHONE', type='text', ng-model='vm.Contacto.TelefonoCelular', ng-disabled='inputDisabledMOBILEPHONE')
+                                    div(ng-messages='Contacto.MOBILEPHONE.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                md-input-container.md-icon-float.md-block
+                                    label(for='FAX', translate='') PERSONAS.WIZARD.FAX
+                                    md-icon(md-font-icon='zmdi zmdi-scanner')
+                                    input#FAX(flex='40', label='FAX', name='FAX', type='text', ng-model='vm.Contacto.Fax')
+                                    div(ng-messages='Contacto.FAX.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                        div(ng-message='number')
+                                            | Introduce un telefono valido.
+                                md-input-container.md-icon-float.md-block
+                                    label(for='WEBPAGE', translate='') PERSONAS.WIZARD.WEBPAGE
+                                    ng-md-icon(icon='language')
+                                    input#WEBPAGE(flex='40', label='WEBPAGE', name='WEBPAGE', type='text', ng-model='vm.Contacto.PaginaWeb')
+                                    div(ng-messages='Contacto.WEBPAGE.$error')
+                                        div(ng-message='required')
+                                            span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                .button-toolbar(layout='row', layout-align='end center')
+                                    md-button.md-raised.md-primary(ng-show='vm.Persona.id==null', ng-click='vm.registrarContacto()', ng-disabled='Contacto.$invalid')
+                                        span(translate='') PERSONAS.WIZARD.SAVE
+                                    md-button.md-raised.md-primary(ng-show='vm.Persona.id!=null', ng-click='vm.registrarContacto()', ng-disabled='Contacto.$invalid')
+                                        span(translate='') PERSONAS.WIZARD.UPDATE
+            md-card(flex='', ng-show='vm.showDireccion')
+                img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg', alt='Card Image')
+                div(layout='row', layout-align='center center', layout-md='column')
+                    md-card-content
+                        h2(translate='') PERSONAS.WIZARD.TITLE4
+                        form(name='Direccion', novalidate='')
+                            md-input-container
+                                label(translate='') PERSONAS.WIZARD.COUNTRY
+                                md-select(ng-model='vm.selectedPais', name='pais', md-on-close='vm.getEstados()')
+                                    md-option(ng-repeat='pais in vm.paises.Pais', value='{{pais.id}}')
+                                        | {{pais.Nombre}}
+                            md-input-container
+                                label(translate='') PERSONAS.WIZARD.STATE
+                                md-select(ng-model='vm.selectedEstado', name='estado', md-on-close='vm.getCiudades()', ng-disabled='vm.estados==null')
+                                    md-option(ng-repeat='estado in vm.estados', value='{{estado.id}}')
+                                        | {{estado.Nombre}}
+                            md-input-container
+                                label(translate='') PERSONAS.WIZARD.CITY
+                                md-select(ng-model='vm.Direccion.idMunicipio', ng-disabled='vm.ciudades==null', required='')
+                                    md-option(ng-repeat='ciudad in vm.ciudades', value='{{ciudad.id}}')
+                                        | {{ciudad.Nombre}}
+                            md-input-container.md-icon-float.md-block
+                                label(for='Calle', translate='') PERSONAS.WIZARD.ADDRESS
+                                ng-md-icon(icon='pin_drop')
+                                input#Calle(label='Calle', name='Calle', type='TEXT', ng-model='vm.Direccion.Calle', required='')
+                                div(ng-messages='Direccion.Calle.$error')
+                                    div(ng-message='required')
+                                        span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                            md-input-container.md-icon-float.md-block
+                                label(for='Colonia', translate='') PERSONAS.WIZARD.NEIGHBOURHOOD
+                                ng-md-icon(icon='pin_drop')
+                                input#Colonia(label='Colonia', name='Colonia', type='TEXT', ng-model='vm.Direccion.Colonia', required='')
+                                div(ng-messages='Direccion.Colonia.$error')
+                                    div(ng-message='required')
+                                        span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                            md-input-container.md-icon-float.md-block
+                                label(for='NumExt', translate='') PERSONAS.WIZARD.EXT_NUMBER
+                                ng-md-icon(icon='pin_drop')
+                                input#NumExt(label='NumExt', name='NumExt', type='TEXT', ng-model='vm.Direccion.NumExt', required='')
+                                div(ng-messages='Direccion.NumExt.$error')
+                                    div(ng-message='required')
+                                        span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                            md-input-container.md-icon-float.md-block
+                                label(for='NumInt', translate='') PERSONAS.WIZARD.INT_NUMBER
+                                ng-md-icon(icon='pin_drop')
+                                input#NumInt(label='NumInt', name='NumInt', type='TEXT', ng-model='vm.Direccion.NumInt', required='')
+                                div(ng-messages='Direccion.NumInt.$error')
+                                    div(ng-message='required')
+                                        span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                            md-input-container.md-icon-float.md-block
+                                label(for='CP', translate='') PERSONAS.WIZARD.ZIPCODE
+                                ng-md-icon(icon='pin_drop')
+                                input#CP(label='CP', name='CP', type='text', ng-model='vm.Direccion.CP', required='')
+                                div(ng-messages='Direccion.CP.$error')
+                                    div(ng-message='required')
+                                        span(translate='') PERSONAS.WIZARD.REQUIRED-FIELD
+                                    div(ng-message='number')
+                                        | Introduce un Codigo Postal valido.
+                            .button-toolbar(layout='row', layout-align='end center')
+                                md-button.md-raised.md-primary(ng-show='vm.Direccion.id==null', ng-click='vm.registrarDireccion()', ng-disabled='Direccion.$invalid')
+                                    span(translate='') PERSONAS.WIZARD.SAVE
+                                md-button.md-raised.md-primary(ng-show='vm.Direccion.id!=null', ng-click='vm.registrarDireccion()', ng-disabled='Direccion.$invalid')
+                                    span(translate='') PERSONAS.WIZARD.UPDATE
