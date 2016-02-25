@@ -1,0 +1,56 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    .layout.layout-column.layout-margin.layout-sm.layout-sm-column
+        div(flex='100')
+            md-card(flex='100')
+                md-card-content
+                    .content-padded
+                        h2.md-title Convocatorias
+                        p Aqui aparecen las  ultimas Convocatorias creadas.
+                        md-card-content
+                            h2(translate='') PERSONAS.WIZARD.LASTREGISTERS
+                            div(ng-controller='indexFondeosController as vm')
+                                tri-table.elements-image-table-example(columns='::vm.columns', contents='::vm.contents', page-size='2')
+                    md-divider
+                    .button-toolbar(layout='row', layout-align='start center')
+                        md-button.md-primary Nuevo
+        div(flex='50', layout='row')
+            md-card(flex='50')
+                md-card-content
+                    .content-padded
+                        h2.md-title Convocatorias
+                        p Aqui aparece una explicacione de una Convocatoria .
+                    md-divider
+                    .button-toolbar(layout='row', layout-align='start center')
+                        md-button.md-primary Nuevo
+            md-card(flex='50')
+                md-card-content
+                    .content-padded
+                        h2.md-title Modalidades
+                        p Aqui aparece una explicacione de una Modalidad .
+                    md-divider
+                    .button-toolbar(layout='row', layout-align='start center')
+                        md-button.md-primary Nuevo
+        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+            md-card(flex='30', layout='column')
+                h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO
+                md-card-content(layout-align='center center')
+                    canvas#doughnut.chart.chart-doughnut(chart-data='my_fondeos_data', chart-labels='my_fondeos_labels', chart-legend='true')
+            md-card(flex='70', layout='column')
+                md-card-content
+                    md-list
+                        md-subheader.md-no-sticky Fondos de Inversion Recientes
+                        md-list-item.md-2-line(ng-repeat='fondeo in fondeo')
+                            .md-list-item-text
+                                h3 {{fondeo.titulo}}
+                                p {{fondeo.monto}}
+                                p {{fondeo.Modalidades}}
+                                //
+                                  <div ng-bind-html="fondeo.terminos">
+                                  para insertar HTMLs
+                                  </div>
+                                md-divider
+        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+            md-card(flex='100', layout='column')
+                h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO_MONTOS
+                md-card-content(layout-align='center center')
+                    canvas#line.chart.chart-line(chart-data='my_fondeos_area_data', chart-labels='my_fondeos_area_labels', chart-legend='true', chart-series='my_fondeos_area_series', chart-click='my_fondeos_area_onClick')

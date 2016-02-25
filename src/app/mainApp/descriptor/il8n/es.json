@@ -1,0 +1,38 @@
+{
+  "MENU": {
+    "DESCRIPTOR": {
+      "DESCRIPTOR": "Descriptores"
+    }
+  },
+  "DESCRIPTOR": {
+    "TIPO": {
+
+      "ID":"id: ",
+      "NAME":"Nombre: ",
+      "APPLICABLE":"Aplicable: ",
+      "ACTIVE":"Activo: ",
+      "CREATED_AT":"Creado el: ",
+      "UPDATED_AT":"Actualizado el: ",
+      "ADD":"Agregar Tipo de Descriptor",
+      "EDIT":"Editar Tipo de Descriptor",
+      "CREATED":"Creado el",
+      "UPDATED":"Actualizado el",
+      "NEW":"Agregar Tipo",
+      "UPDATE_B":"Actualizar Tipo",
+      "CURRENT":"Tipos de Descriptores Actuales",
+      "DELETE":"Eliminar Tipo"
+    },
+    "DESCRIPTOR":{
+      "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Descriptor",
+      "UPDATE":"Actualizar Descriptor",
+      "CLEAR": "Limpiar Campos",
+      "CATALOG":"Catalogo",
+      "CURRENT":"Descriptores Actuales",
+      "TYPE":"Tipo",
+      "DESCRIPTION":"Descripcion",
+      "DELETE":"Eliminar Descriptor",
+      "TITLE":"Titulo"
+    }
+  }
+}
