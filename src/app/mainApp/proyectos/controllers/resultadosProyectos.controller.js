@@ -11,13 +11,15 @@
     ;
 
     /* @ngInject */
-    function resultadosProyectosController( $translate,Catalogo,Proyecto,TRL,$scope,Translate,toastr,moment) {
+    function resultadosProyectosController($mdDialog, $translate,Catalogo,Proyecto,TRL,$scope,Translate,toastr,moment) {
         var vm = this;
         vm.language="en";
         vm.language=$translate.use();
         vm.activate = activate();
         vm.waiting = true;
         vm.isCreating = true;
+        vm.waiting = false;
+        vm.isCreating = false;
         vm.paisesProteccion = [];
         vm.proyectosTRL=[];
         vm.resultado = {
@@ -46,6 +48,7 @@
         vm.showTable          = true;
         vm.changeResult       = changeResult;
         vm.addResult          = addResult;
+        vm.deleteResult       = deleteResult;
 
         //Variables para el md-autocomplete de proyecto
         vm.querySearch        = querySearch;
@@ -60,7 +63,8 @@
         vm.searchTextPais     = null;
         vm.paisSearch         = paisSearch;
         vm.appendPais         = appendPais;
-
+        vm.resetForm          = resetForm;
+        vm.createDialog = createDialog;
 
         //Variables para la tabla
         vm.resultados         = null;
@@ -87,7 +91,6 @@
                 proms.then(function (res) {
                     vm.paises = res.Pais;
                     vm.waiting = false;
-                    console.log(vm.paises);
                     vm.isCreating = false;
                 }).catch(function (err) {
                     vm.waiting = false;
@@ -117,38 +120,47 @@
             vm.dialogTextOne        = Translate.translate('DIALOGS.WARNING_ONE');
 
         }
+        function resetForm(){
+            vm.resultado=null;
+        }
+        function deleteResult(item){
+           var promise=Proyecto.deleteResultado(item);
+            promise.then(function(res){
+                vm.resultado = res;
+                toastr.success(vm.successText,vm.successDeleteText);
+                loadResults();
+                vm.waitingList = false;
+                vm.isCreatingList = false;
+            }).catch(function(err)
+            {
+                toastr.error(vm.failureText,vm.failureStoreText);
+            });
 
+        }
+        function createDialog(ev,item) {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function () {
+                vm.deleteResult(item);
+            }, function () {
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
+            });
 
+        }
         //
         function changeResult(item)
         {
-            console.log(vm.resultado);
             vm.resultado = null;
             vm.resultado = item;
-            console.log(vm.resultado);
             if((vm.resultado.PaisesProteccion==null || vm.resultado.PaisesProteccion==undefined)  && vm.resultado.Tipo=='Patente') {
-                try {
-                    vm.resultado.PaisesProteccion =[];
-                } catch (err) {
-                    console.log(err);
-                }
+                vm.resultado.PaisesProteccion =[];
             }
-            /*if(vm.resultado.PaisesProteccion==null && vm.resultado.Tipo!='Patente')
-            {
-
-                vm.resultado.PaisesProteccion = null;
-            }
-            else
-            {
-                if(vm.resultado.Tipo=='Patente') {
-                    try {
-                        vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }
-
-            }*/
         }
 
         ///
@@ -213,7 +225,7 @@
          * Buscar País
          */
         function paisSearch (query) {
-            console.log("Filtrp");
+
             var results = query ? vm.paises.filter( createFilterForPais(query) ) : vm.paises, deferred;
             return results;
         }
@@ -223,8 +235,6 @@
          */
         function appendPais(chip)
         {
-            console.log("Append");
-            console.log(vm.resultados.PaisesProteccion);
             if(vm.resultados.PaisesProteccion!=null) {
                 var index = _.findIndex(vm.resultado.PaisesProteccion, function (obj) {
                     return obj.Nombre === chip.Nombre;
@@ -246,16 +256,34 @@
         function selectedItemChange()
         {
             var promise=null;
+            loadResults();
+            promise=TRL.getTRLByProject(vm.selectedItem.id);
+            promise.then(function (res) {
+                vm.proyectosTRL = res.TRL;
+            }).catch(function(err){
+                toastr.error(vm.failureText, vm.failureLoad);
+                vm.waitingList = false;
+                vm.isCreatingList = false;
+            });
+            vm.waitingList = false;
+            vm.isCreatingList = false;
+
+
+        }
+        function loadResults(){
+            var promise=null;
             promise = Proyecto.getResultado(vm.selectedItem.id,'Todos');
             promise.then(function (res) {
                 res.Resultado.forEach(function(value,index){
                     value.Fecha=moment(value.Fecha,"DD-MM-YYYY");
                 });
-               vm.resultados = res.Resultado;
-               vm.tableModel = vm.resultados;
+                vm.resultados = res.Resultado;
+                vm.tableModel = vm.resultados;
 
             }).catch(function(err){
                 toastr.error(vm.failureText, vm.failureLoad);
+                vm.waitingList = false;
+                vm.isCreatingList = false;
             });
             promise = Proyecto.getResultado(vm.selectedItem.id,'Patente');
             promise.then(function (res) {
@@ -266,14 +294,10 @@
                 vm.patentes = res.Resultado;
             }).catch(function(err){
                 toastr.error(vm.failureText, vm.failureLoad);
-            });
-            promise=TRL.getTRLByProject(vm.selectedItem.id);
-            promise.then(function (res) {
-                vm.proyectosTRL = res.TRL;
-            }).catch(function(err){
+                vm.waitingList = false;
+                vm.isCreatingList = false;
             });
         }
-
 
         /**
          * Funcion para agregar resultado
@@ -286,6 +310,7 @@
             if(type=="Patente")
             {
                 vm.resultado.Tipo = type;
+                vm.resultado.FechaAprobacion=moment(vm.resultado.FechaAprobacion).format('YYYY-MM-DD');
             }
             var request={
                 idProyecto:vm.selectedItem.id,
@@ -298,6 +323,9 @@
                 promise.then(function(res){
                    vm.resultado = res;
                    toastr.success(vm.successText,vm.successUpdateText);
+                    loadResults();
+                    vm.waitingList = false;
+                    vm.isCreatingList = false;
                 }).catch(function(err)
                 {
                     toastr.error(vm.failureText,vm.failureStoreText);
@@ -305,10 +333,14 @@
             }
             else
             {
+                console.log(request);
                 promise=Proyecto.saveResultado(request);
                 promise.then(function(res){
                     vm.resultado = res;
                     toastr.success(vm.successText,vm.successUpdateText);
+                    loadResults();
+                    vm.waitingList = false;
+                    vm.isCreatingList = false;
                 }).catch(function(err)
                 {
                     toastr.error(vm.failureText,vm.failureStoreText);

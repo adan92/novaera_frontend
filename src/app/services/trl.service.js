@@ -74,7 +74,6 @@
                 });
             }else{
                 Restangular.all('Proyecto').one('TRL',id).one('Organizacion',profile.id).customGET().then(function (res) {
-                    console.log(res);
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(err);

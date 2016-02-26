@@ -163,7 +163,7 @@
       "SHOW_PATENTS": "Mostrar Patentes",
       "ADD_RESULT": "Agregar Resultado",
       "ADD_PATENT": "Agregar Patente",
-
+      "CLEAR":"Limpiar",
       "ADD_RESULTS": "Agregar Resultados",
       "ADD_PATENTS": "Agregar Patentes",
       "FORM": {
@@ -184,6 +184,16 @@
         "STATUS": "Status",
         "OPERATIONAL_PLAN": "Plan de Explotación",
         "TRL": "TRL"
+      },
+      "TABLE":{
+        "COL_ID":"Id",
+        "COL_NOMBRE":"Nombre",
+        "COL_DESCRIPCION":"Descripción",
+        "COL_ESTATUS":"Estatus",
+        "COL_TIPO":"Tipo"
+      },
+      "PLACEHOLDER":{
+        "PAIS":"Países de Protección"
       }
     },
     "IMPACT": {

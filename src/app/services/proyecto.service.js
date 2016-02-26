@@ -18,6 +18,7 @@
             saveResultado: saveResultado,
             getResultado: getResultado,
             updateResultado: updateResultado,
+            deleteResultado: deleteResultado,
             getDescriptoresProject: getDescriptoresProject,
             getResultados: getResultados,
             getDescriptorResultado: getDescriptorResultado,
@@ -181,7 +182,7 @@
                     deferred.reject(false);
                 });
             } else {
-                console.log(request);
+
                 Restangular.all('Proyecto').one('Resultados',request.id).one('Organizacion', profile.id).customPUT(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
@@ -190,7 +191,24 @@
             }
             return deferred.promise;
         }
-
+        function deleteResultado(request){
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').one('Resultados',request.id).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            } else {
+                Restangular.all('Proyecto').one('Resultados',request.id).one('Organizacion', profile.id).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
         function saveResultado(request) {
             var profile = getPerfil();
             var deferred = $q.defer();

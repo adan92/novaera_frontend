@@ -1,5 +1,6 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
-    div(layout='column', layout-margin='', layout-md='column')
+
+    div(flex='', layout-sm='column', layout-md='column')
         // TARJETA PARA BUSCAR PROYECTOS Y VER RESULTADOS
         md-card(flex='50', layout-align='center center')
             md-card-content
@@ -36,38 +37,43 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     md-checkbox(ng-model='vm.showTable',ng-change='vm.changeModel()',aria-label='Checkbox 1')
                         span(ng-show='vm.showTable', translate='') PROJECT.RESULTS.SHOW_RESULTS
                         span(ng-show='!vm.showTable', translate='') PROJECT.RESULTS.SHOW_PATENTS
-    div(layout='row', layout-md='column', ng-show='vm.selectedItem!=null')
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='')
             md-card-content
-                md-table-container
-                    table(md-table md-data-table)
-                        thead(md-head md-order='vm.query.order')
-                            tr(md-row)
-                                th(md-column md-order-by='id')
-                                    span id
-                                th(md-column md-order-by='Nombre')
-                                    span Nombre
-                                th(md-column md-order-by='Resumen')
-                                    span Descripción
-                                th(md-column md-order-by='Status')
-                                    span Status
-                                th(md-column md-order-by='Tipo')
-                                    span Tipo
-                                th(md-column)
-                                    span Seleccionar
-                        tbody(md-body)
-                            tr(md-row md-select='resultado' ng-repeat='resultado in vm.tableModel | orderBy:vm.query.order')
-                                td(md-cell) {{resultado.id}}
-                                td(md-cell) {{resultado.Nombre}}
-                                td(md-cell) {{resultado.Resumen}}
-                                td(md-cell) {{resultado.Status}}
-                                td(md-cell) {{resultado.Tipo}}
-                                td(md-cell ng-click="$event.stopPropagation()")
-                                    md-button.md-primary.md-fab.md-mini(arial-label="info", ng-click='vm.changeResult(resultado)')
-                                        md-icon(md-font-icon="fa fa-bars")
-                md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.tableModel.length}}')
+                div(layout='row', layout-sm='column', layout-md='column' layout-align="center center")
+                    div(layout='column',  layout-align="center center")
+                        md-progress-circular(md-mode="indeterminate" ng-if="vm.waitingList")
+                    div(ng-hide="vm.isCreatingList")
+                        md-table-container
+                            table(md-table md-data-table)
+                                thead(md-head md-order='vm.query.order')
+                                    tr(md-row)
+                                        th(md-column md-order-by='id')
+                                            span(translate='') PROJECT.RESULTS.TABLE.COL_ID
+                                        th(md-column md-order-by='Nombre')
+                                            span(translate='') PROJECT.RESULTS.TABLE.COL_NOMBRE
+                                        th(md-column md-order-by='Resumen')
+                                            span(translate='') PROJECT.RESULTS.TABLE.COL_DESCRIPCION
+                                        th(md-column md-order-by='Status')
+                                            span(translate='') PROJECT.RESULTS.TABLE.COL_ESTATUS
+                                        th(md-column md-order-by='Tipo')
+                                            span(translate='') PROJECT.RESULTS.TABLE.COL_TIPO
+                                tbody(md-body)
+                                    tr(md-row md-select='resultado' ng-repeat='resultado in vm.tableModel | orderBy:vm.query.order')
+                                        td(md-cell) {{resultado.id}}
+                                        td(md-cell) {{resultado.Nombre}}
+                                        td(md-cell) {{resultado.Resumen}}
+                                        td(md-cell) {{resultado.Status}}
+                                        td(md-cell) {{resultado.Tipo}}
+                                        td(md-cell ng-click="$event.stopPropagation()")
+                                            md-button.md-primary.md-fab.md-mini(arial-label="info", ng-click='vm.createDialog($event,resultado)')
+                                                md-icon(md-font-icon="fa fa-times-circle")
+                                        td(md-cell ng-click="$event.stopPropagation()")
+                                            md-button.md-primary.md-fab.md-mini(arial-label="info", ng-click='vm.changeResult(resultado)')
+                                                md-icon(md-font-icon="fa fa-bars")
+                        md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.tableModel.length}}')
 
-    div(layout='row', layout-margin='', layout-md='column', ng-show='vm.selectedItem!=null')
+    div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='', ng-show='vm.showTable')
             md-card-content
                 h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_RESULT': 'PROJECT.RESULTS.ADD_RESULTS')| translate}}
@@ -139,7 +145,9 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 div(ng-message='required')
 
                     md-button.md-raised(ng-disabled='agregarResultado.$invalid', ng-click='vm.addResult("Resultado")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-                        span(translate='') PROJECT.RESULTS.ADD_RESULT
+                        span(translate='') {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_RESULT': 'PROJECT.RESULTS.ADD_RESULT')| translate}}
+                    md-button.md-raised(ng-disabled='vm.resultado==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') PROJECT.RESULTS.CLEAR
         md-card(flex='', ng-show='!vm.showTable')
             md-card-content
                 h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_PATENT': 'PROJECT.RESULTS.ADD_PATENTS')| translate}}
@@ -187,7 +195,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         md-search-text='vm.searchTextPais'
                         md-items='pais in vm.paisSearch(vm.searchTextPais)'
                         md-item-text='pais.Nombre'
-                        placeholder='Países de Protección'
+                        placeholder="{{ 'PROJECT.RESULTS.PLACEHOLDER.PAIS' | translate }}"
                         )
                             span(md-highlight-text='vm.searchTextPais') {{pais.Nombre}}
                         md-chip-template
@@ -215,4 +223,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             div(ng-messages='agregarResultado.trl.$error')
                                 div(ng-message='required')
                     md-button.md-raised(type='button' ng-disabled='agregarPatente.$invalid', ng-click='vm.addResult("Patente")', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-                        span(translate='') PROJECT.RESULTS.ADD_PATENT
+                        span(translate='') {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_PATENT': 'PROJECT.RESULTS.ADD_PATENT')| translate}}
+                    md-button.md-raised(ng-disabled='vm.resultado==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') PROJECT.RESULTS.CLEAR
+
+
