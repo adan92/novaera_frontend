@@ -74,7 +74,13 @@
                 name: 'Validar Proyectos',
                 state: 'triangular.admin-default.validarProyectos',
                 type: 'link'
+              },
+              {
+                name: 'Revisar estado de proyectos',
+                state: 'triangular.admin-default.estatusProjectsAll',
+                type: 'link'
               }
+
 
             ]
 
@@ -124,6 +130,24 @@
 
             }]
           }, {
+            name: 'MENU.ORG.ORGANIZACION',
+            type: 'dropdown',
+            icon: 'fa fa-institution',
+            priority: 2.1,
+            children: [{
+              name: 'Validar Organización',
+              state: 'triangular.admin-default.validar_organizacion',
+              icon: 'fa fa-users',
+              type: 'link'
+
+            },{
+              name: 'Validar Documentos',
+              state: 'triangular.admin-default.validar_doc_org',
+              icon: 'fa fa-file-text',
+              type: 'link'
+
+            }]
+          }, {
             name: 'MENU.FONDEOS.FONDEOS',
             type: 'dropdown',
             icon: 'zmdi zmdi-money-box',
@@ -151,7 +175,8 @@
               }
 
             ]
-          }
+          },
+
 
         ]
       };

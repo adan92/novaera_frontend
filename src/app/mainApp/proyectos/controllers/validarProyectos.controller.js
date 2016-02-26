@@ -9,24 +9,34 @@
         .controller('validarProyectosController', validarProyectosController);
 
     /* @ngInject */
-    function validarProyectosController($scope, $timeout, $mdToast, $rootScope, $state) {
+    function validarProyectosController(Fondeo,Convocatoria,Admin,$mdDialog,Translate,toastr) {
         var vm = this;
-        vm.selectedItem = null;
-        vm.searchText = null;
-        vm.querySearch = querySearch;
-        vm.showValidate= false;
-        vm.selectedItem = null;
-        vm.selectedSolicitudes = [];
-        vm.validando =validando;
-        //vm.validarSolicitud = validarSolicitud;
-        vm.buscarSolicitud=buscarSolicitud;
-        vm.solicitudEncontrada=null;
-        vm.solicitudacomparar;
-        vm.showRow=false;
-        vm.idSolicitud=null;
+        vm.activate = activate();
 
-        vm.sol=null;
-        vm.i=0;
+
+        //Función para mandar a llamar las convocatorias
+        vm.selectedItemChange = selectedItemChange;
+
+        //Variables
+        vm.convocatorias                =   null;
+        vm.fondeos                      =   null;
+        vm.selectedConvocatoria         =   null;
+        vm.solicitudes                  =   null;
+        vm.loadingSolicitudes           =   false;
+        vm.validacion                   =   null;
+        vm.selectedSolicitud            =   null;
+
+        // Para el Autocomplete
+        vm.selectedItem                 =   null;
+        vm.searchText                   =   null;
+
+
+        //Funciones
+        vm.getSolicitudes               =  getSolicitudes;
+        vm.querySearch                  =  querySearch;
+        vm.openDialog                   =  openDialog;
+        vm.validarSolicitud             =  validarSolicitud;
+
         vm.estados = [
             {
                 id: 1,
@@ -45,231 +55,122 @@
                 value: "Culminado"
             }
 
-        ]
-        vm.solicitudes = [
-            {
-                id: 1,
-                proyecto: "Proyecto 2",
-                fondo: "Programa de fondeo 2",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 1",
-                montosolicitado: "50,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 1",
-                trlFinal: "TRL1",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "20-10-2014",
-                resultado: "En Desarrollo del 2do Prototipo",
-                validado: ""
-            }, {
-                id: 2,
-                proyecto: "Proyecto 1",
-                fondo: "Programa de fondeo 3",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 3",
-                montosolicitado: "150,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 2",
-                trlFinal: "TRL4",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "31-12-15",
-                resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: ""
-            }, {
-                id: 3,
-                proyecto: "Proyecto 3",
-                fondo: "Programa de fondeo 2",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 1",
-                montosolicitado: "150,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 1",
-                trlFinal: "",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "20-10-2016",
-                resultado: "",
-                validado: ""
-            }, {
-                id: 4,
-                proyecto: "Proyecto 4",
-                fondo: "Programa de fondeo 3",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 3",
-                montosolicitado: "150,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 2",
-                trlFinal: "TRL4",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "31-12-16",
-                resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: ""
-            },
-            {
-                id: 5,
-                proyecto: "Proyecto 5",
-                fondo: "Programa de fondeo 7",
-                modalidad: "Modalidad 5",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 4",
-                montosolicitado: "50,0000",
-                montoApoyado:"",          trlInicial: "TRL 1",
-                trlFinal: "",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "",
-                resultado: "",
-                validado: ""
-            }, {
-                id: 6,
-                proyecto: "Proyecto 8",
-                fondo: "Programa de fondeo 3",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 3",
-                montosolicitado: "150,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 2",
-                trlFinal: "TRL4",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "",
-                resultado: "",
-                validado: ""
-            }, {
-                id: 7,
-                proyecto: "Proyecto 5",
-                fondo: "Programa de fondeo 2",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 1",
-                montosolicitado: "50,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 1",
-                trlFinal: "TRL1",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "20-10-2014",
-                resultado: "En Desarrollo del 2do Prototipo",
-                validado: ""
-            }, {
-                id: 8,
-                proyecto: "Proyecto 3",
-                fondo: "Programa de fondeo 3",
-                modalidad: "Modalidad 1",
-                tecnopark: "Novaera",
-                convocatoria: "Convocatoria 3",
-                montosolicitado: "150,0000",
-                montoApoyado:"",
-                trlInicial: "TRL 2",
-                trlFinal: "TRL4",
-                fechaRegistro: "20-10-2014",
-                fechaCierre: "31-12-15",
-                resultado: "Producto ya comercializado y con gran aceptacion en San Miguel de Allende",
-                validado: ""
-            },
-
-
-        ];
-        vm.fondeos = [
-            {
-                id: 1,
-                titulo: "Programa de fondeo 1",
-                publicoObjetivo: "Nuevos Emprendedores",
-                fondototal: "$2,000,000",
-                criterios: "Debe ser nuevo emprendedor y contar con un proyecto factible, tecnica como economicamente"
-
-            },
-            {
-                id: 2,
-                titulo: "Programa de fondeo 2",
-                publicoObjetivo: "Emprendedores Expertos",
-                fondototal: "$3,000,000",
-                criterios: "Debe ser nuevo emprendedor y contar con un proyecto factible, tecnica como economicamente"
-            },
-            {
-                id: 3,
-                titulo: "Programa de fondeo 3",
-                publicoObjetivo: "Emprendedores mas  Expertos",
-                fondototal: "$6,000,000",
-                criterios: "Debe ser un gran emprendedor y contar con un proyecto factible, tecnica como economicamente"
-            }
         ];
 
 
-        function validando(solicitud,key){
-            if(vm.selectedSolicitudes.length >= 2) {
-                $scope.$broadcast('md.table.deselect', vm.selectedSolicitudes[0], vm.selectedSolicitudes[0].id);
+        function activate()
+        {
+            var fondeosPromise = Fondeo.getAllFondeos();
+            fondeosPromise.then(function(res){
+                vm.fondeos = res;
+            }).catch(function(err){
 
-            }
-            vm.showValidate   = true;
-            vm.showRow=false;
+            });
+            vm.successStore = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdate = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
+            vm.failTitle = Translate.translate('DIALOGS.FAILURE');
+            vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
 
         }
+
+        function selectedItemChange()
+        {
+            vm.selectedConvocatoria = null;
+            vm.selectedSolicitud = null;
+            vm.showValidate = false;
+            vm.solicitudes = null;
+            if(vm.selectedItem!=null)
+            {
+                var promiseConvocatorias = Fondeo.callAssosciated(vm.selectedItem);
+                promiseConvocatorias.then(function(res){
+                    vm.convocatorias = res.Convocatoria;
+                }).catch(function(err)
+                {
+
+                });
+
+            }
+        }
+
+
+
 
         //////////////////
         //Busqueda de Programas de Fondeo
         function querySearch(query) {
             var results = query ? vm.fondeos.filter(createFilterFor(query)) : vm.fondeos, deferred;
             return results;
-            vm.showRow=false;
-
         }
 
         function createFilterFor(query) {
 
             return function filterFn(fondeo) {
-                return (proyecto.titulo.indexOf(query) === 0);
+                return (fondeo.Titulo.indexOf(query) === 0);
 
             };
         }
 
-        function buscarSolicitud(){
-
-           while(vm.solicitudEncontrada==null){
-
-                    vm.solicitudaencotrar= vm.solicitudes[vm.i];
-                if (vm.solicitudaencotrar.id==vm.idSolicitud){
-                    alert(vm.solicitudaencotrar.id+'='+vm.idSolicitud);
-                    vm.solicitudaencotrar.montoApoyado=  $scope.montoApoyado;
-                    vm.solicitudaencotrar.validado=  $scope.estados;
-                    vm.solicitudEncontrada=vm.solicitudaencotrar;
-                        var solicitud = {
-                            id: vm.solicitudEncontrada.id,
-                            proyecto:vm.solicitudEncontrada.proyecto,
-                            fondo: vm.solicitudEncontrada.fondo,
-                            modalidad: vm.solicitudEncontrada.modalidad,
-                            tecnopark: vm.solicitudEncontrada.tecnopark,
-                            convocatoria: vm.solicitudEncontrada.convocatoria,
-                            montosolicitado: vm.solicitudEncontrada.montosolicitado,
-                            montoApoyado: vm.solicitudEncontrada.montoApoyado,
-                            trlInicial:vm.solicitudEncontrada.trlInicial,
-                            trlFinal:vm.solicitudEncontrada.trlFinal,
-                            fechaRegistro:vm.solicitudEncontrada.fechaRegistro,
-                            fechaCierre:vm.solicitudEncontrada.fechaCierre,
-                            resultado: vm.solicitudEncontrada.resultado,
-                            validado: vm.solicitudEncontrada.resultado
-                            };
-                    vm.solicitudes.splice(vm.i, 1);
-                    vm.solicitudes.push(solicitud);
-                    }
-                else{
-                    vm.i++;
-                }
-
-            }
+        function getSolicitudes()
+        {
+            vm.solicitudes = null;
+            vm.selectedSolicitud = null;
+            vm.loadingSolicitudes = true;
+            vm.showValidate = false;
+            vm.solicitudesPromise = Convocatoria.getRegistrosByConvocatoria(vm.selectedConvocatoria);
+            vm.solicitudesPromise.then(function(res){
+               vm.solicitudes = res;
+               vm.loadingSolicitudes = false;
+            }).catch(function(err){
+            });
         }
-        $scope.validarSolicitud=function(){
-            vm.sol=vm.selectedSolicitudes[0];
-            vm.idSolicitud=vm.sol.id;
-            vm.buscarSolicitud();
-            vm.showRow=true;
-            vm.showValidate=false;
-            vm.i=0;
+
+        function validarSolicitud()
+        {
+            var promiseValidate = Admin.validateSolicitud(vm.validacion,vm.selectedSolicitud.id);
+            promiseValidate.then(function(res){
+                toastr.success(vm.successTitle,vm.successUpdate);
+                getSolicitudes();
+
+            }).catch(function(err){
+                toastr.error(vm.failTitle,vm.failMessage);
+            });
+
 
 
         }
 
+
+        function openDialog(event,solicitud)
+        {
+            var config = {
+                controller: 'proyectoValidateDialogController',
+                templateUrl:'app/mainApp/proyectos/validateDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent:event,
+                clickOutsideToClose:true,
+                fullscreen: true,
+                locals:{selectedSolicitud:solicitud},
+                controllerAs: 'vm'
+            };
+
+            $mdDialog.show(config).then(function(reply){
+                vm.showValidate = reply;
+                vm.selectedSolicitud = solicitud;
+                vm.validacion.MontoApoyado = vm.selectedSolicitud.MontoApoyado;
+                vm.validacion.Validado = vm.selectedSolicitud.Validado;
+
+
+
+
+            },function()
+            {
+                vm.showValidate=false;
+                vm.selectedSolicitud=null;
+            });
+
+
+        }
 
 
 

@@ -1,0 +1,52 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    md-card
+        md-card-content
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    h3(translate) MENU.ORG.VALIDATION
+            md-table-container
+                table(md-table md-data-table md-row-select='' ng-model='vm.selectedItems')
+                    thead(md-head md-order='vm.query.order')
+                        tr(md-row)
+                            th(md-column md-order-by='id')
+                                span id
+                            th(md-column md-order-by='Titulo')
+                                span Titulo
+                            th(md-column md-order-by='Descripcion')
+                                span Descripcion
+                            th(md-column md-order-by='RazonSocial')
+                                span Razon Social
+                            th(md-column md-order-by='RepresentanteLegal')
+                                span Representante Legal
+                            th(md-column md-order-by='RFC')
+                                span RFC
+                    tbody(md-body)
+                        tr(md-row md-select='organizacion' md-select-id='{{organizacion.id}}'  md-auto-select ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
+                            td(md-cell) {{organizacion.id}}
+                            td(md-cell) {{organizacion.Titulo}}
+                            td(md-cell) {{organizacion.Descripcion}}
+                            td(md-cell) {{organizacion.RazonSocial}}
+                            td(md-cell) {{organizacion.RepresentanteLegal}}
+                            td(md-cell) {{organizacion.RFC}}
+                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
+                                div
+                                md-button.md-primary.md-fab.md-mini(arial-label="info", ng-click='vm.showPanelValidados(organizacion,$event)')
+                                    md-icon(md-font-icon="fa fa-bars")
+        md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.organizaciones.length}}')
+            .md-whiteframe-z1.md-padding.md-card(flex ng-show="vm.isEditing")
+                h4.md-subheader Validaciones
+                div(layout layout-sm="column")
+                    div(ng-repeat="validation in vm.validations" flex)
+                        div.text-success(ng-if="vm.org[validation.field]" layout="column" layout-align="center-center" flex)
+                            md-icon.material-icon.text-success.md-48 check
+                            md-button.md-raised.md-primary( md-no-ink class="md-primary",style="color:white; text-decoration:none", ng-click='vm.showDocument(validation,false)') {{validation.label.message}}
+                        div.text-danger(ng-if="!vm.org[validation.field]" layout="column" layout-align="center-center" flex)
+                            md-icon.material-icon.text-danger.md-48 error
+                            md-button.md-raised.md-primary( md-no-ink class="md-primary",style="color:white; text-decoration:none", ng-click='vm.showDocument(validation,true)') {{validation.label.message}}
+            .md-whiteframe-z1.md-padding.md-card(flex ng-show="vm.isShow")
+                h4.md-subheader Documento
+                div(layout layout-sm="column" layout-align="center center")
+                    iframe(width='800', height='800', scrolling='no', frameborder='no', ng-src='{{vm.urlActual}}')
+                div(layout layout-sm="column" layout-align="center center")
+                    md-button.md-raised(ng-click='vm.validate()',ng-hide='!vm.showButtonValidate' ,ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') ORGANIZATION.DOCUMENTOS.VALIDATE

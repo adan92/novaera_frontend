@@ -2,6 +2,11 @@ div.gantt-side{
   min-width: 100px;
 }
 
+.li-disc{
+  list-style: disc;
+  padding: 0.5em;
+}
+
 .ta-bind ul{
   list-style: disc;
   padding: 2em;
@@ -43,4 +48,95 @@ div.wizard{
 
 .material{
   color: rgba(0,0,0,0.6)
+}
+.intro-feature-row {
+  .md-whiteframe-z1 {
+    background-color: #26C6DA;
+  }
+  .md-font {
+    color: white;
+  }
+} 
+ .face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px; } 
+
+
+.autocompletedemoCustomTemplate .autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal; }
+.autocompletedemoCustomTemplate .autocomplete-custom-template li:last-child {
+  border-bottom-width: 0; }
+.autocompletedemoCustomTemplate .autocomplete-custom-template .item-title, .autocompletedemoCustomTemplate .autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2; }
+.autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
+  height: 18px;
+  width: 18px; 
+}
+
+md-tabs md-tabs-wrapper md-tabs-canvas md-tab-item.md-tab {
+  max-width: inherit !important;
+}
+///Date-Picker
+::-webkit-scrollbar{
+  width:1px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgba(255,255,255,1);
+
+}
+
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+  background: #87F0F0;
+  color: #fff;
+  text-align: center;
+  padding: 3px;
+}
+
+.dtp div.dtp-date, .dtp div.dtp-time {
+  background: #00BCD4;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+}
+.dtp table.dtp-picker-days tr > td > a.selected {
+  background: #00BCD4;
+  color: #fff;
+}
+.dtp .p10 > a {
+  color: #87F0F0;
+  text-decoration: none;
+}
+
+.dtp .dtp-actual-meridien a.selected {
+  background: #87F0F0;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-minute.selected {
+  background: #00BCD4;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-hour.selected {
+  background: #87F0F0;
+  color: #fff;
+}
+.dtp .dtp-hand.on {
+  background: #00BCD4;
+}
+.dtp .dtp-buttons {
+  padding: 0 10px 10px 10px;
+  text-align: right;
+  margin: 0 auto;
+}
+.dtp div.dtp-picker {
+  padding: 2px;
+  text-align: center;
 }

@@ -3,31 +3,37 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(flex layout='row', layout-md='column')
         md-card(flex='', layout-align='center center')
             md-card-content
-                h2.text-center(translate='') PROJECT.IP.MY_PROJECTS
-                h3.text-center(translate='') PROJECT.IP.INSTRUCTIONS
-                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache',
-                md-selected-item='vm.selectedItem',
-                md-search-text-change='vm.searchTextChange(vm.searchText)',
-                md-search-text='vm.searchText',
-                md-selected-item-change='vm.selectedItemChange(item)',
-                md-items='item in vm.querySearch(vm.searchText)',
-                md-item-text='item.Titulo',
-                md-min-length='0',
-                placeholder='Busca tu proyecto')
-                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+                div(layout="column" layout-align="center-center")
+                    md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
+                div(ng-hide="vm.isCreating")
+                    h2.text-center(translate='') PROJECT.IP.MY_PROJECTS
+                        h3.text-center(translate='') PROJECT.IP.INSTRUCTIONS
+                        md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache',
+                        md-selected-item='vm.selectedItem',
+                        md-search-text-change='vm.searchTextChange(vm.searchText)',
+                        md-search-text='vm.searchText',
+                        md-selected-item-change='vm.selectedItemChange(item)',
+                        md-items='item in vm.querySearch(vm.searchText)',
+                        md-item-text='item.Titulo',
+                        md-min-length='0',
+                        placeholder="{{ 'PROJECT.IP.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
+                            span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
                 div(flex ng-show='vm.selectedItem!=null')
                     h3.text.center(translate='') PROJECT.IP.INSTRUCTIONS_SELECT
-                    div(flex layout-gt-md='row' layout-align="space-around center" layout-gt-sm='column')
-                        md-input-container
-                            label(translate='') PROJECT.IP.SELECT
-                            md-select(ng-model='vm.selectedPropiedad', flex)
-                                md-option(ng-repeat='propiedad in vm.transferenciaRegisters', ng-value='propiedad')
-                                        | Registro {{propiedad.id}}
-                    div(flex layout-gt-md='row' layout-align="space-around center" layout-gt-sm='column')
-                        md-button.md-raised(ng-disabled="vm.selectedPropiedad==null" flex ng-click='vm.createDialog()', ng-class="['md-warn','md-hue-2']")
-                            span(translate='') PROJECT.IP.REMOVE_REGISTER
-                        md-button.md-raised(flex ng-click='vm.selectedPropiedad=null', ng-class="['md-primary']")
-                            span(translate='') PROJECT.IP.NEW_REGISTER
+                    div(layout="column" layout-align="center-center")
+                        md-progress-circular(md-mode="indeterminate" ng-if="vm.waitingRegister")
+                    div(ng-hide="vm.isCreatingRegister")
+                        div(flex layout-gt-md='row' layout-align="space-around center" layout-gt-sm='column')
+                            md-input-container
+                                label(translate='') PROJECT.IP.SELECT
+                                md-select(ng-model='vm.selectedPropiedad', flex)
+                                    md-option(ng-repeat='propiedad in vm.transferenciaRegisters', ng-value='propiedad')
+                                            | Registro {{propiedad.id}}
+                        div(flex layout-gt-md='row' layout-align="space-around center" layout-gt-sm='column')
+                            md-button.md-raised(ng-disabled="vm.selectedPropiedad==null" flex ng-click='vm.createDialog()', ng-class="['md-warn','md-hue-2']")
+                                span(translate='') PROJECT.IP.REMOVE_REGISTER
+                            md-button.md-raised(flex ng-click='vm.selectedPropiedad=null', ng-class="['md-primary']")
+                                span(translate='') PROJECT.IP.NEW_REGISTER
         md-card(flex='33', layout-align='center center', ng-hide='true')
             md-card-content
                 h2.text.center(translate='') PROJECT.IP.CONTROL_PANEL
@@ -85,7 +91,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     div(text-angular='', required='', ng-model='vm.selectedPropiedad.ValuacionTecnologica', ta-toolbar="[['bold','italics','ul','ol']]" aria-label="valuacion-tecnologica")
                                     label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                                     md-divider
-            .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+            div.wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV' aria-label="previous-button")
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT' aria-label="next-button")
                 md-button.md-accent.md-raised(ng-click='vm.addRegister()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='PROJECT.WIZARD.SEND' aria-label="send-button")

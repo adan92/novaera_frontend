@@ -1,0 +1,28 @@
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    md-card
+        md-card-content
+            md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                    h3(translate) MENU.ORG.VALIDATION
+            md-table-container
+                table(md-table md-data-table md-row-select='' ng-model='vm.selectedItems')
+                    thead(md-head md-order='vm.query.order')
+                        tr(md-row)
+                            th(md-column md-order-by='id')
+                                span id
+                            th(md-column md-order-by='Titulo')
+                                span Titulo
+                            th(md-column md-order-by='Descripcion')
+                                span Descripcion
+                            th(md-column md-order-by='RepresentanteLegal')
+                                span RepresentanteLegal
+                    tbody(md-body)
+                        tr(md-row md-select='organizacion' md-select-id='{{organizacion.id}}'  md-auto-select ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
+                            td(md-cell) {{organizacion.id}}
+                            td(md-cell) {{organizacion.Titulo}}
+                            td(md-cell) {{organizacion.Descripcion}}
+                            td(md-cell) {{organizacion.RepresentanteLegal}}
+            md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.organizaciones.length}}')
+            div(layout='row' layout-sm='column' layout-align='center center')
+                md-button.md-primary.md-raised(ng-click='vm.createDialog()' ng-disabled='vm.selectedItems.length==0')
+                    span(translate) ORGANIZATION.VALIDATE_ORG

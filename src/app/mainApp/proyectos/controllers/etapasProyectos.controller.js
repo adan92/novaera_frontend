@@ -9,12 +9,14 @@
         .controller('etapasProyectosController', etapasProyectosController);
 
     /* @ngInject */
-    function etapasProyectosController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function etapasProyectosController(Proyecto,$scope,Translate,toastr) {
         var vm = this;
 
         vm.activate                 = activate();
         //Variables
         vm.proyectos                = null;
+        vm.waiting = true;
+        vm.isCreating = true;
         vm.data                     = [];
         vm.newEtapa                 = null;
         vm.newTarea                 = null;
@@ -41,16 +43,26 @@
         //Otras funciones
         vm.deleteEtapa              = deleteEtapa;
         vm.selectedItemChange       = selectedItemChange;
+        vm.selectedItem       = null;
+        vm.searchText         = null;
+        vm.querySearch        = querySearch;
+        vm.simulateQuery      = false;
+        vm.isDisabled         = false;
 
         /**
          *Función que se ejecuta al inicio
          */
         function activate()
         {
-            Restangular.all('Proyecto').all('Persona').customGET().then(function(res){
-                vm.proyectos = res.Proyectos;
-            }).catch(function(err){
-
+            var promise = Proyecto.getAllProjects();
+            promise.then(function (res) {
+                vm.proyectos = res;
+                vm.waiting = false;
+                vm.isCreating = false;
+            }).catch(function (err) {
+                vm.waiting = false;
+                vm.isCreating = false;
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -63,18 +75,17 @@
             vm.failureText          = Translate.translate('DIALOGS.FAILURE');
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+            vm.failureLoad          = Translate.translate('DIALOGS.FAIL_LOAD');
+
         }
 
         function selectedItemChange(){
-            Restangular.all('Proyecto').one('EtapaProyecto',vm.selectedItem.id).customGET().then(function(res){
+            var promise=Proyecto.getEtapasProject(vm.selectedItem.id);
+            promise.then(function(res){
                 vm.data = res.EtapaProyecto;
-                console.log(vm.data);
                 formatEtapas(vm.taskColor);
-                console.log(vm.data);
-
-
             }).catch(function(err){
-
+                toastr.error(vm.failureText, vm.failureLoad);
             });
         }
 
@@ -139,13 +150,12 @@
         $scope.clickTask = function(taskModel) {
             vm.newTarea = taskModel;
             vm.newTarea.newTo = vm.newTarea.to.toDate();
-            vm.newTarea.newFrom = vm.newTarea.from.toDate();
+            vm.newTarea.newFrom =   vm.newTarea.from.toDate();
             if(vm.newTarea.color==vm.taskColor)
             {
                 vm.newTarea.color = vm.editedTaskColor;
             }
         };
-
         $scope.removeTask = function(taskModel) {
             vm.idTask=taskModel.id;
             for(var i=0;i<vm.data.length;i++)
@@ -158,10 +168,8 @@
                     vm.data[i].tasks.splice(index,1);
                     break;
                 }
-
             }
             vm.idTask = null;
-
         };
 
 
@@ -185,7 +193,8 @@
                 EtapaProyecto:vm.data
             };
             vm.disableRequest =true;
-            Restangular.all('EtapaProyecto').customPOST(request).then(function(res){
+            var promise=Proyecto.saveEtapasProject(request);
+            promise.then(function(res){
                 vm.data = null;
                 vm.data = res.EtapaProyecto;
                 formatEtapas(vm.taskColor);
@@ -195,9 +204,7 @@
                 vm.disableRequest=false;
                 toastr.error(vm.failureText,vm.failureStoreText);
             });
-
         }
-
 
 
         /**
@@ -215,18 +222,6 @@
             });
         }
 
-
-
-        //
-
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-
-
-        //////////////////
         function querySearch (query) {
             var results = query ? vm.proyectos.filter( createFilterFor(query) ) : vm.proyectos, deferred;
             return results;
@@ -243,6 +238,7 @@
                 return (proyecto.Titulo.indexOf(query) === 0);
             };
         }
+
 
     }
 

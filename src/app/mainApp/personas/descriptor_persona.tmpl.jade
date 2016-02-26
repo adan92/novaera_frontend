@@ -36,8 +36,7 @@
                     md-input-container
                         label(translate='') PERSONAS.DESCRIPTOR.TYPE
                         md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
-                            md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}')
-                            {{tipo.Titulo}}
+                            md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}') {{tipo.Titulo}}
     span.placeholder(translate='') PERSONAS.DESCRIPTOR.FINIT
     md-datepicker(ng-model='vm.descriptor.FechaInicio', md-placeholder='Introduce una fecha', required='')
     br

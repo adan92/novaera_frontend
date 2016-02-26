@@ -1,0 +1,56 @@
+md-card(flex='')
+    // Titulo del toolbar
+    md-toolbar.md-table-toolbar.md-default
+        .md-toolbar-tools
+            span(translate='') PROJECT.INSCRIPTION.PROJECTSTATUS
+    // Cabecera de la md table
+    md-table-container
+        table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+            thead(md-head='', md-order='vm.query.order')
+                tr(md-row='md-row')
+                    th(md-column='md-column', md-order-by='id')
+                        span id
+                    th(md-column='md-column', md-order-by='proyecto')
+                        span Proyecto
+                    th(md-column='md-column', md-order-by='fondo')
+                        span Programa de Fondeo
+                    th(md-column='md-column', md-order-by='convocatoria')
+                        span Convocatoria
+                    th(md-column='md-column', md-order-by='modalidad')
+                        span Modalidad
+                    th(md-column='md-column', md-order-by='tecnopark')
+                        span Parque Tecnologico
+                    th(md-column='md-column', md-order-by='montosolicitado')
+                        span Monto Solicitado
+                    th(md-column='md-column', md-order-by='montoApoyado')
+                        span Monto Otorgado
+                    th(md-column='md-column', md-order-by='trlInicial')
+                        span TRL Inicial
+                    th(md-column='md-column', md-order-by='trlFinal')
+                        span TRL Final
+                    th(md-column='md-column', md-order-by='fechaRegistro')
+                        span Fecha de Registro
+                    th(md-column='md-column', md-order-by='fechaCierre')
+                        span Fecha de Culminacion
+                    th(md-column='md-column', md-order-by='resultado')
+                        span Resultado Entregado
+                    th(md-column='md-column', md-order-by='validado')
+                        span Estado Actual
+            // Cuerpo de la tabla
+            tbody(md-body='md-body')
+                tr(md-row='md-row', md-select='solicitud', md-select-id='{{solicitud.id}}', md-auto-select='md-auto-select', md-on-select='', ng-repeat='solicitud in vm.solicitudes | orderBy:vm.query.order')
+                    td(md-cell='md-cell') {{solicitud.id}}
+                    td(md-cell='md-cell') {{solicitud.Titulo}}
+                    td(md-cell='md-cell') {{solicitud.fondo}}
+                    td(md-cell='md-cell') {{solicitud.Convocatoria}}
+                    td(md-cell='md-cell') {{solicitud.Modalidad}}
+                    td(md-cell='md-cell') {{solicitud.Parque}}
+                    td(md-cell='md-cell') {{solicitud.MontoSolicitado}}
+                    td(md-cell='md-cell') {{solicitud.MontoApoyado}}
+                    td(md-cell='md-cell') {{solicitud.idTRLInicial}}
+                    td(md-cell='md-cell') {{solicitud.idTRLFinal}}
+                    td(md-cell='md-cell') {{solicitud.FechaRegistro}}
+                    td(md-cell='md-cell') {{solicitud.FechaCierre}}
+                    td(md-cell='md-cell') {{solicitud.Resultado}}
+                    td(md-cell='md-cell') {{solicitud.Validado}}
+md-divider
