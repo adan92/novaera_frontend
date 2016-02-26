@@ -225,12 +225,15 @@
             vm.Modalidad = null;
             vm.selectedModalidad = null;
             vm.isNewModalidad = null;
-            vm.requisito = null;
+            vm.requisito = {
+                "Nombre": null,
+                "Descripcion": null
+            }
             vm.selectedRequisito = null;
             vm.isNewRequisito = null;
             vm.Convocatoria = null;
             vm.isNewConvocatoria = null;
-            vm.Requisitos = null;
+            vm.Requisitos = [];
             vm.Modalidades = null;
 
 
@@ -366,9 +369,13 @@
         // Crear requisito
 
         function crearRequisito() {
+            console.log(vm.requisito)
             if (vm.requisito != null) {
+                console.log("requisitos antes de agregarlo");
                 console.log(vm.Requisitos);
                 vm.Requisitos.push(vm.requisito);
+                console.log("requisitos despues de agregarlo");
+                console.log(vm.Requisitos);
 
                 vm.requisito = {
                     "Nombre": null,
@@ -383,16 +390,27 @@
         // Eliminar Requisito
         // Crear requisito
 
-        function eliminarRequisito(requi) {
+        function eliminarRequisito(requisito) {
 
-           vm.Requisitos.forEach(function (value, index) {
-                console.log(value);
-                if (value.nombre === requi.nombre) {
-                    console.log(requi);
+            vm.requisitocopy=requisito;
+            var index;
+
+            for (index = 0; index < vm.Requisitos.length; ++index) {
+                console.log("Requisito copy");
+                console.log(vm.requisitocopy);
+                console.log("Value")
+                console.log(vm.Requisitos[index]);
+                if (vm.Requisitos[index].nombre == vm.requisitocopy.nombre) {
+                    console.log(vm.requisitocopy);
                     console.log(vm.Requisitos);
-                    //vm.Requisitos.splice(index, 1);
+                    console.log(index)
+                    vm.Requisitos.splice(index, 1);
+                    index=vm.Requisitos.length+1;
+
                 }
-            });
+
+            }
+
         }
 
         function editarRequisito(requisito) {
