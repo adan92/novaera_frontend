@@ -175,13 +175,14 @@
             var profile = getPerfil();
             var deferred = $q.defer();
             if (profile.type === "person") {
-                Restangular.all('Proyecto').all('Resultados').customPUT(request).then(function (res) {
+                Restangular.all('Proyecto').one('Resultados',request.id).customPUT(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(false);
                 });
             } else {
-                Restangular.all('Proyecto').all('Resultados').one('Organizacion', profile.id).customPUT(request).then(function (res) {
+                console.log(request);
+                Restangular.all('Proyecto').one('Resultados',request.id).one('Organizacion', profile.id).customPUT(request).then(function (res) {
                     deferred.resolve(res);
                 }).catch(function (err) {
                     deferred.reject(false);

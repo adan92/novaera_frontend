@@ -70,7 +70,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='row', layout-margin='', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='', ng-show='vm.showTable')
             md-card-content
-                h2.text-center(translate='') PROJECT.RESULTS.ADD_RESULTS
+                h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_RESULT': 'PROJECT.RESULTS.ADD_RESULTS')| translate}}
                 form(name='agregarResultado')
                     div(layout layout-sm="column")
                         md-input-container(flex).nombre-resultado.md-no-float
@@ -104,7 +104,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         md-input-container(flex)
                             label(translate='') PROJECT.RESULTS.FORM.DATE
                             input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
-                            format="DD/MM/YYYY",
+                            format="DD-MM-YYYY",
                             cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
                             ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
                             ng-model="vm.resultado.Fecha")
@@ -142,7 +142,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         span(translate='') PROJECT.RESULTS.ADD_RESULT
         md-card(flex='', ng-show='!vm.showTable')
             md-card-content
-                h2.text-center(translate='') PROJECT.RESULTS.ADD_PATENTS
+                h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_PATENT': 'PROJECT.RESULTS.ADD_PATENTS')| translate}}
                 form(name='agregarPatente')
 
                     div(layout layout-sm="column")
@@ -162,7 +162,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         md-input-container(flex)
                             label(translate='') PROJECT.RESULTS.FORM.REGISTER_DATE
                             input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="register", short-time="false",
-                            format="DD/MM/YYYY",
+                            format="DD-MM-YYYY",
                             required='',
                             cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
                             ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
@@ -170,7 +170,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         md-input-container(flex)
                             label(translate='') PROJECT.RESULTS.FORM.APPROVAL_DATE
                             input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="aprrove    ", short-time="false",
-                            format="DD/MM/YYYY",
+                            format="DD-MM-YYYY",
                             required='',
                             cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
                             ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",

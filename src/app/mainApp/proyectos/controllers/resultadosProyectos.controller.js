@@ -87,6 +87,7 @@
                 proms.then(function (res) {
                     vm.paises = res.Pais;
                     vm.waiting = false;
+                    console.log(vm.paises);
                     vm.isCreating = false;
                 }).catch(function (err) {
                     vm.waiting = false;
@@ -121,20 +122,33 @@
         //
         function changeResult(item)
         {
+            console.log(vm.resultado);
+            vm.resultado = null;
             vm.resultado = item;
-            if(vm.resultado.PaisesProteccion==null && vm.resultado.Tipo!='Patente')
+            console.log(vm.resultado);
+            if((vm.resultado.PaisesProteccion==null || vm.resultado.PaisesProteccion==undefined)  && vm.resultado.Tipo=='Patente') {
+                try {
+                    vm.resultado.PaisesProteccion =[];
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            /*if(vm.resultado.PaisesProteccion==null && vm.resultado.Tipo!='Patente')
             {
-                vm.resultado.PaisesProteccion = [];
+
+                vm.resultado.PaisesProteccion = null;
             }
             else
             {
-                try{
-                    vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
-                }catch (err)
-                {
+                if(vm.resultado.Tipo=='Patente') {
+                    try {
+                        vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
 
-            }
+            }*/
         }
 
         ///
@@ -199,6 +213,7 @@
          * Buscar País
          */
         function paisSearch (query) {
+            console.log("Filtrp");
             var results = query ? vm.paises.filter( createFilterForPais(query) ) : vm.paises, deferred;
             return results;
         }
@@ -208,12 +223,17 @@
          */
         function appendPais(chip)
         {
-            var index  =_.findIndex(vm.resultado.PaisesProteccion,function(obj){
-                return obj.Nombre === chip.Nombre;
-            });
-            if(index!=-1)
-            {
-                vm.resultado.PaisesProteccion.splice(index,1);
+            console.log("Append");
+            console.log(vm.resultados.PaisesProteccion);
+            if(vm.resultados.PaisesProteccion!=null) {
+                var index = _.findIndex(vm.resultado.PaisesProteccion, function (obj) {
+                    return obj.Nombre === chip.Nombre;
+                });
+                if (index != -1) {//no lo encontr
+                    vm.resultado.PaisesProteccion.splice(index, 1);
+                }
+            } else{
+                vm.resultado.PaisesProteccion.splice(index, 1);
             }
             return chip;
         }
@@ -229,7 +249,7 @@
             promise = Proyecto.getResultado(vm.selectedItem.id,'Todos');
             promise.then(function (res) {
                 res.Resultado.forEach(function(value,index){
-                    value.Fecha=moment(value.Fecha).format("DD/MM/YYYY");
+                    value.Fecha=moment(value.Fecha,"DD-MM-YYYY");
                 });
                vm.resultados = res.Resultado;
                vm.tableModel = vm.resultados;
@@ -240,8 +260,8 @@
             promise = Proyecto.getResultado(vm.selectedItem.id,'Patente');
             promise.then(function (res) {
                 res.Resultado.forEach(function(value,index){
-                    value.Fecha=moment(value.Fecha).format("DD/MM/YYYY");
-                    value.FechaAprobacion=moment(value.FechaAprobacion).format("DD/MM/YYYY");
+                    value.Fecha=moment(value.Fecha,"DD-MM-YYYY");
+                    value.FechaAprobacion=moment(value.FechaAprobacion,"DD-MM-YYYY");
                 });
                 vm.patentes = res.Resultado;
             }).catch(function(err){
@@ -266,7 +286,6 @@
             if(type=="Patente")
             {
                 vm.resultado.Tipo = type;
-                vm.resultado.PaisesProteccion = angular.toJson(vm.resultado.PaisesProteccion,0);
             }
             var request={
                 idProyecto:vm.selectedItem.id,
@@ -275,7 +294,7 @@
             var promise;
             if(vm.resultado.id !=null)
             {
-                promise=Proyecto.updateResultado(request);
+                promise=Proyecto.updateResultado(vm.resultado);
                 promise.then(function(res){
                    vm.resultado = res;
                    toastr.success(vm.successText,vm.successUpdateText);
