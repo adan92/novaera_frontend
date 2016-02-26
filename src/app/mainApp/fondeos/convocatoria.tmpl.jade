@@ -121,7 +121,7 @@
                                                         tr(md-row='md-row', md-select='requisito', md-select-id='{{requisito.Nombre}}', ng-repeat='requisito in vm.Requisitos | orderBy:vm.query.order')
                                                             td(md-cell='md-cell') {{requisito.Nombre}}
                                                             td(md-cell='md-cell') {{requisito.Descripcion}}
-                                                            td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
+                                                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                                                                 md-button.md-fab.md-warn.md-mini(ng-click='vm.eliminarRequisito(requisito)')
                                                                     md-icon(md-font-icon='fa fa-times-circle')
 
@@ -168,7 +168,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
                             td(md-cell='md-cell') {{modal.CriteriosEvaluacion}}
                             td(md-cell='md-cell') {{modal.Entregables}}
                             td(md-cell='md-cell') {{modal.FigurasApoyo}}
-                            td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
+                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                                 md-button.md-fab.md-primary.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
                                     md-icon(md-font-icon='zmdi zmdi-plus-circle')
 
@@ -202,7 +202,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
                         td(md-cell='md-cell') {{modality.CriteriosEvaluacion}}
                         td(md-cell='md-cell') {{modality.Entregables}}
                         td(md-cell='md-cell') {{modality.FigurasApoyo}}
-                        td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
+                        td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                             md-button.md-fab.md-warn.md-mini(ng-click='vm.quitarModalidadConvocatoria(modality)')
                                 md-icon(md-font-icon='fa fa-times-circle-o')
 
