@@ -82,4 +82,61 @@ div.wizard{
 
 md-tabs md-tabs-wrapper md-tabs-canvas md-tab-item.md-tab {
   max-width: inherit !important;
-} 
+}
+///Date-Picker
+::-webkit-scrollbar{
+  width:1px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgba(255,255,255,1);
+
+}
+
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+  background: #87F0F0;
+  color: #fff;
+  text-align: center;
+  padding: 3px;
+}
+
+.dtp div.dtp-date, .dtp div.dtp-time {
+  background: #00BCD4;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+}
+.dtp table.dtp-picker-days tr > td > a.selected {
+  background: #00BCD4;
+  color: #fff;
+}
+.dtp .p10 > a {
+  color: #87F0F0;
+  text-decoration: none;
+}
+
+.dtp .dtp-actual-meridien a.selected {
+  background: #87F0F0;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-minute.selected {
+  background: #00BCD4;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-hour.selected {
+  background: #87F0F0;
+  color: #fff;
+}
+.dtp .dtp-hand.on {
+  background: #00BCD4;
+}
+.dtp .dtp-buttons {
+  padding: 0 10px 10px 10px;
+  text-align: right;
+  margin: 0 auto;
+}
+.dtp div.dtp-picker {
+  padding: 2px;
+  text-align: center;
+}
