@@ -6,12 +6,18 @@
 
     angular
         .module('app.mainApp.proyectos')
-        .controller('resultadosProyectosController', resultadosProyectosController);
+        .controller('resultadosProyectosController', resultadosProyectosController)
+
+    ;
 
     /* @ngInject */
-    function resultadosProyectosController(Catalogo,Proyecto,TRL,$scope,Translate,toastr) {
+    function resultadosProyectosController( $translate,Catalogo,Proyecto,TRL,$scope,Translate,toastr,moment) {
         var vm = this;
+        vm.language="en";
+        vm.language=$translate.use();
         vm.activate = activate();
+        vm.waiting = true;
+        vm.isCreating = true;
         vm.paisesProteccion = [];
         vm.proyectosTRL=[];
         vm.resultado = {
@@ -59,8 +65,6 @@
         //Variables para la tabla
         vm.resultados         = null;
         vm.patentes           = null;
-        vm.resultadosPromise  = null;
-        vm.patentesPromise    = null;
         vm.proyectosPromise   = null;
         vm.tableModel         = null;
 
@@ -78,12 +82,23 @@
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
+
+                var proms = Catalogo.getAllCatalogo('Pais');
+                proms.then(function (res) {
+                    vm.paises = res.Pais;
+                    vm.waiting = false;
+                    vm.isCreating = false;
+                }).catch(function (err) {
+                    vm.waiting = false;
+                    vm.isCreating = false;
+                    toastr.error(vm.failureText, vm.failureLoad);
+                });
+            }).catch(function (err) {
+                vm.waiting = false;
+                vm.isCreating = false;
+                toastr.error(vm.failureText, vm.failureLoad);
             });
-            var proms = Catalogo.getAllCatalogo('Pais');
-            proms.then(function (res) {
-                vm.paises = res.Pais;
-                console.log(vm.paises);
-            });
+
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
             vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
@@ -95,6 +110,10 @@
             vm.failureText          = Translate.translate('DIALOGS.FAILURE');
             vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
+            vm.failureLoad          = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
+            vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
+            vm.dialogTextOne        = Translate.translate('DIALOGS.WARNING_ONE');
 
         }
 
@@ -111,7 +130,6 @@
             {
                 try{
                     vm.resultado.PaisesProteccion = angular.fromJson(vm.resultado.PaisesProteccion);
-                    console.log(vm.resultado.PaisesProteccion);
                 }catch (err)
                 {
                 }
@@ -210,15 +228,24 @@
             var promise=null;
             promise = Proyecto.getResultado(vm.selectedItem.id,'Todos');
             promise.then(function (res) {
+                res.Resultado.forEach(function(value,index){
+                    value.Fecha=moment(value.Fecha).format("DD/MM/YYYY");
+                });
                vm.resultados = res.Resultado;
                vm.tableModel = vm.resultados;
-            }).catch(function(err){
 
+            }).catch(function(err){
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             promise = Proyecto.getResultado(vm.selectedItem.id,'Patente');
             promise.then(function (res) {
+                res.Resultado.forEach(function(value,index){
+                    value.Fecha=moment(value.Fecha).format("DD/MM/YYYY");
+                    value.FechaAprobacion=moment(value.FechaAprobacion).format("DD/MM/YYYY");
+                });
                 vm.patentes = res.Resultado;
             }).catch(function(err){
+                toastr.error(vm.failureText, vm.failureLoad);
             });
             promise=TRL.getTRLByProject(vm.selectedItem.id);
             promise.then(function (res) {
@@ -259,7 +286,6 @@
             }
             else
             {
-                console.log(request);
                 promise=Proyecto.saveResultado(request);
                 promise.then(function(res){
                     vm.resultado = res;

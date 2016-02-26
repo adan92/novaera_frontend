@@ -18,7 +18,8 @@
         var vm = this;
         activate();
         vm.organizaciones = null;
-        vm.selectedItems = null;
+        vm.selectedItems = [];
+
         vm.selectedDocument=null;
         vm.showButtonValidate=false;
         vm.createDialog = createDialog;

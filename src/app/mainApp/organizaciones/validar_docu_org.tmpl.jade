@@ -30,7 +30,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             td(md-cell) {{organizacion.RFC}}
                             td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                                 div
-                                md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showPanelValidados(organizacion,$event)')
+                                md-button.md-primary.md-fab.md-mini(arial-label="info", ng-click='vm.showPanelValidados(organizacion,$event)')
                                     md-icon(md-font-icon="fa fa-bars")
         md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.organizaciones.length}}')
             .md-whiteframe-z1.md-padding.md-card(flex ng-show="vm.isEditing")

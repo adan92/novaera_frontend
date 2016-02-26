@@ -5,7 +5,7 @@
         .module('app', [
             'triangular','flow','ngFileUpload','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router','pascalprecht.translate', 'LocalStorageModule', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', //angularDragula(angular),
-            'restangular','toastr','ngMdIcons','oitozero.ngSweetAlert',
+            'restangular','toastr','ngMdIcons','oitozero.ngSweetAlert','ngMaterialDatePicker',
             //Gant modules
             'gantt', // angular-gantt.
             'gantt.sortable',
