@@ -10,8 +10,8 @@
                     span(translate='') PROJECT.INFO.PROJECTS_RECIENTES
                 md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos')
                     .md-list-item-text
-                        h3 {{::proyecto.Titulo}}
-                        p {{::proyecto.Descripcion}}
+                        h3 {{::proyecto.Titulo | cut:false:50:'...'}}
+                        p {{::proyecto.Descripcion | cut:false:100:'...'}}
                     md-divider
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.clickedProjects!=null')
         md-card(flex='')
