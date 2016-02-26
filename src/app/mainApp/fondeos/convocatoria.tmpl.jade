@@ -123,13 +123,13 @@
                                                                 span(translate='') FONDEOS.TABLE.DESCRIPTION
                                                                 // Cuerpo de la tabla
                                                     tbody(md-body='md-body')
-                                                        tr(md-row='md-row', md-select='requisito', md-select-id='{{requisito.Nombre}}', md-auto-select='md-auto-select', md-on-select='vm.editando()', ng-repeat='requisito in vm.Requisitos | orderBy:vm.query.order')
+                                                        tr(md-row='md-row', md-select='requisito', md-select-id='{{requisito.Nombre}}', ng-repeat='requisito in vm.Requisitos | orderBy:vm.query.order')
                                                             td(md-cell='md-cell') {{requisito.Nombre}}
                                                             td(md-cell='md-cell') {{requisito.Descripcion}}
-                                                            td(md-cell='md-cell')
+                                                            td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
                                                                 md-button.md-fab.md-warn.md-mini(ng-click='vm.editarRequisito(requisito)')
                                                                     md-icon(md-font-icon='fa fa-edit')
-                                                            td(md-cell='md-cell')
+                                                            td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
                                                                 md-button.md-fab.md-warn.md-mini(ng-click='vm.eliminarRequisito(requisito)')
                                                                     md-icon(md-font-icon='fa fa-times-circle')
 
@@ -167,7 +167,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
 
                                 // Cuerpo de la tabla
                     tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select-id='{{modal.id}}', md-auto-select='md-auto-select', md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
+                        tr(md-row='md-row', md-select-id='{{modal.id}}',  md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
                             td(md-cell='md-cell')
                                 span {{modal.Nombre}}
                             td(md-cell='md-cell')
@@ -175,7 +175,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
                             td(md-cell='md-cell') {{modal.CriteriosEvaluacion}}
                             td(md-cell='md-cell') {{modal.Entregables}}
                             td(md-cell='md-cell') {{modal.FigurasApoyo}}
-                            td(md-cell='md-cell')
+                            td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
                                 md-button.md-fab.md-primary.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
                                     md-icon(md-font-icon='zmdi zmdi-plus-circle')
 
@@ -201,7 +201,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
 
                                 // Cuerpo de la tabla
                   tbody(md-body='md-body')
-                     tr(md-row='md-row', md-select-id='{{modality.id}}', md-auto-select='md-auto-select', md-on-select='vm.quitarModalidadConvocatoria()', ng-repeat='modality in vm.ModalidadesAsociadas | orderBy:vm.query.order')
+                     tr(md-row='md-row', md-select-id='{{modality.id}}',  md-on-select='vm.quitarModalidadConvocatoria()', ng-repeat='modality in vm.ModalidadesAsociadas | orderBy:vm.query.order')
                         td(md-cell='md-cell')
                            span {{modality.Nombre}}
                         td(md-cell='md-cell')
@@ -209,7 +209,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
                         td(md-cell='md-cell') {{modality.CriteriosEvaluacion}}
                         td(md-cell='md-cell') {{modality.Entregables}}
                         td(md-cell='md-cell') {{modality.FigurasApoyo}}
-                        td(md-cell='md-cell')
+                        td(md-cell='md-cell' ng-click="$event.stopPropagation()"))
                             md-button.md-fab.md-warn.md-mini(ng-click='vm.quitarModalidadConvocatoria(modality)')
                                 md-icon(md-font-icon='fa fa-times-circle-o')
 
