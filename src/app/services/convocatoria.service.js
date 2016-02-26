@@ -106,7 +106,7 @@
 
             var deferred = $q.defer();
 
-            Restangular.one('Convocatoria',convocatoria.id).one('Modalidad', convocatoria.modalidad.id).customDELETE(convocatoria).then(function (res) {
+            Restangular.one('Convocatoria',convocatoria.idConvocatoria).one('Modalidad', convocatoria.modalidad).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);

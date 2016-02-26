@@ -43,6 +43,7 @@
         //modalidades asociadas a la convocatoria
         vm.ModalidadSeleccionada=null;
         vm.ModalidadesAsociadas=null;
+
         vm.Validator = [{
             title: 'Activo',
             value: 1
@@ -69,6 +70,10 @@
             "idConvocatoria":null,
             "Modalidad":[]
         }
+        vm.ModalidadEliminada={
+            "idConvocatoria":null,
+            "modalidad":null
+        }
         //Arreglo Convocatorias
         vm.Convocatorias=null;
 
@@ -89,7 +94,7 @@
         //objeto para agregarconvocatoria
         vm.agrega={
             "idConvocatoria" : null,
-            "Modalidad": null
+            "modalidad": null
         }
         //variables
 
@@ -122,6 +127,8 @@
         vm.quitarModalidadConvocatoria=quitarModalidadConvocatoria;//Listo
         vm.quitarTodasModalidadConvocatoria=QuitarTodasModalidadConvocatoria;//listo
         vm.crearRequisito=crearRequisito;
+        vm.eliminarRequisito=eliminarRequisito;
+        vm.editarRequisito=editarRequisito;
 
 
         //Funcionalidades
@@ -306,10 +313,15 @@
                 vm.Convocatoria=value;
                 console.log("La respuesta del server Fue:");
                 console.log(vm.Convocatoria)
+                console.log(vm.ModalidadesAsociadas)
+                vm.ModalidadAgregada.idConvocatoria=null;
+                vm.ModalidadAgregada.Modalidad=[];
+                showModalitiesRelation();
+
             });
 
             }
-            console.log(vm.ModalidadesAsociadas)
+
 
 
             showModalitiesRelation();
@@ -317,14 +329,21 @@
 
 
         //funcion para quitar modalidades de la convocatoria
-        function quitarModalidadConvocatoria() {
-
-            var promise = Convocatoria.deleteConvocatoriaModalidad(vm.Convocatoria);
+        function quitarModalidadConvocatoria(modality) {
+            console.log("Modality es igual:")
+            console.log(modality);
+            console.log("id:"+vm.Convocatoria.id)
+            vm.ModalidadEliminada.idConvocatoria=vm.Convocatoria.id;
+            vm.ModalidadEliminada.modalidad=modality.id;
+            console.log("Modalidad:"+modality.id)
+            console.log("El objeto a Enviar quedo:")
+            console.log(vm.ModalidadEliminada);
+            var promise = Convocatoria.deleteConvocatoriaModalidad(vm.ModalidadEliminada);
             promise.then(function (value) {
+                toastr.success(vm.successDeleteText,vm.successDeleteText);
 
-                vm.ModalidadesAsociadas=value;
 
-                console.log(vm.ModalidadesAsociadas)
+                showModalitiesRelation();
 
             });
         }
@@ -350,10 +369,28 @@
                 "Nombre":null,
                 "Descripcion":null
             }
+
             console.log("Los requisitos son:");
             console.log(vm.Requisitos);
             }
         }
+        // Eliminar Requisito
+        // Crear requisito
+
+       function eliminarRequisito(requisito){
+
+            vm.Requisitos.forEach(function(value,index){
+
+                if(value.nombre==requisito.nombre){
+                   vm.Requisitos.splice(index,1);
+                }
+            });
+        }
+        function editarRequisito(requisito){
+
+
+        }
+
 
         function eliminarConvocatoria() {
 

@@ -127,15 +127,18 @@
                                                             td(md-cell='md-cell') {{requisito.Nombre}}
                                                             td(md-cell='md-cell') {{requisito.Descripcion}}
                                                             td(md-cell='md-cell')
-                                                                md-button.md-fab.md-warn.md-mini(ng-click='vm.eliminarRegistro')
+                                                                md-button.md-fab.md-warn.md-mini(ng-click='vm.editarRequisito(requisito)')
+                                                                    md-icon(md-font-icon='fa fa-edit')
+                                                            td(md-cell='md-cell')
+                                                                md-button.md-fab.md-warn.md-mini(ng-click='vm.eliminarRequisito(requisito)')
                                                                     md-icon(md-font-icon='fa fa-times-circle')
 
                             label(translate='') FONDEOS.FEATURES.CLICK_TO_EDIT
                                 md-divider
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 1', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
-                md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
-                md-button.md-accent.md-raised(ng-click='vm.registrarConvocatoria()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 1 ', translate='FONDEOS.WIZARD.SEND')
+                md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.currentStep >= 1', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
+                md-button.md-accent.md-raised(ng-click='vm.registrarConvocatoria()', ng-show='triWizard.currentStep >= 1 ', translate='FONDEOS.WIZARD.SEND')
                 md-button.md-warn.md-raised(ng-click='vm.eliminarConvocatoria()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
 
@@ -207,7 +210,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always')
                         td(md-cell='md-cell') {{modality.Entregables}}
                         td(md-cell='md-cell') {{modality.FigurasApoyo}}
                         td(md-cell='md-cell')
-                            md-button.md-fab.md-warn.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
+                            md-button.md-fab.md-warn.md-mini(ng-click='vm.quitarModalidadConvocatoria(modality)')
                                 md-icon(md-font-icon='fa fa-times-circle-o')
 
 
