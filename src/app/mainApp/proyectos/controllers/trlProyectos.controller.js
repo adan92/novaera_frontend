@@ -81,6 +81,15 @@
             }).catch(function (err) {
                 toastr.error(vm.failureText, vm.failureLoad);
             });
+            var promiseChart = Proyecto.countByTRL();
+
+            promiseChart.then(function(res){
+                vm.estadisticas = res;
+            }).catch(function(err){
+
+            });
+
+
             vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
             vm.cancelText = Translate.translate('DIALOGS.CANCEL');
@@ -99,11 +108,8 @@
         }
 
 
-        //Lists de estadísticas
-        vm.estadisticas = {
-            data: [4, 2, 7, 9, 1, 3, 0, 1, 0],
-            labels: ['TRL1', 'TRL2', 'TRL3', 'TRL4', 'TRL5', 'TRL6', 'TRL7', 'TRL8', 'TRL9']
-        };
+
+
 
 
         function selectedItemChange(item) {

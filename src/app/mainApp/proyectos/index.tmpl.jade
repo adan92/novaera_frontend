@@ -2,17 +2,39 @@
     div(layout='row', layout-sm='column', layout-md='column')
         md-card(flex, layout='column')
             h2.text-center(translate='') PROJECT.INFO.MY_PROJECTS
+
+            h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
+            div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
+                md-progress-circular(md-mode='indeterminate')
             md-card-content(layout-align='center center')
-                canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.my_projects_data', chart-labels='vm.my_projects_labels', chart-legend='true')
+                div(ng-show='vm.loadingDescriptorData==false')
+                    canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PROJECT.INFO.INSTRUCTIONS_CHART
+                div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+
+                form(name='selectTipoDescriptorForm' ng-show='vm.tipoDescriptores!=null')
+                    md-input-container
+                        label
+                            span(translate) PROJECT.INFO.SELECT_DESCRIPTOR_TYPE
+                        md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.getDescriptores()')
+                            md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                | {{tipoDescriptor.Nombre}}
+
         md-card(flex, layout='column')
-            md-list
+
+           div(layout='row' layout-sm='column' ng-show='vm.loadingProyectos==true || vm.proyectos==null' layout-align='center center')
+                md-progress-circular(md-mode='indeterminate')
+           md-list(ng-show='vm.proyectos!=null && vm.loadingProyectos==false')
                 md-subheader.md-no-sticky
                     span(translate='') PROJECT.INFO.PROJECTS_RECIENTES
-                md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos')
+                md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos | limitTo:4')
                     .md-list-item-text
                         h3 {{::proyecto.Titulo | cut:false:50:'...'}}
                         p {{::proyecto.Descripcion | cut:false:100:'...'}}
                     md-divider
+           md-button.md-primary.md-raised(ng-show='vm.selectedDescriptor!=null' ng-click='vm.getProyectos()')
+                span(translate) PROJECT.INFO.ALL_PROJECTS
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.clickedProjects!=null')
         md-card(flex='')
             md-list
@@ -27,31 +49,37 @@
     div(layout='row', layout-sm='column', layout-md='column')
         md-card(flex='')
             md-card-content(layout='column')
-                h2 Búsqueda por proyecto
-                md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0',
-                 placeholder="{{ 'PROJECT.INFO.PLACEHOLDER.SEARCH_PROJECT' | translate }}" )
-                    span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
-                md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='vm.selectedItem!=null')
-                    md-tab#general
-                        md-tab-label
-                            span(translate='') PROJECT.INFO.TABS.GENERAL
-                        .wizard
-                            h3(translate='') PROJECT.FORM.PROJECT_TITLE
-                            | {{vm.selectedItem.Titulo}}
-                            h3(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
-                            | {{vm.selectedItem.Descripcion}}
-                            h3(translate='') PROJECT.FORM.PROJECT_AIM
-                            .show-info(ng-bind-html='vm.selectedItem.Objetivos')
-                    md-tab#historico
-                        md-tab-label
-                            span(translate='') PROJECT.INFO.TABS.HISTORICAL_TRL
-                        .wizard(layout='column')
-                            h3 TRL
-                            div(ng-repeat='trl in vm.selectedItem.TRL')
-                                div(layout='row')
-                                    span(translate='') PROJECT.INFO.TRL_DESCRIPTION
-                                    span : {{trl.Descripcion}}
-                                div(layout='row')
-                                    span(translate='') PROJECT.INFO.TRL_DATE
-                                    span : {{trl.Fecha}}
-                                md-divider
+                h2.headline(translate) PROJECT.INFO.PROJECT_LIST
+                div(layout='row' layout-sm='column' ng-show='vm.loadingProyectos==true || vm.proyectos==null' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+                md-table-container(flex ng-show='vm.loadingProyectos==false && vm.proyectos!=null')
+                    table(flex md-table='')
+                        thead(flex md-head='', md-order='vm.query.order')
+                            tr(flex md-row='md-row')
+                                th(md-column='md-column', md-order-by='Titulo')
+                                    span Proyecto
+                                th(md-column='md-column', md-order-by='Descripcion')
+                                    span Descripción
+                                th(md-column='md-column', md-order-by='Antecedentes')
+                                    span Antecedentes
+                                th(md-column='md-column', md-order-by='Objetivos')
+                                    span Objetivos
+                                th(md-column='md-column', md-order-by='Alcances')
+                                    span Alcances
+                                th(md-column='md-column')
+                                    span Información
+
+                        // Cuerpo de la tabla
+                        tbody(md-body='md-body' flex)
+                            tr(flex md-row='md-row', ng-repeat='proyecto in vm.proyectos | orderBy:vm.query.order')
+                                td(md-cell='md-cell') {{proyecto.Titulo | cut:false:50:"..."}}
+                                td(md-cell='md-cell') {{proyecto.Descripcion | cut:false:50:"..."}}
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='proyecto.Antecedentes | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='proyecto.Objetivos | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='proyecto.Alcances | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,proyecto)' aria-label='informationButton')
+                                        ng-md-icon(icon='menu' size='22')
