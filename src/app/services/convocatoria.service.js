@@ -20,6 +20,7 @@
             showModalitiesRelation:showModalitiesRelation,
             updateConvocatoria:updateConvocatoria,
             addConvocatoriaModalidad:addConvocatoriaModalidad,
+            deleteConvocatoria:deleteConvocatoria,
             deleteConvocatoriaModalidad:deleteConvocatoriaModalidad,
             deleteConvocatoriaModalidadAll:deleteConvocatoriaModalidadAll
         };
@@ -76,6 +77,20 @@
 
             return deferred.promise;
         }
+
+        function deleteConvocatoria(convocatoria) {
+
+            var deferred = $q.defer();
+
+            Restangular.one('Convocatoria', convocatoria.id).customDELETE().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
+        }
         function showModalitiesRelation(convocatoria){
             var deferred = $q.defer();
 
@@ -97,15 +112,13 @@
             }).catch(function (err) {
                 deferred.reject(err);
             });
-
-
             return deferred.promise;
         }
         function deleteConvocatoriaModalidad(convocatoria){
 
             var deferred = $q.defer();
 
-            Restangular.one('Convocatoria',convocatoria.id).one('Modalidad', convocatoria.modalidad.id).customDELETE(convocatoria).then(function (res) {
+            Restangular.one('Convocatoria',convocatoria.idConvocatoria).one('Modalidad', convocatoria.modalidad).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);

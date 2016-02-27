@@ -27,8 +27,7 @@
       "REQUERIMENTS": "Requisitos de Fondeo",
       "SUPPORT_FIGURE": "Figura de Apoyo",
       "FILES": "Entregables",
-
-
+      "DELETE":"Eliminar",
       "REQUIRED-FIELD":"Éste campo es requerido",
       "COMPLETED": "Completado",
       "PREV": "Anterior",
@@ -46,6 +45,7 @@
       "FONDEO_TOTAL": "Total del Fondo",
       "FONDEO_TARGET": "Publico Objetivo",
       "CLICK_TO_WRITE":"Escribe arriba",
+      "CLICK_TO_EDIT":"Selecciona",
       "FONDEO_MODALITY": "Modalidades del Proyecto",
       "FONDEO_CALL": "Convocatoria del Proyecto",
       "FONDEO_REGISTRED":"Programas de Fondeo Registrados",
@@ -105,7 +105,8 @@
       "DESC_RUBRO":"Descripción del rubro",
       "CHECKLIST":"Entregables",
       "FONDEOS":"Programa de Fondeo",
-      "CHOOSE":"Selecciona la Modalidad que desees editar"
+      "CHOOSE":"Selecciona la Modalidad que desees editar",
+      "STATUS":"Estado actual de la Convocatoria"
 
     },
     "CALL":
@@ -126,7 +127,12 @@
       "PREV": "Anterior",
       "NEXT": "Siguiente",
       "SEND": "Enviar",
-      "GENERAL":"Datos Generales"
+      "GENERAL":"Datos Generales",
+      "CHOOSE":"Selecciona la Convocatoria que desees editar",
+      "REQUERIMENTNAME":"Nombre del Requisito",
+      "REQUERIMENTDESC":"Descripcion del Requisito",
+      "INSTRUCTIONSMODALITY":"Selecciona las Modalidades a Agregar a la Convocatoria",
+      "INSTRUCTIONSMODALITYRELATION":"Al seleccionar Eliminas Las modalidades de la Convocatoria"
     },
     "DESCRIPTOR":
     {
@@ -137,6 +143,16 @@
       "CURRENT":"Descriptores Actuales",
       "TYPE":"Tipo de Descriptor",
       "NOTES":"Observaciones"
+    },
+    "TABLE":{
+        "NAME":"Nombre",
+        "DESCRIPTION":"Descripción",
+        "TITLE":"Titulo",
+        "AMOUNT":"Monto",
+        "EVALUATION":"Criterios de Evaluación",
+        "FILES":"Entregables",
+        "SUPPORT":"Figuras de Apoyo",
+        "ADD":"Agregar a Convocatoria"
     }
 
 

@@ -38,8 +38,11 @@
             "created_at":null,
             "updated_at":null
         }
+
+
         //arreglo de modalidades
         vm.Modalidades=null;
+        vm.ModalidadesFondeo=null;
         //variables
         vm.selectedFondeo = null;
         vm.tmp = null;
@@ -117,6 +120,7 @@
             vm.isNewModalidad=null;
 
 
+
         }
 
         //Funcion Para eliminar Modalidades
@@ -178,17 +182,7 @@
             promise.then(function (value) {
                 vm.Modalidades = value;
             });
-
-
-
-
-
-
-
-
-
-
-        }
+       }
 
 
     }})();
