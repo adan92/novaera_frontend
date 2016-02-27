@@ -54,6 +54,7 @@
       "SELECT_DESCRIPTOR_TYPE_TO_SHOW": "Selecciona un tipo de Descriptor para mostrar datos",
       "INSTRUCTIONS_CHART": "Da click a un elemento en la gráfica para mostrar los proyectos",
       "ALL_PROJECTS":"Todos los proyectos",
+      "PROJECT_LIST":"Lista de proyectos",
       "MY_PROJECTS": "Mis Proyectos",
       "TRL_DESCRIPTION": "Descripción de TRL",
       "TRL_DATE": "Fecha",

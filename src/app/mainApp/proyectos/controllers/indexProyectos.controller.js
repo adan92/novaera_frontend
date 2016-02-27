@@ -6,7 +6,7 @@
         .controller('indexProyectosController', indexProyectosController);
 
     /* @ngInject */
-    function indexProyectosController(Proyecto,Descriptor, TRL, Translate, toastr) {
+    function indexProyectosController(Proyecto,Descriptor, $mdDialog, Translate, toastr) {
         var vm = this;
 
         /* Variables */
@@ -16,8 +16,8 @@
         vm.selectedDescriptor           = null;
         vm.descriptores                 = null;
         vm.loadingProyectos             = false;
+        vm.loadingDescriptorData        = false;
         vm.Chart                        = null;
-
 
         vm.clickedProjects              = null;
         vm.proyectos                    = null;
@@ -30,12 +30,11 @@
 
         vm.activate                     = activate();
         vm.clear                        = clear;
-        vm.selectedItemChange           = selectedItemChange;
-        vm.querySearch                  = querySearch;
         vm.onClick                      = onClick;
         vm.getDescriptores              = getDescriptores;
         vm.getProyectosByDescriptor     = getProyectosByDescriptor;
         vm.getProyectos                 = getProyectos;
+        vm.openDialog                   = openDialog;
 
         function activate() {
             getProyectos();
@@ -68,23 +67,6 @@
         }
 
 
-        vm.my_projects_labels = ['Electricidad', 'Agronomía', 'Calzado'];
-        vm.my_projects_data = ['3', '5', '6'];
-
-        //////////////////
-        function querySearch(query) {
-            var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
-            return results;
-        }
-
-        /**
-         * Create filter function for a query string
-         */
-        function createFilterFor(query) {
-            return function filterFn(proyecto) {
-                return (proyecto.Titulo.indexOf(query) === 0);
-            };
-        }
 
         function getProyectos() {
             vm.loadingProyectos = true;
@@ -100,16 +82,6 @@
             });
         }
 
-        function selectedItemChange(item) {
-            if (item != null) {
-                var proms = TRL.getTRLByProject(item.id);
-                proms.then(function (res) {
-                    vm.selectedItem.TRL = res.TRL;
-                }).catch(function (err) {
-                    toastr.error(vm.failureLoad, vm.failureText);
-                });
-            }
-        }
 
         function getTipoDescriptores()
         {
@@ -122,8 +94,13 @@
         }
 
 
+        /**
+         *
+         */
+
         function getDescriptores()
         {
+            vm.loadingDescriptorData = true;
             var promise = Descriptor.callAssosciated(vm.selectedTipoDescriptor);
             promise.then(function(res){
                 console.log(res);
@@ -135,11 +112,16 @@
             var promiseChart = Proyecto.countByTipoDescriptor(vm.selectedTipoDescriptor);
 
             promiseChart.then(function(res){
+                vm.loadingDescriptorData = false;
                vm.Chart = res;
             }).catch(function(err){
 
             });
         }
+
+        /**
+         *
+         */
 
         function getProyectosByDescriptor()
         {
@@ -151,9 +133,35 @@
             }).catch(function(err){
 
             });
+        }
+
+
+        /**
+         *
+         */
+        function openDialog(event,proyecto)
+        {
+            var config = {
+                controller: 'proyectoIndexDialogController',
+                templateUrl:'app/mainApp/proyectos/infoDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent:event,
+                clickOutsideToClose:true,
+                fullscreen: true,
+                locals:{selectedProyecto:proyecto},
+                controllerAs: 'vm'
+            };
+
+            $mdDialog.show(config).then(function(reply){
+
+            },function()
+            {
+
+            });
 
 
         }
+
 
     }
 })();

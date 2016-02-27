@@ -21,6 +21,7 @@
             deleteResultado: deleteResultado,
             getByDescriptor: getByDescriptor,
             countByTipoDescriptor:countByTipoDescriptor,
+            countByTRL:countByTRL,
             getDescriptoresProject: getDescriptoresProject,
             getResultados: getResultados,
             getDescriptorResultado: getDescriptorResultado,
@@ -381,7 +382,25 @@
             return deferred.promise;
         }
 
-
+        function countByTRL()
+        {
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').all('TRL').all('Count').customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }else{
+                Restangular.all('Proyecto').all('TRL').all('Count').one('Organizacion', profile.id).customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
 
 
 
