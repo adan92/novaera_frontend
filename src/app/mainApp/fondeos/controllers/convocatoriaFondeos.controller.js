@@ -36,13 +36,13 @@
             "Entregables": null,
             "created_at": null,
             "updated_at": null
-        }
+        };
         //arreglo de modalidades
         //Todas las Modalidades
         vm.Modalidades = [];
         //modalidades asociadas a la convocatoria
         vm.ModalidadSeleccionada = [];
-        vm.ModalidadesAsociadas = null;
+        vm.ModalidadesAsociadas =[] ;
 
         vm.Validator = [{
             title: 'Activo',
@@ -65,15 +65,15 @@
             "updated_at": null,
             "modalidad": null
 
-        }
+        };
         vm.ModalidadAgregada = {
             "idConvocatoria": null,
             "Modalidad": []
-        }
+        };
         vm.ModalidadEliminada = {
             "idConvocatoria": null,
             "modalidad": null
-        }
+        };
         //Arreglo Convocatorias
         vm.Convocatorias = null;
 
@@ -81,7 +81,7 @@
         vm.requisito = {
             "Nombre": null,
             "Descripcion": null
-        }
+        };
         //Arreglo requisitos
         vm.Requisitos = [];
         //Objeto de tabla Pivote:
@@ -90,12 +90,12 @@
             "idModalidad": null,
             "created_at": null,
             "updated_at": null
-        }
+        };
         //objeto para agregarconvocatoria
         vm.agrega = {
             "idConvocatoria": null,
             "modalidad": null
-        }
+        };
         //variables
 
 
@@ -228,7 +228,7 @@
             vm.requisito = {
                 "Nombre": null,
                 "Descripcion": null
-            }
+            };
             vm.selectedRequisito = null;
             vm.isNewRequisito = null;
             vm.Convocatoria = null;
@@ -244,7 +244,7 @@
             vm.Convocatoria.ProgramaAsociado = vm.selectedFondeo.id;
             vm.Convocatoria.Requisitos = vm.Requisitos;
             console.log("Entrando a la funcion");
-            console.log(vm.Convocatoria)
+            console.log(vm.Convocatoria);
             if (vm.Convocatoria.id == null) {
                 console.log("Creando Convocatoria");
                 var promise = Convocatoria.crearConvocatoria(vm.Convocatoria);
@@ -288,8 +288,8 @@
             promise.then(function (value) {
 
                 vm.ModalidadesAsociadas = value;
-                console.log("Modalidades Asociadas:")
-                console.log(vm.ModalidadesAsociadas)
+                console.log("Modalidades Asociadas:");
+                console.log(vm.ModalidadesAsociadas);
 
             });
         }
@@ -299,16 +299,16 @@
 
             //vm.agrega.idConvocatoria=vm.Convocatoria.id;
             //vm.agrega.Modalidad=modal.id;
-            console.log("Modal es igual:")
+            console.log("Modal es igual:");
             console.log(modal);
-            console.log("id:" + vm.Convocatoria.id)
+            console.log("id:" + vm.Convocatoria.id);
             vm.ModalidadAgregada.idConvocatoria = vm.Convocatoria.id;
             vm.ModalidadAgregada.Modalidad.push(modal.id);
-            console.log("Modalidad:" + modal.id)
-            console.log("El objeto a Enviar quedo:")
+            console.log("Modalidad:" + modal.id);
+            console.log("El objeto a Enviar quedo:");
             console.log(vm.ModalidadAgregada);
             if (modal != null) {
-                console.log("Voy a hacer el promise:")
+                console.log("Voy a hacer el promise:");
                 //Prueba Manual
 
                 console.log(vm.ModalidadAgregada);
@@ -316,11 +316,11 @@
                 var promise = Convocatoria.addConvocatoriaModalidad(vm.ModalidadAgregada);
                 promise.then(function (value) {
                     toastr.success(vm.successText, vm.successStoreText);
-                    console.log("Ya hice el promise")
+                    console.log("Ya hice el promise");
                     vm.Convocatoria = value;
                     console.log("La respuesta del server Fue:");
-                    console.log(vm.Convocatoria)
-                    console.log(vm.ModalidadesAsociadas)
+                    console.log(vm.Convocatoria);
+                    console.log(vm.ModalidadesAsociadas);
                     vm.ModalidadAgregada.idConvocatoria = null;
                     vm.ModalidadAgregada.Modalidad = [];
                     showModalitiesRelation();
@@ -341,8 +341,8 @@
             console.log("id:" + vm.Convocatoria.id)
             vm.ModalidadEliminada.idConvocatoria = vm.Convocatoria.id;
             vm.ModalidadEliminada.modalidad = modality.id;
-            console.log("Modalidad:" + modality.id)
-            console.log("El objeto a Enviar quedo:")
+            console.log("Modalidad:" + modality.id);
+            console.log("El objeto a Enviar quedo:");
             console.log(vm.ModalidadEliminada);
             var promise = Convocatoria.deleteConvocatoriaModalidad(vm.ModalidadEliminada);
             promise.then(function (value) {
@@ -361,7 +361,7 @@
 
                 vm.ModalidadesAsociadas = value;
 
-                console.log(vm.ModalidadesAsociadas)
+                console.log(vm.ModalidadesAsociadas);
 
             });
         }
@@ -393,19 +393,22 @@
         function eliminarRequisito(requisito) {
 
             vm.requisitocopy=requisito;
-            var index;
+            var index=0;
 
             for (index = 0; index < vm.Requisitos.length; ++index) {
-                console.log("Requisito copy");
+
                 console.log(vm.requisitocopy);
-                console.log("Value")
                 console.log(vm.Requisitos[index]);
                 if (vm.Requisitos[index].nombre == vm.requisitocopy.nombre) {
-                    console.log(vm.requisitocopy);
-                    console.log(vm.Requisitos);
-                    console.log(index)
-                    vm.Requisitos.splice(index, 1);
-                    index=vm.Requisitos.length+1;
+
+                    console.log(index);
+                    if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
+                          console.log("voy a borrar");
+                          console.log(vm.Requisitos[index]);
+                          vm.Requisitos.splice(index, 1);
+                    }
+                    index=vm.Requisitos.length;
+                    console.log(index);
 
                 }
 

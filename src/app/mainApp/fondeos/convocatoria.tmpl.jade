@@ -52,13 +52,16 @@
                                                      div(ng-message='', when='required')
                                                         span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                                   md-input-container
+                                       md-input-container
                                            label(translate='') FONDEOS.CALL.END_DATE_CALL
-                                                md-datepicker(ng-enabled='vm.Convocatoria.FechaInicio!=null', ng-model='vm.Convocatoria.FechaTermino')
-                                                div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                    div(ng-message='', when='required')
-                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
-                                   md-input-container
+                                           md-datepicker(ng-enabled='vm.Convocatoria.FechaTermino!=null', ng-model='vm.Convocatoria.FechaTermino')
+                                           div(ng-messages='convocatoriaInfo.descripcion.$error')
+                                               div(ng-message='', when='required')
+                                                   span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+
+
+
+                                    md-input-container
                                         label(translate='') FONDEOS.CALL.MAX_AMOUNT
                                         input(name='money', required='', type='number', ng-model='vm.Convocatoria.MontosMaximosTotales', min='0', max='10000000000')
                                         div(ng-messages='convocatoriaInfo.descripcion.$error')
@@ -140,9 +143,8 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
     md-tab(label='Modalidades Disponibles')
         md-content.md-padding
             h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
-
-              md-table-container
-                table(md-table='', md-row-select='', ng-model='vm.ModalidadSeleccionada')
+            md-table-container
+                table(md-table='', md-row-select='', ng-model='Modalidades')
                     thead(md-head='', md-order='vm.query.order')
                         tr(md-row='md-row')
                             th(md-column='md-column', md-order-by='Nombre')
@@ -158,7 +160,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
                             th(md-column='md-column')
                                 span(translate='') FONDEOS.TABLE.ADD
 
-                                // Cuerpo de la tabla
+                                    // Cuerpo de la tabla
                     tbody(md-body='md-body')
                         tr(md-row='md-row', md-select-id='{{modal.id}}',  md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
                             td(md-cell='md-cell')
@@ -176,7 +178,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
         md-content.md-padding
             h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
             md-table-container
-               table(md-table='', md-row-select='', ng-model='vm.Modalidad')
+               table(md-table='', md-row-select='', ng-model='vm.ModalidadesAsociadas')
                   thead(md-head='', md-order='vm.query.order')
                      tr(md-row='md-row')
                         th(md-column='md-column', md-order-by='Nombre')
