@@ -2,17 +2,37 @@
     div(layout='row', layout-sm='column', layout-md='column')
         md-card(flex, layout='column')
             h2.text-center(translate='') PROJECT.INFO.MY_PROJECTS
+
+            h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
+
             md-card-content(layout-align='center center')
-                canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.my_projects_data', chart-labels='vm.my_projects_labels', chart-legend='true')
+                canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PROJECT.INFO.INSTRUCTIONS_CHART
+                div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+
+                form(name='selectTipoDescriptorForm' ng-show='vm.tipoDescriptores!=null')
+                    md-input-container
+                        label
+                            span(translate) PROJECT.INFO.SELECT_DESCRIPTOR_TYPE
+                        md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.getDescriptores()')
+                            md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                | {{tipoDescriptor.Nombre}}
+
         md-card(flex, layout='column')
-            md-list
+
+           div(layout='row' layout-sm='column' ng-show='vm.loadingProyectos==true || vm.proyectos==null' layout-align='center center')
+                md-progress-circular(md-mode='indeterminate')
+           md-list(ng-show='vm.proyectos!=null && vm.loadingProyectos==false')
                 md-subheader.md-no-sticky
                     span(translate='') PROJECT.INFO.PROJECTS_RECIENTES
-                md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos')
+                md-list-item.md-2-line(ng-repeat='proyecto in vm.proyectos | limitTo:4')
                     .md-list-item-text
                         h3 {{::proyecto.Titulo | cut:false:50:'...'}}
                         p {{::proyecto.Descripcion | cut:false:100:'...'}}
                     md-divider
+           md-button.md-primary.md-raised(ng-show='vm.selectedDescriptor!=null' ng-click='vm.getProyectos()')
+                span(translate) PROJECT.INFO.ALL_PROJECTS
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.clickedProjects!=null')
         md-card(flex='')
             md-list
