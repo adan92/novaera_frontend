@@ -12,7 +12,9 @@
             wizardOperation: wizardOperation,
             wizardFiles:wizardFiles,
             getResults:getResults,
-            validateSolicitud: validateSolicitud
+            validateSolicitud: validateSolicitud,
+            countOrgDescriptorType:countOrgDescriptorType,
+            getOrgByDescriptor:getOrgByDescriptor
         };
 
         function getStatusProjects() {
@@ -67,6 +69,41 @@
             var deferred = $q.defer();
             Restangular.all('RegistroProyecto').one('Validate',id).customPUT(solicitud).then(function (res) {
                 deferred.resolve(res);
+            }).catch(function (err) {
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+        /**
+         * @param id
+         * @returns {*}
+         */
+
+        function countOrgDescriptorType(id)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('Organizacion').all('TipoDescriptor').one('Count',id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+        /**
+         *
+         * @param id
+         * @returns {*}
+         */
+
+        function getOrgByDescriptor(id)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('Organizacion').one('ByDescriptor',id).customGET().then(function (res) {
+                deferred.resolve(res.Organizacion);
             }).catch(function (err) {
                 console.log(err);
                 deferred.reject(false);

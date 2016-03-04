@@ -99,6 +99,24 @@
                 requirePrivileges:'Supervisor',
                 redirect:'auth.login'
             }
+        }).state('triangular.admin-default.stats_org',{
+            url:'/estadisticas_organizacion',
+            templateUrl:'app/mainApp/organizaciones/stats_organizacion.tmpl.html',
+            controller: 'statsOrganizacionController',
+            controllerAs: 'vm',
+            data:{
+                layout:{
+                    toolbarSize: 'default',
+                    toolbarShrink: true,
+                    toolbarClass: 'none',
+                    contentClass: '',
+                    sideMenuSize: 'full',
+                    footer: true
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
+            }
         })
 
         ;

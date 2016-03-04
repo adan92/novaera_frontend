@@ -134,7 +134,14 @@
             type: 'dropdown',
             icon: 'fa fa-institution',
             priority: 2.1,
-            children: [{
+            children: [
+              {
+                name:'Estadísticas',
+                state: 'triangular.admin-default.stats_org',
+                icon: 'fa fa-line-chart',
+                type: 'link'
+              },
+              {
               name: 'Validar Organización',
               state: 'triangular.admin-default.validar_organizacion',
               icon: 'fa fa-users',

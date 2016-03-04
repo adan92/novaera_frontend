@@ -35,6 +35,10 @@
       "EXPERIENCE": "Experiencias",
       "CONSTITUTIVE_ACT": "Acta Constitutiva (Arrastra archivo aquí)"
     },
+    "STATS":{
+      "LOOKUP_STATS":"Buscar estadísticas"
+    },
+
     "DOCUMENTOS":{
       "VALIDATE":"Validar Documento"
     },

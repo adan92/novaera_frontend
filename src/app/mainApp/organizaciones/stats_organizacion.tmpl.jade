@@ -1,0 +1,34 @@
+//
+   Created by lockonDaniel on 3/3/16.
+div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    div(layout='row' layout-sm='column')
+        md-card(flex layout='row')
+            md-card-content
+                h2.md-display-1(translate) ORGANIZATION.STATS.LOOKUP_STATS
+                div(ng-show='vm.loadingDescriptorData==false && vm.selectedTipoDescriptor!=null')
+                    canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClickChart', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') ORGANIZATION.STATS.INSTRUCTIONS_CHART
+                div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+
+                form(flex name='selectTipoDescriptorForm' ng-show='vm.tipoDescriptores!=null')
+                    md-input-container
+                        label
+                            span(translate) ORGANIZATION.STATS.SELECT_DESCRIPTOR_TYPE
+                        md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.countOrganizaciones()')
+                            md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                | {{tipoDescriptor.Nombre}}
+        md-card(flex, layout='column')
+            md-card-content
+            div(layout='row' layout-sm='column' ng-show='vm.loadingOrganizaciones==true || vm.organizaciones==null' layout-align='center center')
+                md-progress-circular(md-mode='indeterminate')
+            md-list(ng-show='vm.organizaciones!=null && vm.loadingOrganizaciones==false')
+                md-subheader.md-no-sticky
+                    span(translate='') ORGANIZATION.STATS.RECENT_ORGANIZATIONS
+                md-list-item.md-2-line(ng-repeat='organizacion in vm.organizaciones | limitTo:4')
+                    .md-list-item-text
+                        h3 {{::organizacion.Titulo | cut:false:50:'...'}}
+                        p {{::organizacion.Descripcion | cut:false:100:'...'}}
+                    md-divider
+            md-button.md-primary.md-raised(ng-show='vm.selectedDescriptor!=null' ng-click='vm.getOrganizaciones()')
+                span(translate) ORGANIZATION.STATS.ALL_ORGANIZACIONES
