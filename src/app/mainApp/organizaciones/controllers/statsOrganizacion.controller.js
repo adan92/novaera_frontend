@@ -10,7 +10,7 @@
         .module('app.mainApp.organizaciones')
         .controller('statsOrganizacionController',statsOrganizacionController);
 
-    function statsOrganizacionController(Descriptor,Admin,Organizacion){
+    function statsOrganizacionController(Descriptor,Admin,Organizacion,$mdDialog){
         var vm = this;
 
         activate();
@@ -25,11 +25,12 @@
         vm.loadingDescriptorData        = true;
         vm.loadingOrganizaciones        = false;
 
+
         /*Functions*/
         vm.countOrganizaciones          = countOrganizaciones;
         vm.onClickChart                 = onClickChart;
         vm.getOrganizaciones            = getAllOrganizaciones;
-
+        vm.openDialog                   = openDialog;
 
         function activate()
         {
@@ -118,6 +119,27 @@
                 vm.organizaciones = res;
                 vm.loadingOrganizaciones=false;
             }).catch(function(err){
+
+            });
+
+        }
+
+        function openDialog(event,organizacion)
+        {
+            var config = {
+                controller: 'organizacionStatsDialogController',
+                templateUrl:'app/mainApp/organizaciones/infoDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent:event,
+                clickOutsideToClose:true,
+                fullscreen: true,
+                locals:{selectedOrganizacion:organizacion},
+                controllerAs: 'vm'
+            };
+            $mdDialog.show(config).then(function(reply){
+
+            },function()
+            {
 
             });
 

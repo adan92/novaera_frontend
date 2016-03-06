@@ -15,24 +15,10 @@
            'app.mainApp.admin',
            'app.mainApp.explotacionInformacion',
            'app.mainApp.descriptor',
-           'app.mainApp.profile',
+           'app.mainApp.profile'
 
 
-        ])
-        .filter('offset', function() {
-        return function (input, start) {
-            if (input != null) {
-                return input.slice(parseInt(start, 10));
-            }
-            return null;
-        };
-        }).filter('routeFilter',function(){
-        return function(input)
-        {
-            if(input===undefined)
-                return "";
-            return input.split('/').pop();
-        }
-    });
+        ]);
+
 
 })();

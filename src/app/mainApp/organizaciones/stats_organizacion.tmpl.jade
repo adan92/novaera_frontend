@@ -32,3 +32,45 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     md-divider
             md-button.md-primary.md-raised(ng-show='vm.selectedDescriptor!=null' ng-click='vm.getOrganizaciones()')
                 span(translate) ORGANIZATION.STATS.ALL_ORGANIZACIONES
+
+
+
+
+    div(layout='column')
+        md-card(flex='')
+            md-card-content(layout='column')
+                    h2.headline(translate) ORGANIZATION.STATS.ORGANIZATION_LIST
+                    h2.md-title(ng-show='vm.organizaciones!=null') &nbsp;{{vm.organizaciones.length | countName}}
+                div(layout='row' layout-sm='column' ng-show='vm.loadingOrganizaciones==true || vm.organizaciones==null' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+                md-table-container(flex ng-show='vm.loadingOrganizaciones==false && vm.organizaciones!=null')
+                    table(flex md-table='')
+                        thead(flex md-head='', md-order='vm.query.order')
+                            tr(flex md-row='md-row')
+                                th(md-column='md-column', md-order-by='Titulo')
+                                    span Organización
+                                th(md-column='md-column', md-order-by='Descripcion')
+                                    span Descripción
+                                th(md-column='md-column', md-order-by='RFC')
+                                    span RFC
+                                th(md-column='md-column', md-order-by='RazonSocial')
+                                    span Razon Social
+                                th(md-column='md-column', md-order-by='RepresentanteLegal')
+                                    span Representante Legal
+                                th(md-column='md-column')
+                                    span Información
+
+                        // Cuerpo de la tabla
+                        tbody(md-body='md-body' flex)
+                            tr(flex md-row='md-row', ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
+                                td(md-cell='md-cell') {{organizacion.Titulo | cut:false:50:"..."}}
+                                td(md-cell='md-cell') {{organizacion.Descripcion | cut:false:50:"..."}}
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='organizacion.RFC | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='organizacion.RazonSocial | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    span.table-span(ng-bind-html='organizacion.RepresentanteLegal | cut:false:50:"..."')
+                                td(md-cell='md-cell')
+                                    md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,organizacion)' aria-label='informationButton')
+                                        ng-md-icon(icon='menu' size='22')

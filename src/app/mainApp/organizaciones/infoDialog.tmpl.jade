@@ -1,0 +1,62 @@
+//
+   Created by lockonDaniel on 3/6/16.
+
+md-dialog(flex-gt-md='100' aria-label='Información de Organización')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h1.md-display-2 Información de la Organización
+                span(flex='')
+                md-button.md-icon-button(ng-click='vm.cancel()')
+                    ng-md-icon(icon='close', aria-label='Close dialog')
+        md-dialog-content(flex layout='column')
+            md-tabs(md-dynamic-height='', md-border-bottom='', md-stretch-tabs='always')
+                md-tab(flex label='General')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-sm='column' layout-md='column')
+                            h2.md-headline.text-center Información de la Organización
+                            span.md-title Título :&nbsp;
+                            span.subhead {{vm.organizacion.Titulo}}
+                            span.md-title Descripción:&nbsp;
+                            span.subhead(ng-bind-html='vm.organizacion.Descripcion')
+                            span.md-title Misión:&nbsp;
+                            span.subhead(ng-bind-html='vm.organizacion.Mision')
+                            span.md-title Visión:&nbsp;
+                            span.subhead(ng-bind-html='vm.organizacion.Vision')
+
+                md-tab(flex label='Personas')
+                    md-content.md-padding(flex)
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.ejecucion==null')
+                            md-progress-circular(md-mode='indeterminate')
+                        div(flex layout='column' ng-show='vm.ejecucion!=null')
+                            h2.md-headline.text-center Ejecución del Proyecto
+                            span
+                                span.md-title Requisitos:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.Requisitos')
+                            span
+                                span.md-title Analisis de Entorno:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.AnalisisEntornoP')
+                            span
+                                span.md-title Factibilidad Técnica:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadTecnicaP')
+                            span
+                                span.md-title Factibilidad Económica:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadEconomicaP')
+                            span
+                                span.md-title Benchmark Comercial:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadComercialP')
+                            span
+                                span.md-title Benchmark Tecnológico:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.BenchmarkTecnologicoP')
+                            span
+                                span.md-title Recursos Humanos:&nbsp;
+                                span.subhead(ng-bind-html='vm.ejecucion.RecursosHumanosP')
+                            h2.md-headline.text-center Archivos de Ejecución
+                                ul(ng-repeat='file in vm.ejecucionFiles')
+                                    li
+                                        a(target='_blank' href='{{vm.fileRoute+file.Ruta}}')
+                                            h3.md-subhead {{file.Tipo}} : {{file.Ruta | routeFilter}}
+
+            md-dialog-actions(layout='row' layout-align='end center')
+                md-button.md-raised.md-primary(ng-click="vm.cancel()")
+                    | Cerrar
