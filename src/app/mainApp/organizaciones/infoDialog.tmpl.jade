@@ -38,7 +38,7 @@ md-dialog(flex-gt-md='100' aria-label='Información de Organización')
                                                 | {{tipoDescriptor.Nombre}}
                                     div(flex layout='column' layout-align='center-center' ng-show='vm.loadingDescriptores==true')
                                         md-progress-circular(md-mode='indeterminate')
-                                    md-input-container(ng-show='vm.loadingDescriptores==false')
+                                    md-input-container(ng-show='vm.loadingDescriptores==false && vm.descriptores!=null')
                                         label Selecciona el Clasificador
                                         md-select(ng-model='vm.selectedDescriptor' md-on-close='vm.getPersonasByDescriptor()')
                                             md-option(ng-repeat='descriptor in vm.descriptores' ng-value='descriptor.id')

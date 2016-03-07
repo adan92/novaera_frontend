@@ -46,6 +46,10 @@ angular
             });
             Descriptor.getTipoDescriptorByClasificacion('Persona').then(function(res){
                 vm.tipoDescriptores = res;
+                vm.tipoDescriptores.unshift({
+                    id:0,
+                    Nombre:'Todos'
+                });
 
 
             });
@@ -55,14 +59,8 @@ angular
         {
             var promise;
             vm.loadingPersonasDescriptor = true;
-            if(vm.selectedDescriptor==0)
-            {
-                promise = Admin.getPersonsInOrg(selectedOrganizacion.id);
-            }
-            else
-            {
-                promise = Admin.getPersonsInOrgByDescriptor(selectedOrganizacion.id,vm.selectedDescriptor);
-            }
+
+            promise = Admin.getPersonsInOrgByDescriptor(selectedOrganizacion.id,vm.selectedDescriptor);
 
             promise.then(function(res){
                 vm.personas = res;
@@ -75,24 +73,36 @@ angular
 
         function getDescriptores()
         {
-            vm.loadingDescriptores=true;
-            Descriptor.callAssosciated(vm.selectedTipoDescriptor).then(function(res){
-                vm.descriptores = res.Descriptor;
-                vm.descriptores.unshift({
-                    id:0,
-                    Titulo:'Todos'
-                });
+            if(vm.selectedTipoDescriptor==0)
+            {
+                vm.Chart = null;
                 vm.loadingDescriptores = false;
-            }).catch(function(err){
-
-            });
-
-            Admin.countPersonsInOrgTipoDescriptor(selectedOrganizacion.id,vm.selectedTipoDescriptor).then(
-                function(res){
-                    vm.Chart = res;
+                vm.loadingPersonasDescriptor = true;
+                vm.descriptores = null;
+                var promise = Admin.getPersonsInOrg(selectedOrganizacion.id);
+                promise.then(function(res){
+                    vm.personas = res;
+                    vm.loadingPersonasDescriptor = false;
+                }).catch(function (err) {
+                    vm.loadingPersonasDescriptor = false;
+                })
+            }
+            else{
+                 vm.loadingDescriptores=true;
+                Descriptor.callAssosciated(vm.selectedTipoDescriptor).then(function(res){
+                    vm.descriptores = res.Descriptor;
+                    vm.loadingDescriptores = false;
                 }).catch(function(err){
 
-            });
+                });
+
+                Admin.countPersonsInOrgTipoDescriptor(selectedOrganizacion.id,vm.selectedTipoDescriptor).then(
+                    function(res){
+                        vm.Chart = res;
+                    }).catch(function(err){
+
+                });
+            }
         }
 
 
