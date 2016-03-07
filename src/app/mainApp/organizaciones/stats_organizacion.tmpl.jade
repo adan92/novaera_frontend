@@ -62,7 +62,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
 
                         // Cuerpo de la tabla
                         tbody(md-body='md-body' flex)
-                            tr(flex md-row='md-row', ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
+                            tr(flex md-row='md-row', ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order | offset:(vm.query.page-1)*vm.query.limit | limitTo: vn.query.limit')
                                 td(md-cell='md-cell') {{organizacion.Titulo | cut:false:50:"..."}}
                                 td(md-cell='md-cell') {{organizacion.Descripcion | cut:false:50:"..."}}
                                 td(md-cell='md-cell')
@@ -74,3 +74,4 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 td(md-cell='md-cell')
                                     md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,organizacion)' aria-label='informationButton')
                                         ng-md-icon(icon='menu' size='22')
+                md-table-pagination(flex md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.organizaciones.length}}" md-on-paginate="onPaginate" md-page-select)

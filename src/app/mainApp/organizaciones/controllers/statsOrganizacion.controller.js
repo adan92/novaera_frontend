@@ -24,6 +24,11 @@
         vm.Chart                        = null;
         vm.loadingDescriptorData        = true;
         vm.loadingOrganizaciones        = false;
+        vm.query = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
 
 
         /*Functions*/

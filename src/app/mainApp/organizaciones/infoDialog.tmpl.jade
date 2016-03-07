@@ -63,11 +63,12 @@ md-dialog(flex-gt-md='100' aria-label='Información de Organización')
                                             span Puesto
 
                                 tbody(md-body='md-body' flex)
-                                    tr(flex md-row='md-row', ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                                    tr(flex md-row='md-row', ng-repeat='persona in vm.personas | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit')
                                         td(md-cell='md-cell') {{persona.Nombre | cut:false:50:"..."}}
                                         td(md-cell='md-cell') {{persona.ApellidoP | cut:false:50:"..."}}
                                         td(md-cell='md-cell') {{persona.ApellidoM | cut:false:50:"..."}}
                                         td(md-cell='md-cell') {{persona.pivot.Puesto | cut:false:50:"..."}}
+                        md-table-pagination(flex md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.personas.length}}" md-on-paginate="onPaginate" md-page-select)
 
 
         md-dialog-actions(layout='row' layout-align='end center')

@@ -20,6 +20,11 @@ angular
         vm.Chart                            = null;
         vm.loadingDescriptores              = null;
         vm.loadingPersonasDescriptor        = false;
+        vm.query = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
 
         /*Funciones*/
         vm.cancel                   = cancel;
