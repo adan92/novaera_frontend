@@ -134,7 +134,7 @@
                 clickOutsideToClose:true,
                 fullscreen: true,
                 locals:{selectedOrganizacion:organizacion},
-                controllerAs: 'vm'
+                controllerAs: 'vm',
             };
             $mdDialog.show(config).then(function(reply){
 

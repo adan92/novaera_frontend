@@ -14,8 +14,50 @@
             getResults:getResults,
             validateSolicitud: validateSolicitud,
             countOrgDescriptorType:countOrgDescriptorType,
-            getOrgByDescriptor:getOrgByDescriptor
+            getOrgByDescriptor:getOrgByDescriptor,
+            getPersonsInOrg:getPersonsInOrg,
+            getPersonsInOrgByDescriptor:getPersonsInOrgByDescriptor,
+            countPersonsInOrgTipoDescriptor:countPersonsInOrgTipoDescriptor
         };
+
+
+
+        function getPersonsInOrg(idOrganizacion){
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('Organizacion').one('Persona',idOrganizacion).customGET().then(function(res){
+                deferred.resolve(res.Persona);
+            }).catch(function(err){
+                console.log(err);
+                deferred.reject(false);
+            });
+
+
+            return deferred.promise;
+        }
+
+        function getPersonsInOrgByDescriptor(idOrganizacion,idDescriptor){
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').one('Organizacion',idOrganizacion).all('Persona').one('Descriptor',idDescriptor).customGET().then(function(res){
+                deferred.resolve(res.Persona);
+            }).catch(function(err){
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+        function countPersonsInOrgTipoDescriptor(idOrganizacion,idTipoDescriptor)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').one('Organizacion',idOrganizacion).all('Persona').all('TipoDescriptor').one('Count',idTipoDescriptor).customGET().then(function(res){
+                deferred.resolve(res);
+            }).catch(function(err){
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
 
         function getStatusProjects() {
             var deferred = $q.defer();

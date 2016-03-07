@@ -2,61 +2,74 @@
    Created by lockonDaniel on 3/6/16.
 
 md-dialog(flex-gt-md='100' aria-label='Información de Organización')
-    form
-        md-toolbar
-            .md-toolbar-tools
-                h1.md-display-2 Información de la Organización
-                span(flex='')
-                md-button.md-icon-button(ng-click='vm.cancel()')
-                    ng-md-icon(icon='close', aria-label='Close dialog')
-        md-dialog-content(flex layout='column')
-            md-tabs(md-dynamic-height='', md-border-bottom='', md-stretch-tabs='always')
-                md-tab(flex label='General')
-                    md-content.md-padding(flex)
-                        div(flex layout='column' layout-sm='column' layout-md='column')
-                            h2.md-headline.text-center Información de la Organización
-                            span.md-title Título :&nbsp;
-                            span.subhead {{vm.organizacion.Titulo}}
-                            span.md-title Descripción:&nbsp;
-                            span.subhead(ng-bind-html='vm.organizacion.Descripcion')
-                            span.md-title Misión:&nbsp;
-                            span.subhead(ng-bind-html='vm.organizacion.Mision')
-                            span.md-title Visión:&nbsp;
-                            span.subhead(ng-bind-html='vm.organizacion.Vision')
+    md-toolbar
+        .md-toolbar-tools
+            h1.md-display-2 Organización
+            span(flex='')
+            md-button.md-icon-button(ng-click='vm.cancel()')
+                ng-md-icon(icon='close', aria-label='Close dialog')
+    md-dialog-content(flex layout='column')
+        md-tabs(md-dynamic-height='', md-border-bottom='', md-stretch-tabs='always')
+            md-tab(flex label='General')
+                md-content.md-padding(flex)
+                    div(flex layout='column' layout-sm='column' layout-md='column')
+                        h2.md-headline.text-center Organización
+                        span.md-title Título :&nbsp;
+                        span.subhead {{vm.organizacion.Titulo}}
+                        span.md-title Descripción:&nbsp;
+                        span.subhead(ng-bind-html='vm.organizacion.Descripcion')
+                        span.md-title Misión:&nbsp;
+                        span.subhead(ng-bind-html='vm.organizacion.Mision')
+                        span.md-title Visión:&nbsp;
+                        span.subhead(ng-bind-html='vm.organizacion.Vision')
 
-                md-tab(flex label='Personas')
-                    md-content.md-padding(flex)
-                        div(flex layout='column' layout-align='center-center' ng-show='vm.ejecucion==null')
-                            md-progress-circular(md-mode='indeterminate')
-                        div(flex layout='column' ng-show='vm.ejecucion!=null')
-                            h2.md-headline.text-center Ejecución del Proyecto
-                            span
-                                span.md-title Requisitos:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.Requisitos')
-                            span
-                                span.md-title Analisis de Entorno:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.AnalisisEntornoP')
-                            span
-                                span.md-title Factibilidad Técnica:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadTecnicaP')
-                            span
-                                span.md-title Factibilidad Económica:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadEconomicaP')
-                            span
-                                span.md-title Benchmark Comercial:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.FactibilidadComercialP')
-                            span
-                                span.md-title Benchmark Tecnológico:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.BenchmarkTecnologicoP')
-                            span
-                                span.md-title Recursos Humanos:&nbsp;
-                                span.subhead(ng-bind-html='vm.ejecucion.RecursosHumanosP')
-                            h2.md-headline.text-center Archivos de Ejecución
-                                ul(ng-repeat='file in vm.ejecucionFiles')
-                                    li
-                                        a(target='_blank' href='{{vm.fileRoute+file.Ruta}}')
-                                            h3.md-subhead {{file.Tipo}} : {{file.Ruta | routeFilter}}
+            md-tab(flex label='Personas')
+                md-content.md-padding(flex)
+                    div(flex layout='column' layout-align='center-center' ng-show='vm.personas==null')
+                        md-progress-circular(md-mode='indeterminate')
+                    div(flex layout='column' ng-show='vm.personas!=null')
+                        div(flex layout='row' layout-sm='column')
+                            div(flex layout='column' layout-align='center center')
+                                form(name='selectTipoDescriptores')
+                                    md-input-container
+                                        label Selecciona el tipo de Clasificador
+                                        md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.getDescriptores()')
+                                            md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                                | {{tipoDescriptor.Nombre}}
+                                    div(flex layout='column' layout-align='center-center' ng-show='vm.loadingDescriptores==true')
+                                        md-progress-circular(md-mode='indeterminate')
+                                    md-input-container(ng-show='vm.loadingDescriptores==false')
+                                        label Selecciona el Clasificador
+                                        md-select(ng-model='vm.selectedDescriptor' md-on-close='vm.getPersonasByDescriptor()')
+                                            md-option(ng-repeat='descriptor in vm.descriptores' ng-value='descriptor.id')
+                                                | {{descriptor.Titulo}}
 
-            md-dialog-actions(layout='row' layout-align='end center')
-                md-button.md-raised.md-primary(ng-click="vm.cancel()")
-                    | Cerrar
+                            div(flex layout='column')
+                                canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+
+                        div(flex layout='column' layout-align='center-center' ng-show='vm.loadingPersonasDescriptor==true')
+                                md-progress-circular(md-mode='indeterminate')
+                        md-table-container(flex ng-show='vm.loadingPersonasDescriptor==false')
+                            table(flex md-table='')
+                                thead(flex md-head='', md-order='vm.query.order')
+                                    tr(flex md-row='md-row')
+                                        th(md-column='md-column', md-order-by='Nombre')
+                                            span Nombre
+                                        th(md-column='md-column', md-order-by='ApellidoP')
+                                            span Apellido Paterno
+                                        th(md-column='md-column', md-order-by='ApellidoM')
+                                            span Apellido Materno
+                                        th(md-column='md-column', md-order-by='pivot.Puesto')
+                                            span Puesto
+
+                                tbody(md-body='md-body' flex)
+                                    tr(flex md-row='md-row', ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                                        td(md-cell='md-cell') {{persona.Nombre | cut:false:50:"..."}}
+                                        td(md-cell='md-cell') {{persona.ApellidoP | cut:false:50:"..."}}
+                                        td(md-cell='md-cell') {{persona.ApellidoM | cut:false:50:"..."}}
+                                        td(md-cell='md-cell') {{persona.pivot.Puesto | cut:false:50:"..."}}
+
+
+        md-dialog-actions(layout='row' layout-align='end center')
+            md-button.md-raised.md-primary(ng-click="vm.cancel()")
+                | Cerrar
