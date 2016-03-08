@@ -166,7 +166,8 @@
       "PROGRAMA_LABELS": "Fondos por Programa de Fondeo",
       "MODALIDAD_LABELS": "Fondos por Modalidades",
       "CONVOCATORIA_LABELS": "Fondos por Convocatorias",
-      "REGISTER_COUNTER": "Solicitudes de Apoyo"
+      "REGISTER_COUNTER": "Solicitudes de Apoyo",
+      "CHART_INSTRUCTIONS": "Da click en cualquier elemento para ver el gráfico de registros"
 
     }
 
