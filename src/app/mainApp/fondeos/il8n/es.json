@@ -28,6 +28,7 @@
       "SUPPORT_FIGURE": "Figura de Apoyo",
       "FILES": "Entregables",
       "DELETE":"Eliminar",
+
       "REQUIRED-FIELD":"Éste campo es requerido",
       "COMPLETED": "Completado",
       "PREV": "Anterior",
@@ -145,14 +146,27 @@
       "NOTES":"Observaciones"
     },
     "TABLE":{
-        "NAME":"Nombre",
-        "DESCRIPTION":"Descripción",
-        "TITLE":"Titulo",
-        "AMOUNT":"Monto",
-        "EVALUATION":"Criterios de Evaluación",
-        "FILES":"Entregables",
-        "SUPPORT":"Figuras de Apoyo",
-        "ADD":"Agregar a Convocatoria"
+      "NAME":"Nombre",
+      "DESCRIPTION":"Descripción",
+      "TITLE":"Titulo",
+      "AMOUNT":"Monto",
+      "EVALUATION":"Criterios de Evaluación",
+      "FILES":"Entregables",
+      "SUPPORT":"Figuras de Apoyo",
+      "ADD":"Agregar a Convocatoria"
+
+    },
+    "STATS":{
+      "TITLE":"Estadísticas de Fondos",
+      "QUERY_SELECTOR":"Gestor de Consulta",
+      "TYPE_SUM_SELECT": "Selecciona el tipo de monto",
+      "TYPE_QUERY_SELECT": "Selecciona el tipo de consulta",
+      "SELECT_HOW_VALIDATED":"Selecciona validación de registro",
+      "SELECT_MODALIDAD": "Selecciona una modalidad",
+      "PROGRAMA_LABELS": "Fondos por Programa de Fondeo",
+      "MODALIDAD_LABELS": "Fondos por Modalidades",
+      "CONVOCATORIA_LABELS": "Fondos por Convocatorias"
+
     }
 
 

@@ -78,7 +78,7 @@
         function showConvocatoriasAsociadas(modalidad) {
 
             var deferred = $q.defer();
-            Restangular.all('Modalidad').one('Convocatoria', convocatoria.id).GET(convocatoria).then(function (res) {
+            Restangular.all('Modalidad').one('Convocatoria', modalidad.id).customGET().then(function (res) {
                 deferred.resolve(res.Convocatoria);
             }).catch(function (err) {
                 deferred.reject(false);

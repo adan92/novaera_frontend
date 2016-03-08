@@ -17,7 +17,9 @@
             getOrgByDescriptor:getOrgByDescriptor,
             getPersonsInOrg:getPersonsInOrg,
             getPersonsInOrgByDescriptor:getPersonsInOrgByDescriptor,
-            countPersonsInOrgTipoDescriptor:countPersonsInOrgTipoDescriptor
+            countPersonsInOrgTipoDescriptor:countPersonsInOrgTipoDescriptor,
+            sumsAllPrograms:sumsAllPrograms,
+            sumsByType:sumsByType
         };
 
 
@@ -147,6 +149,30 @@
             Restangular.all('Supervisor').all('Organizacion').one('ByDescriptor',id).customGET().then(function (res) {
                 deferred.resolve(res.Organizacion);
             }).catch(function (err) {
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+        function sumsAllPrograms(type,status)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('ProgramaFondeo').all('All').one('Montos').all(type).all(status).customGET().then(function(res){
+               deferred.resolve(res);
+            }).catch(function(err){
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+        function sumsByType(granularity,id,sumType,status)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all(granularity).all(id).one('Montos').one(sumType).one(status).customGET().then(function(res){
+               deferred.resolve(res);
+            }).catch(function(err){
                 console.log(err);
                 deferred.reject(false);
             });

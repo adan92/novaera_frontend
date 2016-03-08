@@ -160,6 +160,11 @@
             icon: 'zmdi zmdi-money-box',
             priority: 2.1,
             children: [{
+                name: 'Estadísticas',
+                state:'triangular.admin-default.fondeos_stats',
+                type: 'link',
+                icon: 'fa fa-line-chart'
+            },{
                 name: 'Registro',
                 state: 'triangular.admin-default.fondeos_registro',
                 type: 'link'
