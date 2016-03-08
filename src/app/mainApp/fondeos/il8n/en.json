@@ -165,7 +165,8 @@
       "SELECT_MODALIDAD": "Selecciona una modalidad",
       "PROGRAMA_LABELS": "Fondos por Programa de Fondeo",
       "MODALIDAD_LABELS": "Fondos por Modalidades",
-      "CONVOCATORIA_LABELS": "Fondos por Convocatorias"
+      "CONVOCATORIA_LABELS": "Fondos por Convocatorias",
+      "REGISTER_COUNTER": "Solicitudes de Apoyo"
 
     }
 

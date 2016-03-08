@@ -19,7 +19,8 @@
             getPersonsInOrgByDescriptor:getPersonsInOrgByDescriptor,
             countPersonsInOrgTipoDescriptor:countPersonsInOrgTipoDescriptor,
             sumsAllPrograms:sumsAllPrograms,
-            sumsByType:sumsByType
+            sumsByType:sumsByType,
+            countRegistersByType:countRegistersByType
         };
 
 
@@ -171,6 +172,19 @@
         {
             var deferred = $q.defer();
             Restangular.all('Supervisor').all(granularity).all(id).one('Montos').one(sumType).one(status).customGET().then(function(res){
+               deferred.resolve(res);
+            }).catch(function(err){
+                console.log(err);
+                deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+
+        function countRegistersByType(granularity,id)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all(granularity).all('Registros').one('Count',id).customGET().then(function(res){
                deferred.resolve(res);
             }).catch(function(err){
                 console.log(err);

@@ -31,3 +31,6 @@
                         label(translate) FONDEOS.STATS.SELECT_HOW_VALIDATED
                         md-select(ng-model='vm.selectedStatus' md-on-close='vm.getSumsByClassification()')
                             md-option(ng-repeat='type in vm.howValidated' ng-value='type.value') {{type.name}}
+                h2.md-headline-1.text-center(translate='') FONDEOS.STATS.REGISTER_COUNTER
+                div(ng-show='vm.ChartRegisters!=null')
+                    canvas#doughnutRegisters.chart.chart-doughnut(chart-data='vm.ChartRegisters.Data', chart-labels='vm.ChartRegisters.Labels', chart-legend='true')

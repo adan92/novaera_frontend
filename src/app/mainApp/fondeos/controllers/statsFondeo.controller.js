@@ -16,6 +16,8 @@
         /*Variables*/
 
         vm.Chart                            = null;
+        vm.ChartRegisters                   = null;
+        vm.loadingStatsRegisters            = false;
         vm.loadingStats                     = true;
         vm.loadingModalidades               = false;
         vm.sumType                          = 'Apoyado';
@@ -33,6 +35,7 @@
         vm.getAssociatedModalidades         = getAssociatedModalidades;
         vm.getAssociatedConvocatorias       = getAssociatedConvocatorias;
         vm.getSumsByClassification          = getSumsByClassification;
+        vm.onClick                          = onClick;
 
         activate();
 
@@ -114,6 +117,7 @@
 
         function getSumsByClassification()
         {
+            vm.ChartRegisters=null;
             if(vm.selectedFondeo.id==0){
                 getSumsAllPrograms(vm.sumType,vm.selectedStatus);
                 vm.labelTypes = 'FONDEOS.STATS.PROGRAMA_LABELS';
@@ -130,6 +134,53 @@
                 vm.labelTypes = 'FONDEOS.STATS.CONVOCATORIA_LABELS';
 
             }
+        }
+
+
+        function onClick(element, evt) {
+
+            var label = element[0].label;
+            var array;
+            var matcher;
+            var granularity;
+            switch (vm.labelTypes)
+            {
+                case 'FONDEOS.STATS.PROGRAMA_LABELS':
+                    array = vm.fondeos;
+                    matcher = {Titulo:label};
+                    granularity = 'ProgramaFondeo';
+                    break;
+
+                case 'FONDEOS.STATS.MODALIDAD_LABELS':
+                    array = vm.modalidades;
+                    matcher = {Nombre:label};
+                    granularity = 'Modalidad';
+                    break;
+
+                case 'FONDEOS.STATS.CONVOCATORIA_LABELS':
+                    array = vm.convocatorias;
+                    matcher = {Nombre:label};
+                    granularity = 'Convocatoria';
+                    break;
+
+
+            }
+
+            var element =  searchElement(array,matcher);
+            Admin.countRegistersByType(granularity,element.id).then(function(res){
+                vm.ChartRegisters = res;
+            }).catch(function (err) {
+
+            })
+
+        }
+
+        function searchElement(array,matcher) {
+
+            var element = _.findWhere(array,matcher);
+            if(element!=undefined)
+                return element;
+            return null;
         }
 
 
