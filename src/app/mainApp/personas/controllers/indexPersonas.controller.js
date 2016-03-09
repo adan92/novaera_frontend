@@ -7,7 +7,7 @@
 
     /* @ngInject */
 
-        function indexPersonasController($scope, Persona, Descriptor, $mdDialog, Translate, toastr) {
+    function indexPersonasController($scope,Persona,Descriptor, $mdDialog, Translate, toastr) {
             var vm = this;
             vm.tipoDescriptores             = null;
             vm.selectedTipoDescriptor       = null;

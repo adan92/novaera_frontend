@@ -1,0 +1,26 @@
+        //
+            Created by Dark Xavier on 9/03/16.
+    .dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+      .layout.layout-column.layout-margin.layout-sm.layout-sm-column
+        div(flex='100', layout='column')
+          md-card(flex='100')
+            img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-06.jpg', alt='Card Image')
+            div(layout='row', layout-md='column')
+              md-card(flex='')
+                md-card-content
+                  h2(translate='') PERSONAS.WIZARD.LASTREGISTERS
+                  div(ng-controller='indexPersonasController as vm')
+                    tri-table.elements-image-table-example(columns='::vm.columns', contents='::vm.contents', page-size='5')
+            div(layout='column', layout-md='column')
+        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+          md-card(flex='', layout='column')
+            h2.text-center(translate='') PERSONAS.WIZARD.TOTALREGISTERS
+            md-card-content(layout-align='center center')
+              canvas#doughnut.chart.chart-doughnut(chart-data='PersonasData', chart-labels='PersonasLabels', chart-legend='true')
+          md-card(flex='', layout='column')
+            md-card-content
+              h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO_MONTOS
+              md-card-content(layout-align='center center')
+                canvas#line.chart.chart-line(chart-data='Personas_area_data', chart-labels='Personas_area_labels', chart-legend='true', chart-series='Personas_area_series', chart-click='Personas_area_onClick')
+        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+
