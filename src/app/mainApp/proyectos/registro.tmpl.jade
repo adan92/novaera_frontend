@@ -63,7 +63,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                      form(name='projectHistory', tri-wizard-form)
                         div(flex='', layout='column', layout-wrap='')
                            md-input-container
-                              div(text-angular='', required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
+                              div(text-angular, required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
                               label(translate='') PROJECT.FORM.CLICK_TO_WRITE
                               md-divider
             md-tab#justification(ng-disabled='projectHistory.$invalid')

@@ -312,7 +312,18 @@
       "SOLICITUDES": "Solicitudes que posee el proyecto seleccionado",
       "PROJECTSTATUS": "Estado Actual de mis Proyectos",
       "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
-      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas"
+      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
+      "PLACEHOLDER":{
+        "SEARCH_PROJECT": "Busca tu proyecto"
+      },
+      "VIEWS":{
+        "TITLE":"Titulo",
+        "DESCRIPTION":"Descripción",
+        "BACKGROUND":"Antecedentes",
+        "OBJECTIVES":"Objetivos",
+        "JUSTIFICATION":"Justificación",
+        "REACH":"Alcances"
+      }
     },
     "VALIDA": {
       "SELECTPROGRAM": "Selecciona el Programa de Fondeo a consultar",
