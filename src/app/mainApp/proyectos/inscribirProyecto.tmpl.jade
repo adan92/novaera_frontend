@@ -1,0 +1,35 @@
+//
+   Created by lockonDaniel on 12/21/15.
+div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
+  div(layout='row', layout-align='center center')
+    p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO
+  div(flex='', layout='row', layout-align='center center', layout-fill='')
+    .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
+      div(flex layout="row")
+        md-sidenav.md-whiteframe-2(md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
+          md-list
+            md-divider
+            md-list-item(ng-repeat="proyecto in vm.proyectos")
+              md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
+                md-icon.avatar(md-svg-icon="assets/images/avatars/tower.png")
+                span(flex) {{proyecto.Titulo}}
+        md-content(flex id="content")
+          h2.md-headline-1.text-center(translate='') PROJECT.INSCRIPTION.INFOPROJECT
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
+              span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+              span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
+              span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
+              span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
+              span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
+            h2.md-subhead
+              span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
+              span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
