@@ -38,6 +38,17 @@
       $mdSidenav('left').toggle();
 
     }
+   /* vm.listStyle = {
+      height: ($window.innerHeight - 400) + 'px'
+    };
+
+
+    $window.addEventListener('resize', onResize);
+    function onResize() {
+      vm.listStyle.height = ($window.innerHeight -400) + 'px';
+      if (!$scope.$root.$$phase)
+        $scope.$digest();
+    }*/
     /*Operation.setTypeOperation("RegistroProyecto");
     vm.isDisabled = false;
 
@@ -45,10 +56,10 @@
     vm.querySearch = querySearch;
     vm.selectedItemChange = selectedItemChange;
     vm.testModal=testModal;
+    vm.clickItem = clickItem;
     vm.listStyle = {
       height: ($window.innerHeight - 400) + 'px'
     };
-    vm.clickItem = clickItem;
 
 
     $window.addEventListener('resize', onResize);

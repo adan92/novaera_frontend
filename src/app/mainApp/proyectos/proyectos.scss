@@ -5,7 +5,7 @@
 }
 
 #vertical-container {
-  min-height: 300px;
+  min-height: 400px;
   width: 100%;
 }
 /*.repeated-item {
@@ -52,8 +52,10 @@ a:hover .header-profile-image {
 .user-header-dropdown-toggle {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
+} 
+#background{
+  background-color:white;
 }
-
 #content {
   overflow: hidden;
 }

@@ -6,30 +6,32 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
   div(flex='', layout='row', layout-align='center center', layout-fill='')
     .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
       div(flex layout="row")
-        md-sidenav.md-whiteframe-2(md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
-          md-list
-            md-divider
-            md-list-item(ng-repeat="proyecto in vm.proyectos")
-              md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
-                md-icon.avatar(md-svg-icon="assets/images/avatars/tower.png")
-                span(flex) {{proyecto.Titulo}}
-        md-content(flex id="content")
-          h2.md-headline-1.text-center(translate='') PROJECT.INSCRIPTION.INFOPROJECT
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
-              span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
-              span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
-              span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
-              span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
-              span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
-            h2.md-subhead
-              span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
-              span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
+        md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
+          md-virtual-repeat-container(id="vertical-container" ng-style="vm.listStyle" )
+            md-list
+              md-divider
+              md-item(ng-repeat="proyecto in vm.proyectos")
+                md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
+                  md-icon.avatar(md-svg-icon="assets/images/avatars/tower.png")
+                  span(flex) {{proyecto.Titulo}}
+        div(layout="column" flex md-theme="green" id="background")
+          md-content(ui-view  id="content"  )
+            h2.md-headline-1.text-center(translate='') PROJECT.INSCRIPTION.INFOPROJECT
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
+                span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+                span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
+                span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
+                span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
+                span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
+                span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
