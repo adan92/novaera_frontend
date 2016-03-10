@@ -1,5 +1,4 @@
-        //
-            Created by Dark Xavier on 9/03/16.
+
 .dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
   .layout.layout-column.layout-margin.layout-sm.layout-sm-column
       div(layout='column')
@@ -28,7 +27,7 @@
                 md-card
                   md-card-content(layout-align='center center')
                     div(ng-show='vm.loadingOrganizationData==false')
-                        canvas#doughnut.chart2.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                        canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart2.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
                     h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYDESCRIPTOR
                     div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')

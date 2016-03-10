@@ -33,10 +33,10 @@
             vm.getOrganizations             =getOrganizations;
             vm.getPersonasByDescriptor     = getPersonasByDescriptor;
 
-        }
+
     function activate() {
         getTipoDescriptores();
-
+        getOrganizations();
 
         vm.failureText = Translate.translate('DIALOGS.FAILURE');
         vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
@@ -51,7 +51,7 @@
         var label = element[0].label;
         var descriptor =  searchDescriptores(label);
         vm.selectedDescriptor = descriptor.id;
-        getPersonasByDescriptor();
+        getDescriptores();
 
     }
 
@@ -134,7 +134,7 @@
 
 
 
-
+    }
 
 
 
