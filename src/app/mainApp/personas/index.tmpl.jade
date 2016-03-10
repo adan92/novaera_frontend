@@ -1,26 +1,37 @@
         //
             Created by Dark Xavier on 9/03/16.
-    .dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
-      .layout.layout-column.layout-margin.layout-sm.layout-sm-column
-        div(flex='100', layout='column')
-          md-card(flex='100')
-            img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-06.jpg', alt='Card Image')
-            div(layout='row', layout-md='column')
-              md-card(flex='')
-                md-card-content
-                  h2(translate='') PERSONAS.WIZARD.LASTREGISTERS
-                  div(ng-controller='indexPersonasController as vm')
-                    tri-table.elements-image-table-example(columns='::vm.columns', contents='::vm.contents', page-size='5')
-            div(layout='column', layout-md='column')
-        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
-          md-card(flex='', layout='column')
-            h2.text-center(translate='') PERSONAS.WIZARD.TOTALREGISTERS
-            md-card-content(layout-align='center center')
-              canvas#doughnut.chart.chart-doughnut(chart-data='PersonasData', chart-labels='PersonasLabels', chart-legend='true')
-          md-card(flex='', layout='column')
-            md-card-content
-              h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO_MONTOS
-              md-card-content(layout-align='center center')
-                canvas#line.chart.chart-line(chart-data='Personas_area_data', chart-labels='Personas_area_labels', chart-legend='true', chart-series='Personas_area_series', chart-click='Personas_area_onClick')
-        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+  .layout.layout-column.layout-margin.layout-sm.layout-sm-column
+      div(layout='column')
+        div
+            div(flex='50', layout='row')
+                md-card
+                    h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
+                    div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+                    md-card-content(layout-align='center center')
+                        div(ng-show='vm.loadingDescriptorData==false')
+                            canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                        h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYDESCRIPTOR
+                        div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                            md-progress-circular(md-mode='indeterminate')
 
+                        form(name='selectTipoDescriptorForm' ng-show='vm.tipoDescriptores!=null')
+                            md-input-container
+                                label
+                                     span(translate) PROJECT.INFO.SELECT_DESCRIPTOR_TYPE
+                                md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.getDescriptores()')
+                                    md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                        | {{tipoDescriptor.Nombre}}
+
+            div(flex='50', layout='row')
+                md-card
+                  md-card-content(layout-align='center center')
+                    div(ng-show='vm.loadingOrganizationData==false')
+                        canvas#doughnut.chart2.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                    h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYDESCRIPTOR
+                    div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+
+        div
+            md-card
