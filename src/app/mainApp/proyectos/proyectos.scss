@@ -24,7 +24,9 @@
 
 .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
   padding-left: 16px; }
-
+/*
+Autocomplete
+*/
 
  .autocomplete-custom-template li {
   border-bottom: 1px solid #ccc;
@@ -41,7 +43,9 @@
   height: 18px;
   width: 18px; }
 
-
+/*
+Para sidenav
+*/
 
 
 .open  .header-profile-image,
@@ -52,7 +56,7 @@ a:hover .header-profile-image {
 .user-header-dropdown-toggle {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
-} 
+}
 #background{
   background-color:white;
 }
@@ -111,3 +115,26 @@ md-list .md-button.selected {
 md-sidenav  md-list {
   padding: 0px 0px 8px 0px;
 }
+
+
+/*Button flat*/
+/*#content md-toolbar .md-toolbar-tools .md-button, #content md-toolbar .md-toolbar-tools .md-button:hover {
+  box-shadow: none;
+  border: none;
+  transform: none;
+  transition: 0.3s;
+  -webkit-transform: none; }*/
+
+
+#content .md-button:hover {
+background-color: #87F0F0 !important;
+}
+#content .md-button {
+  background-color: #00BCD4 !important;
+}
+#content .left {
+  top: 70px !important;
+  left: 56px !important; }
+#content .right {
+  top: 70px !important;
+  right: 56px !important; }

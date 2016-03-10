@@ -10,13 +10,20 @@
   /* @ngInject */
   function inscribirProyectoController($window, Catalogo,$mdSidenav, $mdDialog, $mdMedia, toastr, TRL, Convocatoria, Operation,
                                        registroProyecto, $scope, Fondeo, Proyecto) {
-
+    Operation.setTypeOperation("RegistroProyecto");
     var vm = this;
     vm.steps = [
       'PROJECT.REGISTER.PROJECT_SELECT',
       'PROJECT.REGISTER.INFO'];
     vm.selectedProjects=selectedProjects;
     vm.selectedProject = null;
+    vm.selectedSolicitudes=null;
+    vm.tooltipVisible=false;
+    vm.solicitudes=null;
+    vm.proyectos=null;
+    vm.isOpen=false;
+    vm.hidden=false;
+    vm.hover=false;
     activate();
 
     function activate(){
@@ -31,6 +38,14 @@
     function selectedProjects(project){
       console.log(project);
       vm.selectedProject=project;
+      var solicitudes = Operation.getOperation(project.id);
+      solicitudes.then(function (res) {
+        vm.solicitudes = res.RegistroProyecto;
+        console.log(vm.solicitudes);
+      }).catch(function (err) {
+          console.log(err);
+      });
+      vm.showSolicitudes = true;
       toggleUsersList();
     }
 
@@ -38,17 +53,16 @@
       $mdSidenav('left').toggle();
 
     }
-   /* vm.listStyle = {
-      height: ($window.innerHeight - 400) + 'px'
-    };
 
-
-    $window.addEventListener('resize', onResize);
-    function onResize() {
-      vm.listStyle.height = ($window.innerHeight -400) + 'px';
-      if (!$scope.$root.$$phase)
-        $scope.$digest();
-    }*/
+    $scope.$watch('vm.isOpen', function(isOpen) {
+      if (isOpen) {
+        $timeout(function() {
+          vm.tooltipVisible = self.isOpen;
+        }, 600);
+      } else {
+        vm.tooltipVisible = self.isOpen;
+      }
+    });
     /*Operation.setTypeOperation("RegistroProyecto");
     vm.isDisabled = false;
 
@@ -79,12 +93,7 @@
         vm.fondeos = res;
         vm.showFondeos = true;
       });
-      var solicitudes = Operation.getOperation(item.id);
-      solicitudes.then(function (res) {
-        vm.solicitudes = res.RegistroProyecto;
 
-      });
-      vm.showSolicitudes = true;
     }
     function createFilterFor(query) {
 

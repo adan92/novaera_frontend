@@ -310,6 +310,10 @@
       "SAVE": "Solicitar Apoyo",
       "DELETE": "Eliminar",
       "SOLICITUDES": "Solicitudes que posee el proyecto seleccionado",
+      "TITLES":{
+        "PROJECT":"Información",
+        "SOLICITUDES": "Solicitudes"
+      },
       "PROJECTSTATUS": "Estado Actual de mis Proyectos",
       "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
       "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",

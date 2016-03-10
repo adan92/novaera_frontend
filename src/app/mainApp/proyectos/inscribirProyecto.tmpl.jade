@@ -12,26 +12,70 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
               md-divider
               md-item(ng-repeat="proyecto in vm.proyectos")
                 md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
-                  md-icon.avatar(md-svg-icon="assets/images/avatars/tower.png")
+                  md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
                   span(flex) {{proyecto.Titulo}}
-        div(layout="column" flex md-theme="green" id="background")
+        div(layout="column" flex  id="background")
           md-content(ui-view  id="content"  )
-            h2.md-headline-1.text-center(translate='') PROJECT.INSCRIPTION.INFOPROJECT
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
-                span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
-                span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
-                span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
-                span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
-                span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
-              h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
-                span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
+            md-fab-speed-dial.md-scale.md-fab-top-right(ng-hide="vm.hidden" md-open='vm.isOpen', md-direction='down', ng-class="{ 'md-hover-full': vm.hover }" ng-mouseover="vm.isOpen=true" ng-mouseleave="vm.isOpen=false")
+              md-fab-trigger
+                md-button.md-fab.md-warn(aria-label='menu')
+                  md-icon(md-font-icon="fa fa-bars")
+              md-fab-actions
+                md-button.md-fab.md-raised.md-mini(aria-label="add")
+                  md-icon( md-font-icon="fa fa-plus" style="color:white;")
+                    md-tooltip(md-direction="right" md-autohide="false" md-visible="vm.tooltipVisible ") Inscribir resultado
+                md-button.md-fab.md-raised.md-mini(aria-label='Facebook')
+                  md-icon(md-font-icon="fa fa-table" style="color:white;")
+                    md-tooltip(md-direction="right" md-autohide="false" md-visible="vm.tooltipVisible") Ver solicitudes
+            md-tabs.md-primary.md-hue-2( md-stretch-tabs="always" layout-fill )
+              md-tab
+                md-tab-label
+                  span(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
+                md-tab-body
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
+                    span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+                    span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
+                    span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
+                    span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
+                    span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
+                  h2.md-subhead
+                    span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
+                    span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
+              md-tab
+                md-tab-label
+                  span(translate="") PROJECT.INSCRIPTION.TITLES.SOLICITUDES
+                md-tab-body
+                  md-table-container
+                    table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+                      thead(md-head='', md-order='vm.query.order')
+                        tr(md-row='md-row')
+                          th(md-column='md-column', md-order-by='id')
+                            span Programa de Fondeo
+                          th(md-column='md-column', md-order-by='PublicoObjetivo')
+                            span Convocatoria
+                          th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                            span Monto Solicitado
+                          th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                            span Fecha de Solicitud
+                          th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                            span
+                      // Cuerpo de la tabla
+                      tbody(md-body='md-body')
+                        tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+                          td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+                          td(md-cell='md-cell') {{sol.Convocatoria}}
+                          td(md-cell='md-cell') {{sol.MontoSolicitado}}
+                          td(md-cell='md-cell') {{sol.FechaRegistro}}
+                          td(md-cell='md-cell' ng-click="$event.stopPropagation()")
+                            div
+                            md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
+                              md-icon(md-font-icon="fa fa-bars")
