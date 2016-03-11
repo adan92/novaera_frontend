@@ -1,6 +1,8 @@
 //
    Created by lockonDaniel on 12/21/15.
 div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
+  div(layout='row', layout-align='center center')
+    p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90' translate="") {{(vm.hideProject==true ? 'PROJECT.INSCRIPTION.SELECTPROJECT': 'PROJECT.INSCRIPTION.SOLICITUD')| translate}}
   div(flex='', layout='row', layout-align='center center', layout-fill='')
     .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
       div(flex layout="row" ng-hide="vm.hideProject==true")
@@ -14,7 +16,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
           placeholder='Who is your Fav Avatar?')
             md-item-template
               span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
-          md-virtual-repeat-container(id="vertical-container" ng-style="vm.listStyle" )
+          md-virtual-repeat-container.vertical-container
             md-list
               md-divider
               md-item(ng-repeat="proyecto in vm.proyectos | filter:vm.searchText")
@@ -84,12 +86,12 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         div
                         md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
                           md-icon(md-font-icon="fa fa-bars")
-      div(flex layout="row" ng-show="vm.hideProject==true")
+      div(flex='', layout='column', layout-align='center center', layout-fill='' ng-show="vm.hideProject==true" tri-wizard='')
         md-toolbar.md-primary
           .md-toolbar-tools(flex)
             div(flex layout='column')
               div(flex layout='row' layout-sm='column' layout-align='space-between center' )
-                h2(translate='') PROJECT.WIZARD.TITLE
+                h2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
                 h3(translate='') {{vm.steps[triWizard.currentStep]}}
                 h2 {{triWizard.progress}}%
                   span(translate='') PROJECT.WIZARD.COMPLETED
@@ -103,19 +105,23 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
             md-tab-body
               .wizard.layout-padding
                 form(name='projectSelect', tri-wizard-form, novalidate='')
-                  div(layout='column', flex='')
-                    md-switch(ng-model="vm.isNewProject" ng-change="vm.changeSwitch()")
-                      span(translate='') PROJECT.REGISTER.NEW_PROJECT
-
-                    md-input-container(ng-show="!vm.isNewProject")
-                      label
-                        span(translate='') PROJECT.IMPACT.SELECT_YOUR_PROJECT
-                      md-select(md-on-close='vm.getProyecto()', ng-model='vm.selectedProject', name='select', ng-required='!vm.isNewProject')
-                        md-option(ng-repeat='proyecto in vm.projectList', value='{{proyecto.id}}')
-                          | {{proyecto.Titulo}}
-                      div(ng-messages='projectSelect.select.$error')
-                        div(ng-message='required')
-                          span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                  md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
+                    md-autocomplete(
+                    md-selected-item='vm.selectedItem',
+                    md-search-text='vm.searchText',
+                    md-items='item in vm.proyectos',
+                    md-item-text='item.Titulo',
+                    md-min-length='0',
+                    placeholder='Who is your Fav Avatar?')
+                      md-item-template
+                        span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+                    md-virtual-repeat-container.vertical-container
+                      md-list
+                        md-divider
+                        md-item(ng-repeat="proyecto in vm.proyectos | filter:vm.searchText")
+                          md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
+                            md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
+                            span(flex) {{proyecto.Titulo}}
           md-tab#info(ng-disabled="vm.isNewProject? false: vm.selectedProject==null")
             md-tab-label
               span.oxy-step-label 2
