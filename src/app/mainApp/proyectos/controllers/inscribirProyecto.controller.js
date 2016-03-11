@@ -1,4 +1,3 @@
-
 (function () {
   'use strict';
 
@@ -8,30 +7,31 @@
     .filter('matcher', matcher);
 
   /* @ngInject */
-  function inscribirProyectoController($window, Catalogo,$mdSidenav, $mdDialog, $mdMedia, toastr, TRL, Convocatoria, Operation,
+  function inscribirProyectoController($timeout, Catalogo, $mdSidenav, $mdDialog, $mdMedia, toastr, TRL, Convocatoria, Operation,
                                        registroProyecto, $scope, Fondeo, Proyecto) {
     Operation.setTypeOperation("RegistroProyecto");
     var vm = this;
     vm.steps = [
       'PROJECT.REGISTER.PROJECT_SELECT',
       'PROJECT.REGISTER.INFO'];
-    vm.selectedProjects=selectedProjects;
-    vm.selectedItem=null;
+    vm.selectedProjects = selectedProjects;
+    vm.selectedItem = null;
     vm.searchText = null;
+    vm.showRegister = showRegister;
 
     vm.selectedProject = null;
-    vm.selectedSolicitudes=null;
-    vm.tooltipVisible=false;
-    vm.hideProject=false;
-    vm.solicitudes=null;
-    vm.proyectos=null;
-    vm.showSolicitudes=false;
-    vm.isOpen=false;
-    vm.hidden=false;
-    vm.hover=false;
+    vm.selectedSolicitudes = null;
+    vm.tooltipVisible = false;
+    vm.hideProject = false;
+    vm.solicitudes = null;
+    vm.proyectos = null;
+    vm.showSolicitudes = false;
+    vm.isOpen = false;
+    vm.hidden = false;
+    vm.hover = false;
     activate();
 
-    function activate(){
+    function activate() {
       var promise = Proyecto.getAllProjects();
       promise.then(function (res) {
         vm.proyectos = (res);
@@ -40,16 +40,22 @@
         toastr.error(vm.failureText, vm.failureLoad);
       });
     }
-    function selectedProjects(project){
+
+    function showRegister($event) {
+      vm.hideProject=true;
+      console.log(vm.hideProject);
+    }
+
+    function selectedProjects(project) {
       console.log(project);
-      vm.selectedProject=project;
-     /* var solicitudes = Operation.getOperation(project.id);
-      solicitudes.then(function (res) {
-        vm.solicitudes = res.RegistroProyecto;
-        console.log(vm.solicitudes);
-      }).catch(function (err) {
-          console.log(err);
-      });*/
+      vm.selectedProject = project;
+      /* var solicitudes = Operation.getOperation(project.id);
+       solicitudes.then(function (res) {
+       vm.solicitudes = res.RegistroProyecto;
+       console.log(vm.solicitudes);
+       }).catch(function (err) {
+       console.log(err);
+       });*/
 
       toggleUsersList();
     }
@@ -59,9 +65,9 @@
 
     }
 
-    $scope.$watch('vm.isOpen', function(isOpen) {
+    $scope.$watch('vm.isOpen', function (isOpen) {
       if (isOpen) {
-        $timeout(function() {
+        $timeout(function () {
           vm.tooltipVisible = self.isOpen;
         }, 600);
       } else {
@@ -69,50 +75,51 @@
       }
     });
     /*Operation.setTypeOperation("RegistroProyecto");
-    vm.isDisabled = false;
+     vm.isDisabled = false;
 
-    vm.searchText = null;
-    vm.querySearch = querySearch;
-    vm.selectedItemChange = selectedItemChange;
-    vm.testModal=testModal;
-    vm.clickItem = clickItem;
-    vm.listStyle = {
-      height: ($window.innerHeight - 400) + 'px'
-    };
+     vm.searchText = null;
+     vm.querySearch = querySearch;
+     vm.selectedItemChange = selectedItemChange;
+     vm.testModal=testModal;
+     vm.clickItem = clickItem;
+     vm.listStyle = {
+     height: ($window.innerHeight - 400) + 'px'
+     };
 
 
-    $window.addEventListener('resize', onResize);
-    function onResize() {
-      vm.listStyle.height = ($window.innerHeight -400) + 'px';
-      if (!$scope.$root.$$phase)
-        $scope.$digest();
-    }
-    function querySearch(query) {
-      var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
-      return results;
+     $window.addEventListener('resize', onResize);
+     function onResize() {
+     vm.listStyle.height = ($window.innerHeight -400) + 'px';
+     if (!$scope.$root.$$phase)
+     $scope.$digest();
+     }
+     function querySearch(query) {
+     var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
+     return results;
 
-    }
-    function selectedItemChange(item) {
-      var example = Fondeo.getAllFondeos();
-      example.then(function (res) {
-        vm.fondeos = res;
-        vm.showFondeos = true;
-      });
+     }
+     function selectedItemChange(item) {
+     var example = Fondeo.getAllFondeos();
+     example.then(function (res) {
+     vm.fondeos = res;
+     vm.showFondeos = true;
+     });
 
-    }
-    function createFilterFor(query) {
+     }
+     function createFilterFor(query) {
 
-      return function filterFn(proyecto) {
-        return (proyecto.titulo.indexOf(query) === 0);
-      };
-    }
+     return function filterFn(proyecto) {
+     return (proyecto.titulo.indexOf(query) === 0);
+     };
+     }
 
-    function clickItem(item, event) {
-      vm.itemPF=item;
-    }
-    function testModal(){
-        }*/
+     function clickItem(item, event) {
+     vm.itemPF=item;
+     }
+     function testModal(){
+     }*/
   }
+
   function matcher() {
     return function (arr1, arr2) {
       if (arr2 == null)
