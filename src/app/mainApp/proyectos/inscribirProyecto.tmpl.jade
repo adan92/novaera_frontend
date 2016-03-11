@@ -5,12 +5,21 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
     p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO
   div(flex='', layout='row', layout-align='center center', layout-fill='')
     .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
-      div(flex layout="row")
+      div(flex layout="row" ng-hide="vm.hideProject==true")
         md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
+          md-autocomplete(
+          md-selected-item='vm.selectedItem',
+          md-search-text='vm.searchText',
+          md-items='item in vm.proyectos',
+          md-item-text='item.Titulo',
+          md-min-length='0',
+          placeholder='Who is your Fav Avatar?')
+            md-item-template
+              span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
           md-virtual-repeat-container(id="vertical-container" ng-style="vm.listStyle" )
             md-list
               md-divider
-              md-item(ng-repeat="proyecto in vm.proyectos")
+              md-item(ng-repeat="proyecto in vm.proyectos | filter:vm.searchText")
                 md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
                   md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
                   span(flex) {{proyecto.Titulo}}
@@ -27,55 +36,54 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                 md-icon(md-font-icon="fa fa-table" style="color:white;")
                   md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" ng-show="vm.selectedProject!=null") Ver solicitudes
           md-content(ui-view  id="content"  )
+            div(layout="column" flex ng-show="vm.selectedProject!=null")
+              h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
+                span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+                span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
+                span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
+                span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
+                span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
+              h2.md-subhead
+                span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
+                span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
 
-              div(layout="column" flex ng-show="vm.selectedProject!=null")
-
-                  h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
-                    span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
-                    span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
-                    span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
-                    span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
-                    span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
-                  h2.md-subhead
-                    span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
-                    span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
-
-              div(layout="row" ng-show="vm.showSolicitudes")
-                  md-toolbar.md-table-toolbar.md-default
-                    .md-toolbar-tools
-                      span(translate='') PROJECT.INSCRIPTION.SOLICITUDES
-                  md-table-container
-                    table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
-                      thead(md-head='', md-order='vm.query.order')
-                        tr(md-row='md-row')
-                          th(md-column='md-column', md-order-by='id')
-                            span Programa de Fondeo
-                          th(md-column='md-column', md-order-by='PublicoObjetivo')
-                            span Convocatoria
-                          th(md-column='md-column', md-order-by='CriteriosElegibilidad')
-                            span Monto Solicitado
-                          th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                            span Fecha de Solicitud
-                          th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                            span
-                      // Cuerpo de la tabla
-                      tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
-                          td(md-cell='md-cell') {{sol.ProgramaFondeo}}
-                          td(md-cell='md-cell') {{sol.Convocatoria}}
-                          td(md-cell='md-cell') {{sol.MontoSolicitado}}
-                          td(md-cell='md-cell') {{sol.FechaRegistro}}
-                          td(md-cell='md-cell' ng-click="$event.stopPropagation()")
-                            div
-                            md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
-                              md-icon(md-font-icon="fa fa-bars")
+            div(layout="row" ng-show="vm.showSolicitudes")
+              md-toolbar.md-table-toolbar.md-default
+                .md-toolbar-tools
+                  span(translate='') PROJECT.INSCRIPTION.SOLICITUDES
+              md-table-container
+                table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+                  thead(md-head='', md-order='vm.query.order')
+                    tr(md-row='md-row')
+                      th(md-column='md-column', md-order-by='id')
+                        span Programa de Fondeo
+                      th(md-column='md-column', md-order-by='PublicoObjetivo')
+                        span Convocatoria
+                      th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                        span Monto Solicitado
+                      th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                        span Fecha de Solicitud
+                      th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                        span
+                  // Cuerpo de la tabla
+                  tbody(md-body='md-body')
+                    tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+                      td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+                      td(md-cell='md-cell') {{sol.Convocatoria}}
+                      td(md-cell='md-cell') {{sol.MontoSolicitado}}
+                      td(md-cell='md-cell') {{sol.FechaRegistro}}
+                      td(md-cell='md-cell' ng-click="$event.stopPropagation()")
+                        div
+                        md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
+                          md-icon(md-font-icon="fa fa-bars")
+      div(flex layout="row" ng-show="vm.hideProject==true")

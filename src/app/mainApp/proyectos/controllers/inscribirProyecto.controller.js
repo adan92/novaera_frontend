@@ -16,9 +16,13 @@
       'PROJECT.REGISTER.PROJECT_SELECT',
       'PROJECT.REGISTER.INFO'];
     vm.selectedProjects=selectedProjects;
+    vm.selectedItem=null;
+    vm.searchText = null;
+
     vm.selectedProject = null;
     vm.selectedSolicitudes=null;
     vm.tooltipVisible=false;
+    vm.hideProject=false;
     vm.solicitudes=null;
     vm.proyectos=null;
     vm.showSolicitudes=false;
