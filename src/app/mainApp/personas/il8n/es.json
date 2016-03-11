@@ -7,6 +7,8 @@
   "PERSONAS":{
     "INTRO": "Sigue los pasos para registrar un Nueva Persona",
     "PERSONASBYDESCRIPTOR":"Personas clasificadas por Clasificador",
+    "SEARCHPERSONA":"Buscar Personas",
+    "PERSONSRELATED":"Personas Relacionadas",
     "PERSONASBYORGANIZATION":"Personas clasificadas por Organización",
     "SELECT_DESCRIPTOR_TYPE":"Selecccione el tipo de Descriptor",
     "INTRO_TERMINOS": "Sigue los pasos para registrar Nueva Persona",

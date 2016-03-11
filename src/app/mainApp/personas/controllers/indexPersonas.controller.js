@@ -17,10 +17,11 @@
             vm.loadingDescriptorData        = false;
             vm.Chart                        = null;
             vm.Chart2                        = null;
-
+            vm.texto                        =null;
             vm.clickedPersons              = null;
             vm.personas                    = null;
             vm.selectedItem                 = null;
+            vm.querySearch = querySearch;
             vm.searchText                   = null;
             vm.simulateQuery                = false;
             vm.isDisabled                   = false;
@@ -29,6 +30,7 @@
             vm.activate                     = activate();
             vm.clear                        = clear;
             vm.onClick                      = onClick;
+            vm.querySearch                  =querySearch;
             vm.getDescriptores              = getDescriptores;
             vm.getOrganizations             =getOrganizations;
             vm.getPersonasByDescriptor     = getPersonasByDescriptor;
@@ -41,7 +43,19 @@
         vm.failureText = Translate.translate('DIALOGS.FAILURE');
         vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
     }
+        //Busqueda de personas
+        function querySearch (query) {
+            var results = query ? vm.personas.filter( createFilterFor(query) ) : vm.proyectos, deferred;
+            return results;
 
+        }
+        //Filtrar Persona
+        function createFilterFor(query) {
+
+            return function filterFn(persona) {
+                return (persona.Nombre.indexOf(query) === 0);
+            };
+        }
     function clear() {
         vm.clickedProjects = null;
     }
@@ -53,6 +67,7 @@
         vm.selectedDescriptor = descriptor.id;
         getDescriptores();
         getPersonasByDescriptor();
+        console.log(vm.personas);
 
     }
 
@@ -123,6 +138,7 @@
         promise.then(function(res){
             vm.loadingPersonas = false;
             vm.personas = res;
+            console.log(vm.personas);
         }).catch(function(err){
 
         });

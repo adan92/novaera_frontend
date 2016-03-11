@@ -27,14 +27,27 @@
                 md-card
                   md-card-content(layout-align='center center')
                     div(ng-show='vm.loadingOrganizationData==false')
-                        canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart2.Data', chart-labels='vm.Chart2.Labels', chart-legend='true')
+                        canvas#doughnut.chart.chart-doughnut(chart-data='vm.Chart2.Data', chart-labels='vm.Chart2.Labels', chart-legend='true')
                     h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYORGANIZATION
                     div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')
 
         div
-            md-card
-                table(flex md-table='')
+            div(layout='column')
+              md-card
+                  h3.md-title.text-center(translate='' ng-show='vm.personas!=null') PERSONAS.SEARCHPERSONA
+                  md-card-content
+                    md-autocomplete.margin-bottom-20(md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Nombre', md-min-length='0', placeholder='Selecciona la Persona a Buscar')
+                       span(md-highlight-text='vm.searchText', md-highlight-flags='^i')
+                        | {{item.Nombre}}, Descripcion: {{item.ApellidoP}}, Antecedentes:{{item.ApellidoM}}
+
+
+
+
+
+              md-card
+                h3.md-title.text-center(translate='' ng-show='vm.personas!=null') PERSONAS.PERSONSRELATED
+                table(flex md-table='', ng-show='vm.personas!=null')
                     thead(flex md-head='', md-order='vm.query.order')
                         tr(flex md-row='md-row')
                             th(md-column='md-column', md-order-by='Nombre')
@@ -47,8 +60,7 @@
                                 span Notas
                             th(md-column='md-column', md-order-by='Descripción')
                                 span Descripcion
-                            th(md-column='md-column')
-                                span Información
+
 
                     // Cuerpo de la tabla
                     tbody(md-body='md-body' flex)
@@ -57,10 +69,8 @@
                             td(md-cell='md-cell') {{persona.ApellidoP | cut:false:50:"..."}}
                             td(md-cell='md-cell') {{persona.ApellidoM | cut:false:50:"..."}}
                             td(md-cell='md-cell')
-                                span.table-span(ng-bind-html='proyecto.Notas | cut:false:50:"..."')
+                                span.table-span(ng-bind-html='persona.Notas | cut:false:50:"..."')
                             td(md-cell='md-cell')
-                                span.table-span(ng-bind-html='proyecto.Descripcion | cut:false:50:"..."')
-                            td(md-cell='md-cell')
-                                span.table-span(ng-bind-html='proyecto.Alcances | cut:false:50:"..."')
+                                span.table-span(ng-bind-html='persona.Descripcion | cut:false:50:"..."')
 
 
