@@ -1,0 +1,76 @@
+
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+  .layout.layout-column.layout-margin.layout-sm.layout-sm-column
+      div(layout='column')
+        div(layout='row')
+
+                md-card
+                    h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
+                    div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+                    md-card-content(layout-align='center center')
+                        div(ng-show='vm.loadingDescriptorData==false')
+                            canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                        h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYDESCRIPTOR
+                        div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                            md-progress-circular(md-mode='indeterminate')
+
+                        form(name='selectTipoDescriptorForm' ng-show='vm.tipoDescriptores!=null')
+                            md-input-container
+                                label
+                                     span(translate) PROJECT.INFO.SELECT_DESCRIPTOR_TYPE
+                                md-select(ng-model='vm.selectedTipoDescriptor' md-on-close='vm.getDescriptores()')
+                                    md-option(ng-repeat='tipoDescriptor in vm.tipoDescriptores' ng-value='tipoDescriptor.id')
+                                        | {{tipoDescriptor.Nombre}}
+
+
+                md-card
+                  md-card-content(layout-align='center center')
+                    div(ng-show='vm.loadingOrganizationData==false')
+                        canvas#doughnut.chart.chart-doughnut(chart-data='vm.Chart2.Data', chart-labels='vm.Chart2.Labels', chart-legend='true')
+                    h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYORGANIZATION
+                    div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+
+        div
+            div(layout='column')
+              md-card
+                  h3.md-title.text-center(translate='' ng-show='vm.personas!=null') PERSONAS.SEARCHPERSONA
+                  md-card-content
+                    md-autocomplete.margin-bottom-20(md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange(item)', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Nombre', md-min-length='0',ng-click='vm.getPersonasByName(vm.searchText)' ,placeholder='Selecciona la Persona a Buscar')
+                       span(md-highlight-text='vm.searchText', md-highlight-flags='^i')
+                        | {{item.Nombre}},  {{item.ApellidoP}}, {{item.ApellidoM}}
+
+
+
+
+
+              md-card
+                h3.md-title.text-center(translate='' ng-show='vm.personas!=null') PERSONAS.PERSONSRELATED
+                table(flex md-table='', ng-show='vm.personas!=null')
+                    thead(flex md-head='', md-order='vm.query.order')
+                        tr(flex md-row='md-row')
+                            th(md-column='md-column', md-order-by='Nombre')
+                                span Nombre
+                            th(md-column='md-column', md-order-by='ApellidoP')
+                                span Apellido Paterno
+                            th(md-column='md-column', md-order-by='ApellidoM')
+                                span Apellido Materno
+                            th(md-column='md-column', md-order-by='Notas')
+                                span Notas
+                            th(md-column='md-column', md-order-by='Descripción')
+                                span Descripcion
+
+
+                    // Cuerpo de la tabla
+                    tbody(md-body='md-body' flex)
+                        tr(flex md-row='md-row', ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                            td(md-cell='md-cell') {{persona.Nombre | cut:false:50:"..."}}
+                            td(md-cell='md-cell') {{persona.ApellidoP | cut:false:50:"..."}}
+                            td(md-cell='md-cell') {{persona.ApellidoM | cut:false:50:"..."}}
+                            td(md-cell='md-cell')
+                                span.table-span(ng-bind-html='persona.Notas | cut:false:50:"..."')
+                            td(md-cell='md-cell')
+                                span.table-span(ng-bind-html='persona.Descripcion | cut:false:50:"..."')
+
+
