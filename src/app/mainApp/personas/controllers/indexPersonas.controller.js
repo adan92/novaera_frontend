@@ -34,6 +34,7 @@
             vm.getDescriptores              = getDescriptores;
             vm.getOrganizations             =getOrganizations;
             vm.getPersonasByDescriptor     = getPersonasByDescriptor;
+            vm.getPersonasByName           =getPersonasByName;
 
 
     function activate() {
@@ -88,6 +89,19 @@
         }).catch(function(err){
 
         });
+    }
+
+    function getPersonasByName(){
+        if(vm.searchText!=''){
+            console.log("Lo que obtuve del autocomplete es:");
+            console.log(vm.searchText)
+            var promise = Persona.getByName(vm.searchText);
+                promise.then(function(res){
+                    vm.personas=res;
+                }).catch(function (err){
+
+                });
+        }
     }
 
 
