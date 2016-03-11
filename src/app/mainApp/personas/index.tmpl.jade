@@ -2,7 +2,7 @@
 .dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
   .layout.layout-column.layout-margin.layout-sm.layout-sm-column
       div(layout='column')
-        div
+        div(layout='row')
 
                 md-card
                     h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
@@ -34,4 +34,33 @@
 
         div
             md-card
+                table(flex md-table='')
+                    thead(flex md-head='', md-order='vm.query.order')
+                        tr(flex md-row='md-row')
+                            th(md-column='md-column', md-order-by='Nombre')
+                                span Nombre
+                            th(md-column='md-column', md-order-by='ApellidoP')
+                                span Apellido Paterno
+                            th(md-column='md-column', md-order-by='ApellidoM')
+                                span Apellido Materno
+                            th(md-column='md-column', md-order-by='Notas')
+                                span Notas
+                            th(md-column='md-column', md-order-by='Descripción')
+                                span Descripcion
+                            th(md-column='md-column')
+                                span Información
+
+                    // Cuerpo de la tabla
+                    tbody(md-body='md-body' flex)
+                        tr(flex md-row='md-row', ng-repeat='persona in vm.personas | orderBy:vm.query.order')
+                            td(md-cell='md-cell') {{persona.Nombre | cut:false:50:"..."}}
+                            td(md-cell='md-cell') {{persona.ApellidoP | cut:false:50:"..."}}
+                            td(md-cell='md-cell') {{persona.ApellidoM | cut:false:50:"..."}}
+                            td(md-cell='md-cell')
+                                span.table-span(ng-bind-html='proyecto.Notas | cut:false:50:"..."')
+                            td(md-cell='md-cell')
+                                span.table-span(ng-bind-html='proyecto.Descripcion | cut:false:50:"..."')
+                            td(md-cell='md-cell')
+                                span.table-span(ng-bind-html='proyecto.Alcances | cut:false:50:"..."')
+
 

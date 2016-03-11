@@ -52,6 +52,7 @@
         var descriptor =  searchDescriptores(label);
         vm.selectedDescriptor = descriptor.id;
         getDescriptores();
+        getPersonasByDescriptor();
 
     }
 

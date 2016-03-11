@@ -23,7 +23,7 @@
         {
             var deferred = $q.defer();
 
-                Restangular.all('Persona').one('ByDescriptor', idDescriptor).customGET().then(function (res) {
+                Restangular.all('Supervisor').all('Persona').one('ByDescriptor', idDescriptor).customGET().then(function (res) {
                     deferred.resolve(res.Persona);
                 }).catch(function (err) {
                     deferred.reject(err);
