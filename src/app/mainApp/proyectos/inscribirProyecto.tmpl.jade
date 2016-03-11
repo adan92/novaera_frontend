@@ -15,23 +15,22 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                   md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
                   span(flex) {{proyecto.Titulo}}
         div(layout="column" flex  id="background")
+          md-fab-speed-dial.md-scale.md-fab-top-right(ng-hide="vm.hidden" md-open='vm.isOpen', md-direction='down', ng-class="{ 'md-hover-full': vm.hover }" ng-mouseover="vm.isOpen=true" ng-mouseleave="vm.isOpen=false")
+            md-fab-trigger
+              md-button.md-fab.md-warn(aria-label='menu')
+                md-icon(md-font-icon="fa fa-bars")
+            md-fab-actions
+              md-button.md-fab.md-raised.md-mini(aria-label="add")
+                md-icon( md-font-icon="fa fa-plus" style="color:white;")
+                  md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ") Inscribir resultado
+              md-button.md-fab.md-raised.md-mini(aria-label='Facebook' ng-show="vm.selectedProject!=null")
+                md-icon(md-font-icon="fa fa-table" style="color:white;")
+                  md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" ng-show="vm.selectedProject!=null") Ver solicitudes
           md-content(ui-view  id="content"  )
-            md-fab-speed-dial.md-scale.md-fab-top-right(ng-hide="vm.hidden" md-open='vm.isOpen', md-direction='down', ng-class="{ 'md-hover-full': vm.hover }" ng-mouseover="vm.isOpen=true" ng-mouseleave="vm.isOpen=false")
-              md-fab-trigger
-                md-button.md-fab.md-warn(aria-label='menu')
-                  md-icon(md-font-icon="fa fa-bars")
-              md-fab-actions
-                md-button.md-fab.md-raised.md-mini(aria-label="add")
-                  md-icon( md-font-icon="fa fa-plus" style="color:white;")
-                    md-tooltip(md-direction="right" md-autohide="false" md-visible="vm.tooltipVisible ") Inscribir resultado
-                md-button.md-fab.md-raised.md-mini(aria-label='Facebook')
-                  md-icon(md-font-icon="fa fa-table" style="color:white;")
-                    md-tooltip(md-direction="right" md-autohide="false" md-visible="vm.tooltipVisible") Ver solicitudes
-            md-tabs.md-primary.md-hue-2( md-stretch-tabs="always" layout-fill )
-              md-tab
-                md-tab-label
-                  span(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
-                md-tab-body
+
+              div(layout="column" flex ng-show="vm.selectedProject!=null")
+
+                  h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
                   h2.md-subhead
                     span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
                     span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
@@ -50,10 +49,11 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                   h2.md-subhead
                     span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
                     span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
-              md-tab
-                md-tab-label
-                  span(translate="") PROJECT.INSCRIPTION.TITLES.SOLICITUDES
-                md-tab-body
+
+              div(layout="row" ng-show="vm.showSolicitudes")
+                  md-toolbar.md-table-toolbar.md-default
+                    .md-toolbar-tools
+                      span(translate='') PROJECT.INSCRIPTION.SOLICITUDES
                   md-table-container
                     table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
                       thead(md-head='', md-order='vm.query.order')

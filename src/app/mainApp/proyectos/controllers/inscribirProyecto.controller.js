@@ -21,6 +21,7 @@
     vm.tooltipVisible=false;
     vm.solicitudes=null;
     vm.proyectos=null;
+    vm.showSolicitudes=false;
     vm.isOpen=false;
     vm.hidden=false;
     vm.hover=false;
@@ -38,14 +39,14 @@
     function selectedProjects(project){
       console.log(project);
       vm.selectedProject=project;
-      var solicitudes = Operation.getOperation(project.id);
+     /* var solicitudes = Operation.getOperation(project.id);
       solicitudes.then(function (res) {
         vm.solicitudes = res.RegistroProyecto;
         console.log(vm.solicitudes);
       }).catch(function (err) {
           console.log(err);
-      });
-      vm.showSolicitudes = true;
+      });*/
+
       toggleUsersList();
     }
 
