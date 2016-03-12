@@ -1,0 +1,104 @@
+md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
+  md-toolbar
+    .md-toolbar-tools
+      md-button.md-icon-button(ng-click="vm.closeDialog()")
+        md-icon.fa.fa-times.fa-2x
+      h2(flex translate="") PROJECT.INSCRIPTION.FIELDS
+  md-dialog-content
+    div(flex='', layout='column', layout-align='center center', layout-fill=''  tri-wizard='')
+      md-toolbar.md-primary
+        .md-toolbar-tools(flex)
+          div(flex layout='column')
+            div(flex layout='row' layout-sm='column' layout-align='space-between center' )
+              h2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
+              h3(translate='') {{vm.steps[triWizard.currentStep]}}
+              h2 {{triWizard.progress}}%
+                span(translate='') PROJECT.WIZARD.COMPLETED
+            div(flex layout='row' layout-sm='column' layout-align='center center' )
+              h3(translate='') {{vm.proyectoLabel}}
+        md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+      md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
+        md-tab#selectProject
+          md-tab-label
+            span.oxy-step-label 1
+          md-tab-body
+            .wizard.layout-padding
+              form(name='projectSelect', tri-wizard-form, novalidate='')
+
+                md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-show="vm.fondeos!=null")
+                  md-virtual-repeat-container.vertical-container
+                    md-list
+                      md-divider
+                      md-item(ng-repeat="fondeo in vm.fondeos")
+                        md-button(ng-click="vm.selectedFondeos(fondeo)" ng-class="{'selected' : fondeo === vm.selectedFondeo }")
+                          md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
+                          span(flex) {{fondeo.Titulo}}
+                div(layout="column" flex  id="background")
+                  md-content
+                    div(layout="column" flex ng-show="vm.selectedFondeo!=null")
+                      h2.md-headline-1.text-center Información del programa de fondeo
+                        h2.md-subhead
+                          span(ng-bind-html='vm.selectedFondeo.Titulo')
+                        h2.md-subhead
+                          span
+                          strong Público objetivo:&nbsp;
+                          span(ng-bind-html="vm.selectedFondeo.PublicoObjetivo | cut:false:30:'...'")
+                        h2.md-subhead
+                          span
+                          strong Fondo total:&nbsp;
+                          span ${{vm.selectedFondeo.FondoTotal | number:2}}
+                        h2.md-subhead
+                          span
+                            strong Descripción
+                          span(ng-bind-html="vm.selectedFondeo.Descripcion| cut:false:30:'...'")
+                        h2.md-subhead
+                          span
+                            strong Rubros de apoyo:&nbsp;
+                          span(ng-bind-html="vm.selectedFondeo.RubrosDeApoyo| cut:false:30:'...'")
+                        h2.md-subhead
+                          span
+                            strong Criterios de elegibilidad:&nbsp;
+                          span(ng-bind-html="vm.selectedFondeo.CriteriosElegibilidad | cut:false:30:'...'")
+                        h2.md-subhead
+
+        md-tab#info(ng-disabled="vm.isNewProject? false: vm.selectedFondeo==null")
+          md-tab-label
+            span.oxy-step-label 2
+          md-tab-body
+            .wizard.layout-padding
+              form(name='projectInfo', tri-wizard-form, novalidate='')
+                div(layout='column', flex='')
+                  md-input-container
+                    label(translate='') PROJECT.FORM.PROJECT_TITLE
+                    input(name='titulo', required, type='text', ng-model='vm.proyecto.Titulo')
+                    div(ng-messages='projectInfo.titulo.$error')
+                      div(ng-message='', when='required')
+                        span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                  md-input-container
+                    label(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
+                    textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='300')
+                    div(ng-messages='projectInfo.descripcion.$error')
+                      div(ng-message='', when='required')
+                        span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+        md-tab#history(ng-disabled='projectInfo.$invalid')
+          md-tab-label
+            span.oxy-step-label 3
+          md-tab-body
+            .wizard.layout-padding
+              form(name='projectHistory', tri-wizard-form)
+                div(flex='', layout='column', layout-wrap='')
+                  md-input-container
+                    div(text-angular, required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
+                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                    md-divider
+        md-tab#justification(ng-disabled='projectHistory.$invalid')
+          md-tab-label
+            span.oxy-step-label 4
+          md-tab-body
+            .wizard.layout-padding
+              form(name='projectJustification', tri-wizard-form)
+                div(flex='', layout='column', layout-wrap='')
+                  md-input-container
+                    div(text-angular='', required, ng-model='vm.proyecto.Justificacion', ta-toolbar="[['bold','italics','ul','ol']]")
+                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                    md-divider

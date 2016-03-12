@@ -293,7 +293,7 @@
       "PROJECTSELECTED": "El proyecto Seleccionado fue:",
       "SELECTPROJECT": "Selecciona el Proyecto que quieres inscribir",
       "SOLICITUD":"Solicitudes del proyecto",
-      "INSCRIBIR":"Incribir proyecto",
+      "INSCRIBIR":"Inscribir proyecto",
       "FONDEOACTIVE": "Programas de Fondeo Activos",
       "CALLACTIVES": "Convocatorias Activas",
       "MODALITYSAVALIABLES": "Modalidades Disponibles",
@@ -321,6 +321,7 @@
       "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
       "PLACEHOLDER":{
         "SEARCH_PROJECT": "Busca tu proyecto"
+
       },
       "VIEWS":{
         "TITLE":"Titulo",
@@ -329,6 +330,11 @@
         "OBJECTIVES":"Objetivos",
         "JUSTIFICATION":"Justificación",
         "REACH":"Alcances"
+      },
+      "WIZARD":{
+        "FONDEOS":"Selección del Programa de Fondeo",
+        "CONVOCATORIA":"Selección de la Convocatoria",
+        "MODALIDAD":"Selección de la Modalidad"
       }
     },
     "VALIDA": {

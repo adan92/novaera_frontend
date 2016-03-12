@@ -2,10 +2,10 @@
    Created by lockonDaniel on 12/21/15.
 div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
   div(layout='row', layout-align='center center')
-    p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90' translate="") {{(vm.hideProject==true ? 'PROJECT.INSCRIPTION.SELECTPROJECT': 'PROJECT.INSCRIPTION.SOLICITUD')| translate}}
+    p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90' translate="") PROJECT.INSCRIPTION.SOLICITUD
   div(flex='', layout='row', layout-align='center center', layout-fill='')
     .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
-      div(flex layout="row" ng-hide="vm.hideProject==true")
+      div(flex layout="row")
         md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
           md-autocomplete(
           md-selected-item='vm.selectedItem',
@@ -13,13 +13,20 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
           md-items='item in vm.proyectos',
           md-item-text='item.Titulo',
           md-min-length='0',
-          placeholder='Who is your Fav Avatar?')
+          placeholder="{{ 'PROJECT.INSCRIPTION.PLACEHOLDER.SEARCH_PROJECT' | translate }}"
+          md-menu-class="autocomplete-custom-template")
+            span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
             md-item-template
-              span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
+              span.item-title
+                md-icon(md-font-icon="fa fa-briefcase")
+                span &nbsp; {{item.Titulo}}
+              span.item-metadata
+                span.item-metastat
+                  strong {{item.Descripcion | cut:false:50:'...'}}
           md-virtual-repeat-container.vertical-container
             md-list
               md-divider
-              md-item(ng-repeat="proyecto in vm.proyectos | filter:vm.searchText")
+              md-item(ng-repeat="proyecto in vm.proyectos | custom:vm.searchText")
                 md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
                   md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
                   span(flex) {{proyecto.Titulo}}
@@ -32,9 +39,9 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
               md-button.md-fab.md-raised.md-mini(aria-label="add" ng-click="vm.showRegister($event)")
                 md-icon( md-font-icon="fa fa-plus" style="color:white;")
                   md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ") Inscribir resultado
-              md-button.md-fab.md-raised.md-mini(aria-label='Facebook' ng-show="vm.selectedProject!=null")
+              md-button.md-fab.md-raised.md-mini(aria-label='Facebook'  )
                 md-icon(md-font-icon="fa fa-table" style="color:white;")
-                  md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" ng-show="vm.selectedProject!=null") Ver solicitudes
+                  md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible") Ver solicitudes
           md-content(ui-view  id="content"  )
             div(layout="column" flex ng-show="vm.selectedProject!=null")
               h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
@@ -86,69 +93,3 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         div
                         md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
                           md-icon(md-font-icon="fa fa-bars")
-      div(flex='', layout='column', layout-align='center center', layout-fill='' ng-show="vm.hideProject==true" tri-wizard='')
-        md-toolbar.md-primary
-          .md-toolbar-tools(flex)
-            div(flex layout='column')
-              div(flex layout='row' layout-sm='column' layout-align='space-between center' )
-                h2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
-                h3(translate='') {{vm.steps[triWizard.currentStep]}}
-                h2 {{triWizard.progress}}%
-                  span(translate='') PROJECT.WIZARD.COMPLETED
-              div(flex layout='row' layout-sm='column' layout-align='center center' )
-                h3(translate='') {{vm.proyectoLabel}}
-          md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
-        md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
-          md-tab#selectProject
-            md-tab-label
-              span.oxy-step-label 1
-            md-tab-body
-              .wizard.layout-padding
-                form(name='projectSelect', tri-wizard-form, novalidate='')
-                  md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
-                    md-autocomplete(
-                    md-selected-item='vm.selectedItem',
-                    md-search-text='vm.searchText',
-                    md-items='item in vm.proyectos',
-                    md-item-text='item.Titulo',
-                    md-min-length='0',
-                    placeholder='Who is your Fav Avatar?')
-                      md-item-template
-                        span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
-                    md-virtual-repeat-container.vertical-container
-                      md-list
-                        md-divider
-                        md-item(ng-repeat="proyecto in vm.proyectos | filter:vm.searchText")
-                          md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
-                            md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
-                            span(flex) {{proyecto.Titulo}}
-          md-tab#info(ng-disabled="vm.isNewProject? false: vm.selectedProject==null")
-            md-tab-label
-              span.oxy-step-label 2
-            md-tab-body
-              .wizard.layout-padding
-                form(name='projectInfo', tri-wizard-form, novalidate='')
-                  div(layout='column', flex='')
-                    md-input-container
-                      label(translate='') PROJECT.FORM.PROJECT_TITLE
-                      input(name='titulo', required, type='text', ng-model='vm.proyecto.Titulo')
-                      div(ng-messages='projectInfo.titulo.$error')
-                        div(ng-message='', when='required')
-                          span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-                    md-input-container
-                      label(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
-                      textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='300')
-                      div(ng-messages='projectInfo.descripcion.$error')
-                        div(ng-message='', when='required')
-                          span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-          md-tab#history(ng-disabled='projectInfo.$invalid')
-            md-tab-label
-              span.oxy-step-label 3
-            md-tab-body
-              .wizard.layout-padding
-                form(name='projectHistory', tri-wizard-form)
-                  div(flex='', layout='column', layout-wrap='')
-                    md-input-container
-                      div(text-angular, required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
-                      label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                      md-divider

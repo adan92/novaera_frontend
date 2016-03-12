@@ -4,30 +4,26 @@
   angular
     .module('app.mainApp.proyectos')
     .controller('inscribirProyectoController', inscribirProyectoController)
-    .filter('matcher', matcher);
+    .filter('custom', custom);
 
   /* @ngInject */
   function inscribirProyectoController($timeout, Catalogo, $mdSidenav, $mdDialog, $mdMedia, toastr, TRL, Convocatoria, Operation,
                                        registroProyecto, $scope, Fondeo, Proyecto) {
     Operation.setTypeOperation("RegistroProyecto");
     var vm = this;
-    vm.steps = [
-      'PROJECT.REGISTER.PROJECT_SELECT',
-      'PROJECT.REGISTER.INFO'];
     vm.selectedProjects = selectedProjects;
     vm.selectedItem = null;
     vm.searchText = null;
     vm.showRegister = showRegister;
-
     vm.selectedProject = null;
-    vm.selectedSolicitudes = null;
+    vm.selectedSolicitudes = [];
     vm.tooltipVisible = false;
     vm.hideProject = false;
     vm.solicitudes = null;
     vm.proyectos = null;
     vm.showSolicitudes = false;
     vm.isOpen = false;
-    vm.hidden = false;
+    vm.hidden = true;
     vm.hover = false;
     activate();
 
@@ -42,13 +38,23 @@
     }
 
     function showRegister($event) {
-      vm.hideProject=true;
-      console.log(vm.hideProject);
+      var config = {
+        controller: 'incribirProyectoDialogController',
+        templateUrl: 'app/mainApp/proyectos/incribirProyecto.dialog.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose: true,
+        fullscreen: true,
+        locals:{selectedProyecto:vm.selectedProject},
+        controllerAs: 'vm'
+      };
+      $mdDialog.show(config);
     }
 
     function selectedProjects(project) {
       console.log(project);
       vm.selectedProject = project;
+      vm.hidden=false;
       /* var solicitudes = Operation.getOperation(project.id);
        solicitudes.then(function (res) {
        vm.solicitudes = res.RegistroProyecto;
@@ -56,13 +62,11 @@
        }).catch(function (err) {
        console.log(err);
        });*/
-
       toggleUsersList();
     }
 
     function toggleUsersList() {
       $mdSidenav('left').toggle();
-
     }
 
     $scope.$watch('vm.isOpen', function (isOpen) {
@@ -120,24 +124,17 @@
      }*/
   }
 
-  function matcher() {
-    return function (arr1, arr2) {
-      if (arr2 == null)
-        return true;
+  function custom() {
+    return function (input, text) {
+      if (!angular.isString(text) || text === '') {
+        return input;
+      }
 
-      return arr1.filter(function (val) {
+      return input.filter(function (item) {
+        return (item.Titulo.indexOf(text) > -1);
+      });
+    };
 
-        var returnable = null;
-        angular.forEach(arr2, function (item) {
-          if (item.id == val.id)
-            returnable = false;
-        }, val);
-
-        if (returnable == null)
-          return true;
-        else return false;
-      })
-    }
   }
 })();
 
