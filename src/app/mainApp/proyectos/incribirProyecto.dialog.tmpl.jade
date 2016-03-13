@@ -12,30 +12,33 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
             div(flex layout='row' layout-sm='column' layout-align='space-between center' )
               h2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
               h3(translate='') {{vm.steps[triWizard.currentStep]}}
-              h2 {{triWizard.progress}}%
+              h2
+                | {{vm.completed}}%
                 span(translate='') PROJECT.WIZARD.COMPLETED
             div(flex layout='row' layout-sm='column' layout-align='center center' )
               h3(translate='') {{vm.proyectoLabel}}
-        md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
+        md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
       md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
-        md-tab#selectProject
+        md-tab#selectFondeo(md-on-select="vm.onTabChanges(1)")
           md-tab-label
             span.oxy-step-label 1
           md-tab-body
             .wizard.layout-padding
-              form(name='projectSelect', tri-wizard-form, novalidate='')
-
-                md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" ng-show="vm.fondeos!=null")
-                  md-virtual-repeat-container.vertical-container
-                    md-list
-                      md-divider
-                      md-item(ng-repeat="fondeo in vm.fondeos")
-                        md-button(ng-click="vm.selectedFondeos(fondeo)" ng-class="{'selected' : fondeo === vm.selectedFondeo }")
-                          md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
-                          span(flex) {{fondeo.Titulo}}
-                div(layout="column" flex  id="background")
-                  md-content
-                    div(layout="column" flex ng-show="vm.selectedFondeo!=null")
+              form(name='fondeoSelect', tri-wizard-form, novalidate='')
+                div(layout='row', layout-sm='column', layout-md='column')
+                  md-card(flex='30', layout='column')
+                    md-card-content
+                      md-virtual-repeat-container.vertical-container
+                        md-list
+                          md-divider
+                          md-list-item.md-3-line(ng-repeat='fondo in vm.fondeos', ng-click="vm.selectedFondeos(fondo,$event)")
+                            div.md-list-item-text(layout="column")
+                              h3  {{fondo.Titulo}}
+                              h4  {{fondo.PublicoObjetivo}}
+                              p   ${{fondo.FondoTotal | number:2}}
+                            md-divider
+                  md-card(flex='70', layout='column')
+                    md-card-content
                       h2.md-headline-1.text-center Información del programa de fondeo
                         h2.md-subhead
                           span(ng-bind-html='vm.selectedFondeo.Titulo')
@@ -58,47 +61,110 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                         h2.md-subhead
                           span
                             strong Criterios de elegibilidad:&nbsp;
-                          span(ng-bind-html="vm.selectedFondeo.CriteriosElegibilidad | cut:false:30:'...'")
-                        h2.md-subhead
+                          span {{(vm.selectedFondeo.CriteriosElegibilidad) | htmlToString}}
 
-        md-tab#info(ng-disabled="vm.isNewProject? false: vm.selectedFondeo==null")
+        md-tab#info(ng-disabled='vm.selectedFondeo==null', md-on-select='vm.onTabChanges(2)')
           md-tab-label
             span.oxy-step-label 2
           md-tab-body
             .wizard.layout-padding
-              form(name='projectInfo', tri-wizard-form, novalidate='')
-                div(layout='column', flex='')
-                  md-input-container
-                    label(translate='') PROJECT.FORM.PROJECT_TITLE
-                    input(name='titulo', required, type='text', ng-model='vm.proyecto.Titulo')
-                    div(ng-messages='projectInfo.titulo.$error')
-                      div(ng-message='', when='required')
-                        span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-                  md-input-container
-                    label(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
-                    textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='300')
-                    div(ng-messages='projectInfo.descripcion.$error')
-                      div(ng-message='', when='required')
-                        span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-        md-tab#history(ng-disabled='projectInfo.$invalid')
+              form(name='convocatoriaSelect', tri-wizard-form, novalidate='')
+                div(layout='row', layout-sm='column', layout-md='column')
+                  md-card(flex='30', layout='column')
+                    md-card-content
+                      md-virtual-repeat-container.vertical-container
+                        md-list
+                          md-divider
+                          md-list-item.md-3-line(ng-repeat='convocatoria in vm.convocatorias', ng-click="vm.selectedConvocatorias(convocatoria,$event)")
+                            div.md-list-item-text(layout="column")
+                              h3  {{convocatoria.Nombre}}
+                              h4  {{convocatoria.Inicio}}
+                              p   {{convocatoria.Termino}}
+                            md-divider
+                  md-card(flex='70', layout='column')
+                    md-card-content
+                      h2.md-headline-1.text-center Información de la convocatoria
+                        h2.md-subhead
+                          strong Nombre:
+                          span {{vm.selectedConvocatoria.Nombre}}
+                        h2.md-subhead
+                            strong Fecha de Inicio:
+                          span {{vm.selectedConvocatoria.FechaInicio}}
+                        h2.md-subhead
+                            strong Fecha de Término:
+                          span {{vm.selectedConvocatoria.FechaTermino}}
+                        h2.md-subhead
+                          strong Requisitos:
+                          div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
+                            ul
+                              li.li-disc {{requisito.Nombre}}: {{requisito.Descripcion}}
+
+
+        md-tab#history(ng-disabled='vm.selectedConvocatoria==null' md-on-select='vm.onTabChanges(3)')
           md-tab-label
             span.oxy-step-label 3
           md-tab-body
             .wizard.layout-padding
-              form(name='projectHistory', tri-wizard-form)
-                div(flex='', layout='column', layout-wrap='')
-                  md-input-container
-                    div(text-angular, required, ng-model='vm.proyecto.Antecedentes', ta-toolbar="[['bold','italics','ul','ol']]")
-                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                    md-divider
-        md-tab#justification(ng-disabled='projectHistory.$invalid')
+              form(name='convocatoriaSelect', tri-wizard-form, novalidate='')
+                div(layout='row', layout-sm='column', layout-md='column')
+                  md-card(flex='30', layout='column')
+                    md-card-content
+                      md-virtual-repeat-container.vertical-container
+                        md-list
+                          md-divider
+                          md-list-item.md-3-line(ng-repeat='modalidad in vm.modalidades', ng-click="vm.selectedModalidades(modalidad,$event)")
+                            div.md-list-item-text(layout="column")
+                              h3  {{modalidad.Nombre}}
+                              h4  ${{modalidad.Montos | number:2}}
+                            md-divider
+                  md-card(flex='70', layout='column')
+                    md-card-content
+                      h2.md-headline-1.text-center Información de la modalidad
+                        h2.md-subhead
+                          strong Nombre:
+                          span {{vm.selectedModalidad.Nombre}}
+                        h2.md-subhead
+                          span
+                          strong Montos:
+                          span ${{vm.selectedModalidad.Montos | number:2}}
+                        h2.md-subhead
+                          strong Cristerio de evaluación:
+                          span {{vm.selectedModalidad.CriteriosEvaluacion}}
+                        h2.md-subhead
+                          strong Entregables:
+                          span {{vm.selectedModalidad.Entregables}}
+                        h2.md-subhead
+                          strong Figuras de Apoyo:
+                          span {{vm.selectedModalidad.FigurasApoyo}}
+
+        md-tab#justification(ng-disabled='vm.selectedModalidad==null' md-on-select='vm.onTabChanges(4)')
           md-tab-label
             span.oxy-step-label 4
           md-tab-body
             .wizard.layout-padding
-              form(name='projectJustification', tri-wizard-form)
-                div(flex='', layout='column', layout-wrap='')
-                  md-input-container
-                    div(text-angular='', required, ng-model='vm.proyecto.Justificacion', ta-toolbar="[['bold','italics','ul','ol']]")
-                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                    md-divider
+              form(name='agregarSolicitud', novalidate='')
+                md-input-container
+                  label(translate='') PROJECT.INSCRIPTION.TECNOPARKS
+                  md-select(ng-model='vm.tecnopark', required='', name='tecnopark' ng-change='vm.checkPass()' )
+                    md-option(ng-repeat='tecnopark in vm.tecnoparks', value='{{tecnopark.id}}')
+                      | {{tecnopark.Nombre}}
+                md-input-container
+                  label(translate='') PROJECT.INSCRIPTION.MOUNT
+                  input(ng-model='vm.montosolicitado',type="number", required='', name='montosolicitado',ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-focus='vm.checkPass()')
+                  div(ng-messages="agregarSolicitud.montosolicitado.$valid")
+                    div(ng-if="agregarSolicitud.montosolicitado.$valid!=true")
+                      span Ingresa un monto válido
+                md-input-container
+                  label(translate='') PROJECT.INSCRIPTION.TRLBEGIN
+                  md-select(ng-model='vm.trlInicial', required='', name='trlInicial' ng-change='vm.checkPass()')
+                    md-option(ng-repeat='trlInicial in vm.trlIniciales', value='{{trlInicial.id}}')
+                      | {{trlInicial.Descripcion}}
+                md-input-container
+                  label(translate='') PROJECT.INSCRIPTION.TRLENDING
+                  md-select(ng-model='vm.trlFinal', required='', name='trlFinal' ng-change='vm.checkPass()')
+                    md-option(ng-repeat='trlFinal in vm.trlFinales', value='{{trlFinal.id}}')
+                      | {{trlFinal.Descripcion}}
+      .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+        md-button.md-primary.md-raised(ng-click='triWizard.prevStep()',aria-label='md-button', ng-hide='vm.currentTab > 4', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+        md-button.md-primary.md-raised(ng-click='triWizard.nextStep()',aria-label='md-button', ng-hide='vm.completed == 100 && vm.currentTab >= 4', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+        md-button.md-accent.md-raised(ng-click='vm.send()',aria-label='md-button', ng-show='vm.completed == 100 && vm.currentTab >= 4 ', translate='PROJECT.WIZARD.SEND', ng-disabled='agregarSolicitud.$invalid')
