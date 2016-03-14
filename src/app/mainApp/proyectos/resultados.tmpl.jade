@@ -88,7 +88,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     div(layout layout-sm="column")
                         md-input-container(flex)
                             label(translate='') PROJECT.RESULTS.FORM.DESCRIPTION
-                            textarea( name='descripcion', ng-model='vm.resultado.Resumen', required='',rows="3" md-maxlength="500")
+                            textarea( name='descripcion', ng-model='vm.resultado.Resumen', required='',rows="3" md-maxlength="1000")
                             div(ng-messages='agregarResultado.descripcion.$error')
                                 div(ng-message='required')
                                     span(translate='') PROJECT.WIZARD.REQUIRED-FIELD

@@ -51,7 +51,7 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                                     span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
                            md-input-container
                               label(translate='') PROJECT.FORM.PROJECT_DESCRIPTION
-                              textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='300')
+                              textarea(name='descripcion', required, ng-model='vm.proyecto.Descripcion', md-maxlength='1000')
                               div(ng-messages='projectInfo.descripcion.$error')
                                  div(ng-message='', when='required')
                                     span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
