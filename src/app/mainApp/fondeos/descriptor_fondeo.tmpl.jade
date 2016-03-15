@@ -5,39 +5,62 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     md-card-content
                         h2.text-center(translate='') FONDEOS.DESCRIPTOR.TITLE
                         h3.text-center(translate='') FONDEOS.DESCRIPTOR.INSTRUCTIONS
-                        md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange()', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Busca tu Programa de Fondeo')
+                        div(layout='row' layout-sm='column' ng-show='vm.loadingFondeos==true' layout-align='center center')
+                            md-progress-circular(md-mode='indeterminate')
+
+                        md-autocomplete.margin-bottom-20(
+                        ng-show='vm.loadingFondeos==false',
+                        ng-disabled='vm.isDisabled',
+                        md-no-cache='vm.noCache',
+                        md-selected-item='vm.selectedItem',
+                        md-search-text-change='vm.searchTextChange(vm.searchText)',
+                        md-search-text='vm.searchText',
+                        md-selected-item-change='vm.selectedItemChange()',
+                        md-items='item in vm.querySearch(vm.searchText)',
+                        md-item-text='item.Titulo',
+                        md-min-length='0',
+                        placeholder='Busca tu Programa de Fondeo')
                             span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
             // Tarjeta para Eliminar Descriptores de Programas de Fondeo
             div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
                 // Tarjeta para Agregar Descriptores de Programas de Fondeo
-                md-card(flex='30', layout='column', ng-show='vm.selectedItem!=null')
+                md-card(flex, layout='column', ng-show='vm.selectedItem!=null')
                     md-card-content
                         h2(translate='') FONDEOS.DESCRIPTOR.ADD
                         form(name='agregarDescriptor', novalidate='')
                             md-input-container
                                 label(translate='') FONDEOS.DESCRIPTOR.TYPE
+                                md-select(ng-model='vm.selectedTipoDescriptor',md-on-close='vm.getDescriptores()'  required='', name='tipo')
+                                    md-option(ng-repeat='tipo in vm.tipoDescriptores', value='{{tipo.id}}')
+                                        | {{tipo.Nombre}}
+                            div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
+                                md-progress-circular(md-mode='indeterminate')
+
+                            md-input-container(ng-show='vm.descriptores!=null')
+                                label(translate='') FONDEOS.DESCRIPTOR.DESCRIPTOR
                                 md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
                                     md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}')
                                         | {{tipo.Titulo}}
                             md-input-container
                                 label(translate='') FONDEOS.DESCRIPTOR.NOTES
                                 input(ng-model='vm.descriptor.observaciones', required='', name='observaciones')
-                            md-button.md-raised(ng-disabled='registrarDescriptor.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                            md-button.md-raised(ng-show='vm.descriptor.id==null', ng-disabled='registrarDescriptor.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='add button')
                                 span(translate='') FONDEOS.DESCRIPTOR.ADD
+                            md-button.md-raised.md-primary(ng-show='vm.descriptor.id!=null', ng-disabled='registrarDescriptor.$invalid' ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='add button')
+                                span(translate='') FONDEOS.DESCRIPTOR.UPDATE
                             md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
                                 span(translate='') FONDEOS.DESCRIPTOR.CLEAR
-                md-card(flex='70', layout='column')
+                md-card(flex, layout='column')
                     md-card-content
                         h2.text-center(translate='') FONDEOS.DESCRIPTOR.CURRENT
                         md-list
                             md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptoresFondeo')
-                                .md-list-item-text(flex='40')
-                                    h3 ID: {{descriptor.pivot.id}}
+                                .md-list-item-text(flex)
                                     h5 Descriptor: {{descriptor.Titulo}}
                                     h5 Observaciones: {{descriptor.pivot.observaciones}}
-                                div(flex='25')
+                                div(flex)
                                     md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
-                                        span(translate='') PERSONAS.DESCRIPTOR.EDIT
+                                        span(translate='') FONDEOS.DESCRIPTOR.EDIT
                                     md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                        span(translate='') PROJECT.DESCRIPTOR.REMOVE_RESULT
+                                        span(translate='') FONDEOS.DESCRIPTOR.DELETE
                                 md-divider

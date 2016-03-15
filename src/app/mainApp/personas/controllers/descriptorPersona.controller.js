@@ -92,6 +92,7 @@
             function resetForm()
         {
             vm.descriptor=null;
+            vm.selectedTipoDescriptor = null;
             $scope.agregarDescriptor.$setPristine();
         }
 

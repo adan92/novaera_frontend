@@ -6,44 +6,49 @@
 
     angular
         .module('app.mainApp.fondeos')
-        .controller('descriptorFondeoController', descriptorFondeoController)
-        .filter('matcher',matcher);
+        .controller('descriptorFondeoController', descriptorFondeoController);
 
     /* @ngInject */
-    function descriptorFondeoController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function descriptorFondeoController($scope,Descriptor,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
         //
 
-        vm.descriptores       = null;
-        vm.fondeos            = null;
-        vm.descriptoresFondeo = null;
-        vm.fondeoDescriptor   = null;
-        vm.descriptor         = null;
-        vm.selectedItem       = null;
-        vm.searchText         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-        vm.edit               = edit;
-        vm.resetForm          = resetForm;
-        vm.activate           = activate();
-        vm.deleteItem         = deleteItem;
-        vm.createDialog       = createDialog;
-        vm.selectedItemChange = selectedItemChange;
+        vm.loadingFondeos                   = false;
+        vm.tipoDescriptores                 = null;
+        vm.selectedTipoDescriptor           = null;
+        vm.descriptores                     = null;
+        vm.fondeos                          = null;
+        vm.descriptoresFondeo               = null;
+        vm.fondeoDescriptor                 = null;
+        vm.descriptor                       = null;
+        vm.selectedItem                     = null;
+        vm.searchText                       = null;
 
+
+        /*Funciones*/
+
+
+        vm.querySearch                      = querySearch;
+        vm.addItem                          = addItem;
+        vm.edit                             = edit;
+        vm.resetForm                        = resetForm;
+        vm.activate                         = activate();
+        vm.deleteItem                       = deleteItem;
+        vm.createDialog                     = createDialog;
+        vm.selectedItemChange               = selectedItemChange;
+        vm.getTipoDescriptores              = getTipoDescriptores;
+        vm.getDescriptores                  = getDescriptores;
 
         function activate(){
+            vm.loadingFondeos = true;
             Restangular.all('ProgramaFondeo').customGET().then(function(res){
                 vm.fondeos = res.ProgramaFondeo;
-                Restangular.all('Descriptor').customGET().then(function(res){
-                    vm.descriptores = res.Descriptor;
-                }).catch(function(err){
-
-                });
+                getTipoDescriptores();
+                vm.loadingFondeos = false;
 
             }).catch(function(err){
-
+                vm.loadingFondeos = false;
             });
             vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
@@ -58,7 +63,31 @@
             vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
         }
 
-        function selectedItemChange()
+
+        function getTipoDescriptores()
+        {
+            var promise = Descriptor.getTipoDescriptorByClasificacion('ProgramaFondeo');
+            promise.then(function(res){
+                vm.tipoDescriptores = res;
+            }).catch(function(err){
+
+            });
+        }
+
+        function getDescriptores() {
+            vm.descriptores = null;
+            vm.loadingDescriptorData = true;
+            var promise = Descriptor.callAssosciated(vm.selectedTipoDescriptor);
+            promise.then(function (res) {
+                console.log(res);
+                vm.descriptores = res.Descriptor;
+                vm.loadingDescriptorData = false;
+            }).catch(function (err) {
+                vm.loadingDescriptorData = false;
+            });
+        }
+
+            function selectedItemChange()
         {
             if(vm.selectedItem.id != undefined  && vm.selectedItem != null) {
                 Restangular.all('ProgramaFondeo').one('Descriptor', vm.selectedItem.id).customGET().then(function (res) {
@@ -72,6 +101,7 @@
         function resetForm()
         {
             vm.descriptor=null;
+            vm.selectedTipoDescriptor = null;
             $scope.agregarDescriptor.$setPristine();
         }
 
@@ -130,6 +160,8 @@
             if(item!=undefined)
             {
                 vm.descriptor = item.pivot;
+                vm.selectedTipoDescriptor = item.idTipoDescriptor;
+                getDescriptores();
             }
         }
 
@@ -137,7 +169,7 @@
          * Create function to add item
          */
 
-        $scope.addItem = function()
+        function addItem()
         {
             vm.descriptor.idProgramaFondeo = vm.selectedItem.id;
             if (vm.descriptor.id == null) {
@@ -183,26 +215,7 @@
         };
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2===null)
-                return true;
 
-            return arr1.filter(function(val){
-
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
-                        returnable = false;
-                },val);
-
-                if(returnable===null)
-                    return true;
-                else return false;
-            });
-        };
-    }
 })
 
 ();
