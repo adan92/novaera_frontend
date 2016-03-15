@@ -34,13 +34,13 @@
                     md-input-container(ng-show='vm.tipoDescriptores!=null')
                         label(translate='') PERSONAS.DESCRIPTOR.TYPE
                         md-select(ng-model='vm.selectedTipoDescriptor',md-on-close='vm.getDescriptores()' ,required='', name='tipo')
-                            md-option(ng-repeat='tipo in vm.tipoDescriptores', ng-value='tipo.id') {{tipo.Nombre}}
+                            md-option(ng-repeat='tipo in vm.tipoDescriptores', ng-value='tipo.id') {{tipo.Nombre | cut:false:30:"..."}}
                     div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')
                     md-input-container(ng-show='vm.descriptores!=null')
                         label(translate='') PERSONAS.DESCRIPTOR.DESCRIPTOR
                         md-select(ng-model='vm.descriptor.idDescriptor',required='', name='descriptor')
-                            md-option(ng-repeat='descriptor in vm.descriptores', ng-value='descriptor.id') {{descriptor.Titulo}}
+                            md-option(ng-repeat='descriptor in vm.descriptores', ng-value='descriptor.id') {{descriptor.Titulo | cut:false:30:"..."}}
                     md-input-container(flex)
                             label(translate='') PERSONAS.DESCRIPTOR.FINIT
                             input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
