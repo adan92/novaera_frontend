@@ -114,13 +114,13 @@
             priority: 2.1,
             children: [
 
-            /*  {
+             {
               name: 'Información',
               state: 'triangular.admin-default.personas',
               icon: 'fa fa-user',
               type: 'link'
 
-            },*/
+            },
              {
               name: 'Validar Personas',
               state: 'triangular.admin-default.admin',
