@@ -25,6 +25,11 @@
         vm.searchText                   = null;
         vm.simulateQuery                = false;
         vm.isDisabled                   = false;
+        vm.query = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
 
         /*Funciones */
 

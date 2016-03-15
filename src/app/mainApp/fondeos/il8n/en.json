@@ -155,6 +155,20 @@
         "SUPPORT":"Figuras de Apoyo",
         "ADD":"Agregar a Convocatoria"
 
+    },
+    "STATS":{
+      "TITLE":"Estadísticas de Fondos",
+      "QUERY_SELECTOR":"Gestor de Consulta",
+      "TYPE_SUM_SELECT": "Selecciona el tipo de monto",
+      "TYPE_QUERY_SELECT": "Selecciona el tipo de consulta",
+      "SELECT_HOW_VALIDATED":"Selecciona validación de registro",
+      "SELECT_MODALIDAD": "Selecciona una modalidad",
+      "PROGRAMA_LABELS": "Fondos por Programa de Fondeo",
+      "MODALIDAD_LABELS": "Fondos por Modalidades",
+      "CONVOCATORIA_LABELS": "Fondos por Convocatorias",
+      "REGISTER_COUNTER": "Solicitudes de Apoyo",
+      "CHART_INSTRUCTIONS": "Da click en cualquier elemento para ver el gráfico de registros"
+
     }
 
 

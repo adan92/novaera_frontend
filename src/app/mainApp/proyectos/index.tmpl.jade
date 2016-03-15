@@ -71,7 +71,7 @@
 
                         // Cuerpo de la tabla
                         tbody(md-body='md-body' flex)
-                            tr(flex md-row='md-row', ng-repeat='proyecto in vm.proyectos | orderBy:vm.query.order')
+                            tr(flex md-row='md-row', ng-repeat='proyecto in vm.proyectos | orderBy:vm.query.order | offset:(vm.query.page-1)*vm.query.limit | limitTo: vn.query.limit')
                                 td(md-cell='md-cell') {{proyecto.Titulo | cut:false:50:"..."}}
                                 td(md-cell='md-cell') {{proyecto.Descripcion | cut:false:50:"..."}}
                                 td(md-cell='md-cell')
@@ -83,3 +83,4 @@
                                 td(md-cell='md-cell')
                                     md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,proyecto)' aria-label='informationButton')
                                         ng-md-icon(icon='menu' size='22')
+                md-table-pagination(flex md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.proyectos.length}}" md-on-paginate="onPaginate" md-page-select)

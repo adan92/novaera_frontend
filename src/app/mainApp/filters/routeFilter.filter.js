@@ -1,3 +1,7 @@
-/**
- * Created by lockonDaniel on 2/20/16.
- */
+angular.module('app').filter('routeFilter', function() {
+    return function(input) {
+        if(input===undefined)
+            return "";
+        return input.split('/').pop();
+    };
+});

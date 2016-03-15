@@ -117,6 +117,26 @@
                 requireLogin: true,
                 requirePrivileges:'Supervisor',
                 redirect:'auth.login'
+            }).state('triangular.admin-default.fondeos_stats',{
+                url: '/fondeos_stats',
+                // set the html template to show on this page
+                templateUrl: 'app/mainApp/fondeos/stats.tmpl.html',
+                // set the controller to load for this page
+                controller: 'statsFondeoController',
+                controllerAs: 'vm',
+                data: {
+                    layout: {
+                        toolbarSize: 'default',
+                        toolbarShrink: true,
+                        toolbarClass: 'none',
+                        contentClass: '',
+                        sideMenuSize: 'full',
+                        footer: true
+                    }
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
             });
         // add menu to triangular
         triMenuProvider.addMenu({

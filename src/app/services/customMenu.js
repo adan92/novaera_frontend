@@ -134,7 +134,14 @@
             type: 'dropdown',
             icon: 'fa fa-institution',
             priority: 2.1,
-            children: [{
+            children: [
+              {
+                name:'Estadísticas',
+                state: 'triangular.admin-default.stats_org',
+                icon: 'fa fa-line-chart',
+                type: 'link'
+              },
+              {
               name: 'Validar Organización',
               state: 'triangular.admin-default.validar_organizacion',
               icon: 'fa fa-users',
@@ -153,6 +160,11 @@
             icon: 'zmdi zmdi-money-box',
             priority: 2.1,
             children: [{
+                name: 'Estadísticas',
+                state:'triangular.admin-default.fondeos_stats',
+                type: 'link',
+                icon: 'fa fa-line-chart'
+            },{
                 name: 'Registro',
                 state: 'triangular.admin-default.fondeos_registro',
                 type: 'link'

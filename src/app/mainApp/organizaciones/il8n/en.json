@@ -35,6 +35,16 @@
       "EXPERIENCE": "Experiencias",
       "CONSTITUTIVE_ACT": "Acta Constitutiva (Arrastra archivo aquí)"
     },
+
+    "STATS":{
+      "LOOKUP_STATS":"Ver estadísticas",
+      "INSTRUCTIONS_CHART": "Da click en cualquiera de los elementos para mostrar las organizaciones",
+      "SELECT_DESCRIPTOR_TYPE":"Selecciona el clasificador",
+      "RECENT_ORGANIZATIONS": "Organizaciones Recientes",
+      "ALL_ORGANIZACIONES": "Todas las organizaciones",
+      "ORGANIZATION_LIST": "Lista de Organizaciones"
+    },
+
     "DOCUMENTOS":{
       "VALIDATE":"Validar Documento"
     },
