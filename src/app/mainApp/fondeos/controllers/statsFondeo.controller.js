@@ -48,7 +48,7 @@
                vm.selectedFondeo = vm.fondeos[0];
            }).catch(function (err) {
 
-           })
+           });
 
         }
 

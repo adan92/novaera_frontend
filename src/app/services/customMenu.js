@@ -50,12 +50,12 @@
             icon: 'zmdi zmdi-layers',
             priority: 2.1,
             children: [{
-                name: 'Informacion',
+                name: 'Información',
                 state: 'triangular.admin-default.descriptor',
                 type: 'link'
 
               }, {
-                name: 'Tipo de Descriptor',
+                name: 'Tipo de Clasificador',
                 state: 'triangular.admin-default.tipo_descriptor',
                 type: 'link'
 
@@ -84,7 +84,9 @@
 
             ]
 
-          }, {
+          },
+          /*
+          {
             name: 'MENU.EXPINFO.EXPINFO1',
             type: 'dropdown',
             icon: 'zmdi zmdi-chart',
@@ -105,18 +107,21 @@
                 type: 'link'
               }
             ]
-          }, {
+          },*/ {
             name: 'MENU.PERSONAS.PERSONAS',
             type: 'dropdown',
             icon: 'zmdi zmdi-account',
             priority: 2.1,
-            children: [{
+            children: [
+
+            /*  {
               name: 'Información',
               state: 'triangular.admin-default.personas',
               icon: 'fa fa-user',
               type: 'link'
 
-            }, {
+            },*/
+             {
               name: 'Validar Personas',
               state: 'triangular.admin-default.admin',
               icon: 'fa fa-users',
@@ -180,7 +185,7 @@
                 type: 'link'
 
               }, {
-                name: 'Descriptor',
+                name: 'Clasificador',
                 state: 'triangular.admin-default.fondeos_descriptor',
                 type: 'link'
 

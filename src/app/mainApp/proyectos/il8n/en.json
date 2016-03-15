@@ -76,11 +76,10 @@
       "MY_PROJECTS": "Proyectos Registrados",
       "INSTRUCTIONS": "Busca tu proyecto para administrar las etapas",
       "REGISTERED_STAGES": "Etapas Registradas",
-      "TITLE_GANTT":"Gráfico de Gantt",
-      "TITLE_EDIT":"Editar tarea",
-      "TITLE_CREATE_TASK":"Crear nueva etapa:",
-      "TITLE_EDIT_TASK":"Editar etapa:",
-
+      "TITLE_GANTT": "Gráfico de Gantt",
+      "TITLE_EDIT": "Editar tarea",
+      "TITLE_CREATE_TASK": "Crear nueva etapa:",
+      "TITLE_EDIT_TASK": "Editar etapa:",
       "NEW_STAGE": "Nueva etapa",
       "REMOVE_STAGE": "Eliminar etapa",
       "PREVIOUS_STAGE": "Etapa Precedente",
@@ -90,26 +89,24 @@
       "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       },
-      "FORM":{
-        "NAME":"Nombre",
-        "DESCRIPTION":"Descripción",
-        "BUTTON":{
-          "ADD":"Agregar Etapa",
-          "LEAVE_EDIT":"Dejar de editar",
-          "LEAVE_EDIT_TASK":"Dejar de editar",
-          "DELETE":"Eliminar Etapa",
-          "SAVE":"Enviar Datos"
+      "FORM": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "BUTTON": {
+          "ADD": "Agregar Etapa",
+          "LEAVE_EDIT": "Dejar de editar",
+          "LEAVE_EDIT_TASK": "Dejar de editar",
+          "DELETE": "Eliminar Etapa",
+          "SAVE": "Enviar Datos"
         },
-        "SELECT_STAGE_LBL":"Seleccionar una etapa para editar:",
-        "SELECT_STAGE":"Seleccionar Etapa",
-        "SELECT_DATE_FROM_LBL":"Mostrar desde:",
-        "SELECT_DATE_TO_LBL":"Mostrar hasta:",
-        "NAME_LBL":"Nombre de la Tarea",
-        "FROM_LBL":"De:",
-        "TO_LBL":"Hasta:",
-        "DESCRIPTION_LBL":"Descripción de la Tarea"
-
-
+        "SELECT_STAGE_LBL": "Seleccionar una etapa para editar:",
+        "SELECT_STAGE": "Seleccionar Etapa",
+        "SELECT_DATE_FROM_LBL": "Mostrar desde:",
+        "SELECT_DATE_TO_LBL": "Mostrar hasta:",
+        "NAME_LBL": "Nombre de la Tarea",
+        "FROM_LBL": "De:",
+        "TO_LBL": "Hasta:",
+        "DESCRIPTION_LBL": "Descripción de la Tarea"
       }
     },
     "TRL": {
@@ -127,10 +124,10 @@
       "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       },
-      "TABLE":{
-        "COL_NIVEL":"Nivel",
-        "COL_DESC":"Descripción",
-        "COL_DATE":"Fecha"
+      "TABLE": {
+        "COL_NIVEL": "Nivel",
+        "COL_DESC": "Descripción",
+        "COL_DATE": "Fecha"
       }
     },
     "IP": {
@@ -156,7 +153,8 @@
         "PROCESS_REFERENCE": "Aquí se encuentran los procesos de Transferencia",
         "VALUE": "Valuacion",
         "VALUE_REFERENCE": "Aquí se encuentran los proceos de Valuación de Tecnología"
-      },"PLACEHOLDER": {
+      },
+      "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       }
     },
@@ -171,9 +169,12 @@
       "SHOW_PATENTS": "Mostrar Patentes",
       "ADD_RESULT": "Agregar Resultado",
       "ADD_PATENT": "Agregar Patente",
+      "CLEAR":"Limpiar",
       "ADD_RESULTS": "Agregar Resultados",
       "ADD_PATENTS": "Agregar Patentes",
       "FORM": {
+        "MOD_RESULT": "Modificar Resultados",
+        "MOD_PATENT": "Modificar Patentes",
         "NAME": "Nombre",
         "DESCRIPTION": "Descripcion",
         "KEYWORDS": "Palabras clave",
@@ -189,6 +190,16 @@
         "STATUS": "Status",
         "OPERATIONAL_PLAN": "Plan de Explotación",
         "TRL": "TRL"
+      },
+      "TABLE":{
+        "COL_ID":"Id",
+        "COL_NOMBRE":"Nombre",
+        "COL_DESCRIPCION":"Descripción",
+        "COL_ESTATUS":"Estatus",
+        "COL_TIPO":"Tipo"
+      },
+      "PLACEHOLDER":{
+        "PAIS":"Países de Protección"
       }
     },
     "IMPACT": {
@@ -247,20 +258,19 @@
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
       "EXPECTED_RESULT": "Resultado Esperado",
-      "TABLE":{
-        "COL_TIT":"Titulo:",
-        "COL_DESC":"Descripción:",
-        "COL_OBS":"Observaciones:",
-        "COL_DATE":"Fecha Creación:",
-
-        "COL_DESCR":"Descriptor:",
-        "COL_RES":"Resultado:",
-        "COL_FECH_REG":"Fecha de Registro:",
-        "COL_FECH_APR":"Fecha de Aprobación:",
-        "COL_PCT":"PCT:",
-        "COL_TIPO":"Tipo Descriptor:"
-
-      },"PLACEHOLDER": {
+      "TABLE": {
+        "COL_TIT": "Titulo:",
+        "COL_DESC": "Descripción:",
+        "COL_OBS": "Observaciones:",
+        "COL_DATE": "Fecha Creación:",
+        "COL_DESCR": "Descriptor:",
+        "COL_RES": "Resultado:",
+        "COL_FECH_REG": "Fecha de Registro:",
+        "COL_FECH_APR": "Fecha de Aprobación:",
+        "COL_PCT": "PCT:",
+        "COL_TIPO": "Tipo Descriptor:"
+      },
+      "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto",
         "SEARCH_DESCRIPTOR": "Busca tu descriptor"
       }
