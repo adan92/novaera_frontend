@@ -40,7 +40,8 @@
       });
     }
 
-    function showRegister($event) {
+    function showRegister($event,id) {
+      console.log(id);
       var config = {
         controller: 'incribirProyectoDialogController',
         templateUrl: 'app/mainApp/proyectos/incribirProyecto.dialog.tmpl.html',
@@ -48,7 +49,10 @@
         targetEvent: event,
         clickOutsideToClose: true,
         fullscreen: true,
-        locals:{selectedProyecto:vm.selectedProject},
+        locals:{
+          selectedProyecto:vm.selectedProject,
+          operacion:id
+        },
         controllerAs: 'vm'
       };
       $mdDialog.show(config);
@@ -58,13 +62,6 @@
       console.log(project);
       vm.selectedProject = project;
       vm.hidden=false;
-      /* var solicitudes = Operation.getOperation(project.id);
-       solicitudes.then(function (res) {
-       vm.solicitudes = res.RegistroProyecto;
-       console.log(vm.solicitudes);
-       }).catch(function (err) {
-       console.log(err);
-       });*/
       toggleUsersList();
     }
 

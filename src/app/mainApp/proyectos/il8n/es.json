@@ -350,6 +350,12 @@
         "FONDEOS":"Selección del Programa de Fondeo",
         "CONVOCATORIA":"Selección de la Convocatoria",
         "MODALIDAD":"Selección de la Modalidad"
+      },
+      "TABLE":{
+        "FONDEO_COL":"Programa de Fondeo",
+        "CONV_COL":"Convocatoria",
+        "AMOUNT_COL":"Monto Solicitado",
+        "DATE_COL":"Fecha de Solicitud"
       }
     },
     "VALIDA": {

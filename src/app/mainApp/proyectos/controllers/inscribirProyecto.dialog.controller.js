@@ -12,21 +12,24 @@
     .controller('incribirProyectoDialogController', incribirProyectoDialogController);
 
   /* @ngInject */
-  function incribirProyectoDialogController(registroProyecto,Translate,Convocatoria, Catalogo, TRL, Fondeo, $mdDialog, selectedProyecto,toastr) {
+  function incribirProyectoDialogController(Operation,registroProyecto, Translate, Convocatoria, Catalogo, TRL, Fondeo, $mdDialog, selectedProyecto, locals, toastr) {
     var vm = this;
-    activate();
+
+    Operation.setTypeOperation("RegistroProyecto");
     vm.closeDialog = closeDialog;
+    vm.solicitudes=null;
     vm.proyecto = selectedProyecto;
     vm.fondeos = null;
     vm.convocatorias = null;
     vm.modalidades = null;
+    vm.showSolicitudes=false;
     vm.selectedFondeo = null;
     vm.selectedConvocatoria = null;
     vm.selectedModalidad = null;
     vm.currentTab = 1;
     vm.completed = 0;
     vm.send = send;
-    vm.checkPass=checkPass;
+    vm.checkPass = checkPass;
     vm.selectedFondeos = selectedFondeos;
     vm.onTabChanges = onTabChanges;
     vm.selectedConvocatorias = selectedConvocatoria;
@@ -45,36 +48,52 @@
       trlInicial: null,
       trlFinal: null
     };
+    activate();
 
     function activate() {
-      var promise = Fondeo.getAllFondeos();
-      promise.then(function (res) {
-        vm.fondeos = res;
-      });
-      promise = Catalogo.getAllCatalogo('ParqueTecnologico');
-      promise.then(function (value) {
-        vm.tecnoparks = value.ParqueTecnologico;
-      });
-      promise = TRL.getAllTLR();
-      promise.then(function (value) {
-        vm.trlIniciales = value;
-        vm.trlFinales = value;
-      });
-      vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
-      vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
-      vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
-      vm.dialogText           = Translate.translate('DIALOGS.WARNING');
-      vm.successText          = Translate.translate('DIALOGS.SUCCESS');
-      vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
-      vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
-      vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
-      vm.failureText          = Translate.translate('DIALOGS.FAILURE');
-      vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
-      vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
-      vm.failureLoad          = Translate.translate('DIALOGS.FAIL_LOAD');
+      console.log(selectedProyecto);
+      console.log(locals.operacion);
+      vm.tipo=locals.operacion;
+      if (locals.operacion == 1) {
+        var promise = Fondeo.getAllFondeos();
+        promise.then(function (res) {
+          vm.fondeos = res;
+        });
+        promise = Catalogo.getAllCatalogo('ParqueTecnologico');
+        promise.then(function (value) {
+          vm.tecnoparks = value.ParqueTecnologico;
+        });
+        promise = TRL.getAllTLR();
+        promise.then(function (value) {
+          vm.trlIniciales = value;
+          vm.trlFinales = value;
+        });
+        vm.showSolicitudes=false;
+      } else {
+        var solicitudes = Operation.getOperation(vm.proyecto.id);
+        solicitudes.then(function (res) {
+          vm.solicitudes = res.RegistroProyecto;
+          console.log(vm.solicitudes);
+          vm.showSolicitudes=true;
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+      vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+      vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+      vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+      vm.dialogText = Translate.translate('DIALOGS.WARNING');
+      vm.successText = Translate.translate('DIALOGS.SUCCESS');
+      vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+      vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+      vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+      vm.failureText = Translate.translate('DIALOGS.FAILURE');
+      vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+      vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
+      vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
       vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
       vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
-      vm.dialogTextOne        = Translate.translate('DIALOGS.WARNING_ONE');
+      vm.dialogTextOne = Translate.translate('DIALOGS.WARNING_ONE');
     }
 
     function onTabChanges(currentTab) {
@@ -134,10 +153,12 @@
         toastr.error(vm.failureText, vm.failureStoreText);
       });
     }
-    function  checkPass(){
+
+    function checkPass() {
       console.log("ddd");
       vm.completed = checkFinished();
     }
+
     function checkFinished() {
       var completed = 0;
       if (vm.selectedFondeo != null)
@@ -146,13 +167,13 @@
         completed += 1;
       if (vm.selectedModalidad != null)
         completed += 1;
-      if (vm.tecnopark!=null)
+      if (vm.tecnopark != null)
         completed += 1;
-      if(vm.montosolicitado!=null)
+      if (vm.montosolicitado != null)
         completed += 1;
-      if(vm.trlInicial!=null)
+      if (vm.trlInicial != null)
         completed += 1;
-      if(vm.trlFinal!=null)
+      if (vm.trlFinal != null)
         completed += 1;
       completed = (completed / 7) * 100;
       completed = completed.toFixed(0);

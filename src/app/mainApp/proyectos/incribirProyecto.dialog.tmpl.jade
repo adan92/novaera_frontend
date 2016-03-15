@@ -3,9 +3,39 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
     .md-toolbar-tools
       md-button.md-icon-button(ng-click="vm.closeDialog()")
         md-icon.fa.fa-times.fa-2x
-      h2(flex translate="") PROJECT.INSCRIPTION.FIELDS
+      h2(flex translate="") {{(vm.tipo===1 ? 'PROJECT.INSCRIPTION.FIELDS': 'PROJECT.INSCRIPTION.SOLICITUDES')| translate}}
+
   md-dialog-content
-    div(flex='', layout='column', layout-align='center center', layout-fill=''  tri-wizard='')
+    div(layout="row" ng-show="vm.showSolicitudes==true")
+      md-toolbar.md-table-toolbar.md-default
+        .md-toolbar-tools
+          span(translate='') PROJECT.INSCRIPTION.SOLICITUDES
+      md-table-container
+        table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+          thead(md-head='', md-order='vm.query.order')
+            tr(md-row='md-row')
+              th(md-column='md-column', md-order-by='id')
+                span(translate='') PROJECT.INSCRIPTION.TABLE.FONDEO_COL
+              th(md-column='md-column', md-order-by='PublicoObjetivo')
+                span(translate='') PROJECT.INSCRIPTION.TABLE.CONV_COL
+              th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                span(translate='') PROJECT.INSCRIPTION.TABLE.AMOUNT_COL
+              th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                span(translate='') PROJECT.INSCRIPTION.TABLE.DATE_COL
+              th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                span
+          // Cuerpo de la tabla
+          tbody(md-body='md-body')
+            tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+              td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+              td(md-cell='md-cell') {{sol.Convocatoria}}
+              td(md-cell='md-cell') {{sol.MontoSolicitado}}
+              td(md-cell='md-cell') {{sol.FechaRegistro}}
+              td(md-cell='md-cell' ng-click="$event.stopPropagation()")
+                div
+                md-button.md-primary.md-fab(arial-label="info", ng-click='vm.showSolicitudInfo(sol,$event)')
+                  md-icon(md-font-icon="fa fa-bars")
+    div(flex='', layout='column', layout-align='center center', layout-fill=''  tri-wizard='' ng-hide="vm.showSolicitudes==true")
       md-toolbar.md-primary
         .md-toolbar-tools(flex)
           div(flex layout='column')
