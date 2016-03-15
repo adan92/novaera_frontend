@@ -12,7 +12,7 @@
         .controller('proyectoIndexDialogController', proyectoIndexDialogController);
 
     /* @ngInject */
-    function proyectoIndexDialogController($mdDialog,selectedProyecto,Admin,ROUTES) {
+    function proyectoIndexDialogController($mdDialog,selectedProyecto,Proyecto,Operation,ROUTES) {
         var vm = this;
         vm.fileRoute        = ROUTES.FILE_ROUTE;
         vm.proyecto         = selectedProyecto;
@@ -49,17 +49,17 @@
         {   vm.style = vm.style+'min-width:800px; max-height:800px;';
 
 
-            var ejecucionPromise = Admin.wizardOperation('Ejecucion',selectedProyecto.id);
-            var modeloNegocioPromise = Admin.wizardOperation('ModeloNegocio',selectedProyecto.id);
-            var impactoPromise = Admin.wizardOperation('Impacto',selectedProyecto.id);
-            var propiedadIntelectualPromise = Admin.wizardOperation('TransferenciaTecnologica',selectedProyecto.id);
-            var resultadosPromise = Admin.getResults('Todos',selectedProyecto.id);
-            var patentesPromise = Admin.getResults('Patente',selectedProyecto.id);
+            var ejecucionPromise = Operation.getCustomOperation('Ejecucion',selectedProyecto.id);
+            var modeloNegocioPromise = Operation.getCustomOperation('ModeloNegocio',selectedProyecto.id);
+            var impactoPromise = Operation.getCustomOperation('Impacto',selectedProyecto.id);
+            var propiedadIntelectualPromise = Operation.getCustomOperation('TransferenciaTecnologica',selectedProyecto.id);
+            var resultadosPromise = Proyecto.getResultado(selectedProyecto.id,'Todos');
+            var patentesPromise = Proyecto.getResultado(selectedProyecto.id,'Patente');
 
 
             ejecucionPromise.then(function(res){
                 vm.ejecucion = res;
-                Admin.wizardFiles('Ejecucion',selectedProyecto.id).then(function(res){
+                Operation.getCustomFileOperation('Ejecucion',selectedProyecto.id).then(function(res){
                     vm.ejecucionFiles = res;
                 }).catch(function(err){
 
@@ -70,7 +70,7 @@
             });
             impactoPromise.then(function(res){
                 vm.impacto = res;
-                Admin.wizardFiles('Impacto',selectedProyecto.id).then(function(res){
+                Operation.getCustomFileOperation('Impacto',selectedProyecto.id).then(function(res){
                     vm.impactoFiles = res;
                 }).catch(function(err){
 
@@ -81,7 +81,7 @@
             });
             modeloNegocioPromise.then(function(res){
                 vm.modeloNegocio = res;
-                Admin.wizardFiles('ModeloNegocio',selectedProyecto.id).then(function(res){
+                Operation.getCustomFileOperation('ModeloNegocio',selectedProyecto.id).then(function(res){
                     vm.modeloNegocioFiles = res;
                 }).catch(function(err){
 
@@ -92,7 +92,7 @@
             });
             propiedadIntelectualPromise.then(function(res){
                 vm.propiedadIntelectual = res.TransferenciaTecnologica;
-                Admin.wizardFiles('TransferenciaTecnologica',selectedProyecto.id).then(function(res){
+                Operation.getCustomFileOperation('TransferenciaTecnologica',selectedProyecto.id).then(function(res){
                     vm.propiedadIntelectualFiles = res;
                 }).catch(function(err){
 
