@@ -13,13 +13,14 @@
         vm.selectedTipoDescriptor       = null;
         vm.selectedDescriptor           = null;
         vm.descriptores                 = null;
-        vm.loadingPersonas             = false;
+        vm.loadingPersonas              = false;
+        vm.loadingTipoDescriptorData    = false;
         vm.loadingDescriptorData        = false;
         vm.Chart                        = null;
-        vm.Chart2                        = null;
-        vm.texto                        =null;
-        vm.clickedPersons              = null;
-        vm.personas                    = null;
+        vm.Chart2                       = null;
+        vm.texto                        = null;
+        vm.clickedPersons               = null;
+        vm.personas                     = null;
         vm.selectedItem                 = null;
         vm.querySearch = querySearch;
         vm.searchText                   = null;
@@ -83,10 +84,13 @@
 
         function getTipoDescriptores()
         {
+            vm.loadingTipoDescriptorData = true;
             var promise = Descriptor.getTipoDescriptorByClasificacion('Persona');
             promise.then(function(res){
+                vm.loadingTipoDescriptorData = false;
                 vm.tipoDescriptores = res;
             }).catch(function(err){
+                vm.loadingTipoDescriptorData = false;
 
             });
         }
