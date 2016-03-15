@@ -1,9 +1,4 @@
-/**
- * Created by lockonDaniel on 2/26/16.
- */
-/**
- * Created by lockonDaniel on 2/22/16.
- */
+
 (function () {
   'use strict';
 
@@ -22,6 +17,7 @@
     vm.fondeos = null;
     vm.convocatorias = null;
     vm.modalidades = null;
+    vm.selectedSolicitudes=null;
     vm.showSolicitudes=false;
     vm.showInscribir=false;
     vm.selectedFondeo = null;

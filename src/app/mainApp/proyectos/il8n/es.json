@@ -298,6 +298,7 @@
       "SOLICITUD":"Solicitudes del proyecto",
       "INSCRIBIR":"Inscribir proyecto",
       "FONDEOACTIVE": "Programas de Fondeo Activos",
+      "NOT_FOUND":"No se encontrarón solicitudes en este proyecto",
       "CALLACTIVES": "Convocatorias Activas",
       "MODALITYSAVALIABLES": "Modalidades Disponibles",
       "INSCRIPTION": "Aplicar por esta modalidad",
