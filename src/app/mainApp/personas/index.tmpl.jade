@@ -3,13 +3,12 @@
   .layout.layout-column.layout-margin.layout-sm.layout-sm-column
       div(layout='column')
         div(layout='row')
-
-                md-card
+                md-card(flex)
                     h2.md-headline.text-center(translate ng-show='vm.Chart==null') PROJECT.INFO.SELECT_DESCRIPTOR_TYPE_TO_SHOW
                     div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')
                     md-card-content(layout-align='center center')
-                        div(ng-show='vm.loadingDescriptorData==false')
+                        div(ng-show='vm.loadingTipoDescriptorData==false')
                             canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
                         h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYDESCRIPTOR
                         div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
@@ -24,10 +23,10 @@
                                         | {{tipoDescriptor.Nombre}}
 
 
-                md-card
+                md-card(flex)
                   md-card-content(layout-align='center center')
                     div(ng-show='vm.loadingOrganizationData==false')
-                        canvas#doughnut.chart.chart-doughnut(chart-data='vm.Chart2.Data', chart-labels='vm.Chart2.Labels', chart-legend='true')
+                        canvas#doughnut2.chart.chart-doughnut(chart-data='vm.Chart2.Data', chart-labels='vm.Chart2.Labels', chart-legend='true')
                     h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PERSONAS.PERSONASBYORGANIZATION
                     div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')
