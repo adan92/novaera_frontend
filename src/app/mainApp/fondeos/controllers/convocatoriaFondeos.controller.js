@@ -6,9 +6,11 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function convocatoriaFondeosController($scope, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate) {
+    function convocatoriaFondeosController($scope,$translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate) {
         var vm = this;
         vm.activate = activate();
+        vm.language="es";
+        vm.language=$translate.use()
         //Inicializacion objetos
         //Programas de Fondeo
         vm.fondeo = {

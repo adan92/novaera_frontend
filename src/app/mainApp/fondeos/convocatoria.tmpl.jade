@@ -45,19 +45,23 @@
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                                   md-input-container
-                                                 label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
-                                                 md-datepicker(ng-enabled='vm.Convocatoria.FechaInicio!=null', ng-model='vm.Convocatoria.FechaInicio')
-                                                 div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                     div(ng-message='', when='required')
-                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                                       md-input-container
+                                   md-input-container(flex)
+                                        label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
+                                        input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
+                                        format="DD-MM-YYYY",
+                                        cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                                        ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                                        ng-model="vm.Convocatoria.FechaInicio")
+
+
+                                       md-input-container(flex)
                                            label(translate='') FONDEOS.CALL.END_DATE_CALL
-                                           md-datepicker(ng-enabled='vm.Convocatoria.FechaTermino!=null', ng-model='vm.Convocatoria.FechaTermino')
-                                           div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                               div(ng-message='', when='required')
-                                                   span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                           input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
+                                           format="DD-MM-YYYY",
+                                           cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                                           ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                                           ng-model="vm.Convocatoria.FechaTermino")
 
 
 
