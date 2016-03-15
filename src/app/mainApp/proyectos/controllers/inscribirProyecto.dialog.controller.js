@@ -14,7 +14,7 @@
   /* @ngInject */
   function incribirProyectoDialogController(Operation,registroProyecto, Translate, Convocatoria, Catalogo, TRL, Fondeo, $mdDialog, selectedProyecto, locals, toastr) {
     var vm = this;
-
+    vm.tipo=locals.operacion;
     Operation.setTypeOperation("RegistroProyecto");
     vm.closeDialog = closeDialog;
     vm.solicitudes=null;
@@ -23,6 +23,7 @@
     vm.convocatorias = null;
     vm.modalidades = null;
     vm.showSolicitudes=false;
+    vm.showInscribir=false;
     vm.selectedFondeo = null;
     vm.selectedConvocatoria = null;
     vm.selectedModalidad = null;
@@ -53,7 +54,7 @@
     function activate() {
       console.log(selectedProyecto);
       console.log(locals.operacion);
-      vm.tipo=locals.operacion;
+
       if (locals.operacion == 1) {
         var promise = Fondeo.getAllFondeos();
         promise.then(function (res) {
@@ -68,7 +69,7 @@
           vm.trlIniciales = value;
           vm.trlFinales = value;
         });
-        vm.showSolicitudes=false;
+        vm.showInscribir=true;
       } else {
         var solicitudes = Operation.getOperation(vm.proyecto.id);
         solicitudes.then(function (res) {
