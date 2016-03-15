@@ -19,7 +19,6 @@
           md-list-item.md-5-line(ng-repeat='descriptor in vm.descriptorPersonas')
             div(layout='row', flex='', layout-align='space-around center', layout-sm='column')
               .md-list-item-text(flex='60')
-                h3 ID: {{descriptor.id}}
                 h4 Tipo: {{descriptor.Titulo}}
                 h5 Fecha de Inicio: {{vm.formatDate(descriptor.pivot.FechaInicio)|date:'MM/dd/yyyy'}}
                 h5 Fecha de Termino: {{vm.formatDate(descriptor.pivot.FechaTermino)|date:'MM/dd/yyyy'}}

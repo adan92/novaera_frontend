@@ -106,6 +106,8 @@
         function getDescriptores()
         {
             vm.loadingDescriptorData = true;
+            vm.descriptores = null;
+            vm.Chart = null;
             var promise = Descriptor.callAssosciated(vm.selectedTipoDescriptor);
             promise.then(function(res){
                 console.log(res);
