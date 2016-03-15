@@ -289,9 +289,13 @@
     "INSCRIPTION": {
       "INFOPROJECT": "Informacion del Proyecto",
       "INFOPROGRAM": "Informacion del Programa De Fondeo",
+      "INFOCONV":"Información de la Convocatoria",
+      "INFOMOD":"Información de la Modalidad",
       "TITLE": "Bienvenido a la seccion para aplicar a un Programa de Fondeo",
       "PROJECTSELECTED": "El proyecto Seleccionado fue:",
       "SELECTPROJECT": "Selecciona el Proyecto que quieres inscribir",
+      "SOLICITUD":"Solicitudes del proyecto",
+      "INSCRIBIR":"Inscribir proyecto",
       "FONDEOACTIVE": "Programas de Fondeo Activos",
       "CALLACTIVES": "Convocatorias Activas",
       "MODALITYSAVALIABLES": "Modalidades Disponibles",
@@ -310,9 +314,49 @@
       "SAVE": "Solicitar Apoyo",
       "DELETE": "Eliminar",
       "SOLICITUDES": "Solicitudes que posee el proyecto seleccionado",
+      "TITLES":{
+        "PROJECT":"Información",
+        "SOLICITUDES": "Solicitudes"
+      },
       "PROJECTSTATUS": "Estado Actual de mis Proyectos",
       "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
-      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas"
+      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
+      "PLACEHOLDER":{
+        "SEARCH_PROJECT": "Busca tu proyecto",
+        "NOT_FOUND": "No se encontró el proyecto"
+
+      },
+      "VIEWS":{
+        "TITLE":"Titulo",
+        "DESCRIPTION":"Descripción",
+        "BACKGROUND":"Antecedentes",
+        "OBJECTIVES":"Objetivos",
+        "JUSTIFICATION":"Justificación",
+        "REACH":"Alcances",
+        "PUBLIC":"Público objetivo",
+        "TOTAL":"Fondo total",
+        "RUBROS":"Rubros de apoyo",
+        "CRITERIA":"Criterios de elegibilidad",
+        "NAME":"Nombre",
+        "FECH_INIT":"Fecha de Inicio",
+        "FECH_END":"Fecha de Término",
+        "REQUERIMENTS":"Requerimientos",
+        "AMOUNTS":"Montos",
+        "CRITERIA_EVALUATION":"Criterios de evaluación",
+        "DELIVERABLES":"Entregables",
+        "FIGURES":"Figuras de apoyo"
+      },
+      "WIZARD":{
+        "FONDEOS":"Selección del Programa de Fondeo",
+        "CONVOCATORIA":"Selección de la Convocatoria",
+        "MODALIDAD":"Selección de la Modalidad"
+      },
+      "TABLE":{
+        "FONDEO_COL":"Programa de Fondeo",
+        "CONV_COL":"Convocatoria",
+        "AMOUNT_COL":"Monto Solicitado",
+        "DATE_COL":"Fecha de Solicitud"
+      }
     },
     "VALIDA": {
       "SELECTPROGRAM": "Selecciona el Programa de Fondeo a consultar",

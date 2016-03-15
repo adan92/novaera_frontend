@@ -45,7 +45,7 @@
     "http-proxy-middleware": "~0.0.5",
     "jade": "~1.11.0",
     "jshint-stylish": "~2.0.0",
-    "karma": "^0.13.21",
+    "karma": "0.12.0",
     "karma-angular-filesort": "~0.1.0",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.7",
