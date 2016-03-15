@@ -127,12 +127,12 @@
             icon: 'fa fa-institution',
             priority: 2.1,
             children:[
-                {
+             /*   {
                     name: 'Información General',
                     state: 'triangular.admin-default.organizaciones',
                     type: 'link'
 
-                },
+                },*/
                 {
                     name: 'Información Legal',
                     state: 'triangular.admin-default.organizaciones_informacion',

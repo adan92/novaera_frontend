@@ -49,12 +49,13 @@
     },
     "DESCRIPTOR":{
       "TITLE":"Personas Registradas",
-      "INSTRUCTIONS":"Selecciona una persona para modificar sus descriptores",
-      "CURRENT":"Descriptores de la persona actual",
-      "ADD":"Agregar Descriptor",
-      "EDIT":"Editar Descriptor",
-      "DELETE":"Eliminar Descriptor",
-      "TYPE":"Tipo de Descriptor",
+      "INSTRUCTIONS":"Selecciona una persona para modificar sus Clasificadores",
+      "CURRENT":"Clasificadores de la persona actual",
+      "ADD":"Agregar Clasificador",
+      "EDIT":"Editar Clasificador",
+      "DELETE":"Eliminar Clasificador",
+      "TYPE":"Tipo de Clasificador",
+      "DESCRIPTOR":"Clasificador",
       "FINIT":"Fecha Inicio",
       "FEND":"Fecha de Termino",
       "TRESULT":"Tipo de Resultado",
@@ -64,7 +65,7 @@
 
 
 
-    }
+  }
 
 
 }

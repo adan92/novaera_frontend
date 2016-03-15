@@ -101,7 +101,7 @@
 
                                             md-input-container
                                                 label(translate='') FONDEOS.CALL.REQUERIMENTDESC
-                                                textarea(name='reqDesc',  ng-model='vm.requisito.Descripcion', md-maxlength='1000)
+                                                textarea(name='reqDesc',  ng-model='vm.requisito.Descripcion', md-maxlength='250')
                                                 div(ng-messages='convocatoriaInfo.descripcion.$error')
                                                     div(ng-message='', when='required')
                                                         span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
