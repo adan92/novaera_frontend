@@ -201,6 +201,10 @@
             promise.then(function (value) {
 
                 vm.Convocatorias = value;
+                vm.Convocatorias.forEach(function(value,index){
+                    value.FechaInicio=moment(value.FechaInicio,"YYYY-MM-DD");
+                    value.FechaTermino=moment(value.FechaTermino,"YYYY-MM-DD");
+                });
 
                 console.log(vm.Convocatorias)
 
@@ -245,7 +249,8 @@
         function registrarConvocatoria() {
             vm.Convocatoria.ProgramaAsociado = vm.selectedFondeo.id;
             vm.Convocatoria.Requisitos = vm.Requisitos;
-            vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio).format('YYYY-MM-DD');
+
+            vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio).format('YY-MM-DD');
             vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino).format('YYYY-MM-DD');
             console.log("Entrando a la funcion");
             console.log(vm.Convocatoria);
@@ -264,9 +269,6 @@
             else {
                 console.log("Estoy editando");
 
-
-                vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio,"DD-MM-YYYY");
-                vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino,"DD-MM-YYYY");
                 var promise = Convocatoria.updateConvocatoria(vm.Convocatoria);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successUpdateText);
@@ -287,6 +289,8 @@
                 console.log("Consultare modalidades Relacionadas");
                 showModalitiesRelation();
                 console.log("Ya debi mostrar Tabla");
+                vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio,"YYYY-MM-DD");
+                vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino,"YYYY-MM-DD");
             });
         }
 
