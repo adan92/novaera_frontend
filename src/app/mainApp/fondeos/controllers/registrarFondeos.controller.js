@@ -60,6 +60,7 @@
         function activate()
         {
             //mensajes del toastr
+
             vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
             vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
             vm.cancelText = Translate.translate('DIALOGS.CANCEL');
@@ -179,12 +180,12 @@
                     data:fileData,
                     disableProgress: false
                 }).then(function(res){
-                    toastr.success(vm.successTitle,vm.successUpdate);
+                    toastr.success(vm.successText,vm.successUpdateText);
                     vm.fondeo = res.data;
                     console.log(vm.fondeo);
                 }).catch( function (resp) {
                     console.log(resp);
-                    toastr.error(vm.failTitle,vm.failMessage);
+                    toastr.error(vm.failureText,vm.failureStoreText);
                 });
 
 
@@ -195,14 +196,16 @@
         {
             if(filetype=='DescripcionFile')
             {
-                return {DescripcionFile:vm.file};
+                vm.fondeo.DescripcionFile = vm.file;
             }if(filetype=='RubrosDeApoyoFile')
             {
-                return {RubrosDeApoyoFile:vm.file};
+                vm.fondeo.RubrosDeApoyoFile = vm.file;
             }if(filetype=='CriteriosDeElegibilidadFile')
             {
-                return {CriteriosDeElegibilidadFile:vm.file};
+                vm.fondeo.CriteriosDeElegibilidadFile = vm.file;
             }
+            vm.file = null;
+            return vm.fondeo;
         }
 
 
