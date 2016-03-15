@@ -34,14 +34,12 @@
       var promise = Proyecto.getAllProjects();
       promise.then(function (res) {
         vm.proyectos = (res);
-        console.log(res);
       }).catch(function (err) {
         toastr.error(vm.failureText, vm.failureLoad);
       });
     }
 
     function showRegister($event,id) {
-      console.log(id);
       var config = {
         controller: 'incribirProyectoDialogController',
         templateUrl: 'app/mainApp/proyectos/incribirProyecto.dialog.tmpl.html',
@@ -58,8 +56,7 @@
       $mdDialog.show(config);
     }
 
-    function selectedProjects(project) {
-      console.log(project);
+    function selectedProjects(project) { 
       vm.selectedProject = project;
       vm.hidden=false;
       toggleUsersList();

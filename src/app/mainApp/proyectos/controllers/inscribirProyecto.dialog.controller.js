@@ -34,6 +34,7 @@
     vm.selectedFondeos = selectedFondeos;
     vm.onTabChanges = onTabChanges;
     vm.selectedConvocatorias = selectedConvocatoria;
+    vm.formatDate=formatDate;
     vm.selectedModalidades = selectedModalidad;
     vm.tecnoparks = null;
     vm.trlIniciales = null;
@@ -52,9 +53,6 @@
     activate();
 
     function activate() {
-      console.log(selectedProyecto);
-      console.log(locals.operacion);
-
       if (locals.operacion == 1) {
         var promise = Fondeo.getAllFondeos();
         promise.then(function (res) {
@@ -74,10 +72,8 @@
         var solicitudes = Operation.getOperation(vm.proyecto.id);
         solicitudes.then(function (res) {
           vm.solicitudes = res.RegistroProyecto;
-          console.log(vm.solicitudes);
           vm.showSolicitudes=true;
         }).catch(function (err) {
-          console.log(err);
         });
       }
       vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
@@ -106,7 +102,6 @@
           promise.then(function (value) {
             vm.convocatorias = value.Convocatoria;
           }).catch(function (err) {
-            console.log(err);
           });
           break;
         case 3:
@@ -117,7 +112,10 @@
           break;
       }
     }
-
+     function formatDate(date){
+      var dateOut = new Date(date);
+      return dateOut;
+    }
     function selectedFondeos(fondeo, $event) {
       vm.selectedFondeo = fondeo;
       vm.completed = checkFinished();
@@ -156,7 +154,6 @@
     }
 
     function checkPass() {
-      console.log("ddd");
       vm.completed = checkFinished();
     }
 
