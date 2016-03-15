@@ -6,28 +6,29 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
       h2(flex translate="") {{(vm.tipo===1 ? 'PROJECT.INSCRIPTION.FIELDS': 'PROJECT.INSCRIPTION.SOLICITUDES')| translate}}
 
   md-dialog-content
-    div(layout="column" ng-show="vm.tipo==2" ng-hide="vm.showSolicitudes==false" )
-      md-table-container
-        table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
-          thead(md-head='', md-order='vm.query.order')
-            tr(md-row='md-row')
-              th(md-column='md-column', md-order-by='id')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.FONDEO_COL
-              th(md-column='md-column', md-order-by='PublicoObjetivo')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.CONV_COL
-              th(md-column='md-column', md-order-by='CriteriosElegibilidad')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.AMOUNT_COL
-              th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.DATE_COL
-              th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                span
-          // Cuerpo de la tabla
-          tbody(md-body='md-body')
-            tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
-              td(md-cell='md-cell') {{sol.ProgramaFondeo}}
-              td(md-cell='md-cell') {{sol.Convocatoria}}
-              td(md-cell='md-cell') {{sol.MontoSolicitado}}
-              td(md-cell='md-cell') {{sol.FechaRegistro}}
+    div(layout="column" ng-show="vm.tipo==2" ng-hide="vm.showSolicitudes==false" layout-align="center center" )
+      div(ng-show="vm.solicitudes.length==0")
+        h2(translate='') PROJECT.INSCRIPTION.NOT_FOUND
+      div(ng-show="vm.solicitudes.length>0")
+        md-table-container
+          table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+            thead(md-head='', md-order='vm.query.order')
+              tr(md-row='md-row')
+                th(md-column='md-column', md-order-by='id')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.FONDEO_COL
+                th(md-column='md-column', md-order-by='PublicoObjetivo')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.CONV_COL
+                th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.AMOUNT_COL
+                th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.DATE_COL
+            // Cuerpo de la tabla
+            tbody(md-body='md-body')
+              tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+                td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+                td(md-cell='md-cell') {{sol.Convocatoria}}
+                td(md-cell='md-cell') {{sol.MontoSolicitado}}
+                td(md-cell='md-cell') {{sol.FechaRegistro}}
 
     div(flex='', layout='column', layout-align='center center', layout-fill=''  tri-wizard='' ng-show="vm.tipo==1" ng-hide="vm.showInscribir==false")
       md-toolbar.md-primary

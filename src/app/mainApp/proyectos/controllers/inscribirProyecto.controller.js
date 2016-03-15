@@ -56,7 +56,7 @@
       $mdDialog.show(config);
     }
 
-    function selectedProjects(project) { 
+    function selectedProjects(project) {
       vm.selectedProject = project;
       vm.hidden=false;
       toggleUsersList();
