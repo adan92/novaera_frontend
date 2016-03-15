@@ -49,8 +49,11 @@
       "VALIDATE":"Validar Documento"
     },
     "DESCRIPTOR":{
+      "DESCRIPTOR": "Descriptor",
+      "TYPE": "Tipo de Descriptor",
       "INSTRUCTIONS":"Busca una organización para ver sus descriptores",
       "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Clasificador",
       "CURRENT":"Descriptores Actuales",
       "DELETE":"Eliminar Descriptor",
       "FINIT":"Fecha de Inicio",
