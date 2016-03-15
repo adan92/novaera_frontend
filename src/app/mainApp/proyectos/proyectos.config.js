@@ -257,9 +257,9 @@
             .state('triangular.admin-default.inscribirProyectoConvocatoria',{
                 url: '/inscribirProyectoConvocatoria',
                 // set the html template to show on this page
-                templateUrl: 'app/mainApp/proyectos/inscribirProyectoConvocatoria.tmpl.html',
+                templateUrl: 'app/mainApp/proyectos/inscribirProyecto.tmpl.html',
                 // set the controller to load for this page
-                controller: 'inscribirProyectoConvocatoriaController',
+                controller: 'inscribirProyectoController',
                 controllerAs: 'vm',
                 data: {
                     layout: {
