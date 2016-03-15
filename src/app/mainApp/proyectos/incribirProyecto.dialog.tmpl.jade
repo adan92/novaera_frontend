@@ -38,30 +38,25 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                               p   ${{fondo.FondoTotal | number:2}}
                             md-divider
                   md-card(flex='70', layout='column')
-                    md-card-content
-                      h2.md-headline-1.text-center Información del programa de fondeo
+                    md-card-content(ng-show="vm.selectedFondeo!=null")
+                      h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.INFOPROGRAM
                         h2.md-subhead
-                          span(ng-bind-html='vm.selectedFondeo.Titulo')
+                          span {{vm.selectedFondeo.Titulo|htmlToString}}
                         h2.md-subhead
-                          span
-                          strong Público objetivo:&nbsp;
-                          span(ng-bind-html="vm.selectedFondeo.PublicoObjetivo | cut:false:30:'...'")
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.PUBLIC')
+                          span :&nbsp; {{vm.selectedFondeo.PublicoObjetivo|htmlToString}}
                         h2.md-subhead
-                          span
-                          strong Fondo total:&nbsp;
-                          span ${{vm.selectedFondeo.FondoTotal | number:2}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.TOTAL')
+                          span :&nbsp; ${{vm.selectedFondeo.FondoTotal | number:2}}
                         h2.md-subhead
-                          span
-                            strong Descripción
-                          span(ng-bind-html="vm.selectedFondeo.Descripcion| cut:false:30:'...'")
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+                          span :&nbsp;{{vm.selectedFondeo.Descripcion| htmlToString}}
                         h2.md-subhead
-                          span
-                            strong Rubros de apoyo:&nbsp;
-                          span(ng-bind-html="vm.selectedFondeo.RubrosDeApoyo| cut:false:30:'...'")
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.RUBROS')
+                          span :&nbsp;{{vm.selectedFondeo.RubrosDeApoyo|htmlToString}}
                         h2.md-subhead
-                          span
-                            strong Criterios de elegibilidad:&nbsp;
-                          span {{(vm.selectedFondeo.CriteriosElegibilidad) | htmlToString}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.CRITERIA')
+                          span :&nbsp;{{(vm.selectedFondeo.CriteriosElegibilidad) | htmlToString}}
 
         md-tab#info(ng-disabled='vm.selectedFondeo==null', md-on-select='vm.onTabChanges(2)')
           md-tab-label
@@ -82,19 +77,19 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                               p   {{convocatoria.Termino}}
                             md-divider
                   md-card(flex='70', layout='column')
-                    md-card-content
-                      h2.md-headline-1.text-center Información de la convocatoria
+                    md-card-content(ng-show="vm.selectedConvocatoria!=null")
+                      h2.md-headline-1.text-center(translate="")  PROJECT.INSCRIPTION.INFOCONV
                         h2.md-subhead
-                          strong Nombre:
-                          span {{vm.selectedConvocatoria.Nombre}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.NAME')
+                          span :&nbsp;{{vm.selectedConvocatoria.Nombre|htmlToString}}
                         h2.md-subhead
-                            strong Fecha de Inicio:
-                          span {{vm.selectedConvocatoria.FechaInicio}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FECH_INIT')
+                          span :&nbsp;{{vm.selectedConvocatoria.FechaInicio|htmlToString}}
                         h2.md-subhead
-                            strong Fecha de Término:
-                          span {{vm.selectedConvocatoria.FechaTermino}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FECH_END')
+                          span :&nbsp; {{vm.selectedConvocatoria.FechaTermino|htmlToString}}
                         h2.md-subhead
-                          strong Requisitos:
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.REQUERIMENTS')
                           div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
                             ul
                               li.li-disc {{requisito.Nombre}}: {{requisito.Descripcion}}
@@ -118,23 +113,22 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                               h4  ${{modalidad.Montos | number:2}}
                             md-divider
                   md-card(flex='70', layout='column')
-                    md-card-content
-                      h2.md-headline-1.text-center Información de la modalidad
+                    md-card-content(ng-show="vm.selectedModalidad!=null")
+                      h2.md-headline-1.text-center(translate="")  PROJECT.INSCRIPTION.INFOMOD
                         h2.md-subhead
-                          strong Nombre:
-                          span {{vm.selectedModalidad.Nombre}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.NAME')
+                          span :&nbsp;{{vm.selectedModalidad.Nombre|htmlToString}}
                         h2.md-subhead
-                          span
-                          strong Montos:
-                          span ${{vm.selectedModalidad.Montos | number:2}}
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.AMOUNTS')
+                          span :&nbsp; ${{vm.selectedModalidad.Montos | number:2}}
                         h2.md-subhead
-                          strong Cristerio de evaluación:
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.CRITERIA_EVALUATION')
                           span {{vm.selectedModalidad.CriteriosEvaluacion}}
                         h2.md-subhead
-                          strong Entregables:
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.DELIVERABLES')
                           span {{vm.selectedModalidad.Entregables}}
                         h2.md-subhead
-                          strong Figuras de Apoyo:
+                          span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FIGURES')
                           span {{vm.selectedModalidad.FigurasApoyo}}
 
         md-tab#justification(ng-disabled='vm.selectedModalidad==null' md-on-select='vm.onTabChanges(4)')

@@ -7,13 +7,17 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
     .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
       div(flex layout="row")
         md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left")
-          md-autocomplete(
+          md-autocomplete.margin-bottom-20(
+          ng-disabled='vm.isDisabled',
+          md-no-cache='vm.noCache',
           md-selected-item='vm.selectedItem',
+          md-search-text-change='vm.searchTextChange(vm.searchText)',
           md-search-text='vm.searchText',
-          md-items='item in vm.proyectos',
+          md-selected-item-change='vm.selectedItemChange(item)',
+          md-items='item in vm.querySearch(vm.searchText)',
           md-item-text='item.Titulo',
           md-min-length='0',
-          placeholder="{{ 'PROJECT.INSCRIPTION.PLACEHOLDER.SEARCH_PROJECT' | translate }}"
+          md-floating-label="{{ 'PROJECT.INSCRIPTION.PLACEHOLDER.SEARCH_PROJECT' | translate }}"
           md-menu-class="autocomplete-custom-template")
             span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
             md-item-template
@@ -23,9 +27,10 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
               span.item-metadata
                 span.item-metastat
                   strong {{item.Descripcion | cut:false:50:'...'}}
+            md-not-found
+              span(translate='PROJECT.INSCRIPTION.PLACEHOLDER.NOT_FOUND')
           md-virtual-repeat-container.vertical-container
             md-list
-              md-divider
               md-item(ng-repeat="proyecto in vm.proyectos | custom:vm.searchText")
                 md-button(ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }")
                   md-icon.avatar(md-svg-icon="assets/images/app/project.svg")
@@ -44,24 +49,24 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                   md-tooltip(md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible") Ver solicitudes
           md-content(ui-view  id="content"  )
             div(layout="column" flex ng-show="vm.selectedProject!=null")
-              h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.TITLES.PROJECT
+              h2.md-headline-1.text-center(translate="") PROJECT.INSCRIPTION.INFOPROJECT
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.TITLE')
                 span :&nbsp; {{vm.selectedProject.Titulo|htmlToString}}
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.DESCRIPTION')
                 span :&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.BACKGROUND')
                 span :&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.OBJECTIVES')
                 span :&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION')
                 span :&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}
               h2.md-subhead
-                span(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
+                span.bold(translate='PROJECT.INSCRIPTION.VIEWS.REACH')
                 span :&nbsp; {{vm.selectedProject.Alcances|htmlToString}}
 
             div(layout="row" ng-show="vm.showSolicitudes")

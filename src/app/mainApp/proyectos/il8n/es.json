@@ -289,6 +289,8 @@
     "INSCRIPTION": {
       "INFOPROJECT": "Informacion del Proyecto",
       "INFOPROGRAM": "Informacion del Programa De Fondeo",
+      "INFOCONV":"Información de la Convocatoria",
+      "INFOMOD":"Información de la Modalidad",
       "TITLE": "Bienvenido a la seccion para aplicar a un Programa de Fondeo",
       "PROJECTSELECTED": "El proyecto Seleccionado fue:",
       "SELECTPROJECT": "Selecciona el Proyecto que quieres inscribir",
@@ -320,7 +322,8 @@
       "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
       "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
       "PLACEHOLDER":{
-        "SEARCH_PROJECT": "Busca tu proyecto"
+        "SEARCH_PROJECT": "Busca tu proyecto",
+        "NOT_FOUND": "No se encontró el proyecto"
 
       },
       "VIEWS":{
@@ -329,7 +332,19 @@
         "BACKGROUND":"Antecedentes",
         "OBJECTIVES":"Objetivos",
         "JUSTIFICATION":"Justificación",
-        "REACH":"Alcances"
+        "REACH":"Alcances",
+        "PUBLIC":"Público objetivo",
+        "TOTAL":"Fondo total",
+        "RUBROS":"Rubros de apoyo",
+        "CRITERIA":"Criterios de elegibilidad",
+        "NAME":"Nombre",
+        "FECH_INIT":"Fecha de Inicio",
+        "FECH_END":"Fecha de Término",
+        "REQUERIMENTS":"Requerimientos",
+        "AMOUNTS":"Montos",
+        "CRITERIA_EVALUATION":"Criterios de evaluación",
+        "DELIVERABLES":"Entregables",
+        "FIGURES":"Figuras de apoyo"
       },
       "WIZARD":{
         "FONDEOS":"Selección del Programa de Fondeo",

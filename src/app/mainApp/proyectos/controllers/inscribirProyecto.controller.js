@@ -11,9 +11,12 @@
                                        registroProyecto, $scope, Fondeo, Proyecto) {
     Operation.setTypeOperation("RegistroProyecto");
     var vm = this;
+    vm.isDisabled = false;
+    vm.selectedItemChange = selectedItemChange;
     vm.selectedProjects = selectedProjects;
     vm.selectedItem = null;
     vm.searchText = null;
+    vm.querySearch = querySearch;
     vm.showRegister = showRegister;
     vm.selectedProject = null;
     vm.selectedSolicitudes = [];
@@ -78,50 +81,22 @@
         vm.tooltipVisible = self.isOpen;
       }
     });
-    /*Operation.setTypeOperation("RegistroProyecto");
-     vm.isDisabled = false;
 
-     vm.searchText = null;
-     vm.querySearch = querySearch;
-     vm.selectedItemChange = selectedItemChange;
-     vm.testModal=testModal;
-     vm.clickItem = clickItem;
-     vm.listStyle = {
-     height: ($window.innerHeight - 400) + 'px'
-     };
+    function querySearch(query) {
+      var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
+      return results;
 
+    }
+    function createFilterFor(query) {
 
-     $window.addEventListener('resize', onResize);
-     function onResize() {
-     vm.listStyle.height = ($window.innerHeight -400) + 'px';
-     if (!$scope.$root.$$phase)
-     $scope.$digest();
-     }
-     function querySearch(query) {
-     var results = query ? vm.proyectos.filter(createFilterFor(query)) : vm.proyectos, deferred;
-     return results;
+      return function filterFn(proyecto) {
+        return (proyecto.Titulo.indexOf(query) === 0);
+      };
+    }
+    function selectedItemChange(item) {
 
-     }
-     function selectedItemChange(item) {
-     var example = Fondeo.getAllFondeos();
-     example.then(function (res) {
-     vm.fondeos = res;
-     vm.showFondeos = true;
-     });
+    }
 
-     }
-     function createFilterFor(query) {
-
-     return function filterFn(proyecto) {
-     return (proyecto.titulo.indexOf(query) === 0);
-     };
-     }
-
-     function clickItem(item, event) {
-     vm.itemPF=item;
-     }
-     function testModal(){
-     }*/
   }
 
   function custom() {
