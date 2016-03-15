@@ -6,7 +6,7 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function convocatoriaFondeosController($scope,$translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate) {
+    function convocatoriaFondeosController($scope,$translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
         var vm = this;
         vm.activate = activate();
         vm.language="es";
@@ -245,6 +245,8 @@
         function registrarConvocatoria() {
             vm.Convocatoria.ProgramaAsociado = vm.selectedFondeo.id;
             vm.Convocatoria.Requisitos = vm.Requisitos;
+            vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio).format('YYYY-MM-DD');
+            vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino).format('YYYY-MM-DD');
             console.log("Entrando a la funcion");
             console.log(vm.Convocatoria);
             if (vm.Convocatoria.id == null) {
@@ -261,6 +263,10 @@
             }
             else {
                 console.log("Estoy editando");
+
+
+                vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio,"DD-MM-YYYY");
+                vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino,"DD-MM-YYYY");
                 var promise = Convocatoria.updateConvocatoria(vm.Convocatoria);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successUpdateText);
