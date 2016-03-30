@@ -139,7 +139,7 @@
                     type:'link'
                 },
                 {
-                    name: 'Descriptor',
+                    name: 'Clasificador',
                     state: 'triangular.admin-default.descriptor_organizacion',
                     type:'link'
                 }

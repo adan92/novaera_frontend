@@ -139,21 +139,25 @@
     {
       "TITLE":"Programas de Fondeo",
       "INSTRUCTIONS":"Selecciona el Programa de Fondeo para Editar sus Clasificadores",
+      "DELETE": "Eliminar Clasificador",
+      "EDIT": "Editar Clasificador",
+      "UPDATE": "Actualizar Clasificador",
       "ADD":"Agregar un Clasificador",
       "CLEAR":"Limpiar Campos",
       "CURRENT":"Clasificadores Actuales",
       "TYPE":"Tipo de Clasificador",
+      "DESCRIPTOR":"Clasificador",
       "NOTES":"Observaciones"
     },
     "TABLE":{
-        "NAME":"Nombre",
-        "DESCRIPTION":"Descripción",
-        "TITLE":"Titulo",
-        "AMOUNT":"Monto",
-        "EVALUATION":"Criterios de Evaluación",
-        "FILES":"Entregables",
-        "SUPPORT":"Figuras de Apoyo",
-        "ADD":"Agregar a Convocatoria"
+      "NAME":"Nombre",
+      "DESCRIPTION":"Descripción",
+      "TITLE":"Titulo",
+      "AMOUNT":"Monto",
+      "EVALUATION":"Criterios de Evaluación",
+      "FILES":"Entregables",
+      "SUPPORT":"Figuras de Apoyo",
+      "ADD":"Agregar a Convocatoria"
 
     },
     "STATS":{

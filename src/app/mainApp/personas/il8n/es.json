@@ -7,6 +7,12 @@
   "PERSONAS":{
     "INTRO": "Sigue los pasos para registrar un Nueva Persona",
     "INTRO_TERMINOS": "Sigue los pasos para registrar Nueva Persona",
+    "PERSONASBYDESCRIPTOR":"Personas clasificadas por Clasificador",
+    "PERSONASBYORGANIZATION":"Personas clasificadas por Organización",
+    "SELECT_DESCRIPTOR_TYPE":"Selecccione el tipo de Descriptor",
+    "SEARCHPERSONA": "Buscar Personas",
+    "PERSONSRELATED": "Personas Encontradas",
+
     "WIZARD":{
       "TITLE": "Registro de Información Personal",
       "SAVE": "Guardar",
@@ -65,7 +71,7 @@
 
 
 
-    }
+  }
 
 
 }

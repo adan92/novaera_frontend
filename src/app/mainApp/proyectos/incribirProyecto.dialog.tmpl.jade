@@ -6,29 +6,30 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
       h2(flex translate="") {{(vm.tipo===1 ? 'PROJECT.INSCRIPTION.FIELDS': 'PROJECT.INSCRIPTION.SOLICITUDES')| translate}}
 
   md-dialog-content
-    div(layout="column" ng-show="vm.tipo==2" ng-hide="vm.showSolicitudes==false" )
-      md-table-container
-        table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
-          thead(md-head='', md-order='vm.query.order')
-            tr(md-row='md-row')
-              th(md-column='md-column', md-order-by='id')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.FONDEO_COL
-              th(md-column='md-column', md-order-by='PublicoObjetivo')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.CONV_COL
-              th(md-column='md-column', md-order-by='CriteriosElegibilidad')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.AMOUNT_COL
-              th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                span(translate='') PROJECT.INSCRIPTION.TABLE.DATE_COL
-              th(md-column='md-column', md-order-by='RubrosDeApoyo')
-                span
-          // Cuerpo de la tabla
-          tbody(md-body='md-body')
-            tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
-              td(md-cell='md-cell') {{sol.ProgramaFondeo}}
-              td(md-cell='md-cell') {{sol.Convocatoria}}
-              td(md-cell='md-cell') {{sol.MontoSolicitado}}
-              td(md-cell='md-cell') {{sol.FechaRegistro}}
-              
+    div(layout="column" ng-show="vm.tipo==2" ng-hide="vm.showSolicitudes==false" layout-align="center center" )
+      div(ng-show="vm.solicitudes.length==0")
+        h2(translate='') PROJECT.INSCRIPTION.NOT_FOUND
+      div(ng-show="vm.solicitudes.length>0")
+        md-table-container
+          table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
+            thead(md-head='', md-order='vm.query.order')
+              tr(md-row='md-row')
+                th(md-column='md-column', md-order-by='id')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.FONDEO_COL
+                th(md-column='md-column', md-order-by='PublicoObjetivo')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.CONV_COL
+                th(md-column='md-column', md-order-by='CriteriosElegibilidad')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.AMOUNT_COL
+                th(md-column='md-column', md-order-by='RubrosDeApoyo')
+                  span(translate='') PROJECT.INSCRIPTION.TABLE.DATE_COL
+            // Cuerpo de la tabla
+            tbody(md-body='md-body')
+              tr(md-row='md-row', md-select='sol', md-select-id='{{sol.id}}',ng-repeat='sol in vm.solicitudes | orderBy:vm.query.order')
+                td(md-cell='md-cell') {{sol.ProgramaFondeo}}
+                td(md-cell='md-cell') {{sol.Convocatoria}}
+                td(md-cell='md-cell') {{sol.MontoSolicitado}}
+                td(md-cell='md-cell') {{sol.FechaRegistro}}
+
     div(flex='', layout='column', layout-align='center center', layout-fill=''  tri-wizard='' ng-show="vm.tipo==1" ng-hide="vm.showInscribir==false")
       md-toolbar.md-primary
         .md-toolbar-tools(flex)
@@ -103,8 +104,8 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                             md-list-item.md-3-line(ng-repeat='convocatoria in vm.convocatorias', ng-click="vm.selectedConvocatorias(convocatoria,$event)")
                               div.md-list-item-text(layout="column")
                                 h3  {{convocatoria.Nombre| cut:false:20:'...'}}
-                                h4  {{convocatoria.Inicio}}
-                                p   {{convocatoria.Termino}}
+                                h4  Fecha de Inicio: {{vm.formatDate(convocatoria.FechaInicio)|date:'MM/dd/yyyy'}}
+                                p   Fecha de Termino: {{vm.formatDate(convocatoria.FechaTermino)|date:'MM/dd/yyyy'}}
                               md-divider
                   md-card(flex='70', layout='column')
                     md-card-content(ng-show="vm.selectedConvocatoria!=null")
@@ -114,10 +115,10 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                           span :&nbsp;{{vm.selectedConvocatoria.Nombre|htmlToString}}
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FECH_INIT')
-                          span :&nbsp;{{vm.selectedConvocatoria.FechaInicio|htmlToString}}
+                          span :&nbsp;{{vm.formatDate(vm.selectedConvocatoria.FechaInicio)|date:'MM/dd/yyyy'}}
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FECH_END')
-                          span :&nbsp; {{vm.selectedConvocatoria.FechaTermino|htmlToString}}
+                          span :&nbsp;{{vm.formatDate(vm.selectedConvocatoria.FechaTermino)|date:'MM/dd/yyyy'}}
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.REQUERIMENTS')
                           div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
@@ -143,7 +144,7 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                             md-list-item.md-3-line(ng-repeat='modalidad in vm.modalidades', ng-click="vm.selectedModalidades(modalidad,$event)")
                               div.md-list-item-text(layout="column")
                                 h3  {{modalidad.Nombre| cut:false:20:'...'}}
-                                h4  ${{modalidad.Montos | number:2}}
+                                h4  Montos: ${{modalidad.Montos | number:2}}
                               md-divider
                   md-card(flex='70', layout='column')
                     md-card-content(ng-show="vm.selectedModalidad!=null")

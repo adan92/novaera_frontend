@@ -13,12 +13,16 @@
     function descriptorProyectoController(Descriptor,Proyecto,$scope,Restangular,Translate,toastr,$mdDialog) {
         var vm = this;
 
-        vm.proyectos            = null;
-        vm.descriptores         = null;
-        vm.descriptoresProyecto = null;
-        vm.descriptor = null;
-        vm.activate             = activate();
-        vm.selectedItem         = null;
+
+        vm.idP                                  = null;
+        vm.proyectos                            = null;
+        vm.descriptores                         = null;
+        vm.descriptoresProyecto                 = null;
+        vm.loadingTipoDescriptor                = false;
+        vm.loadingDescriptores                  = false;
+        vm.descriptor                           = null;
+        vm.activate                             = activate();
+        vm.selectedItem                         = null;
         vm.selectedItemDescriptor         = null;
         vm.searchText           = null;
         vm.searchTextDescriptor           = null;
@@ -49,14 +53,17 @@
             var promise = Proyecto.getAllProjects();
             promise.then(function (res) {
                 vm.proyectos = res;
-
+                vm.loadingDescriptores = false;
+                vm.loadingTipoDescriptor = true;
                 var proms=null;
                 proms=Descriptor.getTipoDescriptorByClasificacion('Proyecto');
                 proms.then(function(res){
+                    vm.loadingTipoDescriptor = false;
                     vm.tipoDescriptor=res;
                     vm.waiting = false;
                     vm.isCreating = false;
                 }).catch(function (err) {
+                    vm.loadingTipoDescriptor = false;
                     vm.waiting = false;
                     vm.isCreating = false;
                     toastr.error(vm.failureText, vm.failureLoad);
@@ -88,15 +95,20 @@
             return dateOut;
         }
         function showDescriptor(){
+            vm.descriptores = null;
             if(vm.descriptor.idP != undefined  && vm.descriptor.idP != null) {
                 var promise = Descriptor.callAssosciated(vm.descriptor.idP);
+                vm.loadingDescriptores = true;
                 promise.then(function (res) {
                     vm.descriptores = res.Descriptor;
+                    vm.loadingDescriptores = false;
 
                 }).catch(function (err) {
                     toastr.error(vm.failureText, vm.failureLoad);
+                    vm.loadingDescriptores =false;
                 })
             }
+            vm.loadingDescriptores = false;
         }
         function selectedItemChangeDescriptor()
         {
