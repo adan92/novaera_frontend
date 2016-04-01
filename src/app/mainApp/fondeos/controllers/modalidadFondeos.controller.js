@@ -108,7 +108,20 @@
         function getModalidad() {
             console.log("Ya seleccione");
             console.log(vm.selectedModalidad);
-          vm.Modalidad=vm.selectedModalidad
+          vm.Modalidad=vm.selectedModalidad;
+            console.log("Modalidad Seleccionada:");
+            console.log(vm.Modalidad);
+            for(var i=0;i<150;i++){
+                if(vm.Fondeos[i].id==vm.Modalidad.idProgramaFondeo){
+                $scope.fondeo=vm.Fondeos[i];
+                    console.log($scope.fondeo);
+                    vm.selectedFondeo=$scope.fondeo;
+                    console.log(vm.selectedFondeo);
+                }
+                else{
+                    console.log("No hice nada aumentare i");
+                }
+            }
         }
         function cancel() {
 

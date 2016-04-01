@@ -49,7 +49,7 @@
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.MODALITY.FONDEOS
-                                        md-select(ng-model='vm.selectedFondeo', required='', name='fondo')
+                                        md-select(ng-model='vm.selectedFondeo', required='', name='fondo'
                                             md-option(ng-repeat='fondeo in vm.Fondeos', ng-value='fondeo')
                                                 | {{fondeo.Titulo}}
                                     div(ng-messages='projectInfo.descripcion.$error')
