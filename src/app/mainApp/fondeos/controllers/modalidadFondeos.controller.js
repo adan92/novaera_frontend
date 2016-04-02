@@ -200,6 +200,7 @@
         function createDialog(ev)
         {
             vm.ev = ev;
+            console.log("Entre al dialog");
             var confirm = $mdDialog.confirm()
                 .title(vm.sureText)
                 .content(vm.dialogText)
@@ -207,6 +208,7 @@
                 .targetEvent(ev)
                 .ok(vm.acceptText)
                 .cancel(vm.cancelText);
+
             $mdDialog.show(confirm).then(function() {
                 vm.eliminarModalidad();
             }, function() {
