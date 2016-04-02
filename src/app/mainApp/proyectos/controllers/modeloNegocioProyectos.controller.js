@@ -119,7 +119,7 @@
 
                 }).catch(function(err){
                     vm.completed            = checkFinished();
-                    toastr.error(vm.failureText, vm.failureLoadFile);
+                    //toastr.error(vm.failureText, vm.failureLoadFile);
                 });
 
 

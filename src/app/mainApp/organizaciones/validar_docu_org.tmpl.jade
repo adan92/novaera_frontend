@@ -5,7 +5,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 .md-toolbar-tools
                     h3(translate) MENU.ORG.VALIDATION
             md-table-container
-                table(md-table md-data-table md-row-select='' ng-model='vm.selectedItems')
+                table(md-table md-data-table ng-model='vm.selectedItems')
                     thead(md-head md-order='vm.query.order')
                         tr(md-row)
                             th(md-column md-order-by='id')
@@ -21,7 +21,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             th(md-column md-order-by='RFC')
                                 span RFC
                     tbody(md-body)
-                        tr(md-row md-select='organizacion' md-select-id='{{organizacion.id}}'  md-auto-select ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
+                        tr(md-select-id='{{organizacion.id}}'  md-auto-select ng-repeat='organizacion in vm.organizaciones | orderBy:vm.query.order')
                             td(md-cell) {{organizacion.id}}
                             td(md-cell) {{organizacion.Titulo}}
                             td(md-cell) {{organizacion.Descripcion}}
@@ -45,8 +45,11 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                             md-button.md-raised.md-primary( md-no-ink class="md-primary",style="color:white; text-decoration:none", ng-click='vm.showDocument(validation,true)') {{validation.label.message}}
             .md-whiteframe-z1.md-padding.md-card(flex ng-show="vm.isShow")
                 h4.md-subheader Documento
-                div(layout layout-sm="column" layout-align="center center")
+                div(layout layout-sm="column" layout-align="center center" ng-show='vm.showFrame')
                     iframe(width='800', height='800', scrolling='no', frameborder='no', ng-src='{{vm.urlActual}}')
                 div(layout layout-sm="column" layout-align="center center")
-                    md-button.md-raised(ng-click='vm.validate()',ng-hide='!vm.showButtonValidate' ,ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+
+                    h2.md-display-2(flex translate ng-hide='vm.showButtonValidate') ORGANIZATION.DOCUMENTOS.DOCUMENT_NOT_FOUND
+
+                    md-button.md-raised(ng-click='vm.validate()', ng-hide='!vm.showButtonValidate', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
                         span(translate='') ORGANIZATION.DOCUMENTOS.VALIDATE

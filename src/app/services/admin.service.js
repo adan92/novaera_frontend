@@ -20,7 +20,8 @@
             countPersonsInOrgTipoDescriptor:countPersonsInOrgTipoDescriptor,
             sumsAllPrograms:sumsAllPrograms,
             sumsByType:sumsByType,
-            countRegistersByType:countRegistersByType
+            countRegistersByType:countRegistersByType,
+            registersByConvocatoriaModalidad:registersByConvocatoriaModalidad
         };
 
 
@@ -189,6 +190,19 @@
             }).catch(function(err){
                 console.log(err);
                 deferred.reject(false);
+            });
+            return deferred.promise;
+        }
+
+
+        function registersByConvocatoriaModalidad(convocatoria,modalidad)
+        {
+            var deferred = $q.defer();
+            Restangular.all('Supervisor').all('RegistroProyecto').all('ConvocatoriaModalidad').
+            all(convocatoria.id).all(modalidad.id).customGET().then(function(res){
+                     deferred.resolve(res.RegistroProyectos);
+                }).catch(function(err){
+                    deferred.reject(false);
             });
             return deferred.promise;
         }
