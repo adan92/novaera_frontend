@@ -111,7 +111,9 @@
           vm.Modalidad=vm.selectedModalidad;
             console.log("Modalidad Seleccionada:");
             console.log(vm.Modalidad);
-            for(var i=0;i<150;i++){
+            var i=0;
+            vm.Fondeos.forEach(
+                function BuscaFondos(){
                 if(vm.Fondeos[i].id==vm.Modalidad.idProgramaFondeo){
                 $scope.fondeo=vm.Fondeos[i];
                     console.log($scope.fondeo);
@@ -121,7 +123,8 @@
                 else{
                     console.log("No hice nada aumentare i");
                 }
-            }
+                i++;
+            });
         }
         function cancel() {
 
