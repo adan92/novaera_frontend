@@ -219,6 +219,21 @@
             vm.Requisitos = JSON.parse(vm.Convocatoria.Requisitos);
             getModalidades();
             showModalitiesRelation();
+            var i=0;
+            vm.Fondeos.forEach(
+                function BuscaFondos(){
+                    if(vm.Fondeos[i].id==vm.Convocatoria.ProgramaAsociado){
+                        $scope.fondeo=vm.Fondeos[i];
+                        console.log($scope.fondeo);
+                        vm.selectedFondeo=$scope.fondeo;
+                        console.log("El fondo seleccionado es");
+                        console.log(vm.selectedFondeo);
+                    }
+                    else{
+                        console.log("No hice nada aumentare i");
+                    }
+                    i++;
+                });
 
         }
 
