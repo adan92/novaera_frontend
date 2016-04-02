@@ -95,5 +95,5 @@
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
                 md-button.md-accent.md-raised(ng-click='vm.registrarModalidad()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='FONDEOS.WIZARD.SEND')
-                md-button.md-warn.md-raised(ng-click='vm.eliminarModalidad()', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.DELETE')
+                md-button.md-warn.md-raised(ng-click='vm.createDialog($event)', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')

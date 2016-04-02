@@ -57,7 +57,7 @@
         vm.eliminarModalidad=eliminarModalidad;
         vm.getModalidad = getModalidad;
         vm.getModalidades = getModalidades;
-
+        vm.createDialog = createDialog;
         vm.getFondeos = getFondeos;
         vm.cancel =cancel;
 
@@ -196,6 +196,23 @@
                 vm.Modalidades = value;
             });
        }
+
+        function createDialog(ev)
+        {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.eliminarModalidad();
+            }, function() {
+                console.log("Cancelado");
+            });
+        }
 
 
     }})();
