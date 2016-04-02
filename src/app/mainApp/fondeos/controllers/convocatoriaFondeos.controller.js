@@ -228,6 +228,7 @@
                         vm.selectedFondeo=$scope.fondeo;
                         console.log("El fondo seleccionado es");
                         console.log(vm.selectedFondeo);
+                        console.log($scope.fondeo);
                     }
                     else{
                         console.log("No hice nada aumentare i");
