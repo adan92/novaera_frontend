@@ -179,7 +179,7 @@
             //obtengo el programa de fondeo
             var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
             promise.then(function (value) {
-                vm.selectedFondeo = value;
+                //vm.selectedFondeo = value;
                 var promise = Modalidad.showModalitiesRelationFondeos(vm.selectedFondeo);
                 promise.then(function (value) {
                     vm.Modalidades = value;
@@ -416,7 +416,7 @@
         }
 
         // Eliminar Requisito
-        // Crear requisito
+
 
         function eliminarRequisito(requisito) {
 
@@ -435,10 +435,8 @@
                           console.log(vm.Requisitos[index]);
                           vm.Requisitos.splice(index, 1);
                     }
-                    index=vm.Requisitos.length;
-                    console.log(index);
-
                 }
+                else{console.log("Aun no lo encuentro")}
 
             }
 
