@@ -6,9 +6,11 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function convocatoriaFondeosController($scope, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate) {
+    function convocatoriaFondeosController($translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
         var vm = this;
         vm.activate = activate();
+        vm.language="es";
+        vm.language=$translate.use()
         //Inicializacion objetos
         //Programas de Fondeo
         vm.fondeo = {
@@ -177,7 +179,7 @@
             //obtengo el programa de fondeo
             var promise = Fondeo.getFondeoById(vm.Convocatoria.ProgramaAsociado);
             promise.then(function (value) {
-                vm.selectedFondeo = value;
+                //vm.selectedFondeo = value;
                 var promise = Modalidad.showModalitiesRelationFondeos(vm.selectedFondeo);
                 promise.then(function (value) {
                     vm.Modalidades = value;
@@ -199,6 +201,10 @@
             promise.then(function (value) {
 
                 vm.Convocatorias = value;
+                vm.Convocatorias.forEach(function(value,index){
+                    value.FechaInicio=moment(value.FechaInicio,"YYYY-MM-DD");
+                    value.FechaTermino=moment(value.FechaTermino,"YYYY-MM-DD");
+                });
 
                 console.log(vm.Convocatorias)
 
@@ -213,6 +219,21 @@
             vm.Requisitos = JSON.parse(vm.Convocatoria.Requisitos);
             getModalidades();
             showModalitiesRelation();
+            var i=0;
+            vm.Fondeos.forEach(
+                function BuscaFondos(fondo,index){
+                    if(fondo.id==vm.Convocatoria.ProgramaAsociado){
+
+                        vm.selectedFondeo =fondo;
+                        console.log("El fondo seleccionado es");
+                        console.log(vm.selectedFondeo);
+
+                    }
+                    else{
+                        console.log("No hice nada aumentare i");
+                    }
+                    i++;
+                });
 
         }
 
@@ -243,6 +264,9 @@
         function registrarConvocatoria() {
             vm.Convocatoria.ProgramaAsociado = vm.selectedFondeo.id;
             vm.Convocatoria.Requisitos = vm.Requisitos;
+
+            vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio).format('YY-MM-DD');
+            vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino).format('YYYY-MM-DD');
             console.log("Entrando a la funcion");
             console.log(vm.Convocatoria);
             if (vm.Convocatoria.id == null) {
@@ -259,6 +283,7 @@
             }
             else {
                 console.log("Estoy editando");
+
                 var promise = Convocatoria.updateConvocatoria(vm.Convocatoria);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successUpdateText);
@@ -279,6 +304,8 @@
                 console.log("Consultare modalidades Relacionadas");
                 showModalitiesRelation();
                 console.log("Ya debi mostrar Tabla");
+                vm.Convocatoria.FechaInicio=moment(vm.Convocatoria.FechaInicio,"YYYY-MM-DD");
+                vm.Convocatoria.FechaTermino=moment(vm.Convocatoria.FechaTermino,"YYYY-MM-DD");
             });
         }
 
@@ -388,7 +415,7 @@
         }
 
         // Eliminar Requisito
-        // Crear requisito
+
 
         function eliminarRequisito(requisito) {
 
@@ -407,10 +434,8 @@
                           console.log(vm.Requisitos[index]);
                           vm.Requisitos.splice(index, 1);
                     }
-                    index=vm.Requisitos.length;
-                    console.log(index);
-
                 }
+                else{console.log("Aun no lo encuentro")}
 
             }
 

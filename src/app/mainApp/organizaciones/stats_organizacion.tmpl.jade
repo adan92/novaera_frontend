@@ -4,10 +4,11 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='row' layout-sm='column')
         md-card(flex layout='row')
             md-card-content
-                h2.md-display-1(translate) ORGANIZATION.STATS.LOOKUP_STATS
-                div(ng-if='vm.loadingDescriptorData==false && vm.selectedTipoDescriptor!=null')
+                h2.md-display-2(translate) ORGANIZATION.STATS.LOOKUP_STATS
+                div(ng-show='vm.loadingDescriptorData==false && vm.selectedTipoDescriptor!=null')
+
                     canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClickChart', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
-                h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') ORGANIZATION.STATS.INSTRUCTIONS_CHART
+                h3.md-display-1.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') ORGANIZATION.STATS.INSTRUCTIONS_CHART
                 div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
                     md-progress-circular(md-mode='indeterminate')
 
@@ -39,7 +40,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='column')
         md-card(flex='')
             md-card-content(layout='column')
-                    h2.headline(translate) ORGANIZATION.STATS.ORGANIZATION_LIST
+                    h2.md-display-1(translate) ORGANIZATION.STATS.ORGANIZATION_LIST
                     h2.md-title(ng-show='vm.organizaciones!=null') &nbsp;{{vm.organizaciones.length | countName}}
                 div(layout='row' layout-sm='column' ng-show='vm.loadingOrganizaciones==true || vm.organizaciones==null' layout-align='center center')
                     md-progress-circular(md-mode='indeterminate')

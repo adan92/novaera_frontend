@@ -3,24 +3,24 @@
 div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
     md-card
         md-card-content
-            h3(translate) ADMINISTRATOR.WELCOME_MESSAGE
+            h3.md-display-2(translate) ADMINISTRATOR.WELCOME_MESSAGE
     md-card
         md-card-content
             md-toolbar.md-table-toolbar.md-default
                 .md-toolbar-tools
-                    h3(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
+                    h3.md-display-1(translate) ADMINISTRATOR.NOT_VALIDATED_LIST
             md-table-container
                 table(md-table md-data-table md-row-select='' ng-model='vm.selectedItems')
                     thead(md-head md-order='vm.query.order')
                         tr(md-row)
                             th(md-column md-order-by='id')
-                                span id
+                                span.md-headline id
                             th(md-column md-order-by='Nombre')
-                                span nombre
+                                span.md-headline nombre
                             th(md-column md-order-by='ApellidoP')
-                                span Apellido Paterno
+                                span.md-headline Apellido Paterno
                             th(md-column md-order-by='ApellidoM')
-                                span Apellido Materno
+                                span.md-headline Apellido Materno
                     tbody(md-body)
                         tr(md-row md-select='persona' md-select-id='{{persona.id}}'  md-auto-select ng-repeat='persona in vm.personas | orderBy:vm.query.order')
                             td(md-cell) {{persona.id}}
@@ -30,5 +30,5 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
             md-data-table-pagination(md-limit='vm.query.limit' md-page='vm.query.page' md-total='{{vm.personas.length}}')
             div(layout='row' layout-sm='column' layout-align='center center')
                 md-button.md-primary.md-raised(ng-click='vm.createDialog()' ng-disabled='vm.selectedItems.length==0')
-                    span(translate) ADMINISTRATOR.VALIDATE_USERS
+                    span.md-button.text-center(translate) ADMINISTRATOR.VALIDATE_USERS
 

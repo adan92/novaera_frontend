@@ -6,34 +6,35 @@
         div(flex layout='column', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.organizaciones==null')
           md-progress-circular(md-mode='indeterminate')
         div(flex layout='column', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.organizaciones!=null')
-          h2.text-center(translate='') ORGANIZATION.ORGANIZATIONS
-          h3.text-center(translate='') ORGANIZATION.DESCRIPTOR.INSTRUCTIONS
+          h2.md-display-2.text-center(translate='') ORGANIZATION.ORGANIZATIONS
+          h3.md-display-1.text-center(translate='') ORGANIZATION.DESCRIPTOR.INSTRUCTIONS
           md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache', md-selected-item='vm.selectedItem', md-search-text-change='vm.searchTextChange(vm.searchText)', md-search-text='vm.searchText', md-selected-item-change='vm.selectedItemChange()', md-items='item in vm.querySearch(vm.searchText)', md-item-text='item.Titulo', md-min-length='0', placeholder='Buscador de Organizaciones')
             span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
   // Tarjeta para eliminar descriptores de Organizacion
   div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
     md-card(flex='', layout='column')
       md-card-content(flex='')
-        h2.text-center(translate='') ORGANIZATION.DESCRIPTOR.CURRENT
+        h2.md-display-2.text-center(translate='') ORGANIZATION.DESCRIPTOR.CURRENT
         md-list(flex='')
           md-list-item.md-5-line(ng-repeat='descriptor in vm.descriptorPersonas')
             div(layout='row', flex='', layout-align='space-around center', layout-sm='column')
               .md-list-item-text(flex='60')
-                h4 Tipo: {{descriptor.Titulo}}
-                h5 Fecha de Inicio: {{vm.formatDate(descriptor.pivot.FechaInicio)|date:'MM/dd/yyyy'}}
-                h5 Fecha de Termino: {{vm.formatDate(descriptor.pivot.FechaTermino)|date:'MM/dd/yyyy'}}
-                h5 Tipo de Resultado: {{descriptor.pivot.TipoResultado}}
-                p No. Registro: {{descriptor.pivot.NumeroRegistro}}
+                h3.md-headline ID: {{descriptor.id}}
+                h4.md-headline Tipo: {{descriptor.Titulo}}
+                h5.md-headline Fecha de Inicio: {{vm.formatDate(descriptor.pivot.FechaInicio)|date:'MM/dd/yyyy'}}
+                h5.md-headline Fecha de Termino: {{vm.formatDate(descriptor.pivot.FechaTermino)|date:'MM/dd/yyyy'}}
+                h5.md-headline Tipo de Resultado: {{descriptor.pivot.TipoResultado}}
+                p.md-headline No. Registro: {{descriptor.pivot.NumeroRegistro}}
               div(flex='25')
                 md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
-                  span(translate='') PERSONAS.DESCRIPTOR.EDIT
+                  span.md-button.text-center(translate='') PERSONAS.DESCRIPTOR.EDIT
                 md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
                   span(translate='') PERSONAS.DESCRIPTOR.DELETE
             md-divider
     // Tarjeta para agregar descriptores de Organizacion
     md-card(flex='', layout='column', ng-show='vm.selectedItem!=null')
       md-card-content
-        h2(translate='') ORGANIZATION.DESCRIPTOR.ADD
+        h2.md-display-2(translate='') ORGANIZATION.DESCRIPTOR.ADD
         form(name='registrarDescriptor', novalidate='')
           md-input-container
             md-input-container

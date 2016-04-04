@@ -5,25 +5,25 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
       // Tarjeta con la gráfica
       md-card(flex='',layout='column')
          md-card-content
-            h2.text-center(translate='') PROJECT.TRL.CHART
+            h2.md-display-2.text-center(translate='') PROJECT.TRL.CHART
             canvas#doughnut.chart.chart-doughnut(chart-data='vm.estadisticas.Data', chart-labels='vm.estadisticas.Labels', chart-legend='true')
       // Tarjeta con la información de TRL
       md-card(flex='',layout='column')
          md-card-content
-            h2.text-center(translate='') PROJECT.TRL.ABOUT
-            h3.text-center(translate='') PROJECT.TRL.INTRO
+            h2.md-display-2.text-center(translate='') PROJECT.TRL.ABOUT
+            h3.md-display-1.text-center(translate='') PROJECT.TRL.INTRO
             md-input-container
                label(translate='') PROJECT.TRL.LEVEL
                md-select(ng-model='vm.infoTRL')
                   md-option(ng-repeat='level in vm.TRLItems', value='{{level.Descripcion}}')
                      | TRL {{level.Nivel}}
-            h4.text-center {{vm.infoTRL}}
+            h4.md-headline.text-center {{vm.infoTRL}}
    // TARJETA PARA BUSCAR PROYECTOS y Agregar TRL
    div(layout='row', layout-margin='', layout-sm='column')
       md-card(flex='', layout-align='center center')
          md-card-content
-            h2.text-center(translate='') PROJECT.TRL.MY_PROJECTS
-            h3.text-center(translate='') PROJECT.TRL.INSTRUCTIONS
+            h2.md-display-2.text-center(translate='') PROJECT.TRL.MY_PROJECTS
+            h3.md-display-1.text-center(translate='') PROJECT.TRL.INSTRUCTIONS
             md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache',
             md-selected-item='vm.selectedItem',
             md-search-text-change='vm.searchTextChange(vm.searchText)',

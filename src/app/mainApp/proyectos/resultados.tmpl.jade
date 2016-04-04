@@ -7,8 +7,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 div(layout="column" layout-align="center-center")
                     md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
                 div(ng-hide="vm.isCreating")
-                    h2.text-center(translate='') PROJECT.RESULTS.MY_PROJECTS
-                    h3.text-center(translate='') PROJECT.RESULTS.INSTRUCTIONS
+                    h2.md-display-2.text-center(translate='') PROJECT.RESULTS.MY_PROJECTS
+                    h3.md-display-1.text-center(translate='') PROJECT.RESULTS.INSTRUCTIONS
                     md-autocomplete.margin-bottom-20(
                     ng-disabled='vm.isDisabled',
                     md-no-cache='vm.noCache',
@@ -25,9 +25,9 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
         // Panel de Control
         md-card(flex='50', layout-align='center center')
             md-card-content
-                h2.text-center(ng-show='vm.selectedItem==null', translate='') PROJECT.RESULTS.WARNING
+                h2.md-display-2.text-center(ng-show='vm.selectedItem==null', translate='') PROJECT.RESULTS.WARNING
                 div(ng-show='vm.selectedItem!=null')
-                    h2.text-center(translate='') PROJECT.RESULTS.GENERAL_INFO
+                    h2.md-display-2.text-center(translate='') PROJECT.RESULTS.GENERAL_INFO
                     div(layout='row', layout-sm='column')
                         span.text-center.text-bold(translate='') PROJECT.RESULTS.TITLE
                         span : {{vm.selectedItem.Titulo}}
@@ -76,7 +76,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='', ng-show='vm.showTable')
             md-card-content
-                h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_RESULT': 'PROJECT.RESULTS.ADD_RESULTS')| translate}}
+                h2.md-display-2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_RESULT': 'PROJECT.RESULTS.ADD_RESULTS')| translate}}
                 form(name='agregarResultado')
                     div(layout layout-sm="column")
                         md-input-container(flex).nombre-resultado.md-no-float
@@ -150,7 +150,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         span(translate='') PROJECT.RESULTS.CLEAR
         md-card(flex='', ng-show='!vm.showTable')
             md-card-content
-                h2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_PATENT': 'PROJECT.RESULTS.ADD_PATENTS')| translate}}
+                h2.md-display-2.text-center {{(vm.resultado.id!=null ? 'PROJECT.RESULTS.FORM.MOD_PATENT': 'PROJECT.RESULTS.ADD_PATENTS')| translate}}
                 form(name='agregarPatente')
 
                     div(layout layout-sm="column")

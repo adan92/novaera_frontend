@@ -9,12 +9,12 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
             .md-toolbar-tools(flex)
                div(flex layout='column')
                   div(flex layout='row' layout-sm='column' layout-align='space-between center' )
-                     h2(translate='') PROJECT.WIZARD.TITLE
-                     h3(translate='') {{vm.steps[triWizard.currentStep]}}
-                     h2 {{triWizard.progress}}%
-                        span(translate='') PROJECT.WIZARD.COMPLETED
+                     h2.md-display-2(translate='') PROJECT.WIZARD.TITLE
+                     h3.md-display-1(translate='') {{vm.steps[triWizard.currentStep]}}
+                     h2.md-display-2 {{triWizard.progress}}%
+                        span.md-display-2(translate='') PROJECT.WIZARD.COMPLETED
                   div(flex layout='row' layout-sm='column' layout-align='center center' )
-                     h3(translate='') {{vm.proyectoLabel}}
+                     h3.md-display-1(translate='') {{vm.proyectoLabel}}
             md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
          md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
             md-tab#selectProject

@@ -3,8 +3,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
             div(layout='row', layout-md='column')
                 md-card(flex='', layout-padding='')
                     md-card-content
-                        h2.text-center(translate='') FONDEOS.DESCRIPTOR.TITLE
-                        h3.text-center(translate='') FONDEOS.DESCRIPTOR.INSTRUCTIONS
+                        h2.md-display-2text-center(translate='') FONDEOS.DESCRIPTOR.TITLE
+                        h3.md-display-1.text-center(translate='') FONDEOS.DESCRIPTOR.INSTRUCTIONS
                         div(layout='row' layout-sm='column' ng-show='vm.loadingFondeos==true' layout-align='center center')
                             md-progress-circular(md-mode='indeterminate')
 
@@ -26,7 +26,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 // Tarjeta para Agregar Descriptores de Programas de Fondeo
                 md-card(flex, layout='column', ng-show='vm.selectedItem!=null')
                     md-card-content
-                        h2(translate='') FONDEOS.DESCRIPTOR.ADD
+                        h2.md-display-2(translate='') FONDEOS.DESCRIPTOR.ADD
                         form(name='agregarDescriptor', novalidate='')
                             md-input-container
                                 label(translate='') FONDEOS.DESCRIPTOR.TYPE
@@ -45,14 +45,14 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 label(translate='') FONDEOS.DESCRIPTOR.NOTES
                                 input(ng-model='vm.descriptor.observaciones', required='', name='observaciones')
                             md-button.md-raised(ng-show='vm.descriptor.id==null', ng-disabled='registrarDescriptor.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='add button')
-                                span(translate='') FONDEOS.DESCRIPTOR.ADD
+                                span.md-button.text-center.md-button(translate='') FONDEOS.DESCRIPTOR.ADD
                             md-button.md-raised.md-primary(ng-show='vm.descriptor.id!=null', ng-disabled='registrarDescriptor.$invalid' ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='add button')
-                                span(translate='') FONDEOS.DESCRIPTOR.UPDATE
+                                span.md-button.text-center.md-button(translate='') FONDEOS.DESCRIPTOR.UPDATE
                             md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
-                                span(translate='') FONDEOS.DESCRIPTOR.CLEAR
+                                span.md-button.text-center.md-button(translate='') FONDEOS.DESCRIPTOR.CLEAR
                 md-card(flex, layout='column')
                     md-card-content
-                        h2.text-center(translate='') FONDEOS.DESCRIPTOR.CURRENT
+                        h2.md-display-2.text-center(translate='') FONDEOS.DESCRIPTOR.CURRENT
                         md-list
                             md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptoresFondeo')
                                 .md-list-item-text(flex)
@@ -60,7 +60,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                     h5 Observaciones: {{descriptor.pivot.observaciones}}
                                 div(flex)
                                     md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
-                                        span(translate='') FONDEOS.DESCRIPTOR.EDIT
+                                        span.md-button.text-center(translate='') FONDEOS.DESCRIPTOR.EDIT
                                     md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                        span(translate='') FONDEOS.DESCRIPTOR.DELETE
+                                        span.md-button.text-center(translate='') FONDEOS.DESCRIPTOR.DELETE
                                 md-divider

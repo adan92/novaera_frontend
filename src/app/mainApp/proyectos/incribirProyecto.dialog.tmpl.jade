@@ -3,12 +3,12 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
     .md-toolbar-tools
       md-button.md-icon-button(ng-click="vm.closeDialog()")
         md-icon.fa.fa-times.fa-2x
-      h2(flex translate="") {{(vm.tipo===1 ? 'PROJECT.INSCRIPTION.FIELDS': 'PROJECT.INSCRIPTION.SOLICITUDES')| translate}}
+      h2.md-display-2(flex translate="") {{(vm.tipo===1 ? 'PROJECT.INSCRIPTION.FIELDS': 'PROJECT.INSCRIPTION.SOLICITUDES')| translate}}
 
   md-dialog-content
     div(layout="column" ng-show="vm.tipo==2" ng-hide="vm.showSolicitudes==false" layout-align="center center" )
       div(ng-show="vm.solicitudes.length==0")
-        h2(translate='') PROJECT.INSCRIPTION.NOT_FOUND
+        h2.md-display-2(translate='') PROJECT.INSCRIPTION.NOT_FOUND
       div(ng-show="vm.solicitudes.length>0")
         md-table-container
           table(md-table='', md-row-select='', ng-model='vm.selectedSolicitudes')
@@ -35,11 +35,11 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
         .md-toolbar-tools(flex)
           div(flex layout='column')
             div(flex layout='row' layout-sm='column' layout-align='space-between center' )
-              h2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
-              h3(translate='') {{vm.steps[triWizard.currentStep]}}
+              h2.md-display-2(translate='') PROJECT.INSCRIPTION.INSCRIBIR
+              h3.md-display-1(translate='') {{vm.steps[triWizard.currentStep]}}
               h2
                 | {{vm.completed}}%
-                span(translate='') PROJECT.WIZARD.COMPLETED
+                span.md-display-2(translate='') PROJECT.WIZARD.COMPLETED
             div(flex layout='row' layout-sm='column' layout-align='center center' )
               h3(translate='') {{vm.proyectoLabel}}
         md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
