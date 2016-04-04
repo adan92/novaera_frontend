@@ -1,6 +1,6 @@
 .full-image-background.mb-bg-fb-02.overlay-40(layout='column', layout-align='center center')
 
-    div(layout='column')
+    div(flex layout='column')
         md-toolbar.md-primary
             div.md-toolbar-tools(flex layout='column')
                 h2(translate='') FONDEOS.CALL.CHOOSE
@@ -45,19 +45,23 @@
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                                   md-input-container
-                                                 label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
-                                                 md-datepicker(ng-enabled='vm.Convocatoria.FechaInicio!=null', ng-model='vm.Convocatoria.FechaInicio')
-                                                 div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                                     div(ng-message='', when='required')
-                                                        span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
-                                       md-input-container
+                                   md-input-container(flex)
+                                        label(translate='') FONDEOS.CALL.BEGIN_DATE_CALL
+                                        input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
+                                        format="DD-MM-YYYY",
+                                        cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                                        ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                                        ng-model="vm.Convocatoria.FechaInicio")
+
+
+                                       md-input-container(flex)
                                            label(translate='') FONDEOS.CALL.END_DATE_CALL
-                                           md-datepicker(ng-enabled='vm.Convocatoria.FechaTermino!=null', ng-model='vm.Convocatoria.FechaTermino')
-                                           div(ng-messages='convocatoriaInfo.descripcion.$error')
-                                               div(ng-message='', when='required')
-                                                   span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                           input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
+                                           format="DD-MM-YYYY",
+                                           cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                                           ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                                           ng-model="vm.Convocatoria.FechaTermino")
 
 
 
@@ -167,9 +171,9 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
                                 span {{modal.Nombre}}
                             td(md-cell='md-cell')
                                 span {{modal.Montos}}
-                            td(md-cell='md-cell') {{modal.CriteriosEvaluacion}}
-                            td(md-cell='md-cell') {{modal.Entregables}}
-                            td(md-cell='md-cell') {{modal.FigurasApoyo}}
+                            td(md-cell='md-cell') {{modal.CriteriosEvaluacion|htmlToString}}
+                            td(md-cell='md-cell') {{modal.Entregables|htmlToString}}
+                            td(md-cell='md-cell') {{modal.FigurasApoyo|htmlToString}}
                             td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                                 md-button.md-fab.md-primary.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
                                     md-icon(md-font-icon='zmdi zmdi-plus-circle')
@@ -201,9 +205,9 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
                            span {{modality.Nombre}}
                         td(md-cell='md-cell')
                            span {{modality.Montos}}
-                        td(md-cell='md-cell') {{modality.CriteriosEvaluacion}}
-                        td(md-cell='md-cell') {{modality.Entregables}}
-                        td(md-cell='md-cell') {{modality.FigurasApoyo}}
+                        td(md-cell='md-cell') {{modality.CriteriosEvaluacion|htmlToString}}
+                        td(md-cell='md-cell') {{modality.Entregables|htmlToString}}
+                        td(md-cell='md-cell') {{modality.FigurasApoyo|htmlToString}}
                         td(md-cell='md-cell' ng-click="$event.stopPropagation()")
                             md-button.md-fab.md-warn.md-mini(ng-click='vm.quitarModalidadConvocatoria(modality)')
                                 md-icon(md-font-icon='fa fa-times-circle-o')
