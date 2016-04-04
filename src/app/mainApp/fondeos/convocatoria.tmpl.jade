@@ -3,7 +3,7 @@
     div(flex layout='column')
         md-toolbar.md-primary
             div.md-toolbar-tools(flex layout='column')
-                h2(translate='') FONDEOS.CALL.CHOOSE
+                h2.md-display-1(translate='') FONDEOS.CALL.CHOOSE
         div.wizard(flex layout='row')
             md-button.md-fab(ng-click='vm.getConvocatoria()', ng-class='editar', aria-label='fab button')
                 md-icon(md-font-icon='fa fa-pencil')
@@ -24,7 +24,7 @@
         .md-w.hiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
             md-toolbar.md-primary
                 .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-                    h2(translate='') FONDEOS.CALL.TITLE
+                    h2.md-display-1(translate='') FONDEOS.CALL.TITLE
                     h2
                         | {{triWizard.progress}}%
                         span(translate='') FONDEOS.WIZARD.COMPLETED
@@ -146,7 +146,7 @@
 md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='vm.Convocatoria!=null')
     md-tab(label='Modalidades Disponibles')
         md-content.md-padding
-            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
+            h2.md-display-1(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
             md-table-container
                 table(md-table='', md-row-select='', ng-model='Modalidades')
                     thead(md-head='', md-order='vm.query.order')
@@ -180,7 +180,7 @@ md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-
 
     md-tab(label='Modalidades Asociadas')
         md-content.md-padding
-            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
+            h2.md-display-1(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
             md-table-container
                table(md-table='', md-row-select='', ng-model='vm.ModalidadesAsociadas')
                   thead(md-head='', md-order='vm.query.order')

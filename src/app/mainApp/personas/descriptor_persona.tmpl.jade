@@ -3,13 +3,13 @@
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                h2.text-center(translate='') PERSONAS.DESCRIPTOR.WELCOME
-                h3.text-center {{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}
+                h2.md-display-2.text-center(translate='') PERSONAS.DESCRIPTOR.WELCOME
+                h3.md-display-1.text-center {{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}
     // Tarjeta para eliminar descriptores
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.persona!=null')
         md-card(flex='70', layout='column')
             md-card-content
-                h2.text-center(translate='') PERSONAS.DESCRIPTOR.CURRENT
+                h2.md-display-2.text-center(translate='') PERSONAS.DESCRIPTOR.CURRENT
                 md-list
                     md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptorPersonas')
                         div(layout='row', flex='flex', layout-align='space-around center', layout-sm='column')
@@ -27,7 +27,7 @@
         // Tarjeta para agregar descriptores
         md-card(flex='', layout='column', ng-show='vm.persona!=null')
             md-card-content
-                h2(translate='') PERSONAS.DESCRIPTOR.ADD
+                h2.md-display-2(translate='') PERSONAS.DESCRIPTOR.ADD
                 form(name='agregarDescriptor', novalidate='')
                     div(layout='row' layout-sm='column' ng-show='vm.loadingTipoDescriptorData==true' layout-align='center center')
                         md-progress-circular(md-mode='indeterminate')

@@ -2,7 +2,7 @@ md-dialog(aria-label='Información detallada de solicitud', ng-cloak='')
     form
         md-toolbar
             .md-toolbar-tools
-                h2 Información detallada de solicitud
+                h2.md-display-2 Información detallada de solicitud
                 span(flex='')
                 md-button.md-icon-button(ng-click='cancel()')
                     md-icon( aria-label='Close dialog')
@@ -11,49 +11,49 @@ md-dialog(aria-label='Información detallada de solicitud', ng-cloak='')
                  table
                      tr
                         td
-                         h4 Fecha de registro:
+                         h4.md-headline Fecha de registro:
                         td
-                         p  &nbsp {{vm.solicitud.FechaRegistro}}
+                         p.md-headline  &nbsp {{vm.solicitud.FechaRegistro}}
                      tr
                          td
-                             h4 Titulo:
+                             h4.md-headline Titulo:
                          td
-                             p  &nbsp {{vm.solicitud.Titulo}}
+                             p.md-headline  &nbsp {{vm.solicitud.Titulo}}
                      tr
                          td
-                             h4 Programa de Fondeo:
+                             h4.md-headline Programa de Fondeo:
                          td
-                             p  &nbsp {{vm.solicitud.ProgramaFondeo}}
+                             p.md-headline  &nbsp {{vm.solicitud.ProgramaFondeo}}
                      tr
                          td
-                             h4 Convocatoria:
+                             h4.md-headline Convocatoria:
                          td
-                             p  &nbsp {{vm.solicitud.Convocatoria}}
+                             p.md-headline  &nbsp {{vm.solicitud.Convocatoria}}
                      tr
                          td
-                             h4 Modalidad:
+                             h4.md-headline Modalidad:
                          td
-                             p  &nbsp {{vm.solicitud.Modalidad}}
+                             p.md-headline  &nbsp {{vm.solicitud.Modalidad}}
                      tr
                          td
-                             h4 TRL Inicial:
+                             h4.md-headline TRL Inicial:
                          td
-                             p  &nbsp {{vm.solicitud.TRLInicial}}
+                             p.md-headline  &nbsp {{vm.solicitud.TRLInicial}}
                      tr
                          td
-                             h4 TRL Final:
+                             h4.md-headline TRL Final:
                          td
-                             p  &nbsp {{vm.solicitud.TRLFinal}}
+                             p.md-headline  &nbsp {{vm.solicitud.TRLFinal}}
                      tr
                          td
-                             h4 Monto solicitado:
+                             h4.md-headline Monto solicitado:
                          td
-                             p  &nbsp {{vm.solicitud.MontoSolicitado}}
+                             p.md-headline  &nbsp {{vm.solicitud.MontoSolicitado}}
                      tr
                          td
-                             h4 Parque tecnológico:
+                             h4.md-headline Parque tecnológico:
                          td
-                             p  &nbsp {{vm.solicitud.Parque}}
+                             p.md-headline  &nbsp {{vm.solicitud.Parque}}
         md-dialog-actions(layout='row')
             span(flex='')
             md-button(ng-click="vm.answer(0)")

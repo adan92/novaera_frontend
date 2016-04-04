@@ -10,13 +10,13 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
             div.md-toolbar-tools(flex layout='column')
                div(flex layout='column')
                   div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
-                     h2(translate='') PROJECT.WIZARD.TITLE2
+                     h2.md-display-2(translate='') PROJECT.WIZARD.TITLE2
                      h2
                         | {{vm.completed}}%
-                        span(translate='') PROJECT.WIZARD.COMPLETED
+                        span.md-display-2(translate='') PROJECT.WIZARD.COMPLETED
                   div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
-                     h3(translate='') {{vm.steps[triWizard.currentStep]}}
-                     h3(translate='') {{vm.proyectoLabel}}
+                     h3.md-display-1(translate='') {{vm.steps[triWizard.currentStep]}}
+                     h3.md-display-1(translate='') {{vm.proyectoLabel}}
             md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
          md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
             md-tab#selectProject
@@ -48,16 +48,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='Requisitos', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Requisitos')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.requisitosFile!=null', layout='row', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.requisitosFile.Ruta}}')
-                           h3 {{vm.requisitosFile.Nombre}}
+                           h3.md-display-1 {{vm.requisitosFile.Nombre}}
             md-tab#enviornment(ng-disabled='(vm.Ejecucion.Requisitos==null || vm.Ejecucion.Requisitos=="" )  && vm.requisitosFile==null')
                md-tab-label
                   span.oxy-step-label 3
@@ -71,16 +71,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='AnalisisEntornoP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('AnalisisEntornoP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.entornoFile!=null', layout='row', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.entornoFile.Ruta}}')
-                           h3 {{vm.entornoFile.Nombre}}
+                           h3.md-display-1 {{vm.entornoFile.Nombre}}
             md-tab#technicalFactibility(ng-disabled='(vm.Ejecucion.AnalisisEntornoP==null || vm.Ejecucion.AnalisisEntornoP=="") && vm.entornoFile==null')
                md-tab-label
                   span.oxy-step-label 4
@@ -94,16 +94,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                         md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                            span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                           h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                           h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                         div(layout='row', layout-sm='column', layout-align='center center')
                            form(name='FactibilidadTecnicaP', tri-wizard-form='')
                               .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('FactibilidadTecnicaP')")
                                  md-button.md-fab.md-primary(aria-label='md-button')
                                     ng-md-icon(icon='attach_file')
                         div(ng-show='vm.factibilidadTFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                           h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                           h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                            a(href='{{vm.factibilidadTFile.Ruta}}')
-                              h3 {{vm.factibilidadTFile.Nombre}}
+                              h3.md-display-1 {{vm.factibilidadTFile.Nombre}}
             md-tab#economicalFactibility(ng-disabled='(vm.Ejecucion.FactibilidadTecnicaP==null || vm.Ejecucion.FactibilidadTecnicaP=="") && vm.factibilidadTFile==null')
                md-tab-label
                   span.oxy-step-label 5
@@ -118,16 +118,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                         span(translate) PROJECT.WIZARD.UPDATE_TEXT
                         div(layout='row', layout-sm='column', layout-align='space-around center')
-                           h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                           h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                         div(layout='row', layout-sm='column', layout-align='center center')
                            form(name='FactibilidadEconomicaP', tri-wizard-form='')
                               .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('FactibilidadEconomicaP')")
                                  md-button.md-fab.md-primary(aria-label='md-button')
                                     ng-md-icon(icon='attach_file')
                         div(ng-show='vm.factibilidadEFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                           h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                           h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                            a(href='{{vm.factibilidadEFile.Ruta}}')
-                              h3 {{vm.factibilidadEFile.Nombre}}
+                              h3.md-display-1 {{vm.factibilidadEFile.Nombre}}
             md-tab#commercialFactibility(ng-disabled='(vm.Ejecucion.FactibilidadEconomicaP==null || vm.Ejecucion.FactibilidadEconomicaP=="") && vm.factibilidadEFile==null')
                md-tab-label
                   span.oxy-step-label 6
@@ -141,16 +141,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='FactibilidadComercialP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('FactibilidadComercialP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.factibilidadCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.factibilidadCFile.Ruta}}')
-                           h3 {{vm.factibilidadCFile.Nombre}}
+                           h3.md-display-1 {{vm.factibilidadCFile.Nombre}}
             md-tab#commercialBenchmark(ng-disabled='(vm.Ejecucion.FactibilidadComercialP==null || vm.Ejecucion.FactibilidadComercialP=="") && vm.factibilidadCFile==null')
                md-tab-label
                   span.oxy-step-label 7
@@ -164,16 +164,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='BenchmarkComercialP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('BenchmarkComercialP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.benchmarkCFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.benchmarkCFile.Ruta}}')
-                           h3 {{vm.benchmarkCFile.Nombre}}
+                           h3.md-display-1 {{vm.benchmarkCFile.Nombre}}
             md-tab#technologicalBenchmark(ng-disabled='(vm.Ejecucion.BenchmarkComercialP==null || vm.Ejecucion.BenchmarkComercialP=="") && vm.benchmarkCFile==null')
                md-tab-label
                   span.oxy-step-label 8
@@ -187,16 +187,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='BenchmarkTecnologicoP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('BenchmarkTecnologicoP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.benchmarkTFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.benchmarkTFile.Ruta}}')
-                           h3 {{vm.benchmarkTFile.Nombre}}
+                           h3.md-display-1 {{vm.benchmarkTFile.Nombre}}
             md-tab#humanResources(ng-disabled='(vm.Ejecucion.BenchmarkTecnologicoP==null || vm.Ejecucion.BenchmarkTecnologicoP=="") && vm.benchmarkTFile==null')
                md-tab-label
                   span.oxy-step-label 9
@@ -210,16 +210,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RecursosHumanosP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RecursosHumanosP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.recursosHFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.recursosHFile.Ruta}}')
-                           h3 {{vm.recursosHFile.Nombre}}
+                           h3.md-display-1 {{vm.recursosHFile.Nombre}}
             md-tab#financialResources(ng-disabled='(vm.Ejecucion.RecursosHumanosP==null || vm.Ejecucion.RecursosHumanosP=="") && vm.recursosHFile==null')
                md-tab-label
                   span.oxy-step-label 10
@@ -233,16 +233,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RecursosFinancierosP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RecursosFinancierosP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.recursosFFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.recursosFFile.Ruta}}')
-                           h3 {{vm.recursosFFile.Nombre}}
+                           h3.md-display-1 {{vm.recursosFFile.Nombre}}
             md-tab#technologicalResources(ng-disabled='(vm.Ejecucion.RecursosFinancierosP==null || vm.Ejecucion.RecursosFinancierosP=="") && vm.recursosFFile==null')
                md-tab-label
                   span.oxy-step-label 11
@@ -256,16 +256,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RecursosTecnologicosP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RecursosTecnologicosP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.recursosTFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.recursosTFile.Ruta}}')
-                           h3 {{vm.recursosTFile.Nombre}}
+                           h3.md-display-1 {{vm.recursosTFile.Nombre}}
             md-tab#materialResources(ng-disabled='(vm.Ejecucion.RecursosTecnologicosP==null || vm.Ejecucion.RecursosTecnologicosP=="") && vm.recursosTFile==null')
                md-tab-label
                   span.oxy-step-label 12
@@ -279,16 +279,16 @@ div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='
                            md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
                               span(translate) PROJECT.WIZARD.UPDATE_TEXT
                      div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                        h3.md-display-1(translate='') PROJECT.WIZARD.FILE_UPLOAD
                      div(layout='row', layout-sm='column', layout-align='center center')
                         form(name='RecursosMaterialesP', tri-wizard-form='')
                            .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RecursosMaterialesP')")
                               md-button.md-fab.md-primary(aria-label='md-button')
                                  ng-md-icon(icon='attach_file')
                      div(ng-show='vm.recursosMFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                        h3.md-display-1(translate='') PROJECT.EXECUTION.UPLOADED_FILE
                         a(href='{{vm.recursosMFile.Ruta}}')
-                           h3 {{vm.recursosMFile.Nombre}}
+                           h3.md-display-1 {{vm.recursosMFile.Nombre}}
          .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
             md-button.md-primary.md-raised(ng-click='triWizard.prevStep()',aria-label='md-button', ng-hide='triWizard.currentStep > 11', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
             md-button.md-primary.md-raised(ng-click='triWizard.nextStep()',aria-label='md-button', ng-hide='vm.completed == 100 && triWizard.currentStep >= 10', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')

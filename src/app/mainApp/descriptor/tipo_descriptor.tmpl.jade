@@ -3,7 +3,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                h2(translate='') DESCRIPTOR.TIPO.ADD
+                h2.md-display-2(translate='') DESCRIPTOR.TIPO.ADD
                 form(name='agregarTipo', novalidate='')
                     md-input-container
                         label(translate='') DESCRIPTOR.TIPO.NAME
@@ -25,33 +25,33 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(layout='row', layout-md='column')
         md-card(flex='', layout='column')
             md-card-content
-                h2.text-center(translate='') DESCRIPTOR.TIPO.CURRENT
+                h2.md-display-2.text-center(translate='') DESCRIPTOR.TIPO.CURRENT
                 md-list
                     md-list-item.md-4-line(ng-repeat='tipo in vm.tiposDescriptor')
                         div(layout='row', flex, layout-align='space-around center' layout-sm='column')
-                            div.md-list-item-text(flex='60')
+                            div.md-list-item-text(flex='50')
                                 h3
-                                    span(translate) DESCRIPTOR.TIPO.ID
-                                    span  {{tipo.id}}
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.ID
+                                    span.md-headline  {{tipo.id}}
                                 h3
-                                    span(translate) DESCRIPTOR.TIPO.NAME
-                                    span  {{tipo.Nombre}}
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.NAME
+                                    span.md-headline   {{tipo.Nombre}}
                                 h5
-                                    span(translate) DESCRIPTOR.TIPO.APPLICABLE
-                                    span  {{tipo.Aplicable}}
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.APPLICABLE
+                                    span.md-headline  {{tipo.Aplicable}}
                                 h5
-                                    span(translate) DESCRIPTOR.TIPO.ACTIVE
-                                    span  {{tipo.Activo==1? 'Si':'No'}}
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.ACTIVE
+                                    span.md-headline   {{tipo.Activo==1? 'Si':'No'}}
                                 h6
-                                    span(translate) DESCRIPTOR.TIPO.CREATED_AT
-                                    span {{tipo.created_at}}
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.CREATED_AT
+                                    span.md-headline  {{tipo.created_at}}
                                 h6
-                                    span(translate) DESCRIPTOR.TIPO.UPDATED_AT
-                                    span {{tipo.updated_at}}
-                            div(flex='15')
+                                    span.md-headline(translate) DESCRIPTOR.TIPO.UPDATED_AT
+                                    span.md-headline {{tipo.updated_at}}
+                            div(flex='20')
                                 md-button.md-raised.md-primary(ng-click='vm.edit(tipo)')
-                                    span(translate) DESCRIPTOR.TIPO.EDIT
-                            div(flex='15')
+                                    span.md-button.text-center(translate) DESCRIPTOR.TIPO.EDIT
+                            div(flex='20')
                                 md-button.md-raised(ng-click='vm.createDialog($event,tipo)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
-                                    span(translate='') DESCRIPTOR.TIPO.DELETE
+                                    span.md-button.text-center(translate='') DESCRIPTOR.TIPO.DELETE
                         md-divider
