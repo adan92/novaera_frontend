@@ -7,7 +7,7 @@
 
     /* @ngInject */
 
-    function  modalidadFondeosController($scope, $timeout ,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
+    function  modalidadFondeosController( $timeout ,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
         var vm = this;
         vm.activate = activate();
         //Inicializacion objetos
@@ -113,17 +113,15 @@
             console.log(vm.Modalidad);
             var i=0;
             vm.Fondeos.forEach(
-                function BuscaFondos(){
-                if(vm.Fondeos[i].id==vm.Modalidad.idProgramaFondeo){
-                $scope.fondeo=vm.Fondeos[i];
-                    console.log($scope.fondeo);
-                    vm.selectedFondeo=$scope.fondeo;
+                function BuscaFondos(fondo,index){
+                if(fondo.id==vm.Modalidad.idProgramaFondeo){
+                    vm.selectedFondeo=fondo;
                     console.log(vm.selectedFondeo);
                 }
                 else{
                     console.log("No hice nada aumentare i");
                 }
-                i++;
+
             });
         }
         function cancel() {

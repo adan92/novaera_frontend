@@ -6,7 +6,7 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function convocatoriaFondeosController($scope,$translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
+    function convocatoriaFondeosController($translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
         var vm = this;
         vm.activate = activate();
         vm.language="es";
@@ -221,14 +221,13 @@
             showModalitiesRelation();
             var i=0;
             vm.Fondeos.forEach(
-                function BuscaFondos(){
-                    if(vm.Fondeos[i].id==vm.Convocatoria.ProgramaAsociado){
-                        $scope.fondeo=vm.Fondeos[i];
-                        console.log($scope.fondeo);
-                        vm.selectedFondeo=$scope.fondeo;
+                function BuscaFondos(fondo,index){
+                    if(fondo.id==vm.Convocatoria.ProgramaAsociado){
+
+                        vm.selectedFondeo =fondo;
                         console.log("El fondo seleccionado es");
                         console.log(vm.selectedFondeo);
-                        console.log($scope.fondeo);
+
                     }
                     else{
                         console.log("No hice nada aumentare i");
