@@ -83,4 +83,4 @@
                             md-option(ng-repeat='descriptor in vm.resultadosDescriptores', name='idDescriptor', value='{{descriptor.id}}')
                                 | {{descriptor.Nombre}}
                     md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-                        span.md-button.text-center.(translate='') {{(vm.resultadosDescriptor.id==null ? 'PROJECT.DESCRIPTOR.ADD': 'PROJECT.DESCRIPTOR.EDITPRO')| translate}}
+                        span.md-button.text-center(translate='') {{(vm.resultadosDescriptor.id==null ? 'PROJECT.DESCRIPTOR.ADD': 'PROJECT.DESCRIPTOR.EDITPRO')| translate}}
