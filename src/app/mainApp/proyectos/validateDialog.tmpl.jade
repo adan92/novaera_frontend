@@ -19,13 +19,13 @@ md-dialog(flex-gt-md='100' aria-label='Información de Solicitud')
                                     span {{vm.solicitud.Titulo}}
                                 h2.md-subhead
                                     span Descripción:&nbsp;
-                                    span {{vm.solicitud.Descripcion}}
+                                    span(ng-bind-html='vm.solicitud.Descripcion')
                                 h2.md-subhead
                                     span Antecedentes:&nbsp;
-                                    span {{vm.solicitud.Antecedentes}}
+                                    span(ng-bind-html='vm.solicitud.Antecedentes')
                                 h2.md-subhead
                                     span Justificación:&nbsp;
-                                    span {{vm.solicitud.Justificacion}}
+                                    span(ng-bind-html='vm.solicitud.Justificacion')
 
                             div(flex layout='column')
                                 h2.md-headline-1.text-center Información de la Solicitud

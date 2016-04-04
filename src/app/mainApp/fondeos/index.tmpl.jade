@@ -1,56 +1,67 @@
 .dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
     .layout.layout-column.layout-margin.layout-sm.layout-sm-column
-        div(flex='100')
-            md-card(flex='100')
-                md-card-content
-                    .content-padded
-                        h2.md-title Convocatorias
-                        p Aqui aparecen las  ultimas Convocatorias creadas.
-                        md-card-content
-                            h2(translate='') PERSONAS.WIZARD.LASTREGISTERS
-                            div(ng-controller='indexFondeosController as vm')
-                                tri-table.elements-image-table-example(columns='::vm.columns', contents='::vm.contents', page-size='2')
-                    md-divider
-                    .button-toolbar(layout='row', layout-align='start center')
-                        md-button.md-primary Nuevo
-        div(flex='50', layout='row')
-            md-card(flex='50')
-                md-card-content
-                    .content-padded
-                        h2.md-title Convocatorias
-                        p Aqui aparece una explicacione de una Convocatoria .
-                    md-divider
-                    .button-toolbar(layout='row', layout-align='start center')
-                        md-button.md-primary Nuevo
-            md-card(flex='50')
-                md-card-content
-                    .content-padded
-                        h2.md-title Modalidades
-                        p Aqui aparece una explicacione de una Modalidad .
-                    md-divider
-                    .button-toolbar(layout='row', layout-align='start center')
-                        md-button.md-primary Nuevo
-        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
-            md-card(flex='30', layout='column')
-                h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO
-                md-card-content(layout-align='center center')
-                    canvas#doughnut.chart.chart-doughnut(chart-data='my_fondeos_data', chart-labels='my_fondeos_labels', chart-legend='true')
-            md-card(flex='70', layout='column')
-                md-card-content
-                    md-list
-                        md-subheader.md-no-sticky Fondos de Inversion Recientes
-                        md-list-item.md-2-line(ng-repeat='fondeo in fondeo')
-                            .md-list-item-text
-                                h3 {{fondeo.titulo}}
-                                p {{fondeo.monto}}
-                                p {{fondeo.Modalidades}}
-                                //
-                                  <div ng-bind-html="fondeo.terminos">
-                                  para insertar HTMLs
-                                  </div>
-                                md-divider
-        .layout.layout-row.layout-margin.layout-sm.layout-sm-column
-            md-card(flex='100', layout='column')
-                h2.text-center(translate='') FONDEOS.INFO.MY_FONDEO_MONTOS
-                md-card-content(layout-align='center center')
-                    canvas#line.chart.chart-line(chart-data='my_fondeos_area_data', chart-labels='my_fondeos_area_labels', chart-legend='true', chart-series='my_fondeos_area_series', chart-click='my_fondeos_area_onClick')
+        div(flex)
+            md-card(flex)
+                md-card-content.content-padded
+                    div(layout='row' layout-align='center center')
+                        h1.md-display-2(translate) FONDEOS.INDEX.FONDEOS_LIST
+                    md-progress-circular(md-mode='indeterminate' ng-show='vm.fondeos==null')
+                    div(ng-show='vm.fondeos!=null')
+                        md-input-container
+                            label(translate) FONDEOS.INDEX.FONDEO_SELECT
+                            md-select(ng-model='vm.selectedFondeo' md-on-close='vm.getModalidades()')
+                                md-option(ng-repeat='fondeo in vm.fondeos' ng-value='fondeo') {{fondeo.Titulo}}
+
+        div(flex, layout='row')
+            div(flex, layout='column', ng-show='vm.modalidades!=null')
+                md-card(flex)
+                    md-card-content.content-padded
+                        h1.md-headline(translate) FONDEOS.INDEX.MODALIDAD_SELECT
+                        md-input-container
+                            label(translate) FONDEOS.INDEX.MODALIDAD_SELECT
+                            md-select(ng-model='vm.selectedModalidad' md-on-close='vm.getConvocatorias()')
+                                md-option(ng-repeat='modalidad in vm.modalidades' ng-value='modalidad') {{modalidad.Nombre}}
+
+            div(flex, layout='column', ng-show='vm.modalidades!=null')
+                md-card(flex)
+                    md-card-content.content-padded
+                        h1.md-headline(translate) FONDEOS.INDEX.MODALIDAD_INFO
+                        h1.md-title(translate ng-show='vm.selectedModalidad==null') FONDEOS.INDEX.SELECT_MODALIDAD_FOR_INFO
+                        div(ng-show='vm.selectedModalidad!=null')
+                            h2.md-title(translate) FONDEOS.INDEX.AMOUNTS
+                            span ${{vm.selectedModalidad.Montos | number:2}}
+                            h2.md-title(translate) FONDEOS.INDEX.EVALUATION_CRITERIA
+                            span(ng-bind-html='vm.selectedModalidad.CriteriosEvaluacion')
+
+
+        div(flex, layout='row' ng-show='vm.convocatorias!=null')
+            md-card(flex)
+                md-card-content.content-padded
+                    h2.md-headline Convocatorias
+                    md-table-container(flex)
+                        table(flex md-table='')
+                            thead(flex md-head='', md-order='vm.query.order')
+                                tr(flex md-row='md-row')
+                                    th(md-column='md-column', md-order-by='Nombre')
+                                        span Nombre
+                                    th(md-column='md-column', md-order-by='FechaInicio')
+                                        span Inicio
+                                    th(md-column='md-column', md-order-by='FechaTermino')
+                                        span Término
+                                    th(md-column='md-column', md-order-by='MontosMaximosTotales')
+                                        span Monto Máximo
+                                    th(md-column='md-column', md-order-by='Requisitos')
+                                        span Requisitos
+
+                            // Cuerpo de la tabla
+                            tbody(md-body='md-body' flex)
+                                tr(flex md-row='md-row', ng-repeat='convocatoria in vm.convocatorias | orderBy:vm.query.order | offset:(vm.query.page-1)*vm.query.limit | limitTo: vn.query.limit')
+                                    td(md-cell='md-cell') {{convocatoria.Nombre | cut:false:50:"..."}}
+                                    td(md-cell='md-cell') {{convocatoria.FechaInicio}}
+                                    td(md-cell='md-cell') {{convocatoria.FechaTermino}}
+                                    td(md-cell='md-cell') ${{convocatoria.MontosMaximosTotales | number:2}}
+                                    td(md-cell='md-cell')
+                                        ul
+                                            li.li-disc(ng-repeat='requisito in convocatoria.Requisitos') {{requisito.Descripcion}}
+
+                    md-table-pagination(flex md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.convocatorias.length}}" md-on-paginate="onPaginate" md-page-select)

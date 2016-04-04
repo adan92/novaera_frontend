@@ -46,7 +46,8 @@
     },
 
     "DOCUMENTOS":{
-      "VALIDATE":"Validar Documento"
+      "VALIDATE": "Validar Documento",
+      "DOCUMENT_NOT_FOUND": "Documento no encontrado"
     },
     "DESCRIPTOR":{
       "DESCRIPTOR": "Descriptor",

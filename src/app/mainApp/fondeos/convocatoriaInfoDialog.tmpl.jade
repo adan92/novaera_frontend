@@ -1,0 +1,25 @@
+//
+   Created by lockonDaniel on 4/1/16.
+md-dialog(flex-gt-md='100' aria-label='Información de la Convocatoria')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h1.md-display-2 Información de la Convocatoria
+                span(flex='')
+                md-button.md-icon-button(ng-click='vm.cancel()')
+                    ng-md-icon(icon='close', aria-label='Close dialog')
+        md-dialog-content(flex layout='column')
+            h2.subhead Fecha de Inicio:
+            span {{vm.selectedConvocatoria.FechaInicio}}
+            h2.subhead Fecha de Término:
+            span {{vm.selectedConvocatoria.FechaTermino}}
+            h2.subhead Requisitos:
+            div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
+                ul
+                    li.li-disc {{requisito.Nombre}}: {{requisito.Descripcion}}
+            md-dialog-actions(layout='row' layout-align='end center')
+                md-button.md-raised.md-primary(ng-click="vm.cancel()")
+                    | Cerrar
+
+
+
