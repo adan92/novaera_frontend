@@ -7,7 +7,7 @@
             div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
                 md-progress-circular(md-mode='indeterminate')
             md-card-content(layout-align='center center')
-                div(ng-show='vm.loadingDescriptorData==false')
+                div(ng-if='vm.loadingDescriptorData==false')
                     canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
                 h3.md-title.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') PROJECT.INFO.INSTRUCTIONS_CHART
                 div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')
