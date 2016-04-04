@@ -157,10 +157,10 @@ md-dialog.fullscreen-dialog(aria-label="Full Screen Dialog Test")
                           span :&nbsp; ${{vm.selectedModalidad.Montos | number:2}}
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.CRITERIA_EVALUATION')
-                          span {{vm.selectedModalidad.CriteriosEvaluacion}}
+                          span(ng-bind-html='vm.selectedModalidad.CriteriosEvaluacion')
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.DELIVERABLES')
-                          span {{vm.selectedModalidad.Entregables}}
+                          span(ng-bind-html='vm.selectedModalidad.Entregables')
                         h2.md-subhead
                           span.bold(translate='PROJECT.INSCRIPTION.VIEWS.FIGURES')
                           span {{vm.selectedModalidad.FigurasApoyo}}

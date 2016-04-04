@@ -5,7 +5,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(flex='', layout='row', layout-md='column' ng-show='vm.fondeos!=null')
         md-card(flex='')
             md-card-content
-                h3.md-display-1.text-center(translate='') PROJECT.VALIDA.SELECTPROGRAM
+                h2.md-display-2.text-center(translate='') PROJECT.VALIDA.SELECTPROGRAM
                 md-autocomplete.margin-bottom-20(
                     md-no-cache='vm.noCache',
                     md-selected-item='vm.selectedItem',
@@ -18,51 +18,53 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     md-menu-class='autocomplete-custom-template')
                     md-item-template
                         span.item-title(md-highlight-text='vm.searchText', md-highlight-flags='^i')  {{item.Titulo}}
-                        span.item-metadata
-                                    | Publico Objetivo:
-                                    strong {{item.PublicoObjetivo}}
-                        span.item-metastat
-                                    | Fondo Total: $
-                                    strong {{item.FondoTotal | number:2}}
-
 
     div(flex layout='row', layout-sm='column', layout-md='column', ng-show='vm.selectedItem!=null')
         md-card(flex='', layout='row' layout-sm='column' layout-md='column')
             md-card-content(flex layout='row' layout-sm='column' layout-md='column')
-                div(flex, layout='column' layout-align='center center')
-                    h2.md-headline(translate='') PROJECT.INSCRIPTION.INFOPROGRAM
-                    h2.md-title Publico Objetivo:
-                    h2.subhead {{vm.selectedItem.PublicoObjetivo}}
-                    h2.md-title Fondo Total:
-                    h2.subhead ${{vm.selectedItem.FondoTotal | number:2}}
-                    h2.md-title Criterios de Elegibilidad:
-                    h2.subhead(ng-bind-html='vm.selectedItem.CriteriosElegibilidad')
                 div(flex, layout='column' layout-align='start center')
-                    h2.md-headline(translate) PROJECT.INSCRIPTION.ASSOCIATED_ANNOUNCEMENTS
+                    h2.md-display-1.text-center(translate='') PROJECT.INSCRIPTION.INFOPROGRAM
+                    h3.md-title Publico Objetivo:
+                    h3.subhead {{vm.selectedItem.PublicoObjetivo}}
+                    h3.md-title Fondo Total:
+                    h3.subhead ${{vm.selectedItem.FondoTotal | number:2}}
+                    h3.md-title Criterios de Elegibilidad:
+                    h3.subhead(ng-bind-html='vm.selectedItem.CriteriosElegibilidad')
+                div(flex, layout='column' layout-align='start center')
+                    h2.md-display-1.text-center(translate) PROJECT.INSCRIPTION.ASSOCIATED_ANNOUNCEMENTS
 
-                    div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.convocatorias==null')
-                        md-progress-circular(md-mode='indeterminate')
 
-                    form(flex name='selectConvocatoriaForm' ng-show='vm.convocatorias!=null')
-                        md-input-container
-                            label(translate) PROJECT.INSCRIPTION.SELECT_ANNOUNCEMENT
-                            md-select(ng-model='vm.selectedConvocatoria' md-on-close='vm.getSolicitudes()')
-                                md-option(ng-repeat='convocatoria in vm.convocatorias' ng-value='convocatoria') {{convocatoria.Nombre}}
-                    div(ng-show='vm.selectedConvocatoria!=null' layout-align='space-around-center center' layout='column' layout-sm='column' layout-md='column')
-                            h2.subhead Fecha de Inicio:
-                            span {{vm.selectedConvocatoria.FechaInicio}}
-                            h2.subhead Fecha de Término:
-                            span {{vm.selectedConvocatoria.FechaTermino}}
-                            h2.subhead Requisitos:
-                            div(ng-repeat='requisito in vm.selectedConvocatoria.Requisitos')
-                                ul
-                                    li.li-disc {{requisito.Nombre}}: {{requisito.Descripcion}}
+
+
+                    form(flex name='selectConvocatoriaForm' ng-show='vm.modalidades!=null')
+
+                        div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.loadingModalidades==true')
+                            md-progress-circular(md-mode='indeterminate')
+
+                        div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center')
+                            md-input-container()
+                                label(translate ) PROJECT.INSCRIPTION.SELECT_MODALIDAD
+                                md-select(ng-model='vm.selectedModalidad' md-on-close='vm.getConvocatorias()')
+                                    md-option(ng-repeat='modalidad in vm.modalidades' ng-value='modalidad') {{modalidad.Nombre | cut:false:40:"..."}}
+
+
+                        div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.loadingConvocatorias==true')
+                            md-progress-circular(md-mode='indeterminate')
+
+                        div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.convocatorias!=null && vm.convocatorias.length!=0')
+                            md-input-container()
+                                label(translate) PROJECT.INSCRIPTION.SELECT_ANNOUNCEMENT
+                                md-select(ng-model='vm.selectedConvocatoria' md-on-close='vm.getSolicitudes()')
+                                    md-option(ng-repeat='convocatoria in vm.convocatorias' ng-value='convocatoria') {{convocatoria.Nombre | cut:false:40:"..."}}
+                        div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.selectedConvocatoria!=null')
+                            md-button.md-raised.md-primary(flex ng-click='vm.openInfoConvocatoriaDialog()')
+                                span(translate) PROJECT.INSCRIPTION.SHOW_CONVOCATORIA_INFO
 
 
     div(flex layout='row', layout-sm='column', layout-md='column', layout-align='center center', ng-show='vm.loadingSolicitudes')
         md-progress-circular(md-mode='indeterminate')
 
-    div(flex layout='row', layout-sm='column', layout-md='column', ng-show='vm.solicitudes!=null')
+    div(flex layout='row', layout-sm='column', layout-md='column', ng-show='vm.solicitudes!=null && vm.solicitudes.length!=0')
         md-card(flex)
             md-card-content
                 // Cabecera de la md table

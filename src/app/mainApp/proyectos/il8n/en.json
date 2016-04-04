@@ -295,6 +295,8 @@
       "TITLE": "Bienvenido a la seccion para aplicar a un Programa de Fondeo",
       "PROJECTSELECTED": "El proyecto Seleccionado fue:",
       "SELECTPROJECT": "Selecciona el Proyecto que quieres inscribir",
+      "SELECT_MODALIDAD": "Selecciona la Modalidad asociada",
+      "SHOW_CONVOCATORIA_INFO": "Ver información de Convocatoria",
       "SOLICITUD":"Solicitudes del proyecto",
       "INSCRIBIR":"Inscribir proyecto",
       "FONDEOACTIVE": "Programas de Fondeo Activos",

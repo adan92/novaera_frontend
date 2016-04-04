@@ -6,6 +6,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
             md-card-content
                 h2.md-display-2(translate) ORGANIZATION.STATS.LOOKUP_STATS
                 div(ng-show='vm.loadingDescriptorData==false && vm.selectedTipoDescriptor!=null')
+
                     canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClickChart', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
                 h3.md-display-1.text-center(translate='' ng-show='vm.selectedTipoDescriptor!=null') ORGANIZATION.STATS.INSTRUCTIONS_CHART
                 div(layout='row' layout-sm='column' ng-show='vm.tipoDescriptores==null' layout-align='center center')

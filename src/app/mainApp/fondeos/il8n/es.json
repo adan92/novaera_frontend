@@ -2,23 +2,31 @@
   "MENU": {
     "FONDEOS": {
       "FONDEOS": "Fondos"
-
     },
-    "TODO":{
-      "HEADERS":"Selecciona las modalidades de la convocatoria"
+    "TODO": {
+      "HEADERS": "Selecciona las modalidades de la convocatoria"
     }
   },
-  "FONDEOS":{
+  "FONDEOS": {
+    "INDEX": {
+      "FONDEOS_LIST": "Lista de programas de Fondeos",
+      "FONDEO_SELECT": "Selecciona el Programa de Fondeo a Visualizar",
+      "MODALIDAD_SELECT": "Modalidades del Programa",
+      "MODALIDAD_INFO": "Información de la modalidad",
+      "SELECT_MODALIDAD_FOR_INFO": "Selecciona una modalidad para ver su información.",
+      "AMOUNTS": "Montos",
+      "EVALUATION_CRITERIA": "Criterios de Evaluación"
+    },
     "INTRO": "Sigue los pasos para registrar un Nuevo Programa de Fondeo",
     "INTRO_TERMINOS": "Sigue los pasos para registrar los terminos de un Programa de Fondeo",
-    "WIZARD":{
-      "CLEAR_FIELDS":"Limpiar Campos",
-      "STOP_EDIT":"Dejar de editar",
+    "WIZARD": {
+      "CLEAR_FIELDS": "Limpiar Campos",
+      "STOP_EDIT": "Dejar de editar",
       "CHOOSE": "Escoge un Programa de Fondeo para editar",
       "TITLE": "Registro de Programa de Fondeo",
       "TITLE2": "Caracteristicas",
       "TITLE3": "Registro  de Modalidad",
-      "FEATURES":"Características",
+      "FEATURES": "Características",
       "CALL": "Convocatoria",
       "AIMS": "Objetivos",
       "SUPPORT": "Rubros de Apoyo",
@@ -27,154 +35,143 @@
       "REQUERIMENTS": "Requisitos de Fondeo",
       "SUPPORT_FIGURE": "Figura de Apoyo",
       "FILES": "Entregables",
-      "DELETE":"Eliminar",
-
-      "REQUIRED-FIELD":"Éste campo es requerido",
+      "DELETE": "Eliminar",
+      "REQUIRED-FIELD": "Éste campo es requerido",
       "COMPLETED": "Completado",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
       "SEND": "Enviar",
-      "DELETE":"Eliminar",
-      "NEW":"Nuevo programa de Fondeo",
-      "EDIT":"Seleccionar Programa Existente"
+      "DELETE": "Eliminar",
+      "NEW": "Nuevo programa de Fondeo",
+      "EDIT": "Seleccionar Programa Existente"
     },
-    "FEATURES":{
+    "FEATURES": {
       "FONDEO_TITLE": "Titulo del Programa de Fondeo: ",
       "FONDEO_DESCRIPTION": "Descripción del Programa de Fondeo: ",
-      "FONDEO_SELECTED":"Criterios de Elegibilidad: ",
+      "FONDEO_SELECTED": "Criterios de Elegibilidad: ",
       "FONDEO_SUPPORT": "Rubros de Apoyo",
       "FONDEO_TOTAL": "Total del Fondo",
       "FONDEO_TARGET": "Publico Objetivo",
-      "CLICK_TO_WRITE":"Escribe arriba",
-      "CLICK_TO_EDIT":"Selecciona",
+      "CLICK_TO_WRITE": "Escribe arriba",
+      "CLICK_TO_EDIT": "Selecciona",
       "FONDEO_MODALITY": "Modalidades del Proyecto",
       "FONDEO_CALL": "Convocatoria del Proyecto",
-      "FONDEO_REGISTRED":"Programas de Fondeo Registrados",
-      "FONDEO_REGISTRED_INSTRUCTIONS":"Busca los Programas de Fondeo que haz creado para Administrarlos"
+      "FONDEO_REGISTRED": "Programas de Fondeo Registrados",
+      "FONDEO_REGISTRED_INSTRUCTIONS": "Busca los Programas de Fondeo que haz creado para Administrarlos"
     },
-    "SEARCHINGFONDEO":{
+    "SEARCHINGFONDEO": {
       "MY_FONDOS": "Mis Programas de Fondeo",
       "INSTRUCTIONS": "Busca tu Programa de Fondeo para ver y administrar al mismo",
       "FONDEO_DESCRIPTION": "Descripción del Programa de Fondeo: ",
-      "FONDEO_SELECTED":"Criterios de Elegibilidad: ",
+      "FONDEO_SELECTED": "Criterios de Elegibilidad: ",
       "FONDEO_SUPPORT": "Rubros de Apoyo",
       "FONDEO_TOTAL": "Total del Fondo",
       "FONDEO_TARGET": "Publico Objetivo",
-      "CLICK_TO_WRITE":"Escribe arriba",
+      "CLICK_TO_WRITE": "Escribe arriba",
       "FONDEO_MODALITY": "Modalidades del Proyecto",
       "FONDEO_CALL": "Convocatoria del Proyecto",
-      "FONDEO_REGISTRED":"Programas de Fondeo Registrados",
-      "FONDEO_REGISTRED_INSTRUCTIONS":"Busca los Programas de Fondeo que haz creado para Administrarlos"
+      "FONDEO_REGISTRED": "Programas de Fondeo Registrados",
+      "FONDEO_REGISTRED_INSTRUCTIONS": "Busca los Programas de Fondeo que haz creado para Administrarlos"
     },
-    "INFO":
-    {
+    "INFO": {
       "MY_FONDEO": "Fondeos Totales",
       "MY_FONDEO_MONTOS": "Montos Invertidos por Programa de Fondeo",
-      "FONDEO_TITLE":"Titulo de Fondeo",
-      "FONDEO_DESCRIPTION":  "Descripción de FONDEO",
-      "TABS":{
-        "FEATURES":"Características",
-        "MODALITY":"Modalidades",
-        "CALL":"Convocatoria"
+      "FONDEO_TITLE": "Titulo de Fondeo",
+      "FONDEO_DESCRIPTION": "Descripción de FONDEO",
+      "TABS": {
+        "FEATURES": "Características",
+        "MODALITY": "Modalidades",
+        "CALL": "Convocatoria"
       }
-
     },
-    "MODALITY":
-    {
+    "MODALITY": {
       "TITLE": "Registro de Nueva Modalidad",
       "INTRO": "Sigue los pasos para registrar una nueva Modalidad",
       "MY_FONDEO": "Mis Fondeos",
       "INSTRUCTIONS": "Busca tu Programa de Fondeo para agregarle una Modalidad",
       "REGISTERED_MODALITY": "Etapas Registradas",
       "NEW_MODALITY": "Nueva Modalidad",
-      "REMOVE_MODALITY":"Eliminar Modalidad",
+      "REMOVE_MODALITY": "Eliminar Modalidad",
       "PREVIOUS_MODALITY": "Modalidad Anterior",
       "MODALITYS": "Modalidades",
-      "NAME_MODALITY":"Nombre",
-      "REQUERIMENTS":"Requisitos de la Modalidad",
-      "AMOUNT":"Monto",
-      "EVALUATION":"Criterios de Evaluación",
-      "FILES":"Entregables",
-      "SUPPORT":"Figuras de apoyo",
-      "RUBRO_REGISTER":"Registro Rubros de Evaluación",
-      "RUBRO_REGISTER_INSTRUCTIONS":"Busca la modalidad para administrar los rubros a solicitar",
-      "STABLISHEDRUBROS":"Rubros Establecidos",
-      "RUBROS":"Rubros",
-      "RUBROS_REMOVE":"Elimina Rubro",
-      "NEW_RUBRO":"Nuevo Rubro",
-      "NAME_RUBRO":"Nombre del rubro:",
-      "DESC_RUBRO":"Descripción del rubro",
-      "CHECKLIST":"Entregables",
-      "FONDEOS":"Programa de Fondeo",
-      "CHOOSE":"Selecciona la Modalidad que desees editar",
-      "STATUS":"Estado actual de la Convocatoria"
-
+      "NAME_MODALITY": "Nombre",
+      "REQUERIMENTS": "Requisitos de la Modalidad",
+      "AMOUNT": "Monto",
+      "EVALUATION": "Criterios de Evaluación",
+      "FILES": "Entregables",
+      "SUPPORT": "Figuras de apoyo",
+      "RUBRO_REGISTER": "Registro Rubros de Evaluación",
+      "RUBRO_REGISTER_INSTRUCTIONS": "Busca la modalidad para administrar los rubros a solicitar",
+      "STABLISHEDRUBROS": "Rubros Establecidos",
+      "RUBROS": "Rubros",
+      "RUBROS_REMOVE": "Elimina Rubro",
+      "NEW_RUBRO": "Nuevo Rubro",
+      "NAME_RUBRO": "Nombre del rubro:",
+      "DESC_RUBRO": "Descripción del rubro",
+      "CHECKLIST": "Entregables",
+      "FONDEOS": "Programa de Fondeo",
+      "CHOOSE": "Selecciona la Modalidad que desees editar",
+      "STATUS": "Estado actual de la Convocatoria"
     },
-    "CALL":
-    {
+    "CALL": {
       "TITLE": "Registro de Nueva Convocatoria",
       "INTRO": "Sigue los pasos para registrar una nueva Convocatoria",
       "INTRO_TERMINOS": "Sigue los pasos para registrar la Convocatoria de un Programa de Fondeo",
-      "NAME":"Nombre de La convocatoria",
+      "NAME": "Nombre de La convocatoria",
       "INSTRUCTIONS": "Busca tu Programa de Fondeo para agregarle una Modalidad",
       "BEGIN_DATE_CALL": "Fecha de Inicio",
       "END_DATE_CALL": "Fecha de Cierre",
-      "REQUERIMENTS":"Requisitos de la Convocatoria",
-      "MAX_AMOUNT":"Montos Maximos Totales",
-      "EVALUATION":"Criterios de Evaluación",
-      "CLICK_TO_WRITE":"Escribe arriba",
-      "REQUIRED-FIELD":"Éste campo es requerido",
+      "REQUERIMENTS": "Requisitos de la Convocatoria",
+      "MAX_AMOUNT": "Montos Maximos Totales",
+      "EVALUATION": "Criterios de Evaluación",
+      "CLICK_TO_WRITE": "Escribe arriba",
+      "REQUIRED-FIELD": "Éste campo es requerido",
       "COMPLETED": "Completado",
       "PREV": "Anterior",
       "NEXT": "Siguiente",
       "SEND": "Enviar",
-      "GENERAL":"Datos Generales",
-      "CHOOSE":"Selecciona la Convocatoria que desees editar",
-      "REQUERIMENTNAME":"Nombre del Requisito",
-      "REQUERIMENTDESC":"Descripcion del Requisito",
-      "INSTRUCTIONSMODALITY":"Selecciona las Modalidades a Agregar a la Convocatoria",
-      "INSTRUCTIONSMODALITYRELATION":"Al seleccionar Eliminas Las modalidades de la Convocatoria"
+      "GENERAL": "Datos Generales",
+      "CHOOSE": "Selecciona la Convocatoria que desees editar",
+      "REQUERIMENTNAME": "Nombre del Requisito",
+      "REQUERIMENTDESC": "Descripcion del Requisito",
+      "INSTRUCTIONSMODALITY": "Selecciona las Modalidades a Agregar a la Convocatoria",
+      "INSTRUCTIONSMODALITYRELATION": "Al seleccionar Eliminas Las modalidades de la Convocatoria"
     },
-    "DESCRIPTOR":
-    {
-      "TITLE":"Programas de Fondeo",
-      "INSTRUCTIONS":"Selecciona el Programa de Fondeo para Editar sus Clasificadores",
+    "DESCRIPTOR": {
+      "TITLE": "Programas de Fondeo",
+      "INSTRUCTIONS": "Selecciona el Programa de Fondeo para Editar sus Clasificadores",
       "DELETE": "Eliminar Clasificador",
       "EDIT": "Editar Clasificador",
       "UPDATE": "Actualizar Clasificador",
-      "ADD":"Agregar un Clasificador",
-      "CLEAR":"Limpiar Campos",
-      "CURRENT":"Clasificadores Actuales",
-      "TYPE":"Tipo de Clasificador",
-      "DESCRIPTOR":"Clasificador",
-      "NOTES":"Observaciones"
+      "ADD": "Agregar un Clasificador",
+      "CLEAR": "Limpiar Campos",
+      "CURRENT": "Clasificadores Actuales",
+      "TYPE": "Tipo de Clasificador",
+      "DESCRIPTOR": "Clasificador",
+      "NOTES": "Observaciones"
     },
-    "TABLE":{
-      "NAME":"Nombre",
-      "DESCRIPTION":"Descripción",
-      "TITLE":"Titulo",
-      "AMOUNT":"Monto",
-      "EVALUATION":"Criterios de Evaluación",
-      "FILES":"Entregables",
-      "SUPPORT":"Figuras de Apoyo",
-      "ADD":"Agregar a Convocatoria"
-
+    "TABLE": {
+      "NAME": "Nombre",
+      "DESCRIPTION": "Descripción",
+      "TITLE": "Titulo",
+      "AMOUNT": "Monto",
+      "EVALUATION": "Criterios de Evaluación",
+      "FILES": "Entregables",
+      "SUPPORT": "Figuras de Apoyo",
+      "ADD": "Agregar a Convocatoria"
     },
-    "STATS":{
-      "TITLE":"Estadísticas de Fondos",
-      "QUERY_SELECTOR":"Gestor de Consulta",
+    "STATS": {
+      "TITLE": "Estadísticas de Fondos",
+      "QUERY_SELECTOR": "Gestor de Consulta",
       "TYPE_SUM_SELECT": "Selecciona el tipo de monto",
       "TYPE_QUERY_SELECT": "Selecciona el tipo de consulta",
-      "SELECT_HOW_VALIDATED":"Selecciona validación de registro",
+      "SELECT_HOW_VALIDATED": "Selecciona validación de registro",
       "SELECT_MODALIDAD": "Selecciona una modalidad",
       "PROGRAMA_LABELS": "Fondos por Programa de Fondeo",
       "MODALIDAD_LABELS": "Fondos por Modalidades",
       "CONVOCATORIA_LABELS": "Fondos por Convocatorias",
       "REGISTER_COUNTER": "Solicitudes de Apoyo",
       "CHART_INSTRUCTIONS": "Da click en cualquier elemento para ver el gráfico de registros"
-
     }
-
-
   }
 }

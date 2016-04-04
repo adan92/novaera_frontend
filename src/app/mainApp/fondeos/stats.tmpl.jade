@@ -6,7 +6,7 @@
                 h2.md-headline.text-center(translate='') {{vm.labelTypes}}
                 div(layout='row' layout-sm='column' ng-show='vm.loadingStats==true' layout-align='center center')
                     md-progress-circular(md-mode='indeterminate')
-                div(ng-show='vm.loadingStats==false')
+                div(ng-if='vm.loadingStats==false')
                     canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
                     h3.md-title.text-center(translate='') FONDEOS.STATS.CHART_INSTRUCTIONS
 
@@ -33,6 +33,6 @@
                         label(translate) FONDEOS.STATS.SELECT_HOW_VALIDATED
                         md-select(ng-model='vm.selectedStatus' md-on-close='vm.getSumsByClassification()')
                             md-option(ng-repeat='type in vm.howValidated' ng-value='type.value') {{type.name}}
-                div(ng-show='vm.ChartRegisters!=null')
+                div(ng-if='vm.ChartRegisters!=null')
                     h2.md-headline-1.text-center(translate='') FONDEOS.STATS.REGISTER_COUNTER
                     canvas#doughnutRegisters.chart.chart-doughnut(chart-data='vm.ChartRegisters.Data', chart-labels='vm.ChartRegisters.Labels', chart-legend='true')
