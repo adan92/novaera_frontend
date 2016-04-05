@@ -11,12 +11,12 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
         div(layout='column')
             md-toolbar.md-primary
                 div.md-toolbar-tools(flex layout='column')
-                    h2.md-display-2(translate='') FONDEOS.WIZARD.TITLE
+                    h2(translate='') FONDEOS.WIZARD.TITLE
             div.wizard(flex layout='row')
                 md-button.md-fab(ng-click='vm.getFondeo()', ng-class='editar', aria-label='fab button')
                     md-icon(md-font-icon='fa fa-pencil')
                 md-input-container
-                    label.md-display-1(translate) FONDEOS.WIZARD.CHOOSE
+                    label(translate) FONDEOS.WIZARD.CHOOSE
                     md-select(ng-model='vm.selectedFondeo', name='select', ng-show='vm.Fondeos!= null')
                         md-option(ng-repeat='fondo in vm.Fondeos', ng-value='fondo') {{fondo.Titulo}}
 
@@ -25,18 +25,18 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
     div(flex='', layout='row', layout-align='center center', layout-fill='')
         .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
             md-toolbar.md-primary
-                 div.md-toolbar-tools(flex layout='column')
+                div.md-toolbar-tools(flex layout='column')
 
                     div(flex layout='column')
-                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
-                                h2.md-display-2(translate='') FONDEOS.WIZARD.TITLE
-                                h2.md-display-2 {{triWizard.progress}}%
-                                    span(translate='') PROJECT.WIZARD.COMPLETED
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
+                            h2(translate='') FONDEOS.WIZARD.TITLE
+                            h2 {{triWizard.progress}}%
+                                span(translate='') PROJECT.WIZARD.COMPLETED
 
-                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
-                            h3.md-display-1(translate='') {{vm.steps[triWizard.currentStep]}}
-                            h3.md-display-1(translate='') {{vm.FondeoLabel}}
-                 md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
+                            h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                            h3(translate='') {{vm.FondeoLabel}}
+                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
 
             md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
                 md-tab#info
@@ -136,4 +136,3 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id==null', translate='FONDEOS.WIZARD.CLEAR_FIELDS')
     // wizard
-
