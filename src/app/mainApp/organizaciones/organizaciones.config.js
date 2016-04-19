@@ -99,6 +99,24 @@
                 requirePrivileges:'Supervisor',
                 redirect:'auth.login'
             }
+        }).state('triangular.admin-default.stats_org',{
+            url:'/estadisticas_organizacion',
+            templateUrl:'app/mainApp/organizaciones/stats_organizacion.tmpl.html',
+            controller: 'statsOrganizacionController',
+            controllerAs: 'vm',
+            data:{
+                layout:{
+                    toolbarSize: 'default',
+                    toolbarShrink: true,
+                    toolbarClass: 'none',
+                    contentClass: '',
+                    sideMenuSize: 'full',
+                    footer: true
+                },
+                requireLogin: true,
+                requirePrivileges:'Supervisor',
+                redirect:'auth.login'
+            }
         })
 
         ;
@@ -109,19 +127,19 @@
             icon: 'fa fa-institution',
             priority: 2.1,
             children:[
-                {
+             /*   {
                     name: 'Información General',
                     state: 'triangular.admin-default.organizaciones',
                     type: 'link'
 
-                },
+                },*/
                 {
                     name: 'Información Legal',
                     state: 'triangular.admin-default.organizaciones_informacion',
                     type:'link'
                 },
                 {
-                    name: 'Descriptor',
+                    name: 'Clasificador',
                     state: 'triangular.admin-default.descriptor_organizacion',
                     type:'link'
                 }

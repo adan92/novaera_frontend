@@ -2,8 +2,8 @@
     <div layout="row" layout-md="column">
         <md-card flex layout-align="center center">
             <md-card-content>
-                <h2 class="text-center" translate>ORGANIZATION.ORGANIZATIONS</h2>
-                <h3 class="text-center" translate>ORGANIZATION.INSTRUCTIONS</h3>
+                <h2 class="md-display-2" translate>ORGANIZATION.ORGANIZATIONS</h2>
+                <h3 class="md-display-1" translate>ORGANIZATION.INSTRUCTIONS</h3>
                 <md-autocomplete
                         class="margin-bottom-20"
                         ng-disabled="vm.isDisabled"
@@ -23,18 +23,18 @@
         </md-card>
             <md-card flex layout-align="center center" ng-show="vm.selectedItem!=null">
                 <md-card-content>
-                        <h2 class="text-center">{{vm.selectedItem.nombre}}</h2>
-                        <h3 class="text-center">{{vm.selectedItem.direccion}}</h3>
-                        <h4 class="text-center">
+                        <h2 class="md-headline">{{vm.selectedItem.nombre}}</h2>
+                        <h3 class="md-headline">{{vm.selectedItem.direccion}}</h3>
+                        <h4 class="md-headline">
                             {{vm.selectedItem.contacto[0].informacion.nombre}}
                         </h4>
-                        <h4 class="text-center">
+                        <h4 class="md-headline">
                             {{vm.selectedItem.contacto[0].informacion.telefono}}
                         </h4>
-                        <h4 class="text-center">
+                        <h4 class="md-headline">
                             {{vm.selectedItem.contacto[0].informacion.email}}
                         </h4>
-                        <h5 class="text-center">{{vm.selectedItem.representante_legal}}</h5>
+                        <h5 class="md-headline">{{vm.selectedItem.representante_legal}}</h5>
 
 
                 </md-card-content>
@@ -46,7 +46,7 @@
         <md-card flex layout-align="center center" ng-show="vm.selectedItem!=null">
                 <md-card-content>
 
-                    <h2 class="text-center" translate>ORGANIZATION.RESULTS</h2>
+                    <h2 class="md-display-2" translate>ORGANIZATION.RESULTS</h2>
                     <canvas id="pie" class="chart chart-pie"
                             chart-data="vm.selectedItem.estadisticas.resultados.data" chart-labels="vm.selectedItem.estadisticas.resultados.labels"
                             chart-legend="true">
@@ -57,7 +57,7 @@
 
         <md-card flex="50" layout-align="center center" ng-show="vm.selectedItem!=null">
             <md-card-content>
-                <h2 class="text-center" translate>ORGANIZATION.FUNDS_GIVEN</h2>
+                <h2 class="md-display-2" translate>ORGANIZATION.FUNDS_GIVEN</h2>
                 <canvas id="line" class="chart chart-line"
                         chart-data="vm.selectedItem.estadisticas.fondeos.data"
                         chart-labels="vm.selectedItem.estadisticas.fondeos.labels"
@@ -79,7 +79,7 @@
                     <!-- Toolbars -->
 
                     <md-data-table-toolbar ng-hide="vm.selected.length || vm.filter.show">
-                        <h2 class="md-title" translate>ORGANIZATION.REGISTERED_PERSONS</h2>
+                        <h2 class="md-display-2" translate>ORGANIZATION.REGISTERED_PERSONS</h2>
                         <div flex></div>
                         <md-button class="md-icon-button" ng-click="vm.filter.show = true">
                             <!-- <i class="material-icons md-dark">filter_list</i> -->

@@ -9,16 +9,17 @@
         .controller('introController', introController);
 
     /* @ngInject */
-    function introController($scope, triSettings, $timeout, $mdToast, $rootScope, $state,$log) {
+    function introController($mdDialog) {
         var vm = this;
 
-        vm.version = "0.1a";
-        vm.featureRows = [
+        vm.version          = "0.1a";
+        vm.featureRows      = [
             [{
                 name: 'Indicadores Novaera',
                 icon: 'assets/images/icons/Indicadores.png',
                 palette: 'cyan',
-                hue: '200'
+                hue: '200',
+                template:'indicadores.tmpl.html'
             },{
                 name: 'Resultados',
                 icon: 'assets/images/icons/Resultados.png',
@@ -57,6 +58,28 @@
                 hue: '900'
             }]
         ];
+        vm.openDialog       = openDialog;
+
+        function openDialog(event,template)
+        {
+            var config = {
+                controller: 'introDialogController',
+                templateUrl:'app/mainApp/intro/'+template,
+                parent: angular.element(document.body),
+                targetEvent:event,
+                clickOutsideToClose:true,
+                fullscreen: true,
+                //locals:{selectedConvocatoria:vm.selectedConvocatoria},
+                //bindToController:true,
+                controllerAs: 'vm'
+            };
+            $mdDialog.show(config).then(function(reply){
+            },function()
+            {
+            });
+
+        }
+
 
     }
 })();

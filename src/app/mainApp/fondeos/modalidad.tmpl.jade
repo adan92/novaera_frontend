@@ -23,7 +23,7 @@
 
 
 
-     div(flex='', layout='row', layout-align='center center', layout-fill='')
+    div(flex='', layout='row', layout-align='center center', layout-fill='')
         .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
             md-toolbar.md-primary
                 .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
@@ -50,14 +50,13 @@
                                     md-input-container
                                         label(translate='') FONDEOS.MODALITY.FONDEOS
                                         md-select(ng-model='vm.selectedFondeo', required='', name='fondo')
-                                            md-option(ng-repeat='fondeo in vm.Fondeos', ng-value='fondeo')
-                                                | {{fondeo.Titulo}}
-                                    div(ng-messages='projectInfo.descripcion.$error')
-                                        div(ng-message='', when='required')
-                                            span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
+                                            md-option(ng-repeat='fondeo in vm.Fondeos', ng-value='fondeo') {{fondeo.Titulo}}
+                                        div(ng-messages='projectInfo.descripcion.$error')
+                                            div(ng-message='', when='required')
+                                                span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
                                     md-input-container
                                         label(translate='') FONDEOS.MODALITY.AMOUNT
-                                        textarea(name='monto_modalidad', required='', ng-model='vm.Modalidad.Montos', md-maxlength='500')
+                                        input(name='monto_modalidad', required='', ng-model='vm.Modalidad.Montos',type="number", min='0', max='10000000000')
                                         div(ng-messages='projectInfo.descripcion.$error')
                                             div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
@@ -65,7 +64,7 @@
                                         label(translate='') FONDEOS.MODALITY.SUPPORT
                                         textarea(name='monto_modalidad', required='', ng-model='vm.Modalidad.FigurasApoyo', md-maxlength='500')
                                         div(ng-messages='projectInfo.descripcion.$error')
-                                             div(ng-message='', when='required')
+                                            div(ng-message='', when='required')
                                                 span(translate='') FONDEOS.WIZARD.REQUIRED-FIELD
 
 
@@ -92,8 +91,8 @@
                                     label(translate='') FONDEOS.FEATURES.CLICK_TO_WRITE
                                     md-divider
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
-                md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 2', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
+                md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep == 1', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 2', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
                 md-button.md-accent.md-raised(ng-click='vm.registrarModalidad()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 2 ', translate='FONDEOS.WIZARD.SEND')
-                md-button.md-warn.md-raised(ng-click='vm.eliminarModalidad()', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.DELETE')
+                md-button.md-warn.md-raised(ng-click='vm.createDialog($event)', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.Modalidad.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')

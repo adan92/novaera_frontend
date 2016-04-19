@@ -7,7 +7,7 @@
 
     /* @ngInject */
 
-    function  modalidadFondeosController($scope, $timeout ,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
+    function  modalidadFondeosController( $timeout ,$mdDialog,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
         var vm = this;
         vm.activate = activate();
         //Inicializacion objetos
@@ -38,8 +38,11 @@
             "created_at":null,
             "updated_at":null
         }
+
+
         //arreglo de modalidades
         vm.Modalidades=null;
+        vm.ModalidadesFondeo=null;
         //variables
         vm.selectedFondeo = null;
         vm.tmp = null;
@@ -54,7 +57,7 @@
         vm.eliminarModalidad=eliminarModalidad;
         vm.getModalidad = getModalidad;
         vm.getModalidades = getModalidades;
-
+        vm.createDialog = createDialog;
         vm.getFondeos = getFondeos;
         vm.cancel =cancel;
 
@@ -105,7 +108,21 @@
         function getModalidad() {
             console.log("Ya seleccione");
             console.log(vm.selectedModalidad);
-          vm.Modalidad=vm.selectedModalidad
+          vm.Modalidad=vm.selectedModalidad;
+            console.log("Modalidad Seleccionada:");
+            console.log(vm.Modalidad);
+            var i=0;
+            vm.Fondeos.forEach(
+                function BuscaFondos(fondo,index){
+                if(fondo.id==vm.Modalidad.idProgramaFondeo){
+                    vm.selectedFondeo=fondo;
+                    console.log(vm.selectedFondeo);
+                }
+                else{
+                    console.log("No hice nada aumentare i");
+                }
+
+            });
         }
         function cancel() {
 
@@ -115,6 +132,7 @@
             vm.Modalidad=null;
             vm.selectedModalidad=null;
             vm.isNewModalidad=null;
+
 
 
         }
@@ -178,16 +196,25 @@
             promise.then(function (value) {
                 vm.Modalidades = value;
             });
+       }
 
+        function createDialog(ev)
+        {
+            vm.ev = ev;
+            console.log("Entre al dialog");
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
 
-
-
-
-
-
-
-
-
+            $mdDialog.show(confirm).then(function() {
+                vm.eliminarModalidad();
+            }, function() {
+                console.log("Cancelado");
+            });
         }
 
 

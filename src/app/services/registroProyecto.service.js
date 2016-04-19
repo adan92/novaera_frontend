@@ -9,7 +9,7 @@
     function registroProyecto($q, toastr, Restangular, Profile, $state,Translate) {
         var service = {
             getStatusProjectsByProfile: getStatusProjectsByProfile,
-            registerProject:registerProject
+            registerProject:registerProject,
         };
 
         function getPerfil() {
@@ -63,6 +63,10 @@
             }
             return deferred.promise;
         }
+
+
+
+
         return service;
     }
 

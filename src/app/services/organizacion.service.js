@@ -8,12 +8,26 @@
     /* @ngInject */
     function Organizacion($q, Restangular) {
         var service = {
+            getAllOrganizaciones:getAllOrganizaciones,
             getOrganizacionWitoutValidate: getOrganizacionWitoutValidate,
             validateOrganizaciones:validateOrganizaciones,
             getOrganizacioSinValDoc:getOrganizacioSinValDoc,
             validateDocument:validateDocument
 
         };
+
+        function getAllOrganizaciones()
+        {
+            var deferred = $q.defer();
+            Restangular.all('Organizacion').all('General').customGET().then(function (res) {
+                deferred.resolve(res.Organizacion);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+
+        }
+
         function validateDocument(id,request){
             var deferred = $q.defer();
             Restangular.all('Supervisor').all('Organizacion').all(id).customPUT(request).then(function (res) {

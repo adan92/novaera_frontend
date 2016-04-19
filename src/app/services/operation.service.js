@@ -15,6 +15,9 @@
             setTypeOperation:setTypeOperation,
             getOperation: getOperation,
             getFileOperation: getFileOperation,
+            getCustomOperation:getCustomOperation,
+            getCustomFileOperation:getCustomFileOperation,
+
             getUrl: getUrl,
             updateOperation:updateOperation,
             saveOperation:saveOperation
@@ -124,6 +127,27 @@
             return deferred.promise;
         }
 
+
+        function getCustomOperation(type,projectId) {
+            var deferred = $q.defer();
+            var profile=getPerfil();
+            if (profile.type === "person") {
+                Restangular.one(type, projectId).customGET().then(function (res) {
+
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            } else {
+                Restangular.one(type, projectId).one('Organizacion', profile.id).customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
+
         function getFileOperation(projectId) {
             var deferred = $q.defer();
             var profile=getPerfil();
@@ -135,6 +159,28 @@
                 });
             } else {
                 Restangular.all(typeInfo()).one('Archivos', projectId).one('Organizacion', profile.id).customGET().then(function (res) {
+                    console.log("sssssssss");
+                    console.log(res.Archivos);
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            }
+            return deferred.promise;
+        }
+
+        function getCustomFileOperation(type,projectId) {
+            var deferred = $q.defer();
+            var profile=getPerfil();
+            if (profile.type === "person") {
+                Restangular.all(type).one('Archivos', projectId).customGET().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+            } else {
+                Restangular.all(type).one('Archivos', projectId).one('Organizacion', profile.id).customGET().then(function (res) {
                     console.log("sssssssss");
                     console.log(res.Archivos);
                     deferred.resolve(res);

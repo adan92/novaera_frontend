@@ -25,18 +25,18 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
     div(flex='', layout='row', layout-align='center center', layout-fill='')
         .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
             md-toolbar.md-primary
-                 div.md-toolbar-tools(flex layout='column')
+                div.md-toolbar-tools(flex layout='column')
 
                     div(flex layout='column')
-                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
-                                h2(translate='') FONDEOS.WIZARD.TITLE
-                                h2 {{triWizard.progress}}%
-                                    span(translate='') PROJECT.WIZARD.COMPLETED
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
+                            h2(translate='') FONDEOS.WIZARD.TITLE
+                            h2 {{triWizard.progress}}%
+                                span(translate='') PROJECT.WIZARD.COMPLETED
 
-                         div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
                             h3(translate='') {{vm.steps[triWizard.currentStep]}}
                             h3(translate='') {{vm.FondeoLabel}}
-                 md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
+                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
 
             md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
                 md-tab#info
@@ -87,8 +87,9 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('DescripcionFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
-                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.DescripcionFile}}')
-                                    span {{vm.fondeo.Archivos.DescripcionFile | routeFilter}}
+                                div(ng-show='vm.fondeo.Archivos.DescripcionFile!=null')
+                                    a(href='{{vm.fileRoute+vm.fondeo.Archivos.DescripcionFile}}')
+                                        span {{vm.fondeo.Archivos.DescripcionFile | routeFilter}}
                 md-tab#aims(ng-disabled='projectInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 3
@@ -105,8 +106,9 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('RubrosDeApoyoFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
-                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.RubrosDeApoyoFile}}')
-                                    span {{vm.fondeo.Archivos.RubrosDeApoyoFile | routeFilter}}
+                                div(ng-show='vm.fondeo.Archivos.RubrosDeApoyoFile!=null')
+                                    a(href='{{vm.fileRoute+vm.fondeo.Archivos.RubrosDeApoyoFile}}')
+                                        span {{vm.fondeo.Archivos.RubrosDeApoyoFile | routeFilter}}
                 md-tab#reach(ng-disabled='projectInfo.$invalid')
                     md-tab-label
                         span.oxy-step-label 4
@@ -123,8 +125,9 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                                     .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('CriteriosDeElegibilidadFile')")
                                         md-button.md-fab.md-primary
                                             ng-md-icon(icon='attach_file')
-                                a(href='{{vm.fileRoute+vm.fondeo.Archivos.CriteriosDeElegibilidadFile}}')
-                                    span {{vm.fondeo.Archivos.CriteriosDeElegibilidadFile | routeFilter}}
+                                div(ng-show='vm.fondeo.Archivos.CriteriosDeElegibilidadFile!=null')
+                                    a(href='{{vm.fileRoute+vm.fondeo.Archivos.CriteriosDeElegibilidadFile}}')
+                                        span {{vm.fondeo.Archivos.CriteriosDeElegibilidadFile | routeFilter}}
             .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 3', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 3', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
@@ -133,4 +136,3 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id==null', translate='FONDEOS.WIZARD.CLEAR_FIELDS')
     // wizard
-

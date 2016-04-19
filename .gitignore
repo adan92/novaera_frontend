@@ -1,10 +1,9 @@
 dist
 .tmp
 .env
-bower_components 
-node_modules 
+bower_components
+node_modules
 .idea/
-dist/  
+dist/
 .vagrant/
-src/app/config.constants.js
 _DS_Store

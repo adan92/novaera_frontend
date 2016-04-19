@@ -114,7 +114,7 @@
 
                 },
                 {
-                    name: 'Descriptor',
+                    name: 'Clasificador',
                     state: 'triangular.admin-default.personas_descriptor',
                     type: 'link'
 

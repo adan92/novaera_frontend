@@ -1,0 +1,12 @@
+div.full-image-background.mb-bg-fb-02.overlay-gradient-40.text-light(layout='column', layout-align='center center')
+    h1.md-display-4.margin-top-40
+        | NOVAERA
+        span.md-subhead v{{vm.version}}
+    h2.md-display-2.margin-bottom-40 Sistema de Gestión de Proyectos de Innovación
+    p.md-display-1.font-weight-300.text-center(flex='60', flex-sm='100') Bienvenidos al Sistema.
+div.intro-feature-row(layout='row', layout-wrap='', layout-margin='', ng-repeat='features in ::vm.featureRows')
+    .md-whiteframe-z1(layout='row', flex='', flex-sm='100', layout-align='center center', ng-repeat='feature in features' ng-click='vm.openDialog($event,feature.template)')
+        div(layout='column')
+            span.text-center
+                img(height='70%', width='70%', src='{{feature.icon}}')
+            h3.text-white.text-center.text-bold.font-weight-400.margin-top-0 {{feature.name}}

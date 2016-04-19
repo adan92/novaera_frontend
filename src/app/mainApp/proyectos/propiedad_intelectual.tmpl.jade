@@ -6,8 +6,8 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                 div(layout="column" layout-align="center-center")
                     md-progress-circular(md-mode="indeterminate" ng-if="vm.waiting")
                 div(ng-hide="vm.isCreating")
-                    h2.text-center(translate='') PROJECT.IP.MY_PROJECTS
-                        h3.text-center(translate='') PROJECT.IP.INSTRUCTIONS
+                    h2.md-display-2.text-center(translate='') PROJECT.IP.MY_PROJECTS
+                        h3.md-display-1.text-center(translate='') PROJECT.IP.INSTRUCTIONS
                         md-autocomplete.margin-bottom-20(ng-disabled='vm.isDisabled', md-no-cache='vm.noCache',
                         md-selected-item='vm.selectedItem',
                         md-search-text-change='vm.searchTextChange(vm.searchText)',
@@ -19,7 +19,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                         placeholder="{{ 'PROJECT.IP.PLACEHOLDER.SEARCH_PROJECT' | translate }}")
                             span(md-highlight-text='vm.searchText', md-highlight-flags='^i') {{item.Titulo}}
                 div(flex ng-show='vm.selectedItem!=null')
-                    h3.text.center(translate='') PROJECT.IP.INSTRUCTIONS_SELECT
+                    h3.md-display-1.text.center(translate='') PROJECT.IP.INSTRUCTIONS_SELECT
                     div(layout="column" layout-align="center-center")
                         md-progress-circular(md-mode="indeterminate" ng-if="vm.waitingRegister")
                     div(ng-hide="vm.isCreatingRegister")
@@ -36,13 +36,13 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 span(translate='') PROJECT.IP.NEW_REGISTER
         md-card(flex='33', layout-align='center center', ng-hide='true')
             md-card-content
-                h2.text.center(translate='') PROJECT.IP.CONTROL_PANEL
+                h2.md-display-2.text.center(translate='') PROJECT.IP.CONTROL_PANEL
                 md-divider
-                h3.text-center(translate='') PROJECT.IP.SHOW_ADD
+                h3.md-display-1.text-center(translate='') PROJECT.IP.SHOW_ADD
                 md-checkbox(ng-model='show_add', aria-label='Checkbox 1')
                     span(ng-show='show_add', translate='') PROJECT.IP.HIDE_ADD_CHECKBOX
                     span(ng-show='!show_add', translate='') PROJECT.IP.SHOW_ADD_CHECKBOX
-                h3.text-center(translate='') PROJECT.IP.SHOW_INFO
+                h3.md-display-1.text-center(translate='') PROJECT.IP.SHOW_INFO
                 md-checkbox(ng-model='show_info', aria-label='Checkbox 2')
                     span(ng-show='show_info', translate='') PROJECT.IP.HIDE_ADD_CHECKBOX
                     span(ng-show='!show_info', translate='') PROJECT.IP.SHOW_ADD_CHECKBOX
@@ -50,11 +50,11 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
         .md-whiteframe-z1.margin-top-10.margin-left-10.margin-bottom-100(flex='', ng-show='vm.selectedItem!=null', layout='column', tri-wizard='')
             md-toolbar.md-primary
                 .md-toolbar-tools(flex='', layout='row', layout-align='space-between center')
-                    h2(translate ng-show='vm.selectedPropiedad==null') PROJECT.IP.INSTRUCTIONS_ADD
-                    h2(translate ng-show='vm.selectedPropiedad!=null') PROJECT.IP.INSTRUCTIONS_EDIT
+                    h2.md-display-2(translate ng-show='vm.selectedPropiedad==null') PROJECT.IP.INSTRUCTIONS_ADD
+                    h2.md-display-2(translate ng-show='vm.selectedPropiedad!=null') PROJECT.IP.INSTRUCTIONS_EDIT
                     h2
                         | {{triWizard.progress}}%
-                        span(translate='') PROJECT.WIZARD.COMPLETED
+                        span.md-display-2(translate='') PROJECT.WIZARD.COMPLETED
                 md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
             md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
                 md-tab#productosRegistro

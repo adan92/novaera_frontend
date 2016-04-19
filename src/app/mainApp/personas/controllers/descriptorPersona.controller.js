@@ -6,40 +6,48 @@
 
     angular
         .module('app.mainApp.personas')
-        .controller('descriptorPersonasController', descriptorPersonasController)
-        .filter('matcher',matcher);
+        .controller('descriptorPersonasController', descriptorPersonasController);
 
     /* @ngInject */
-    function descriptorPersonasController($scope,Restangular,Translate,toastr,$mdDialog) {
+    function descriptorPersonasController($translate,$scope,Descriptor,Restangular,Translate,toastr,$mdDialog,moment) {
         var vm = this;
 
+        vm.language="en";
+        vm.language=$translate.use();
 
-        vm.descriptores       = null;
-        vm.persona            = null;
-        vm.descriptorPersonas = null;
-        vm.searchText         = null;
-        vm.descriptor         = null;
-        vm.querySearch        = querySearch;
-        vm.simulateQuery      = false;
-        vm.isDisabled         = false;
-        vm.resetForm          = resetForm;
-        vm.activate           = activate();
-        vm.deleteItem         = deleteItem;
-        vm.createDialog       = createDialog;
-        vm.edit               = edit;
+        vm.tipoDescriptores             = null;
+        vm.descriptores                 = null;
+        vm.selectedTipoDescriptor       = null;
+        vm.selectedDescriptor           = null;
+        vm.loadingTipoDescriptorData    = true;
+        vm.loadingDescriptorData        = false;
+
+        vm.descriptores                 = null;
+        vm.persona                      = null;
+        vm.descriptorPersonas           = null;
+        vm.searchText                   = null;
+        vm.descriptor                   = null;
+        vm.isDisabled                   = false;
+
+        /*Funciones*/
+
+        vm.resetForm                    = resetForm;
+        vm.activate                     = activate();
+        vm.deleteItem                   = deleteItem;
+        vm.createDialog                 = createDialog;
+        vm.edit                         = edit;
+        vm.addItem                      = addItem;
+        vm.getDescriptores              = getDescriptores;
 
         function activate(){
             Restangular.all('Persona').all('Current').customGET().then(function(res){
                 vm.persona = res.Persona;
-                Restangular.all('Descriptor').customGET().then(function(res){
-                    vm.descriptores = res.Descriptor;
-                    Restangular.all('Persona').one('Descriptor',vm.persona.id).customGET().then(function(res){
-                        vm.descriptorPersonas = res.Descriptor;
-                    }).catch(function(err){
+                Restangular.all('Persona').one('Descriptor', vm.persona.id).customGET().then(function (res) {
+                    vm.descriptorPersonas = res.Descriptor;
+                }).catch(function (err) {
 
-                    });
-                }).catch(function(err){
                 });
+                getTipoDescriptores();
 
             }).catch(function(err){
 
@@ -58,16 +66,36 @@
 
         }
 
-        function resetForm()
+        function getTipoDescriptores()
+        {
+            var promise = Descriptor.getTipoDescriptorByClasificacion('Persona');
+            promise.then(function(res){
+                vm.tipoDescriptores = res;
+                vm.loadingTipoDescriptorData =false;
+            }).catch(function(err){
+
+            });
+        }
+
+        function getDescriptores() {
+            vm.loadingDescriptorData = true;
+            vm.descriptores = null;
+            var promise = Descriptor.callAssosciated(vm.selectedTipoDescriptor);
+            promise.then(function (res) {
+                vm.descriptores = res.Descriptor;
+                vm.loadingDescriptorData = false;
+            }).catch(function (err) {
+
+            });
+        }
+
+            function resetForm()
         {
             vm.descriptor=null;
+            vm.selectedTipoDescriptor = null;
             $scope.agregarDescriptor.$setPristine();
         }
-        //////////////////
-        function querySearch (query) {
-            var results = query ? vm.personas.filter( createFilterFor(query) ) : vm.personas, deferred;
-            return results;
-        }
+
 
         function createDialog(ev,item)
         {
@@ -86,15 +114,6 @@
             });
         }
 
-        /**
-         * Create filter function for a query string
-         */
-        function createFilterFor(query) {
-
-            return function filterFn(persona) {
-                return (persona.Nombre.indexOf(query) === 0);
-            };
-        }
 
         /**
          * Create function to delete item
@@ -116,7 +135,12 @@
         {
             if(item!=undefined)
             {
+                vm.selectedTipoDescriptor = item.idTipoDescriptor;
+                getDescriptores();
                 vm.descriptor = item.pivot;
+                vm.descriptor.FechaInicio=moment(vm.descriptor.FechaInicio,"DD-MM-YYYY");
+                vm.descriptor.FechaTermino=moment(vm.descriptor.FechaTermino,"DD-MM-YYYY");
+
             }
         }
 
@@ -124,8 +148,12 @@
          * Create function to add item
          */
 
-        $scope.addItem = function()
+        function addItem()
         {
+
+            vm.descriptor.FechaInicio  = moment(vm.descriptor.FechaInicio).format('YYYY-MM-DD');
+            vm.descriptor.FechaTermino = moment(vm.descriptor.FechaTermino).format('YYYY-MM-DD');
+
             if (vm.descriptor.id == null) {
                 Restangular.all('Persona').all('Descriptor').customPOST(vm.descriptor).then(function(res){
                     toastr.success(vm.successText,vm.successStoreText);
@@ -168,20 +196,9 @@
                     toastr.error(vm.failureText,vm.failureStoreText);
                 });
             }
-            var etapa = {
-                id: $scope.etapa.id,
-                tarea: $scope.etapa.tarea,
-                tareaPrecedente: $scope.etapaPrecedente,
-                entregable: $scope.entregable
-            };
 
 
 
-            $scope.etapa=null;
-            $scope.etapaPrecedente=null;
-            $scope.tarea=null;
-            $scope.entregable =null;
-            $scope.registrarResultado.$setPristine();
 
         }
 
@@ -191,26 +208,6 @@
 
     }
 
-    function matcher()
-    {
-        return function(arr1,arr2){
-            if(arr2==null)
-                return true;
-
-            return arr1.filter(function(val){
-
-                var returnable=null;
-                angular.forEach(arr2,function(item){
-                    if(item.id==val.id)
-                        returnable = false;
-                },val);
-
-                if(returnable==null)
-                    return true;
-                else return false;
-            })
-        }
-    }
 })
 
 ();

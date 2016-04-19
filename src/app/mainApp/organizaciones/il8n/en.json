@@ -35,12 +35,26 @@
       "EXPERIENCE": "Experiencias",
       "CONSTITUTIVE_ACT": "Acta Constitutiva (Arrastra archivo aquí)"
     },
+
+    "STATS":{
+      "LOOKUP_STATS":"Ver estadísticas",
+      "INSTRUCTIONS_CHART": "Da click en cualquiera de los elementos para mostrar las organizaciones",
+      "SELECT_DESCRIPTOR_TYPE":"Selecciona el clasificador",
+      "RECENT_ORGANIZATIONS": "Organizaciones Recientes",
+      "ALL_ORGANIZACIONES": "Todas las organizaciones",
+      "ORGANIZATION_LIST": "Lista de Organizaciones"
+    },
+
     "DOCUMENTOS":{
-      "VALIDATE":"Validar Documento"
+      "VALIDATE": "Validar Documento",
+      "DOCUMENT_NOT_FOUND": "Documento no encontrado"
     },
     "DESCRIPTOR":{
+      "DESCRIPTOR": "Descriptor",
+      "TYPE": "Tipo de Descriptor",
       "INSTRUCTIONS":"Busca una organización para ver sus descriptores",
       "ADD":"Agregar Descriptor",
+      "EDIT":"Editar Clasificador",
       "CURRENT":"Descriptores Actuales",
       "DELETE":"Eliminar Descriptor",
       "FINIT":"Fecha de Inicio",

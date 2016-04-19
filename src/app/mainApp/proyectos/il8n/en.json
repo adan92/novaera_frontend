@@ -7,6 +7,8 @@
   "PROJECT": {
     "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
     "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
+    "INTRO_IMPACT": "Sigue los pasos para registrar el impacto del proyecto",
+    "INTRO_BUSINESS_MODEL": "Sigue los pasos para registrar el modelo de negocio del proyecto",
     "REGISTER": {
       "PROJECT_SELECT": "Selección de Proyecto",
       "NEW_PROJECT": "Nuevo Proyecto",
@@ -49,6 +51,12 @@
       "PROJECT_STAGES": "Etapas del proyecto"
     },
     "INFO": {
+      "SELECT_DESCRIPTOR_TYPE": "Selecciona el tipo de descriptor",
+      "SELECT_DESCRIPTOR": "Selecciona el descriptor",
+      "SELECT_DESCRIPTOR_TYPE_TO_SHOW": "Selecciona un tipo de Descriptor para mostrar datos",
+      "INSTRUCTIONS_CHART": "Da click a un elemento en la gráfica para mostrar los proyectos",
+      "ALL_PROJECTS":"Todos los proyectos",
+      "PROJECT_LIST":"Lista de proyectos",
       "MY_PROJECTS": "Mis Proyectos",
       "TRL_DESCRIPTION": "Descripción de TRL",
       "TRL_DATE": "Fecha",
@@ -70,11 +78,10 @@
       "MY_PROJECTS": "Proyectos Registrados",
       "INSTRUCTIONS": "Busca tu proyecto para administrar las etapas",
       "REGISTERED_STAGES": "Etapas Registradas",
-      "TITLE_GANTT":"Gráfico de Gantt",
-      "TITLE_EDIT":"Editar tarea",
-      "TITLE_CREATE_TASK":"Crear nueva etapa:",
-      "TITLE_EDIT_TASK":"Editar etapa:",
-
+      "TITLE_GANTT": "Gráfico de Gantt",
+      "TITLE_EDIT": "Editar tarea",
+      "TITLE_CREATE_TASK": "Crear nueva etapa:",
+      "TITLE_EDIT_TASK": "Editar etapa:",
       "NEW_STAGE": "Nueva etapa",
       "REMOVE_STAGE": "Eliminar etapa",
       "PREVIOUS_STAGE": "Etapa Precedente",
@@ -84,26 +91,24 @@
       "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       },
-      "FORM":{
-        "NAME":"Nombre",
-        "DESCRIPTION":"Descripción",
-        "BUTTON":{
-          "ADD":"Agregar Etapa",
-          "LEAVE_EDIT":"Dejar de editar",
-          "LEAVE_EDIT_TASK":"Dejar de editar",
-          "DELETE":"Eliminar Etapa",
-          "SAVE":"Enviar Datos"
+      "FORM": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "BUTTON": {
+          "ADD": "Agregar Etapa",
+          "LEAVE_EDIT": "Dejar de editar",
+          "LEAVE_EDIT_TASK": "Dejar de editar",
+          "DELETE": "Eliminar Etapa",
+          "SAVE": "Enviar Datos"
         },
-        "SELECT_STAGE_LBL":"Seleccionar una etapa para editar:",
-        "SELECT_STAGE":"Seleccionar Etapa",
-        "SELECT_DATE_FROM_LBL":"Mostrar desde:",
-        "SELECT_DATE_TO_LBL":"Mostrar hasta:",
-        "NAME_LBL":"Nombre de la Tarea",
-        "FROM_LBL":"De:",
-        "TO_LBL":"Hasta:",
-        "DESCRIPTION_LBL":"Descripción de la Tarea"
-
-
+        "SELECT_STAGE_LBL": "Seleccionar una etapa para editar:",
+        "SELECT_STAGE": "Seleccionar Etapa",
+        "SELECT_DATE_FROM_LBL": "Mostrar desde:",
+        "SELECT_DATE_TO_LBL": "Mostrar hasta:",
+        "NAME_LBL": "Nombre de la Tarea",
+        "FROM_LBL": "De:",
+        "TO_LBL": "Hasta:",
+        "DESCRIPTION_LBL": "Descripción de la Tarea"
       }
     },
     "TRL": {
@@ -121,10 +126,10 @@
       "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       },
-      "TABLE":{
-        "COL_NIVEL":"Nivel",
-        "COL_DESC":"Descripción",
-        "COL_DATE":"Fecha"
+      "TABLE": {
+        "COL_NIVEL": "Nivel",
+        "COL_DESC": "Descripción",
+        "COL_DATE": "Fecha"
       }
     },
     "IP": {
@@ -148,9 +153,10 @@
         "PRODUCTS_REFERENCE": "Aquí se encuentran los productos de Propiedad",
         "PROCESS": "Procesos",
         "PROCESS_REFERENCE": "Aquí se encuentran los procesos de Transferencia",
-        "VALUE": "Valuacion",
-        "VALUE_REFERENCE": "Aquí se encuentran los proceos de Valuación de Tecnología"
-      },"PLACEHOLDER": {
+        "VALUE": "Evaluación",
+        "VALUE_REFERENCE": "Aquí se encuentran los proceos de evaluación de Tecnología"
+      },
+      "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"
       }
     },
@@ -165,9 +171,12 @@
       "SHOW_PATENTS": "Mostrar Patentes",
       "ADD_RESULT": "Agregar Resultado",
       "ADD_PATENT": "Agregar Patente",
+      "CLEAR":"Limpiar",
       "ADD_RESULTS": "Agregar Resultados",
       "ADD_PATENTS": "Agregar Patentes",
       "FORM": {
+        "MOD_RESULT": "Modificar Resultados",
+        "MOD_PATENT": "Modificar Patentes",
         "NAME": "Nombre",
         "DESCRIPTION": "Descripcion",
         "KEYWORDS": "Palabras clave",
@@ -183,6 +192,16 @@
         "STATUS": "Status",
         "OPERATIONAL_PLAN": "Plan de Explotación",
         "TRL": "TRL"
+      },
+      "TABLE":{
+        "COL_ID":"Id",
+        "COL_NOMBRE":"Nombre",
+        "COL_DESCRIPCION":"Descripción",
+        "COL_ESTATUS":"Estatus",
+        "COL_TIPO":"Tipo"
+      },
+      "PLACEHOLDER":{
+        "PAIS":"Países de Protección"
       }
     },
     "IMPACT": {
@@ -241,20 +260,19 @@
       "ADD_RESULT": "Registrar Nuevo Resultado",
       "NEW_RESULT": "Nuevo Resultado",
       "EXPECTED_RESULT": "Resultado Esperado",
-      "TABLE":{
-        "COL_TIT":"Titulo:",
-        "COL_DESC":"Descripción:",
-        "COL_OBS":"Observaciones:",
-        "COL_DATE":"Fecha Creación:",
-
-        "COL_DESCR":"Descriptor:",
-        "COL_RES":"Resultado:",
-        "COL_FECH_REG":"Fecha de Registro:",
-        "COL_FECH_APR":"Fecha de Aprobación:",
-        "COL_PCT":"PCT:",
-        "COL_TIPO":"Tipo Descriptor:"
-
-      },"PLACEHOLDER": {
+      "TABLE": {
+        "COL_TIT": "Titulo:",
+        "COL_DESC": "Descripción:",
+        "COL_OBS": "Observaciones:",
+        "COL_DATE": "Fecha Creación:",
+        "COL_DESCR": "Descriptor:",
+        "COL_RES": "Resultado:",
+        "COL_FECH_REG": "Fecha de Registro:",
+        "COL_FECH_APR": "Fecha de Aprobación:",
+        "COL_PCT": "PCT:",
+        "COL_TIPO": "Tipo Descriptor:"
+      },
+      "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto",
         "SEARCH_DESCRIPTOR": "Busca tu descriptor"
       }
@@ -274,10 +292,17 @@
     "INSCRIPTION": {
       "INFOPROJECT": "Informacion del Proyecto",
       "INFOPROGRAM": "Informacion del Programa De Fondeo",
+      "INFOCONV":"Información de la Convocatoria",
+      "INFOMOD":"Información de la Modalidad",
       "TITLE": "Bienvenido a la seccion para aplicar a un Programa de Fondeo",
       "PROJECTSELECTED": "El proyecto Seleccionado fue:",
       "SELECTPROJECT": "Selecciona el Proyecto que quieres inscribir",
+      "SELECT_MODALIDAD": "Selecciona la Modalidad asociada",
+      "SHOW_CONVOCATORIA_INFO": "Ver información de Convocatoria",
+      "SOLICITUD":"Solicitudes del proyecto",
+      "INSCRIBIR":"Inscribir proyecto",
       "FONDEOACTIVE": "Programas de Fondeo Activos",
+      "NOT_FOUND":"No se encontrarón solicitudes en este proyecto",
       "CALLACTIVES": "Convocatorias Activas",
       "MODALITYSAVALIABLES": "Modalidades Disponibles",
       "INSCRIPTION": "Aplicar por esta modalidad",
@@ -295,9 +320,49 @@
       "SAVE": "Solicitar Apoyo",
       "DELETE": "Eliminar",
       "SOLICITUDES": "Solicitudes que posee el proyecto seleccionado",
+      "TITLES":{
+        "PROJECT":"Información",
+        "SOLICITUDES": "Solicitudes"
+      },
       "PROJECTSTATUS": "Estado Actual de mis Proyectos",
       "SELECT_ANNOUNCEMENT": "Selecciona una Convocatoria",
-      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas"
+      "ASSOCIATED_ANNOUNCEMENTS": "Convocatorias Asociadas",
+      "PLACEHOLDER":{
+        "SEARCH_PROJECT": "Busca tu proyecto",
+        "NOT_FOUND": "No se encontró el proyecto"
+
+      },
+      "VIEWS":{
+        "TITLE":"Titulo",
+        "DESCRIPTION":"Descripción",
+        "BACKGROUND":"Antecedentes",
+        "OBJECTIVES":"Objetivos",
+        "JUSTIFICATION":"Justificación",
+        "REACH":"Alcances",
+        "PUBLIC":"Público objetivo",
+        "TOTAL":"Fondo total",
+        "RUBROS":"Rubros de apoyo",
+        "CRITERIA":"Criterios de elegibilidad",
+        "NAME":"Nombre",
+        "FECH_INIT":"Fecha de Inicio",
+        "FECH_END":"Fecha de Término",
+        "REQUERIMENTS":"Requerimientos",
+        "AMOUNTS":"Montos",
+        "CRITERIA_EVALUATION":"Criterios de evaluación",
+        "DELIVERABLES":"Entregables",
+        "FIGURES":"Figuras de apoyo"
+      },
+      "WIZARD":{
+        "FONDEOS":"Selección del Programa de Fondeo",
+        "CONVOCATORIA":"Selección de la Convocatoria",
+        "MODALIDAD":"Selección de la Modalidad"
+      },
+      "TABLE":{
+        "FONDEO_COL":"Programa de Fondeo",
+        "CONV_COL":"Convocatoria",
+        "AMOUNT_COL":"Monto Solicitado",
+        "DATE_COL":"Fecha de Solicitud"
+      }
     },
     "VALIDA": {
       "SELECTPROGRAM": "Selecciona el Programa de Fondeo a consultar",

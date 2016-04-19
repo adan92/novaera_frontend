@@ -3,25 +3,21 @@
     div(layout='row', layout-md='column')
         md-card(flex='', layout-padding='')
             md-card-content
-                h2.text-center(translate='') PERSONAS.DESCRIPTOR.WELCOME
-                h3.text-center {{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}
+                h2.md-display-2.text-center(translate='') PERSONAS.DESCRIPTOR.WELCOME
+                h3.md-display-1.text-center {{vm.persona.Nombre}} {{vm.persona.ApellidoP}} {{vm.persona.ApellidoM}}
     // Tarjeta para eliminar descriptores
     div(layout='row', layout-sm='column', layout-md='column', ng-show='vm.persona!=null')
         md-card(flex='70', layout='column')
             md-card-content
-                h2.text-center(translate='') PERSONAS.DESCRIPTOR.CURRENT
+                h2.md-display-2.text-center(translate='') PERSONAS.DESCRIPTOR.CURRENT
                 md-list
                     md-list-item.md-4-line(ng-repeat='descriptor in vm.descriptorPersonas')
                         div(layout='row', flex='flex', layout-align='space-around center', layout-sm='column')
                             .md-list-item-text(flex='40')
                                 // h3>id: {{descriptor.id}}</h3
                                 h3 Titulo: {{descriptor.Titulo}}
-                                h4 Fecha Inicio: {{descriptor.pivot.FechaInicio}}
-                                h4 Fecha Termino: {{descriptor.pivot.FechaTermino}}
-                                h5 Tipo de Resultado: {{descriptor.pivot.TipoResultado}}
-                                h5 Numero de Registro: {{descriptor.pivot.NumeroRegistro}}
-                                h6 Creado el: {{descriptor.created_at}}
-                                h6 Actualzado el: {{descriptor.updated_at}}
+                                h4 Fecha Inicio: {{descriptor.pivot.FechaInicio | amDateFormat:'DD/MM/YYYY'}}
+                                h4 Fecha Termino: {{descriptor.pivot.FechaTermino | amDateFormat:'DD/MM/YYYY'}}
                             div(flex='25')
                                 md-button.md-raised.md-primary(ng-click='vm.edit(descriptor)')
                                     span(translate='') PERSONAS.DESCRIPTOR.EDIT
@@ -31,27 +27,37 @@
         // Tarjeta para agregar descriptores
         md-card(flex='', layout='column', ng-show='vm.persona!=null')
             md-card-content
-                h2(translate='') PERSONAS.DESCRIPTOR.ADD
+                h2.md-display-2(translate='') PERSONAS.DESCRIPTOR.ADD
                 form(name='agregarDescriptor', novalidate='')
-                    md-input-container
+                    div(layout='row' layout-sm='column' ng-show='vm.loadingTipoDescriptorData==true' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+                    md-input-container(ng-show='vm.tipoDescriptores!=null')
                         label(translate='') PERSONAS.DESCRIPTOR.TYPE
-                        md-select(ng-model='vm.descriptor.idDescriptor', required='', name='tipo')
-                            md-option(ng-repeat='tipo in vm.descriptores', value='{{tipo.id}}') {{tipo.Titulo}}
-    span.placeholder(translate='') PERSONAS.DESCRIPTOR.FINIT
-    md-datepicker(ng-model='vm.descriptor.FechaInicio', md-placeholder='Introduce una fecha', required='')
-    br
-    br
-    span.placeholder(translate='') PERSONAS.DESCRIPTOR.FEND
-    md-datepicker(ng-model='vm.descriptor.FechaTermino', md-placeholder='Introduce una fecha', required='')
-    br
-    br
-    md-input-container
-        label(translate='') PERSONAS.DESCRIPTOR.TRESULT
-        input(ng-model='vm.descriptor.TipoResultado', required='', name='resultado')
-    md-input-container
-        label(translate='') PERSONAS.DESCRIPTOR.NREGISTRO
-        input(ng-model='vm.descriptor.NumeroRegistro', required='', name='registro')
-    md-button.md-raised(ng-disabled='registrarEtapa.$invalid', ng-click='addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
-        span(translate='') PERSONAS.DESCRIPTOR.ADD
-    md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
-        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR
+                        md-select(ng-model='vm.selectedTipoDescriptor',md-on-close='vm.getDescriptores()' ,required='', name='tipo')
+                            md-option(ng-repeat='tipo in vm.tipoDescriptores', ng-value='tipo.id') {{tipo.Nombre | cut:false:30:"..."}}
+                    div(layout='row' layout-sm='column' ng-show='vm.loadingDescriptorData==true' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+                    md-input-container(ng-show='vm.descriptores!=null')
+                        label(translate='') PERSONAS.DESCRIPTOR.DESCRIPTOR
+                        md-select(ng-model='vm.descriptor.idDescriptor',required='', name='descriptor')
+                            md-option(ng-repeat='descriptor in vm.descriptores', ng-value='descriptor.id') {{descriptor.Titulo | cut:false:30:"..."}}
+                    md-input-container(flex)
+                            label(translate='') PERSONAS.DESCRIPTOR.FINIT
+                            input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="time", short-time="false",
+                            format="DD-MM-YYYY",
+                            cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                            ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                            ng-model="vm.descriptor.FechaInicio")
+                    md-input-container(flex)
+                            label(translate='') PERSONAS.DESCRIPTOR.FEND
+                            input( mdc-datetime-picker date="true",lang="{{vm.language}}", time="false", type="text", id="timeEnd", short-time="false",
+                            format="DD-MM-YYYY",
+                            cancel-text="{{ 'DIALOGS.CANCEL' | translate }}",
+                            ok-text="{{ 'DIALOGS.ACCEPT' | translate }}",
+                            ng-model="vm.descriptor.FechaTermino")
+                    md-button.md-raised(ng-show='vm.descriptor.id==null' ng-disabled='vm.selectedTipoDescriptor==null || vm.descriptor.idDescriptor==null || vm.descriptor.FechaInicio==null || vm.descriptor.FechaTermino==null ', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PERSONAS.DESCRIPTOR.ADD
+                    md-button.md-raised(ng-show='vm.descriptor.id!=null' ng-disabled='vm.selectedTipoDescriptor==null || vm.descriptor.idDescriptor==null || vm.descriptor.FechaInicio==null || vm.descriptor.FechaTermino==null ', ng-click='vm.addItem()', ng-class="['md-primary','md-hue-2']", aria-label='warn button')
+                        span(translate='') PERSONAS.DESCRIPTOR.EDIT
+                    md-button.md-raised(ng-disabled='vm.descriptor==null', ng-click='vm.resetForm()', ng-class="['md-primary','md-hue-2']", aria-label='primary button')
+                        span(translate='') DESCRIPTOR.DESCRIPTOR.CLEAR

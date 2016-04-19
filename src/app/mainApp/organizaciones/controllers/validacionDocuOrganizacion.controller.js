@@ -27,6 +27,7 @@
         vm.isEditing=false;
         vm.fileRoute = ROUTES.FILE_ROUTE;
         vm.isShow=false;
+        vm.showFrame = false;
         vm.urlActual=null;
         vm.showDocument=showDocument;
         vm.validate=validate;
@@ -73,11 +74,23 @@
 
         }
         function showDocument(item,show){
-            console.log(item);
-            vm.isShow=true;
-            vm.selectedDocument=item;
-            vm.showButtonValidate=show;
-            vm.urlActual=$sce.trustAsResourceUrl(vm.fileRoute+item.archivo);
+            if(item.archivo!="" && item.archivo!=null)
+            {
+                console.log(item);
+                vm.isShow=true;
+                vm.showFrame = true;
+                vm.selectedDocument=item;
+                vm.showButtonValidate=true;
+                vm.urlActual=$sce.trustAsResourceUrl(vm.fileRoute+item.archivo);
+            }
+            else
+            {
+                vm.isShow=true;
+                vm.showFrame = false;
+                vm.selectedDocument=null;
+                vm.showButtonValidate =false;
+            }
+
         }
         function showPanelValidados(item){
             vm.validations = [ {
@@ -103,6 +116,8 @@
                 archivo:''
             }];
             vm.isEditing=true;
+            vm.isShow=false;
+            vm.showFrame = false;
             vm.org = angular.copy(item);
             console.log(item);
             vm.validations[0].archivo=vm.org.Archivos.RFCFile;

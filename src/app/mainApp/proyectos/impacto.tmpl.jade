@@ -1,271 +1,270 @@
 //
    Created by lockonDaniel on 12/23/15.
-
 div.full-image-background.mb-bg-fb-07.overlay-40(layout='column', layout-align='center center')
-   div(layout='row', layout-align='center center')
-      p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO_EXECUTION
-   div(flex='', layout='row', layout-align='center center', layout-fill='')
-      .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
-         md-toolbar.md-primary
-            div.md-toolbar-tools(flex layout='column')
-               div(flex layout='column')
-                  div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
-                     h2(translate='') PROJECT.WIZARD.TITLE3
-                     h2
-                        | {{vm.completed}}%
-                        span(translate='') PROJECT.WIZARD.COMPLETED
-                  div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
-                     h3(translate='') {{vm.steps[triWizard.currentStep]}}
-                     h3(translate='') {{vm.proyectoLabel}}
-            md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
-         md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
-            md-tab#selectProject
-               md-tab-label
-                  span.oxy-step-label 1
-               md-tab-body
-                  .wizard.layout-padding
-                     form(name='projectSelect', tri-wizard-form novalidate)
-                        div(layout='column', flex='')
-                           md-input-container
-                              label
-                                 span(translate='') PROJECT.IMPACT.SELECT_YOUR_PROJECT
-                              md-select(md-on-close='vm.getImpacto()', ng-model='vm.selectedProject', name='select', required='')
-                                 md-option(ng-repeat='proyecto in vm.proyectos', ng-value='{{proyecto}}')
-                                    | {{proyecto.Titulo}}
-                              div(ng-messages='projectSelect.select.$error')
-                                 div(ng-message='required')
-                                    span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
-            md-tab#requirements(ng-disabled='vm.selectedProject==null')
-               md-tab-label
-                  span.oxy-step-label 2
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.ImpactoAmbiental', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                           span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='Requerimientos', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoAmbiental')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.impactoAFile!=null', layout='row', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.impactoAFile.Ruta}}')
-                           h3 {{vm.impactoAFile.Nombre}}
-            md-tab#enviornment(ng-disabled='(vm.Impacto.ImpactoAmbiental==null || vm.Impacto.ImpactoAmbiental=="" )  && vm.impactoAFile==null')
-               md-tab-label
-                  span.oxy-step-label 3
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.ImpactoCientifico', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                           span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='ImpactoCientifico', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoCientifico')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.impactoCFile!=null', layout='row', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.impactoCFile.Ruta}}')
-                           h3 {{vm.impactoCFile.Nombre}}
-            md-tab#technicalFactibility(ng-disabled='(vm.Impacto.ImpactoCientifico==null || vm.Impacto.ImpactoCientifico=="") && vm.impactoCFile==null')
-               md-tab-label
-                  span.oxy-step-label 4
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.ImpactoTecnologico', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                        md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                           span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                           h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                        div(layout='row', layout-sm='column', layout-align='center center')
-                           form(name='ImpactoTecnologico', tri-wizard-form='')
-                              .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoTecnologico')")
-                                 md-button.md-fab.md-primary(aria-label='md-button')
-                                    ng-md-icon(icon='attach_file')
-                        div(ng-show='vm.impactoTFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                           h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                           a(href='{{vm.impactoTFile.Ruta}}')
-                              h3 {{vm.impactoTFile.Nombre}}
-            md-tab#economicalFactibility(ng-disabled='(vm.Impacto.ImpactoTecnologico==null || vm.Impacto.ImpactoTecnologico=="") && vm.impactoTFile==null')
-               md-tab-label
-                  span.oxy-step-label 5
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.ImpactoSocial', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                        div(layout='row', layout-sm='column', layout-align='space-around center')
-                           h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                        div(layout='row', layout-sm='column', layout-align='center center')
-                           form(name='ImpactoSocial', tri-wizard-form='')
-                              .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoSocial')")
-                                 md-button.md-fab.md-primary(aria-label='md-button')
-                                    ng-md-icon(icon='attach_file')
-                        div(ng-show='vm.impactoSFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                           h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                           a(href='{{vm.impactoSFile.Ruta}}')
-                              h3 {{vm.impactoSFile.Nombre}}
-            md-tab#commercialFactibility(ng-disabled='(vm.Impacto.ImpactoSocial==null || vm.Impacto.ImpactoSocial=="") && vm.impactoSFile==null')
-               md-tab-label
-                  span.oxy-step-label 6
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.ImpactoEconomico', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='ImpactoEconomico', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoEconomico')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.impactoEFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.impactoEFile.Ruta}}')
-                           h3 {{vm.impactoEFile.Nombre}}
-            md-tab#commercialBenchmark(ng-disabled='(vm.Impacto.ImpactoEconomico==null || vm.Impacto.ImpactoEconomico=="") && vm.impactoEFile==null')
-               md-tab-label
-                  span.oxy-step-label 7
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.PropuestaDeValor', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='PropuestaDeValor', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('PropuestaDeValor')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.propuestaVFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.propuestaVFile.Ruta}}')
-                           h3 {{vm.propuestaVFile.Nombre}}
-            md-tab#technologicalBenchmark(ng-disabled='(vm.Impacto.PropuestaDeValor==null || vm.Impacto.PropuestaDeValor=="") && vm.propuestaVFile==null')
-               md-tab-label
-                  span.oxy-step-label 8
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.SegmentosDeClientes', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='SegmentosDeClientes', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SegmentosDeClientes')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.segmentosFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.segmentosFile.Ruta}}')
-                           h3 {{vm.segmentosFile.Nombre}}
-            md-tab#humanResources(ng-disabled='(vm.Impacto.SegmentosDeClientes==null || vm.Impacto.SegmentosDeClientes=="") && vm.segmentosFile==null')
-               md-tab-label
-                  span.oxy-step-label 9
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.SolucionPropuesta', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='SolucionPropuesta', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SolucionPropuesta')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.solucionPFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.solucionPFile.Ruta}}')
-                           h3 {{vm.solucionPFile.Nombre}}
-            md-tab#financialResources(ng-disabled='(vm.Impacto.SolucionPropuesta==null || vm.Impacto.SolucionPropuesta=="") && vm.solucionPFile==null')
-               md-tab-label
-                  span.oxy-step-label 10
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.Metricas', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='Metricas', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Metricas')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.metricasFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.metricasFile.Ruta}}')
-                           h3 {{vm.metricasFile.Nombre}}
-            md-tab#technologicalResources(ng-disabled='(vm.Impacto.Metricas==null || vm.Impacto.Metricas=="") && vm.metricasFile==null')
-               md-tab-label
-                  span.oxy-step-label 11
-               md-tab-body
-                  .wizard.layout-padding(layout='column')
-                     div(layout='column')
-                        md-input-container
-                           div(text-angular ng-model='vm.Impacto.SolucionActual', ta-toolbar="[['bold','italics','ul','ol']]")
-                           label(translate='') PROJECT.FORM.CLICK_TO_WRITE
-                           md-divider
-                           md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
-                              span(translate) PROJECT.WIZARD.UPDATE_TEXT
-                     div(layout='row', layout-sm='column', layout-align='space-around center')
-                        h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
-                     div(layout='row', layout-sm='column', layout-align='center center')
-                        form(name='SolucionActual', tri-wizard-form='')
-                           .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SolucionActual')")
-                              md-button.md-fab.md-primary(aria-label='md-button')
-                                 ng-md-icon(icon='attach_file')
-                     div(ng-show='vm.solucionAFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
-                        h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
-                        a(href='{{vm.solucionAFile.Ruta}}')
-                           h3 {{vm.solucionAFile.Nombre}}
-         .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
-            md-button.md-primary.md-raised(ng-click='triWizard.prevStep()',aria-label='md-button', ng-hide='triWizard.currentStep >=9', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
-            md-button.md-primary.md-raised(ng-click='triWizard.nextStep()',aria-label='md-button', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
-            md-button.md-accent.md-raised(ng-click='vm.saveProject()',aria-label='md-button', ng-show='vm.completed == 100 && triWizard.currentStep == 10 ', translate='PROJECT.WIZARD.SEND')
+    div(layout='row', layout-align='center center')
+        p.md-headline.font-weight-300.text-center.text-light(flex='70', flex-sm='90', translate='') PROJECT.INTRO_IMPACT
+    div(flex='', layout='row', layout-align='center center', layout-fill='')
+        .md-whiteframe-z1.margin-bottom-100(flex='80', layout='column', tri-wizard='')
+            md-toolbar.md-primary
+                div.md-toolbar-tools(flex layout='column')
+                    div(flex layout='column')
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center')
+                            h2(translate='') PROJECT.WIZARD.TITLE3
+                            h2
+                                | {{vm.completed}}%
+                                span(translate='') PROJECT.WIZARD.COMPLETED
+                        div(flex layout='row' layout-sm='column' layout-align-sm='center center' layout-align='space-between center' )
+                            h3(translate='') {{vm.steps[triWizard.currentStep]}}
+                            h3(translate='') {{vm.proyectoLabel}}
+                md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='vm.completed')
+            md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
+                md-tab#selectProject
+                    md-tab-label
+                        span.oxy-step-label 1
+                    md-tab-body
+                        .wizard.layout-padding
+                            form(name='projectSelect', tri-wizard-form novalidate)
+                                div(layout='column', flex='')
+                                    md-input-container
+                                        label
+                                            span(translate='') PROJECT.IMPACT.SELECT_YOUR_PROJECT
+                                        md-select(md-on-close='vm.getImpacto()', ng-model='vm.selectedProject', name='select', required='')
+                                            md-option(ng-repeat='proyecto in vm.proyectos', ng-value='{{proyecto}}')
+                                                | {{proyecto.Titulo}}
+                                        div(ng-messages='projectSelect.select.$error')
+                                            div(ng-message='required')
+                                                span(translate='') PROJECT.WIZARD.REQUIRED-FIELD
+                md-tab#requirements(ng-disabled='vm.selectedProject==null')
+                    md-tab-label
+                        span.oxy-step-label 2
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.ImpactoAmbiental', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                    span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='Requerimientos', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoAmbiental')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.impactoAFile!=null', layout='row', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.impactoAFile.Ruta}}')
+                                    h3 {{vm.impactoAFile.Nombre}}
+                md-tab#enviornment(ng-disabled='(vm.Impacto.ImpactoAmbiental==null || vm.Impacto.ImpactoAmbiental=="" )  && vm.impactoAFile==null')
+                    md-tab-label
+                        span.oxy-step-label 3
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.ImpactoCientifico', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                    span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='ImpactoCientifico', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoCientifico')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.impactoCFile!=null', layout='row', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.impactoCFile.Ruta}}')
+                                    h3 {{vm.impactoCFile.Nombre}}
+                md-tab#technicalFactibility(ng-disabled='(vm.Impacto.ImpactoCientifico==null || vm.Impacto.ImpactoCientifico=="") && vm.impactoCFile==null')
+                    md-tab-label
+                        span.oxy-step-label 4
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.ImpactoTecnologico', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                    span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                                div(layout='row', layout-sm='column', layout-align='center center')
+                                    form(name='ImpactoTecnologico', tri-wizard-form='')
+                                        .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoTecnologico')")
+                                            md-button.md-fab.md-primary(aria-label='md-button')
+                                                ng-md-icon(icon='attach_file')
+                                div(ng-show='vm.impactoTFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                    h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                    a(href='{{vm.impactoTFile.Ruta}}')
+                                        h3 {{vm.impactoTFile.Nombre}}
+                md-tab#economicalFactibility(ng-disabled='(vm.Impacto.ImpactoTecnologico==null || vm.Impacto.ImpactoTecnologico=="") && vm.impactoTFile==null')
+                    md-tab-label
+                        span.oxy-step-label 5
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.ImpactoSocial', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                                div(layout='row', layout-sm='column', layout-align='space-around center')
+                                    h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                                div(layout='row', layout-sm='column', layout-align='center center')
+                                    form(name='ImpactoSocial', tri-wizard-form='')
+                                        .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoSocial')")
+                                            md-button.md-fab.md-primary(aria-label='md-button')
+                                                ng-md-icon(icon='attach_file')
+                                div(ng-show='vm.impactoSFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                    h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                    a(href='{{vm.impactoSFile.Ruta}}')
+                                        h3 {{vm.impactoSFile.Nombre}}
+                md-tab#commercialFactibility(ng-disabled='(vm.Impacto.ImpactoSocial==null || vm.Impacto.ImpactoSocial=="") && vm.impactoSFile==null')
+                    md-tab-label
+                        span.oxy-step-label 6
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.ImpactoEconomico', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='ImpactoEconomico', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('ImpactoEconomico')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.impactoEFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.impactoEFile.Ruta}}')
+                                    h3 {{vm.impactoEFile.Nombre}}
+                md-tab#commercialBenchmark(ng-disabled='(vm.Impacto.ImpactoEconomico==null || vm.Impacto.ImpactoEconomico=="") && vm.impactoEFile==null')
+                    md-tab-label
+                        span.oxy-step-label 7
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.PropuestaDeValor', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='PropuestaDeValor', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('PropuestaDeValor')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.propuestaVFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.propuestaVFile.Ruta}}')
+                                    h3 {{vm.propuestaVFile.Nombre}}
+                md-tab#technologicalBenchmark(ng-disabled='(vm.Impacto.PropuestaDeValor==null || vm.Impacto.PropuestaDeValor=="") && vm.propuestaVFile==null')
+                    md-tab-label
+                        span.oxy-step-label 8
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.SegmentosDeClientes', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='SegmentosDeClientes', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SegmentosDeClientes')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.segmentosFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.segmentosFile.Ruta}}')
+                                    h3 {{vm.segmentosFile.Nombre}}
+                md-tab#humanResources(ng-disabled='(vm.Impacto.SegmentosDeClientes==null || vm.Impacto.SegmentosDeClientes=="") && vm.segmentosFile==null')
+                    md-tab-label
+                        span.oxy-step-label 9
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.SolucionPropuesta', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='SolucionPropuesta', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SolucionPropuesta')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.solucionPFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.solucionPFile.Ruta}}')
+                                    h3 {{vm.solucionPFile.Nombre}}
+                md-tab#financialResources(ng-disabled='(vm.Impacto.SolucionPropuesta==null || vm.Impacto.SolucionPropuesta=="") && vm.solucionPFile==null')
+                    md-tab-label
+                        span.oxy-step-label 10
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.Metricas', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='Metricas', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('Metricas')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.metricasFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.metricasFile.Ruta}}')
+                                    h3 {{vm.metricasFile.Nombre}}
+                md-tab#technologicalResources(ng-disabled='(vm.Impacto.Metricas==null || vm.Impacto.Metricas=="") && vm.metricasFile==null')
+                    md-tab-label
+                        span.oxy-step-label 11
+                    md-tab-body
+                        .wizard.layout-padding(layout='column')
+                            div(layout='column')
+                                md-input-container
+                                    div(text-angular ng-model='vm.Impacto.SolucionActual', ta-toolbar="[['bold','italics','ul','ol']]")
+                                    label(translate='') PROJECT.FORM.CLICK_TO_WRITE
+                                    md-divider
+                                    md-button.md-primary.md-raised(ng-click='vm.updateText()',aria-label='md-button')
+                                        span(translate) PROJECT.WIZARD.UPDATE_TEXT
+                            div(layout='row', layout-sm='column', layout-align='space-around center')
+                                h3(translate='') PROJECT.WIZARD.FILE_UPLOAD
+                            div(layout='row', layout-sm='column', layout-align='center center')
+                                form(name='SolucionActual', tri-wizard-form='')
+                                    .button(ng-model='vm.file', name='file', ngf-select="vm.uploadFile('SolucionActual')")
+                                        md-button.md-fab.md-primary(aria-label='md-button')
+                                            ng-md-icon(icon='attach_file')
+                            div(ng-show='vm.solucionAFile!=null', layout='row', layout-align-gt-md='center center', layout-sm='column')
+                                h3(translate='') PROJECT.EXECUTION.UPLOADED_FILE
+                                a(href='{{vm.solucionAFile.Ruta}}')
+                                    h3 {{vm.solucionAFile.Nombre}}
+            .wizard-navbar(layout-fill='', layout-padding='', layout='row', layout-align='end center')
+                md-button.md-primary.md-raised(ng-click='triWizard.prevStep()',aria-label='md-button', ng-hide='triWizard.currentStep >=9', ng-disabled='triWizard.prevStepDisabled()', translate='PROJECT.WIZARD.PREV')
+                md-button.md-primary.md-raised(ng-click='triWizard.nextStep()',aria-label='md-button', ng-hide='vm.completed == 100 && triWizard.currentStep >= 9', ng-disabled='triWizard.nextStepDisabled()', translate='PROJECT.WIZARD.NEXT')
+                md-button.md-accent.md-raised(ng-click='vm.saveProject()',aria-label='md-button', ng-show='vm.completed == 100 && triWizard.currentStep == 10 ', translate='PROJECT.WIZARD.SEND')

@@ -5,7 +5,7 @@
                 div(layout='column')
                     div(layout='row', layout-align='center center', layout-sm='column')
                         md-card-content
-                            h2(translate='') PERSONAS.WIZARD.TITLE
+                            h2.md-display-2(translate='') PERSONAS.WIZARD.TITLE
                             form(name='DatosP', novalidate='')
                                 md-input-container.md-icon-float.md-block
                                     // Use floating label instead of placeholder
@@ -37,7 +37,7 @@
                 div(layout='column')
                     div(layout='row', layout-align='center center', layout-sm='column')
                         md-card-content
-                            h2(translate='') PERSONAS.WIZARD.TITLE3
+                            h2.md-display-2(translate='') PERSONAS.WIZARD.TITLE3
                             form(name='Contacto', novalidate='')
                                 md-input-container.md-icon-float.md-block
                                     label(for='email', translate='') PERSONAS.WIZARD.MAIL
@@ -91,10 +91,9 @@
                                     md-button.md-raised.md-primary(ng-show='vm.Persona.id!=null', ng-click='vm.registrarContacto()', ng-disabled='Contacto.$invalid')
                                         span(translate='') PERSONAS.WIZARD.UPDATE
             md-card(flex='', ng-show='vm.showDireccion')
-                img(src='assets/images/backgrounds/material-backgrounds-shorts/mb-bg-01.jpg', alt='Card Image')
                 div(layout='row', layout-align='center center', layout-md='column')
                     md-card-content
-                        h2(translate='') PERSONAS.WIZARD.TITLE4
+                        h2.md-display-2(translate='') PERSONAS.WIZARD.TITLE4
                         form(name='Direccion', novalidate='')
                             md-input-container
                                 label(translate='') PERSONAS.WIZARD.COUNTRY

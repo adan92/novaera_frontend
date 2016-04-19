@@ -50,12 +50,12 @@
             icon: 'zmdi zmdi-layers',
             priority: 2.1,
             children: [{
-                name: 'Informacion',
+                name: 'Información',
                 state: 'triangular.admin-default.descriptor',
                 type: 'link'
 
               }, {
-                name: 'Tipo de Descriptor',
+                name: 'Tipo de Clasificador',
                 state: 'triangular.admin-default.tipo_descriptor',
                 type: 'link'
 
@@ -84,7 +84,9 @@
 
             ]
 
-          }, {
+          },
+          /*
+          {
             name: 'MENU.EXPINFO.EXPINFO1',
             type: 'dropdown',
             icon: 'zmdi zmdi-chart',
@@ -105,25 +107,28 @@
                 type: 'link'
               }
             ]
-          }, {
+          },*/ {
             name: 'MENU.PERSONAS.PERSONAS',
             type: 'dropdown',
             icon: 'zmdi zmdi-account',
             priority: 2.1,
-            children: [{
+            children: [
+
+             {
               name: 'Información',
               state: 'triangular.admin-default.personas',
               icon: 'fa fa-user',
               type: 'link'
 
-            }, {
+            },
+             {
               name: 'Validar Personas',
               state: 'triangular.admin-default.admin',
               icon: 'fa fa-users',
               type: 'link'
 
             }, {
-              name: 'Descriptor Personas',
+              name: 'Clasificar Personas',
               state: 'triangular.admin-default.personas_descriptor_admin',
               icon: 'zmdi zmdi-layers',
               type: 'link'
@@ -134,7 +139,14 @@
             type: 'dropdown',
             icon: 'fa fa-institution',
             priority: 2.1,
-            children: [{
+            children: [
+              {
+                name:'Estadísticas',
+                state: 'triangular.admin-default.stats_org',
+                icon: 'fa fa-line-chart',
+                type: 'link'
+              },
+              {
               name: 'Validar Organización',
               state: 'triangular.admin-default.validar_organizacion',
               icon: 'fa fa-users',
@@ -153,6 +165,11 @@
             icon: 'zmdi zmdi-money-box',
             priority: 2.1,
             children: [{
+                name: 'Estadísticas',
+                state:'triangular.admin-default.fondeos_stats',
+                type: 'link',
+                icon: 'fa fa-line-chart'
+            },{
                 name: 'Registro',
                 state: 'triangular.admin-default.fondeos_registro',
                 type: 'link'
@@ -168,7 +185,7 @@
                 type: 'link'
 
               }, {
-                name: 'Descriptor',
+                name: 'Clasificador',
                 state: 'triangular.admin-default.fondeos_descriptor',
                 type: 'link'
 

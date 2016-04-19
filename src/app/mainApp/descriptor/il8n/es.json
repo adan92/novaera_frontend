@@ -1,7 +1,7 @@
 {
   "MENU": {
     "DESCRIPTOR": {
-      "DESCRIPTOR": "Descriptores"
+      "DESCRIPTOR": "Clasificadores"
     }
   },
   "DESCRIPTOR": {
@@ -13,25 +13,25 @@
       "ACTIVE":"Activo: ",
       "CREATED_AT":"Creado el: ",
       "UPDATED_AT":"Actualizado el: ",
-      "ADD":"Agregar Tipo de Descriptor",
-      "EDIT":"Editar Tipo de Descriptor",
+      "ADD":"Agregar Tipo de Clasificador",
+      "EDIT":"Editar Tipo de Clasificador",
       "CREATED":"Creado el",
       "UPDATED":"Actualizado el",
       "NEW":"Agregar Tipo",
       "UPDATE_B":"Actualizar Tipo",
-      "CURRENT":"Tipos de Descriptores Actuales",
+      "CURRENT":"Tipos de Clasificadores Actuales",
       "DELETE":"Eliminar Tipo"
     },
     "DESCRIPTOR":{
-      "ADD":"Agregar Descriptor",
-      "EDIT":"Editar Descriptor",
-      "UPDATE":"Actualizar Descriptor",
+      "ADD":"Agregar Clasificador",
+      "EDIT":"Editar Clasificador",
+      "UPDATE":"Actualizar Clasificador",
       "CLEAR": "Limpiar Campos",
       "CATALOG":"Catalogo",
-      "CURRENT":"Descriptores Actuales",
+      "CURRENT":"Clasificadores Actuales",
       "TYPE":"Tipo",
       "DESCRIPTION":"Descripcion",
-      "DELETE":"Eliminar Descriptor",
+      "DELETE":"Eliminar Clasificador",
       "TITLE":"Titulo"
     }
   }

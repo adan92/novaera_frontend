@@ -1,0 +1,38 @@
+.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-scope
+    div(layout='row', layout-sm='column', layout-md='column')
+        md-card(flex, layout='column')
+            md-card-content(layout-align='center center')
+                h1.md-display-1.text-center(translate='') FONDEOS.STATS.TITLE
+                h2.md-headline.text-center(translate='') {{vm.labelTypes}}
+                div(layout='row' layout-sm='column' ng-show='vm.loadingStats==true' layout-align='center center')
+                    md-progress-circular(md-mode='indeterminate')
+                div(ng-if='vm.loadingStats==false')
+                    canvas#doughnut.chart.chart-doughnut(chart-click='vm.onClick', chart-data='vm.Chart.Data', chart-labels='vm.Chart.Labels', chart-legend='true')
+                    h3.md-title.text-center(translate='') FONDEOS.STATS.CHART_INSTRUCTIONS
+
+                    form( name='selectTypeEstadistica')
+                        md-input-container
+                            label(translate) FONDEOS.STATS.TYPE_SUM_SELECT
+                            md-select(ng-model='vm.sumType' md-on-close='vm.getSumsByClassification()')
+                                md-option(ng-repeat='type in vm.types' ng-value='type.name') {{type.name}}
+        md-card(flex, layout='column')
+            md-card-content(layout-align='center center')
+                h2.md-display-1.text-center(translate='') FONDEOS.STATS.QUERY_SELECTOR
+                form(name='selectQuery')
+                    md-input-container
+                        label(translate) FONDEOS.STATS.TYPE_QUERY_SELECT
+                        md-select(ng-model='vm.selectedFondeo' md-on-close='vm.getAssociatedModalidades(vm.selectedFondeo)')
+                            md-option(ng-repeat='fondeo in vm.fondeos' ng-value='fondeo') {{fondeo.Titulo}}
+                    div(layout='row' layout-sm='column' ng-show='vm.loadingModalidades==true' layout-align='center center')
+                        md-progress-circular(md-mode='indeterminate')
+                    md-input-container(ng-show='vm.selectedFondeo.id!=0 && vm.modalidades!=null')
+                        label(translate) FONDEOS.STATS.SELECT_MODALIDAD
+                        md-select(ng-model='vm.selectedModalidad' md-on-close='vm.getAssociatedConvocatorias(vm.selectedModalidad)')
+                            md-option(ng-repeat='modalidad in vm.modalidades' ng-value='modalidad') {{modalidad.Nombre}}
+                    md-input-container
+                        label(translate) FONDEOS.STATS.SELECT_HOW_VALIDATED
+                        md-select(ng-model='vm.selectedStatus' md-on-close='vm.getSumsByClassification()')
+                            md-option(ng-repeat='type in vm.howValidated' ng-value='type.value') {{type.name}}
+                div(ng-if='vm.ChartRegisters!=null')
+                    h2.md-headline-1.text-center(translate='') FONDEOS.STATS.REGISTER_COUNTER
+                    canvas#doughnutRegisters.chart.chart-doughnut(chart-data='vm.ChartRegisters.Data', chart-labels='vm.ChartRegisters.Labels', chart-legend='true')
