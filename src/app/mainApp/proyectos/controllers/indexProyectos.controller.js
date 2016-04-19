@@ -40,14 +40,29 @@
         vm.getProyectosByDescriptor     = getProyectosByDescriptor;
         vm.getProyectos                 = getProyectos;
         vm.openDialog                   = openDialog;
+        vm.deleteProjectDialog          = deleteProjectDialog;
+        vm.deleteProject                = deleteProject;
 
         function activate() {
             getProyectos();
             getTipoDescriptores();
 
-
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
             vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
             vm.failureLoad = Translate.translate('DIALOGS.FAIL_LOAD');
+            vm.cancelDelete = Translate.translate('DIALOGS.CANCEL_DELETE');
+            vm.cancelTitle = Translate.translate('DIALOGS.CANCEL_TITLE');
+
+
         }
 
         function clear() {
@@ -143,6 +158,10 @@
         }
 
 
+
+
+
+
         /**
          *
          */
@@ -167,6 +186,36 @@
             });
 
 
+        }
+
+
+        function deleteProject(proyecto){
+
+            Proyecto.deleteProject(proyecto).then(function(res){
+               toastr.success(vm.successText,vm.successDeleteText);
+                vm.getProyectos();
+            }).catch(function(err){
+               toastr.error(vm.failureText,vm.failureDeleteText);
+            });
+
+
+        }
+
+        function deleteProjectDialog(event,proyecto)
+        {
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(event)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function () {
+                vm.deleteProject(proyecto);
+
+            }, function () {
+                toastr.info(vm.cancelDelete, vm.cancelTitle);
+            });
         }
 
 

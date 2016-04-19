@@ -18,15 +18,15 @@
             'PROJECT.REGISTER.REACH'];
         vm.proyectoLabel = 'PROJECT.REGISTER.NEW_PROJECT';
         vm.proyecto = {
-            "id": null,
-            "Titulo": null,
-            "Descripcion": null,
-            "Antecedentes": null,
-            "Justificacion": null,
-            "Objetivos": null,
-            "Alcances": null,
-            "created_at": null,
-            "updated_at": null
+            id: null,
+            Titulo: null,
+            Descripcion: null,
+            Antecedentes: null,
+            Justificacion: null,
+            Objetivos: null,
+            Alcances: null,
+            created_at: null,
+            updated_at: null
         };
         vm.organizaciones = null;
         vm.projectList = null;
@@ -53,19 +53,19 @@
 
             if (vm.isNewProject) {
                 vm.proyecto = {
-                    "id": null,
-                    "Titulo": null,
-                    "Descripcion": null,
-                    "Antecedentes": null,
-                    "Justificacion": null,
-                    "Objetivos": null,
-                    "Alcances": null,
-                    "created_at": null,
-                    "updated_at": null,
-                    "pivot": {
-                        "idPersona": null,
-                        "idProyecto": null,
-                        "Owner": null
+                    id: null,
+                    Titulo: null,
+                    Descripcion: null,
+                    Antecedentes: null,
+                    Justificacion: null,
+                    Objetivos: null,
+                    Alcances: null,
+                    created_at: null,
+                    updated_at: null,
+                    pivot: {
+                        idPersona: null,
+                        idProyecto: null,
+                        Owner: null
                     }
                 };
                 vm.proyectoLabel = 'PROJECT.REGISTER.NEW_PROJECT';

@@ -7,7 +7,7 @@
 
     /* @ngInject */
 
-    function  modalidadFondeosController( $timeout ,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
+    function  modalidadFondeosController( $timeout ,$mdDialog,$rootScope,Modalidad,Fondeo, toastr, Restangular, $state, Translate) {
         var vm = this;
         vm.activate = activate();
         //Inicializacion objetos

@@ -81,6 +81,8 @@
                                 td(md-cell='md-cell')
                                     span.table-span(ng-bind-html='proyecto.Alcances | cut:false:50:"..."')
                                 td(md-cell='md-cell')
+                                    md-button.md-fab.md-warn.md-raised.md-mini(ng-click='vm.deleteProjectDialog($event,proyecto)' aria-label='deleteButton')
+                                        ng-md-icon(icon='delete' size='22')
                                     md-button.md-fab.md-primary.md-raised.md-mini(ng-click='vm.openDialog($event,proyecto)' aria-label='informationButton')
                                         ng-md-icon(icon='menu' size='22')
                 md-table-pagination(flex md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.proyectos.length}}" md-on-paginate="onPaginate" md-page-select)
