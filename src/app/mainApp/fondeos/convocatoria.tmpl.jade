@@ -113,7 +113,7 @@
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 0', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.currentStep >= 1', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
                 md-button.md-accent.md-raised(ng-click='vm.registrarConvocatoria()', ng-show='triWizard.currentStep >= 1 ', translate='FONDEOS.WIZARD.SEND')
-                md-button.md-warn.md-raised(ng-click='vm.eliminarConvocatoria()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.DELETE')
+                md-button.md-warn.md-raised(ng-click='vm.createDialog()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
 md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='vm.Convocatoria!=null')
     md-tab(label='Modalidades Disponibles')
