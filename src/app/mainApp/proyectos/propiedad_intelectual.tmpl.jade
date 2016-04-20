@@ -54,7 +54,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                     h2.md-display-2(translate ng-show='vm.selectedPropiedad!=null') PROJECT.IP.INSTRUCTIONS_EDIT
                     h2
                         | {{triWizard.progress}}%
-                        span.md-display-2(translate='') PROJECT.WIZARD.COMPLETED
+                        span(translate='') PROJECT.WIZARD.COMPLETED
                 md-progress-linear.md-accent.padding-bottom-10(md-mode='determinate', ng-value='triWizard.progress')
             md-tabs.md-primary(layout-fill='', md-selected='triWizard.currentStep', md-dynamic-height='', md-stretch-tabs='always')
                 md-tab#productosRegistro
