@@ -6,7 +6,7 @@
         .controller('convocatoriaFondeosController', convocatoriaFondeosController);
 
     /* @ngInject */
-    function convocatoriaFondeosController($translate, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
+    function convocatoriaFondeosController($translate,$mdDialog, $timeout, $rootScope, Modalidad, Fondeo, Convocatoria, toastr, Restangular, $state, Translate,moment) {
         var vm = this;
         vm.activate = activate();
         vm.language="es";
@@ -131,6 +131,7 @@
         vm.crearRequisito = crearRequisito;
         vm.eliminarRequisito = eliminarRequisito;
         vm.editarRequisito = editarRequisito;
+        vm.createDialog = createDialog;
 
 
         //Funcionalidades
@@ -471,6 +472,26 @@
             });
 
         }
+
+        function createDialog(ev)
+        {
+            vm.ev = ev;
+            console.log("Entre al dialog");
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+
+            $mdDialog.show(confirm).then(function() {
+                vm.eliminarConvocatoria();
+            }, function() {
+                console.log("Cancelado");
+            });
+        }
+
 
 
     }

@@ -100,4 +100,3 @@ los archivos de testing
    [virtualbox]:<https://www.virtualbox.org/>
    [Karma]: <https://karma-runner.github.io/>
    [Jasmine]: <http://jasmine.github.io/>
-

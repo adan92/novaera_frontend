@@ -10,7 +10,7 @@
         .filter('matcher',matcher);
 
     /* @ngInject */
-    function indexDescriptorController($scope,Restangular,Translate,toastr,$mdToast) {
+    function indexDescriptorController($scope,$mdDialog,Restangular,Translate,toastr,$mdToast) {
         var vm = this;
 
         vm.activate           = activate();
@@ -22,6 +22,8 @@
         vm.simulateQuery      = false;
         vm.isDisabled         = false;
         vm.resetForm          = resetForm;
+        vm.createDialog = createDialog;
+        vm.deleteItem = deleteItem;
 
         function activate(){
             Restangular.all('Descriptor').customGET().then(function(res){
@@ -80,7 +82,7 @@
         /**
          * Create function to delete item
          */
-        $scope.deleteItem= function(item){
+        function deleteItem(item){
             Restangular.one('Descriptor',item.id).customDELETE().then(function(res){
                 toastr.success(vm.successText,vm.successDeleteText);
                 Restangular.all('Descriptor').customGET().then(function(res){
@@ -93,7 +95,22 @@
             })
         };
 
-
+        function createDialog(ev,item)
+        {
+            vm.ev = ev;
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+            $mdDialog.show(confirm).then(function() {
+                vm.deleteItem(item);
+            }, function() {
+                console.log("Cancelado");
+            });
+        }
         /**
          * Create function to edit item
          */

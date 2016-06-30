@@ -25,9 +25,9 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
     div(flex layout='column' ng-show='vm.selectedItem!=null')
         md-card(flex)
            md-card-content
-               h2.md-display-2.text-center(translate='') PROJECT.STAGES.TITLE_GANTT
+               h2.text-center(translate='') PROJECT.STAGES.TITLE_GANTT
                div(flex layout='row' layout-sm='column' layout-align='space-around center')
-                   h3.md-display-1.text-center {{(vm.newEtapa.id==null ? 'PROJECT.STAGES.TITLE_CREATE_TASK': 'PROJECT.STAGES.TITLE_CREATE_TASK')| translate}}
+                   h3.text-center {{(vm.newEtapa.id==null ? 'PROJECT.STAGES.TITLE_CREATE_TASK': 'PROJECT.STAGES.TITLE_CREATE_TASK')| translate}}
                    form(name='createEtapa' layout='row' layout-sm='column')
                        md-input-container
                            label(translate='') PROJECT.STAGES.FORM.NAME
@@ -40,7 +40,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                    md-button.md-raised.md-primary(ng-show='vm.newEtapa.id!=null' ng-click="vm.newEtapa=null" ng-disabled='vm.newEtapa.id==null')
                        span.md-button.text-center(translate='') PROJECT.STAGES.FORM.BUTTON.LEAVE_EDIT
                div(flex layout='row' layout-sm='column' layout-align='space-around center' ng-show='vm.data.length>0')
-                   h3.md-display-1.text-center(translate='') PROJECT.STAGES.FORM.SELECT_STAGE_LBL
+                   h3.text-center(translate='') PROJECT.STAGES.FORM.SELECT_STAGE_LBL
                    md-input-container
                        label(translate='') PROJECT.STAGES.FORM.SELECT_STAGE_LBL
                        md-select(ng-model='vm.newEtapa')

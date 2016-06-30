@@ -6,7 +6,7 @@
         .controller('registrarFondeosController', registrarFondeosController);
 
     /* @ngInject */
-    function registrarFondeosController($scope, Upload,Fondeo, toastr, Translate,ROUTES) {
+    function registrarFondeosController($scope,$mdDialog, Upload,Fondeo, toastr, Translate,ROUTES) {
 
         var vm = this;
 
@@ -54,7 +54,7 @@
         vm.getFondeos = getFondeos;
         vm.cancel =cancel;
         vm.uploadFile =  uploadFile;
-
+        vm.createDialog = createDialog;
 
 
         function activate()
@@ -206,6 +206,25 @@
             }
             vm.file = null;
             return vm.fondeo;
+        }
+
+        function createDialog(ev)
+        {
+            vm.ev = ev;
+            console.log("Entre al dialog");
+            var confirm = $mdDialog.confirm()
+                .title(vm.sureText)
+                .content(vm.dialogText)
+                .ariaLabel(vm.sureText)
+                .targetEvent(ev)
+                .ok(vm.acceptText)
+                .cancel(vm.cancelText);
+
+            $mdDialog.show(confirm).then(function() {
+                vm.eliminarFondeo();
+            }, function() {
+                console.log("Cancelado");
+            });
         }
 
 

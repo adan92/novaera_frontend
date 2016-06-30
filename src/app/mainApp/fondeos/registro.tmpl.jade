@@ -132,7 +132,7 @@ div.full-image-background.mb-bg-fb-05.overlay-40(layout='column', layout-align='
                 md-button.md-primary.md-raised(ng-click='triWizard.prevStep()', ng-hide='triWizard.currentStep > 3', ng-disabled='triWizard.prevStepDisabled()', translate='FONDEOS.WIZARD.PREV')
                 md-button.md-primary.md-raised(ng-click='triWizard.nextStep()', ng-hide='triWizard.progress == 100 && triWizard.currentStep >= 3', ng-disabled='triWizard.nextStepDisabled()', translate='FONDEOS.WIZARD.NEXT')
                 md-button.md-accent.md-raised(ng-click='vm.registrarFondeo()', ng-show='triWizard.progress == 100 && triWizard.currentStep >= 3 ', translate='FONDEOS.WIZARD.SEND')
-                md-button.md-warn.md-raised(ng-click='vm.eliminarFondeo()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.DELETE')
+                md-button.md-warn.md-raised(ng-click='vm.createDialog()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.fondeo.id==null', translate='FONDEOS.WIZARD.CLEAR_FIELDS')
     // wizard

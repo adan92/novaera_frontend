@@ -128,7 +128,7 @@
               type: 'link'
 
             }, {
-              name: 'Descriptor Personas',
+              name: 'Clasificar Personas',
               state: 'triangular.admin-default.personas_descriptor_admin',
               icon: 'zmdi zmdi-layers',
               type: 'link'

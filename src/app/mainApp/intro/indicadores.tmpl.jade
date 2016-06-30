@@ -1,0 +1,14 @@
+md-dialog(flex-gt-md='100' aria-label='Landing Page')
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h1.md-display-2 Template por default
+                span(flex='')
+                md-button.md-icon-button(ng-click='vm.cancel()')
+                    ng-md-icon(icon='close', aria-label='Close dialog')
+        md-dialog-content(flex layout='column')
+            h2.md-display-1 Hola mundo
+
+            md-dialog-actions(layout='row' layout-align='end center')
+                md-button.md-raised.md-primary(ng-click="vm.cancel()")
+                    | Cerrar

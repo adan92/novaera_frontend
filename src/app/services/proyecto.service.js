@@ -12,6 +12,7 @@
             getProjectById: getProjectById,
             saveProject: saveProject,
             updateProject: updateProject,
+            deleteProject: deleteProject,
             getProjectTransTecById: getProjectTransTecById,
             getEtapasProject: getEtapasProject,
             saveEtapasProject: saveEtapasProject,
@@ -124,6 +125,28 @@
             }
             return deferred.promise;
         }
+
+
+        function deleteProject(proyecto)
+        {
+            var profile = getPerfil();
+            var deferred = $q.defer();
+            if (profile.type === "person") {
+                Restangular.all('Proyecto').one('Persona', proyecto.id).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                })
+            } else {
+                Restangular.all('Proyecto').one('Organizacion', proyecto.id).all(profile.id).customDELETE().then(function (res) {
+                    deferred.resolve(res);
+                }).catch(function (err) {
+                    deferred.reject(err);
+                })
+            }
+            return deferred.promise;
+        }
+
 
         function saveProject(proyecto) {
             var profile = getPerfil();

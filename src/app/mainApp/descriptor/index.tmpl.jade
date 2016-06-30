@@ -41,7 +41,7 @@ div.dashboard-container.overlay-10.padded-content-page.layout.layout-column.ng-s
                                 md-button.md-raised.md-primary(ng-click='vm.descriptor=descriptor')
                                     span.md-button.text-center(translate='') DESCRIPTOR.DESCRIPTOR.EDIT
                             div(flex='20')
-                                md-button.md-raised(ng-click='deleteItem(descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
+                                md-button.md-raised(ng-click='vm.createDialog($event,descriptor)', ng-class="['md-warn','md-hue-2']", aria-label='warn button')
                                     span.md-button.text-center(translate='') DESCRIPTOR.DESCRIPTOR.DELETE
 
                         md-divider

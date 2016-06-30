@@ -7,6 +7,8 @@
   "PROJECT": {
     "INTRO": "Sigue los pasos para registrar un proyecto nuevo",
     "INTRO_EXECUTION": "Sigue los pasos para registrar la ejecución del proyecto",
+    "INTRO_IMPACT": "Sigue los pasos para registrar el impacto del proyecto",
+    "INTRO_BUSINESS_MODEL": "Sigue los pasos para registrar el modelo de negocio del proyecto",
     "REGISTER": {
       "PROJECT_SELECT": "Selección de Proyecto",
       "NEW_PROJECT": "Nuevo Proyecto",
@@ -151,8 +153,8 @@
         "PRODUCTS_REFERENCE": "Aquí se encuentran los productos de Propiedad",
         "PROCESS": "Procesos",
         "PROCESS_REFERENCE": "Aquí se encuentran los procesos de Transferencia",
-        "VALUE": "Valuacion",
-        "VALUE_REFERENCE": "Aquí se encuentran los proceos de Valuación de Tecnología"
+        "VALUE": "Evaluación",
+        "VALUE_REFERENCE": "Aquí se encuentran los proceos de evaluación de Tecnología"
       },
       "PLACEHOLDER": {
         "SEARCH_PROJECT": "Busca tu proyecto"

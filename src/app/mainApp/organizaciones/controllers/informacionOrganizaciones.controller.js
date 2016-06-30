@@ -19,6 +19,7 @@
     vm.resetForm = resetForm;
     vm.submitForm = submitForm;
     vm.removeOrg = removeOrg;
+    vm.createDialog = createDialog;
 
     // Métodos para las personas de la Organización
     vm.file = null;
@@ -50,6 +51,17 @@
       vm.successTitle = Translate.translate('DIALOGS.SUCCESS');
       vm.failTitle = Translate.translate('DIALOGS.FAILURE');
       vm.failMessage = Translate.translate('DIALOGS.FAIL_STORE');
+      vm.sureText             = Translate.translate('DIALOGS.YOU_SURE');
+      vm.acceptText           = Translate.translate('DIALOGS.ACCEPT');
+      vm.cancelText           = Translate.translate('DIALOGS.CANCEL');
+      vm.dialogText           = Translate.translate('DIALOGS.WARNING');
+      vm.successText          = Translate.translate('DIALOGS.SUCCESS');
+      vm.successStoreText     = Translate.translate('DIALOGS.SUCCESS_STORE');
+      vm.successUpdateText    = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+      vm.successDeleteText    = Translate.translate('DIALOGS.SUCCESS_DELETE');
+      vm.failureText          = Translate.translate('DIALOGS.FAILURE');
+      vm.failureStoreText     = Translate.translate('DIALOGS.FAIL_STORE');
+      vm.failureDeleteText    = Translate.translate('DIALOGS.FAIL_DELETE');
 
 
       vm.isEditing = false;
@@ -290,6 +302,23 @@
       console.log(data);
       return data;
     }
+
+      function createDialog(org,ev,index)
+      {
+          vm.ev = ev;
+          var confirm = $mdDialog.confirm()
+              .title(vm.sureText)
+              .content(vm.dialogText)
+              .ariaLabel(vm.sureText)
+              .targetEvent(ev)
+              .ok(vm.acceptText)
+              .cancel(vm.cancelText);
+          $mdDialog.show(confirm).then(function() {
+              vm.removeOrg(org, index)
+          }, function() {
+              console.log("Cancelado");
+          });
+      }
 
 
   }
