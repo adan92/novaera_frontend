@@ -81,7 +81,7 @@
                                     div(flex='')
                                         md-input-container
                                             label(translate='') FONDEOS.CALL.REQUERIMENTNAME
-                                            input(name='reqname', ng-model='vm.requisito.Nombre', md-maxlength='15')
+                                            input(name='reqname', ng-model='vm.requisito.Nombre', md-maxlength='150')
                                         md-input-container
                                             label(translate='') FONDEOS.CALL.REQUERIMENTDESC
                                             textarea(name='reqDesc',  ng-model='vm.requisito.Descripcion', md-maxlength='250')
@@ -115,68 +115,3 @@
                 md-button.md-accent.md-raised(ng-click='vm.registrarConvocatoria()', ng-show='triWizard.currentStep >= 1 ', translate='FONDEOS.WIZARD.SEND')
                 md-button.md-warn.md-raised(ng-click='vm.createDialog()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.DELETE')
                 md-button.md-primary.md-raised(ng-click='vm.cancel()', ng-show='vm.Convocatoria.id!=null', translate='FONDEOS.WIZARD.STOP_EDIT')
-md-tabs.md-primary(md-selected='selectedTabIndex', md-stretch-tabs='always', ng-show='vm.Convocatoria!=null')
-    md-tab(label='Modalidades Disponibles')
-        md-content.md-padding
-            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITY
-            md-table-container
-                table(md-table='', md-row-select='', ng-model='Modalidades')
-                    thead(md-head='', md-order='vm.query.order')
-                        tr(md-row='md-row')
-                            th(md-column='md-column', md-order-by='Nombre')
-                                span(translate='') FONDEOS.TABLE.NAME
-                            th(md-column='md-column', md-order-by='Montos')
-                                span(translate='') FONDEOS.TABLE.AMOUNT
-                            th(md-column='md-column', md-order-by='CriteriosEvaluacion')
-                                span(translate='') FONDEOS.TABLE.EVALUATION
-                            th(md-column='md-column', md-order-by='Entregables')
-                                span(translate='') FONDEOS.TABLE.FILES
-                            th(md-column='md-column', md-order-by='FigurasApoyo')
-                                span(translate='') FONDEOS.TABLE.SUPPORT
-                            th(md-column='md-column')
-                                span(translate='') FONDEOS.TABLE.ADD
-                                    // Cuerpo de la tabla
-                    tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select-id='{{modal.id}}',  md-on-select='vm.addConvocatoriaModalidad()', ng-repeat='modal in vm.Modalidades | orderBy:vm.query.order')
-                            td(md-cell='md-cell')
-                                span {{modal.Nombre}}
-                            td(md-cell='md-cell')
-                                span {{modal.Montos}}
-                            td(md-cell='md-cell') {{modal.CriteriosEvaluacion|htmlToString}}
-                            td(md-cell='md-cell') {{modal.Entregables|htmlToString}}
-                            td(md-cell='md-cell') {{modal.FigurasApoyo|htmlToString}}
-                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
-                                md-button.md-fab.md-primary.md-mini(ng-click='vm.addConvocatoriaModalidad(modal)')
-                                    md-icon(md-font-icon='zmdi zmdi-plus-circle')
-    md-tab(label='Modalidades Asociadas')
-        md-content.md-padding
-            h2(translate='') FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION
-            md-table-container
-                table(md-table='', md-row-select='', ng-model='vm.ModalidadesAsociadas')
-                    thead(md-head='', md-order='vm.query.order')
-                        tr(md-row='md-row')
-                            th(md-column='md-column', md-order-by='Nombre')
-                                span(translate='') FONDEOS.TABLE.NAME
-                            th(md-column='md-column', md-order-by='Montos')
-                                span(translate='') FONDEOS.TABLE.AMOUNT
-                            th(md-column='md-column', md-order-by='CriteriosEvaluacion')
-                                span(translate='') FONDEOS.TABLE.EVALUATION
-                            th(md-column='md-column', md-order-by='Entregables')
-                                span(translate='') FONDEOS.TABLE.FILES
-                            th(md-column='md-column', md-order-by='FigurasApoyo')
-                                span(translate='') FONDEOS.TABLE.SUPPORT
-                            th(md-column='md-column')
-                                span(translate='') FONDEOS.TABLE.ADD
-                                    // Cuerpo de la tabla
-                    tbody(md-body='md-body')
-                        tr(md-row='md-row', md-select-id='{{modality.id}}',  md-on-select='vm.quitarModalidadConvocatoria()', ng-repeat='modality in vm.ModalidadesAsociadas | orderBy:vm.query.order')
-                            td(md-cell='md-cell')
-                                span {{modality.Nombre}}
-                            td(md-cell='md-cell')
-                                span {{modality.Montos}}
-                            td(md-cell='md-cell') {{modality.CriteriosEvaluacion|htmlToString}}
-                            td(md-cell='md-cell') {{modality.Entregables|htmlToString}}
-                            td(md-cell='md-cell') {{modality.FigurasApoyo|htmlToString}}
-                            td(md-cell='md-cell' ng-click="$event.stopPropagation()")
-                                md-button.md-fab.md-warn.md-mini(ng-click='vm.quitarModalidadConvocatoria(modality)')
-                                    md-icon(md-font-icon='fa fa-times-circle-o')
